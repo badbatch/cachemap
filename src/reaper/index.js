@@ -2,18 +2,18 @@ import { get } from 'lodash';
 
 /**
  *
- * The six reaper
+ * The cachemap reaper
  */
 export default class Reaper {
   /**
    *
    * @constructor
-   * @param {Array<Dmap>} dmaps
+   * @param {Object} map
    * @param {Object} options
    * @return {void}
    */
-  constructor(dmaps = [], { interval = 60000, start = true } = {}) {
-    this._dmaps = dmaps;
+  constructor(map, { interval = 60000, start = true } = {}) {
+    this._map = map;
     this._interval = interval;
 
     if (start) {
@@ -23,33 +23,38 @@ export default class Reaper {
 
   /**
    *
-   * @param {Dmap} dmap
-   * @return {Promise}
+   * @private
+   * @type {number}
    */
-  async _cull(dmap) {
-    const metaData = this._getExpiredMetaData(dmap);
+  _intervalID;
 
-    if (!metaData.length) {
-      return;
-    }
+  /**
+   *
+   * @private
+   * @return {Array<Object>}
+   */
+  _getExpiredMetaData() {
+    return this._map.metaData.filter((entry) => {
+      if (!get(entry, ['cacheability', 'ttl'], null)) {
+        return false;
+      }
 
-    metaData.forEach(({ key }) => {
-      dmap.delete(key);
+      return entry.cacheability.ttl < Date.now();
     });
   }
 
   /**
    *
-   * @param {Dmap} dmap
-   * @return {Array<Object>}
+   * @param {Array<Object>} metaData
+   * @return {Promise}
    */
-  _getExpiredMetaData(dmap) {
-    return dmap.metaData.filter((entry) => {
-      if (!get(entry, ['cacheability', 'validUntil'], null)) {
-        return false;
-      }
+  async cull(metaData) {
+    if (!metaData.length) {
+      return;
+    }
 
-      return entry.cacheability.validUntil < Date.now();
+    metaData.forEach(({ key }) => {
+      this._map.delete(key);
     });
   }
 
@@ -58,14 +63,8 @@ export default class Reaper {
    * @return {void}
    */
   start() {
-    if (!this._dmaps.length) {
-      return;
-    }
-
     this._intervalID = setInterval(() => {
-      this._dmaps.forEach((dmap) => {
-        this._cull(dmap);
-      });
+      this.cull(this._getExpiredMetaData());
     }, this._interval);
   }
 

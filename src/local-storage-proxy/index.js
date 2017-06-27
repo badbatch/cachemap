@@ -1,15 +1,16 @@
 /**
  *
- * The six local storage proxy
+ * The cachemap local storage proxy
  */
 export default class LocalProxy {
   /**
    *
    * @constructor
-   * @return {void}
+   * @param {Object} config
+   * @return {void|Object}
    */
-  constructor() {
-    this._map = localStorage;
+  constructor({ stub }) {
+    this._map = stub || localStorage;
   }
 
   /**

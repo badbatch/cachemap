@@ -1,46 +1,108 @@
-import { get } from 'lodash';
+import { isFunction, get } from 'lodash';
 import md5 from 'md5';
 import sizeof from 'object-sizeof';
-import { checkCacheability, hasNoStore, setCacheability } from '../helpers/caching';
-import logger from '../../utils/logger';
+import { checkCacheability, hasNoStore, setCacheability } from './helpers';
+import logger from './logger';
+import Reaper from './reaper';
 
 /**
  *
- * The six enhanced map
+ * The cachemap
  */
-export default class Dmap {
+export default class CacheMap {
   /**
    *
    * @constructor
    * @param {Object} config
    * @return {void}
    */
-  constructor({ desc, disableCacheInvalidation, options, storageType = 'redis' } = {}) {
-    this._desc = desc;
-    this._disableCacheInvalidation = disableCacheInvalidation;
-
-    if (storageType === 'redis') {
-      const RedisProxy = require('../redis-proxy').default; // eslint-disable-line global-require
-      this._map = new RedisProxy({ desc, options });
-
-      this._metaDataStorage = new RedisProxy({
-        desc: `${desc} metadata`,
-        options: Object.assign(options, { db: options.db + 1 }),
-      });
-    } else if (storageType === 'localStorage') {
-      const LocalProxy = require('../local-storage-proxy').default; // eslint-disable-line global-require
-      this._map = new LocalProxy();
-      this._metaDataStorage = new LocalProxy();
-    } else if (storageType === 'map') {
-      const MapProxy = require('../map-proxy').default; // eslint-disable-line global-require
-      this._map = new MapProxy();
-      this._metaDataStorage = new MapProxy();
+  constructor({
+    /**
+     * Optional function used to compare meta data
+     * as part of the sorting process.
+     *
+     * @type {Function}
+     */
+    comparator = null,
+    /**
+     * Optional flag to disable cache invalidation.
+     *
+     * @type {boolean}
+     */
+    disableCacheInvalidation,
+    /**
+     * Optional configuration settings for localStorage.
+     *
+     * @type {Object}
+     */
+    localStorageOptions = {},
+    /**
+     * Name of the cachemap, used for logging and
+     * as part of the metadata storage key.
+     *
+     * @type {string}
+     */
+    name,
+    /**
+     * Optional configuration settings for redis.
+     *
+     * @type {Object}
+     */
+    redisOptions,
+    /**
+     * Optional configuration settings for the reaper.
+     *
+     * @type {Object}
+     */
+    reaperOptions,
+  } = {}) {
+    if (isFunction(comparator)) {
+      this._comparator = comparator;
     }
 
-    this._storageType = storageType;
-    this._usedHeapSize = 0;
+    this._disableCacheInvalidation = disableCacheInvalidation;
+
+    if (process.env.WEB_ENV) {
+      const LocalProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
+      this._map = new LocalProxy(localStorageOptions);
+      const { maxHeapSize } = localStorageOptions;
+      this._maxHeapSize = maxHeapSize || 5242880;
+      this._metaDataStorage = new LocalProxy(localStorageOptions);
+    } else {
+      const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
+      this._map = new RedisProxy({ name, options: redisOptions });
+
+      this._metaDataStorage = new RedisProxy({
+        name: `${name} metadata`,
+        options: { ...redisOptions, ...{ db: redisOptions.db + 1 } },
+      });
+    }
+
+    this._name = name;
+    this._reaper = new Reaper(this, reaperOptions);
     this._getStoredMetaData();
   }
+
+  /**
+   *
+   * @private
+   * @type {number}
+   */
+  _maxHeapSize = 0;
+
+  /**
+   *
+   * @private
+   * @type {Array<Object>}
+   */
+  _metaData = [];
+
+  /**
+   *
+   * @private
+   * @type {number}
+   */
+  _usedHeapSize = 0;
 
   /**
    *
@@ -63,10 +125,10 @@ export default class Dmap {
    * @private
    * @param {string} key
    * @param {number} size
-   * @param {Object} headers
+   * @param {string} cacheControl
    * @return {void}
    */
-  _addMetaData(key, size, headers) {
+  _addMetaData(key, size, cacheControl) {
     this._metaData.push({
       accessedCount: 0,
       added: Date.now(),
@@ -74,7 +136,7 @@ export default class Dmap {
       lastAccessed: null,
       lastUpdated: null,
       size,
-      cacheability: setCacheability(headers),
+      cacheability: setCacheability(cacheControl),
     });
 
     this._sortMetaData();
@@ -85,11 +147,44 @@ export default class Dmap {
   /**
    *
    * @private
+   * @return {number}
+   */
+  _calcReductionChunk() {
+    const reductionSize = this._usedHeapSize * 0.8;
+    let chunkSize = 0;
+    let index;
+
+    for (let i = this._metaData.length - 1; i >= 0; i -= 1) {
+      chunkSize += this._metaData[i].size;
+
+      if (chunkSize > reductionSize) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
+
+  /**
+   *
+   * @private
+   * @return {void}
+   */
+  _checkHeapThreshold() {
+    if ((this._usedHeapSize * 1.2) > this._maxHeapSize) {
+      this._reduceHeapSize();
+    }
+  }
+
+  /**
+   *
+   * @private
    * @param {string} key
    * @return {boolean}
    */
   _checkMetaData(key) {
-    if (this.disableCacheInvalidation) {
+    if (this._disableCacheInvalidation) {
       return true;
     }
 
@@ -104,7 +199,7 @@ export default class Dmap {
    * @param {Object} b
    * @return {number}
    */
-  _compare(a, b) {
+  _comparator(a, b) {
     let i;
 
     if (a.accessedCount > b.accessedCount) {
@@ -168,7 +263,19 @@ export default class Dmap {
       logger.error(err);
     }
 
-    this._metaData = metaData ? JSON.parse(metaData) : [];
+    if (metaData) {
+      this._metaData = JSON.parse(metaData);
+    }
+  }
+
+  /**
+   *
+   * @private
+   * @return {Promise}
+   */
+  async _reduceHeapSize() {
+    const index = this._calcReductionChunk();
+    this._reaper.cull(this._metaData.slice(index, this._metaData.length - index));
   }
 
   /**
@@ -186,7 +293,7 @@ export default class Dmap {
    * @return {void}
    */
   _sortMetaData() {
-    this._metaData.sort(this._compare);
+    this._metaData.sort(this._comparator);
   }
 
   /**
@@ -196,6 +303,10 @@ export default class Dmap {
    */
   _updateHeapSize() {
     this._usedHeapSize = this._metaData.reduce((acc, value) => (acc + value.size), 0);
+
+    if (this._maxHeapSize) {
+      this._checkHeapThreshold();
+    }
   }
 
   /**
@@ -203,10 +314,10 @@ export default class Dmap {
    * @private
    * @param {string} key
    * @param {number} [size]
-   * @param {Object} [headers]
+   * @param {string} [cacheControl]
    * @return {void}
    */
-  _updateMetaData(key, size, headers) {
+  _updateMetaData(key, size, cacheControl) {
     const entry = this._getMetaDataValue(key);
 
     if (size) {
@@ -217,8 +328,8 @@ export default class Dmap {
       entry.lastAccessed = Date.now();
     }
 
-    if (headers) {
-      entry.cacheability = setCacheability(headers);
+    if (cacheControl) {
+      entry.cacheability = setCacheability(cacheControl);
     }
 
     this._sortMetaData();
@@ -311,15 +422,15 @@ export default class Dmap {
    * @param {string} key
    * @return {number}
    */
-  getTimeToExpire(key) {
+  getTTL(key) {
     const entry = this._getMetaDataValue(key);
-    const validUntil = get(entry, ['cacheability', 'validUntil'], null);
+    const ttl = get(entry, ['cacheability', 'ttl'], null);
 
-    if (!validUntil) {
+    if (!ttl) {
       return null;
     }
 
-    return Math.round((validUntil - Date.now()) / 1000);
+    return Math.round((ttl - Date.now()) / 1000);
   }
 
   /**
@@ -369,12 +480,12 @@ export default class Dmap {
    * @param {Object} [opts]
    * @return {Promise}
    */
-  async set(key, value, { hash = false, headers, stringify = true } = {}) {
+  async set(key, value, { cacheControl, hash = false, stringify = true } = {}) {
     if (hash) {
       key = this.hash(key);
     }
 
-    if (hasNoStore(headers)) {
+    if (hasNoStore(cacheControl)) {
       return false;
     }
 
@@ -396,9 +507,9 @@ export default class Dmap {
     }
 
     if (hasKey) {
-      this._updateMetaData(key, sizeof(value), headers);
+      this._updateMetaData(key, sizeof(value), cacheControl);
     } else {
-      this._addMetaData(key, sizeof(value), headers);
+      this._addMetaData(key, sizeof(value), cacheControl);
     }
 
     return true;

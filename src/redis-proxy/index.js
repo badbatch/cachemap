@@ -1,36 +1,30 @@
-import { isFunction } from 'lodash';
 import redis from 'redis';
-import logger from '../../utils/logger';
+import logger from '../logger';
 
 /**
  *
- * The six redis proxy
+ * The cachemap redis proxy
  */
 export default class RedisProxy {
   /**
    *
    * @constructor
    * @param {Object} config
-   * @return {void}
+   * @return {void|Object}
    */
-  constructor({ desc = 'redis client', onConnect, options = {} } = {}) {
-    this._client = redis.createClient(options);
-    const _this = this;
+  constructor({ name = 'redis client', options = {} } = {}) {
+    this._client = options.stub || redis.createClient(options);
 
     this._client.on('connect', () => {
-      logger.info(`${desc} connected`);
-
-      if (isFunction(onConnect)) {
-        onConnect(_this);
-      }
+      logger.info(`${name} connected`);
     });
 
     this._client.on('error', (err) => {
-      logger.error(`${desc} error: ${err}`);
+      logger.error(`${name} error: ${err}`);
     });
 
     this._client.on('warning', (warn) => {
-      logger.warn(`${desc} warning: ${warn}`);
+      logger.warn(`${name} warning: ${warn}`);
     });
   }
 

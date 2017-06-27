@@ -29,6 +29,7 @@
     "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
   },
   "dependencies": {
+    "iso-logger": "0.0.6",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0",
@@ -51,12 +52,10 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.1",
-    "express": "^4.15.3",
     "mocha": "^3.4.2",
     "nyc": "^11.0.3",
     "rimraf": "^2.6.1",
     "sinon": "^2.3.5",
-    "sinon-chai": "^2.11.0",
-    "supertest": "^3.0.0"
+    "sinon-chai": "^2.11.0"
   }
 }
