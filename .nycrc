@@ -10,6 +10,6 @@
   "instrument": false,
   "cache": true,
   "all": true,
-  "check-coverage": true,
+  "check-coverage": false,
   "report-dir": "./coverage"
 }

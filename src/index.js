@@ -9,7 +9,7 @@ import Reaper from './reaper';
  *
  * The cachemap
  */
-export default class CacheMap {
+export default class Cachemap {
   /**
    *
    * @constructor
@@ -48,7 +48,7 @@ export default class CacheMap {
      *
      * @type {Object}
      */
-    redisOptions,
+    redisOptions = { db: 0 },
     /**
      * Optional configuration settings for the reaper.
      *
@@ -63,11 +63,11 @@ export default class CacheMap {
     this._disableCacheInvalidation = disableCacheInvalidation;
 
     if (process.env.WEB_ENV) {
-      const LocalProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
-      this._map = new LocalProxy(localStorageOptions);
+      const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
+      this._map = new LocalStorageProxy(localStorageOptions);
       const { maxHeapSize } = localStorageOptions;
       this._maxHeapSize = maxHeapSize || 5242880;
-      this._metaDataStorage = new LocalProxy(localStorageOptions);
+      this._metaDataStorage = new LocalStorageProxy(localStorageOptions);
     } else {
       const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
       this._map = new RedisProxy({ name, options: redisOptions });

@@ -36,7 +36,14 @@
     },
     "test": {
       "plugins": ["istanbul"],
-      "presets": ["env", "stage-0"]
+      "presets": [
+        ["env", {
+          "debug": true,
+          "targets": { "node": "current" },
+          "useBuiltIns": true
+        }],
+        "stage-0"
+      ]
     }
   }
 }
