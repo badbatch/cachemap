@@ -10,7 +10,7 @@ export default class LocalProxy {
    * @return {void|Object}
    */
   constructor({ mock }) {
-    this._map = mock || localStorage;
+    this._map = mock ? mock() : localStorage;
   }
 
   /**

@@ -19,7 +19,7 @@
   "scripts": {
     "build": "npm run test && npm run transpile",
     "clean": "rimraf lib/*",
-    "coverage": "cross-env BABEL_ENV=test nyc mocha test/specs/index.js",
+    "coverage": "cross-env BABEL_ENV=test ISO_LOG=false nyc mocha test/specs/index.js",
     "lint": "eslint . --fix",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run coverage",
@@ -29,7 +29,7 @@
     "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
   },
   "dependencies": {
-    "iso-logger": "0.0.6",
+    "iso-logger": "0.0.7",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0",

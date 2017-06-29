@@ -13,7 +13,7 @@ export default class RedisProxy {
    * @return {void|Object}
    */
   constructor({ name = 'redis client', options = {} } = {}) {
-    this._client = options.mock || redis.createClient(options);
+    this._client = options.mock ? options.mock() : redis.createClient(options);
 
     this._client.on('connect', () => {
       logger.info(`${name} connected`);

@@ -42,7 +42,7 @@ export default class Cachemap {
      *
      * @type {string}
      */
-    name,
+    name = 'cachemap',
     /**
      * Optional configuration settings for redis.
      *
@@ -66,7 +66,7 @@ export default class Cachemap {
       const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
       this._map = new LocalStorageProxy(localStorageOptions);
       const { maxHeapSize } = localStorageOptions;
-      this._maxHeapSize = maxHeapSize || 5242880;
+      this._maxHeapSize = maxHeapSize || 4194304;
       this._metaDataStorage = new LocalStorageProxy(localStorageOptions);
     } else {
       const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require

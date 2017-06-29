@@ -1,0 +1,92 @@
+{
+  "id" : "136-7317",
+  "optionsInfo" : [ {
+    "type" : "primary",
+    "name" : "Colour",
+    "internalName" : "colour"
+  } ],
+  "userActionable" : true,
+  "prices" : {
+    "id" : "136-7317",
+    "fromPrice" : "339.00",
+    "toPrice" : "379.00",
+    "clubcardPoints" : 339
+  },
+  "displayName" : "Apple ipad 9.7 Inch Wi-Fi 32GB - Space Grey",
+  "publicLink" : "/direct/apple-ipad-97-inch-wi-fi-32gb-space-grey/136-7317.prd",
+  "avgRating" : 4.93,
+  "longDescription" : "<p>The all-new 9.7-inch iPad by Apple: bringing power and visual display to over 1 million apps, as well as imagery, video and more, all on an ultra-thin, lightweight 9.7-inch screen. The new iPad is the ultimate choice of tablet, with its powerful A9 processor, Retina display and lower price tag. Work, play, surf and shop to your heart?s content with Wi-Fi-hotspot connections and an impressive 10-hour battery life, all backed up by a large 32GB of storage space. Touch ID and the latest iOS 10 security features help to keep your iPad protected. This model is available in an attractive space grey finish.</p><p></p><p><h2>9.7-inch iPad with Retina display</h2></p><p>The new iPad by Apple comes with a wide repertoire of features, including an A9 processor, Touch ID security, a 9.7-inch Retina screen display, iOS 10 and Apple Pay compatibility. A 9.7-inch Retina display with 2048x1536p resolution displays apps, photos and presentations in a vivid palette of colours with contrast definition. An LED-backlit display brings greater colour contrast, bright tones and seamless scene changes to your iPad. </p><p></p><p><h2>High-definition camera and enhanced audio</h2></p><p>Complete some of your best photography and videography with the iPad?s 8-megapixel iSight camera, capturing HD video, 120fps slo-mo videos and up to 43-megapixel panoramic shots. A 1.2-megapixel FaceTime HD camera features face detection with backside illumination for vivid FaceTime video calls. The iPad comes with two built-in stereo speakers and a 3.5mm stereo headphone mini-jack, for all your entertainment needs. </p><p><h2>Powerful performance</h2></p><p>A 64-bit A9 chip with an embedded M9 coprocessor delivers incredible responsiveness and high levels of efficiency, providing enough battery power to surf the web on Wi-Fi, watch videos or listen to music for 10 hours. The A9 offers 1.6 times faster CPU power and 1.8 times faster graphics than the previous iPad?s A8 chip. It is backed up by 32GB of storage to offer enough space for everyday app usage. </p><p><h2>Sensors</h2></p><p>Three-axis gyro-sensor technology and an accelerometer automatically orient your screen display from landscape to portrait mode for accurate motion-sensing when playing games. An intelligent ambient-light sensor automatically adjusts the screen colour temperature, offering easy-on-the-eyes colour display as you browse your iPad late at night.</p><p><h2>Apple Pay and Siri</h2></p><p>With your iPad Pro, the password is you. Keep your iPad Pro secure with Touch ID security to unlock your device. Make secure purchases in shops, apps and on the web with Apple Pay. Use your iPad hands-free with integrated Siri software. Send messages, make calls, set reminders, find restaurants and more with voice commands. </p><p><h2>Wi-Fi connection</h2></p><p>Fast wireless-hotspot connectivity has you surfing the web, streaming films and sharing documents in moments from all over the globe. The iPad comes with a Bluetooth® 4.2 connection.</p><p></p><p><h2>Connectors</h2></p><p>Recharge your iPad via the power adapter or USB cable found within the box. A Lightning Connector links your iPad to your dock speakers.  </p><p><h2>Smart Cover compatibility</h2></p><p>The iPad is also compatible with a Smart Cover or Smart Case to keep your tablet protected from marks and scratches when not in use. (The Smart Cover and Smart Case are sold separately.) </p>",
+  "giftMessagingEnabled" : false,
+  "ancestorCategories" : [ {
+    "id" : "cat17810004",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat17810004"
+  }, {
+    "id" : "cat17900004",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat17900004"
+  }, {
+    "id" : "cat20150054",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat20150054"
+  }, {
+    "id" : "cat3376693",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat3376693"
+  }, {
+    "id" : "cat44330003",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat44330003"
+  }, {
+    "id" : "cat6500031",
+    "type" : "category",
+    "href" : "/direct/rest/content/catalog/category/cat6500031"
+  } ],
+  "brand" : "Apple",
+  "mediaAssets" : {
+    "defaultSku" : {
+      "defaultImage" : {
+        "mediaType" : "Large",
+        "src" : "https://tesco.scene7.com/is/image/tesco/136-7317_PI_66650MN?$[preset]$",
+        "renderSource" : "Scene 7",
+        "defaultImage" : true
+      }
+    }
+  },
+  "noofRatingsProduced" : 28,
+  "links" : [ {
+    "id" : "136-7317",
+    "type" : "sku",
+    "rel" : "childSku",
+    "href" : "/direct/rest/content/catalog/sku/136-7317",
+    "options" : {
+      "primary" : "Space grey"
+    }
+  }, {
+    "id" : "136-7317",
+    "type" : "product",
+    "rel" : "self",
+    "href" : "/direct/rest/content/catalog/product/136-7317"
+  }, {
+    "type" : "inventory",
+    "href" : "/direct/rest/inventory/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "price",
+    "href" : "/direct/rest/price/{type}/{id,+}?format={brief|standard}",
+    "templated" : true
+  }, {
+    "type" : "competitor:price",
+    "rel" : "competitorPrice",
+    "href" : "/direct/rest/competitor/price/{type}/{id,+}",
+    "templated" : true
+  }, {
+    "id" : "136-7317",
+    "type" : "sku",
+    "rel" : "defaultSku",
+    "href" : "/direct/rest/content/catalog/sku/136-7317",
+    "options" : {
+      "primary" : "Space grey"
+    }
+  } ]
+}
