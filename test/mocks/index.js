@@ -26,6 +26,7 @@ export const localStorageMock = function localStorageMock() {
     setItem(key, value) {
       this._items[key] = value;
       this.length = Object.keys(this._items).length;
+      return true;
     },
   };
 };
