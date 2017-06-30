@@ -1,5 +1,6 @@
 import chai, { expect } from 'chai';
 import dirtyChai from 'dirty-chai';
+import data from '../data';
 import Cachemap from '../../src';
 import { localStorageMock, redisMock } from '../mocks';
 import LocalStorageProxy from '../../src/local-storage-proxy';
@@ -40,8 +41,8 @@ describe('the redis cachemap', () => {
 
   before(() => {
     cachemap = new Cachemap({ redisOptions: { db: 0, mock: redisMock } });
-    key = 'https://www.tesco.com/direct/rest/content/catalog/product/136-7317';
-    value = require('../data/136-7317.json'); // eslint-disable-line global-require
+    key = data['136-7317'].url;
+    value = data['136-7317'].body;
   });
 
   describe('the .set() method', () => {
@@ -130,7 +131,7 @@ describe('the redis cachemap', () => {
         await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
       });
 
-      it('should delete the value and the meta data', async () => {
+      it('should delete the key/value and the meta data', async () => {
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData).lengthOf(1);
         expect(await cachemap.delete(key, { hash: true })).to.be.true();
@@ -147,8 +148,8 @@ describe('the localStorage cachemap', () => {
   before(() => {
     process.env.WEB_ENV = true;
     cachemap = new Cachemap({ localStorageOptions: { mock: localStorageMock } });
-    key = 'https://www.tesco.com/direct/rest/content/catalog/product/136-7317';
-    value = require('../data/136-7317.json'); // eslint-disable-line global-require
+    key = data['136-7317'].url;
+    value = data['136-7317'].body;
   });
 
   after(() => {
@@ -241,13 +242,83 @@ describe('the localStorage cachemap', () => {
         await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
       });
 
-      it('should delete the value and the meta data', async () => {
+      it('should delete the key/value and the meta data', async () => {
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData).lengthOf(1);
         expect(await cachemap.delete(key, { hash: true })).to.be.true();
         expect(await cachemap.size()).to.eql(0);
         expect(cachemap.metaData).lengthOf(0);
       });
+    });
+  });
+});
+
+describe('the reaper', () => {
+  describe('when a key/value in the cachemap has expired', () => {
+    let cachemap;
+
+    before(async () => {
+      cachemap = new Cachemap({
+        reaperOptions: { interval: 1100 },
+        redisOptions: { db: 0, mock: redisMock },
+      });
+
+      await cachemap.set(
+        data['136-7317'].url,
+        data['136-7317'].body,
+        { cacheControl: 'public, max-age=1', hash: true },
+      );
+    });
+
+    it('should delete the key/value and the meta data', async () => {
+      expect(await cachemap.size()).to.eql(1);
+      expect(cachemap.metaData).lengthOf(1);
+      const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+      await delay(1100);
+      expect(await cachemap.size()).to.eql(0);
+      expect(cachemap.metaData).lengthOf(0);
+    });
+  });
+
+  describe('when the cachemap heap size exceeds the limit', () => {
+    let cachemap, last;
+
+    before(async () => {
+      process.env.WEB_ENV = true;
+
+      cachemap = new Cachemap({
+        localStorageOptions: { maxHeapSize: 30000, mock: localStorageMock },
+      });
+
+      const keys = Object.keys(data);
+      last = keys.splice(3, 1);
+      const promises = [];
+
+      keys.forEach((key) => {
+        promises.push(cachemap.set(data[key].url, data[key].body, {
+          cacheControl: 'public, max-age=1', hash: true,
+        }));
+      });
+
+      await Promise.all(promises);
+    });
+
+    after(() => {
+      delete process.env.WEB_ENV;
+    });
+
+    it('should delete the necessary key/values', async () => {
+      expect(await cachemap.size()).to.eql(3);
+      expect(cachemap.metaData).lengthOf(3);
+      expect(cachemap.usedHeapSize).to.eql(28026);
+
+      await cachemap.set(data[last[0]].url, data[last[0]].body, {
+        cacheControl: 'public, max-age=1', hash: true,
+      });
+
+      expect(await cachemap.size()).to.eql(3);
+      expect(cachemap.metaData).lengthOf(3);
+      expect(cachemap.usedHeapSize).to.eql(21818);
     });
   });
 });

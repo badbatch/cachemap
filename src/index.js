@@ -5,6 +5,8 @@ import { checkCacheability, hasNoStore, setCacheability } from './helpers';
 import logger from './logger';
 import Reaper from './reaper';
 
+require('es6-promise').polyfill();
+
 /**
  *
  * The cachemap
@@ -150,7 +152,7 @@ export default class Cachemap {
    * @return {number}
    */
   _calcReductionChunk() {
-    const reductionSize = this._usedHeapSize * 0.8;
+    const reductionSize = Math.round(this._maxHeapSize * 0.2);
     let chunkSize = 0;
     let index;
 
@@ -172,7 +174,7 @@ export default class Cachemap {
    * @return {void}
    */
   _checkHeapThreshold() {
-    if ((this._usedHeapSize * 1.2) > this._maxHeapSize) {
+    if (this._usedHeapSize > this._maxHeapSize) {
       this._reduceHeapSize();
     }
   }
@@ -213,6 +215,10 @@ export default class Cachemap {
     } else if (a.lastUpdated > b.lastUpdated) {
       i = -1;
     } else if (a.lastUpdated < b.lastUpdated) {
+      i = 1;
+    } else if (a.added > b.added) {
+      i = -1;
+    } else if (a.added < b.added) {
       i = 1;
     } else if (a.size < b.size) {
       i = -1;
@@ -275,7 +281,7 @@ export default class Cachemap {
    */
   async _reduceHeapSize() {
     const index = this._calcReductionChunk();
-    this._reaper.cull(this._metaData.slice(index, this._metaData.length - index));
+    this._reaper.cull(this._metaData.slice(index, this._metaData.length));
   }
 
   /**
