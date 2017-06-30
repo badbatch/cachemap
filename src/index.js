@@ -425,22 +425,6 @@ export default class Cachemap {
 
   /**
    *
-   * @param {string} key
-   * @return {number}
-   */
-  getTTL(key) {
-    const entry = this._getMetaDataValue(key);
-    const ttl = get(entry, ['cacheability', 'ttl'], null);
-
-    if (!ttl) {
-      return null;
-    }
-
-    return Math.round((ttl - Date.now()) / 1000);
-  }
-
-  /**
-   *
    * @param {any} key
    * @param {Object} [opts]
    * @return {Promise}
