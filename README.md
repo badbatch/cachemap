@@ -11,4 +11,4 @@ An isomorphic cache that uses Redis on the server and LocalStorage on the client
 [![NPM](https://nodei.co/npm/cachemap.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/cachemap/)
 [![NPM](https://nodei.co/npm-dl/cachemap.png?months=3&height=2)](https://nodei.co/npm/cachemap/)
 
-### Work in progress - do not use!
+### More to follow...
