@@ -16,9 +16,7 @@ export default class Reaper {
     this._map = map;
     this._interval = interval;
 
-    if (start) {
-      this.start();
-    }
+    if (start) this.start();
   }
 
   /**
@@ -35,10 +33,7 @@ export default class Reaper {
    */
   _getExpiredMetaData() {
     return this._map.metaData.filter((entry) => {
-      if (!get(entry, ['cacheability', 'ttl'], null)) {
-        return false;
-      }
-
+      if (!get(entry, ['cacheability', 'ttl'], null)) return false;
       return entry.cacheability.ttl < Date.now();
     });
   }
@@ -49,9 +44,7 @@ export default class Reaper {
    * @return {Promise}
    */
   async cull(metaData) {
-    if (!metaData.length) {
-      return;
-    }
+    if (!metaData.length) return;
 
     metaData.forEach(({ key }) => {
       this._map.delete(key);
