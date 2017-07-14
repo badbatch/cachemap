@@ -382,8 +382,7 @@ export default class Cachemap {
     if (!value) return null;
     this._updateMetaData(_key);
     if (parse) value = JSON.parse(value);
-    const metadata = this.getCacheability(_key);
-    return !metadata.noCache ? value : { etag: metadata.etag, noCache: metadata.noCache, value };
+    return value;
   }
 
   /**

@@ -1,7 +1,7 @@
 {
-  "lines": 80,
+  "lines": 90,
   "statements": 80,
-  "functions": 80,
+  "functions": 90,
   "branches": 60,
   "include": ["src/**/*"],
   "reporter": ["lcov", "text-summary"],

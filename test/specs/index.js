@@ -115,36 +115,13 @@ describe('the redis cachemap', () => {
         const metaEntry = cachemap.metaData[0];
         expect(metaEntry.lastAccessed).to.be.a('number');
         expect(metaEntry.accessedCount).to.eql(1);
+        expect(metaEntry.cacheability.printCacheControl()).to.eql('public, max-age=1');
       });
     });
 
     describe('when no key exists in the cachemap', () => {
       it('should return null', async () => {
         expect(await cachemap.get(key, { hash: true })).to.be.null();
-      });
-    });
-
-    describe('when a noCache key exists in the cachemap', () => {
-      const cacheControl = 'public, no-cache, max-age=1';
-      const etag = '33a64df551425fcc55e4d42a148795d9f25f89d4';
-
-      before(async () => {
-        await cachemap.set(key, value, { cacheHeaders: { cacheControl, etag }, hash: true });
-      });
-
-      after(async () => {
-        await cachemap.delete(key, { hash: true });
-      });
-
-      it('should return the value wrapped in an cache object and update the meta data', async () => {
-        const res = await cachemap.get(key, { hash: true });
-        expect(res.etag).to.eql(etag);
-        expect(res.noCache).to.eql(true);
-        expect(res.value).to.eql(value);
-        const metaEntry = cachemap.metaData[0];
-        expect(metaEntry.lastAccessed).to.be.a('number');
-        expect(metaEntry.accessedCount).to.eql(1);
-        expect(metaEntry.cacheability.printCacheControl()).to.eql(cacheControl);
       });
     });
   });
@@ -250,36 +227,13 @@ describe('the localStorage cachemap', () => {
         const metaEntry = cachemap.metaData[0];
         expect(metaEntry.lastAccessed).to.be.a('number');
         expect(metaEntry.accessedCount).to.eql(1);
+        expect(metaEntry.cacheability.printCacheControl()).to.eql('public, max-age=1');
       });
     });
 
     describe('when no key exists in the cachemap', () => {
       it('should return null', async () => {
         expect(await cachemap.get(key, { hash: true })).to.be.null();
-      });
-    });
-
-    describe('when a noCache key exists in the cachemap', () => {
-      const cacheControl = 'public, no-cache, max-age=1';
-      const etag = '33a64df551425fcc55e4d42a148795d9f25f89d4';
-
-      before(async () => {
-        await cachemap.set(key, value, { cacheHeaders: { cacheControl, etag }, hash: true });
-      });
-
-      after(async () => {
-        await cachemap.delete(key, { hash: true });
-      });
-
-      it('should return the value wrapped in an cache object and update the meta data', async () => {
-        const res = await cachemap.get(key, { hash: true });
-        expect(res.etag).to.eql(etag);
-        expect(res.noCache).to.eql(true);
-        expect(res.value).to.eql(value);
-        const metaEntry = cachemap.metaData[0];
-        expect(metaEntry.lastAccessed).to.be.a('number');
-        expect(metaEntry.accessedCount).to.eql(1);
-        expect(metaEntry.cacheability.printCacheControl()).to.eql(cacheControl);
       });
     });
   });
