@@ -1,10 +1,13 @@
+import { camelCase, cloneDeep, isBoolean, kebabCase } from 'lodash';
+
 /**
  *
- * @param {Object} cacheability
+ * @param {Object} metadata
+ * @param {numbert} metadata.ttl
  * @return {boolean}
  */
 export const checkCacheability = function checkCacheability({ ttl } = {}) {
-  return !ttl ? true : Date.now() < ttl;
+  return !ttl ? true : ttl > Date.now();
 };
 
 /**
@@ -18,47 +21,67 @@ export const getDirectives = function getDirectives(cacheControl = '') {
 
 /**
  *
- * @param {string} cacheControl
- * @return {boolean}
- */
-export const hasNoStore = function hasNoStore(cacheControl = '') {
-  if (!cacheControl) return false;
-  return !!getDirectives(cacheControl).find(value => value === 'no-store');
-};
-
-/**
- *
- * @param {string} cacheControl
- * @return {boolean}
- */
-const hasNoCache = function hasNoCache(cacheControl = '') {
-  if (!cacheControl) return false;
-  return !!getDirectives(cacheControl).find(value => value === 'no-cache');
-};
-
-/**
- *
- * @param {string} cacheControl
+ * @param {Object} cacheMetadata
+ * @param {number} cacheMetadata.maxAge
+ * @param {number} cacheMetadata.sMaxage
  * @return {number}
  */
-export const setTTL = function setTTL(cacheControl = '') {
-  if (!cacheControl) return null;
-  let maxAge = getDirectives(cacheControl).find(value => !!value.match(/^s-maxage.*$/));
-  if (!maxAge) maxAge = getDirectives(cacheControl).find(value => !!value.match(/^max-age.*$/));
-  if (!maxAge) return null;
-  const ms = Number(maxAge.match(/\d+$/)[0] * 1000);
+export const setTTL = function setTTL({ maxAge, sMaxage }) {
+  const sec = sMaxage || maxAge;
+  if (!sec) return null;
+  const ms = sec * 1000;
   return Date.now() + ms;
 };
 
 /**
  *
- * @param {string} cacheControl
- * @return {number|null}
+ * @param {Object} metadata
+ * @return {string}
  */
-export const setCacheability = function setCacheability(cacheControl = '') {
-  return {
-    cacheControl,
-    noCache: hasNoCache(cacheControl),
-    ttl: setTTL(cacheControl),
-  };
+export const printCacheControl = function printCacheControl(metadata) {
+  const _metadata = cloneDeep(metadata);
+  if (_metadata.sMaxage) _metadata.sMaxage = Math.round((_metadata.ttl - Date.now()) / 1000);
+  if (_metadata.maxAge) _metadata.maxAge = Math.round((_metadata.ttl - Date.now()) / 1000);
+  const directives = [];
+
+  Object.keys(_metadata).forEach((key) => {
+    if (key === 'check' || key === 'etag' || key === 'printCacheControl' || key === 'ttl') return;
+
+    if (isBoolean(_metadata[key])) {
+      directives.push(kebabCase(key));
+      return;
+    }
+
+    directives.push(`${kebabCase(key)}=${_metadata[key]}`);
+  });
+
+  return directives.join(', ');
+};
+
+/**
+ *
+ * @param {Object} cacheHeaders
+ * @param {string} cacheHeaders.cacheControl
+ * @param {string} cacheHeaders.etag
+ * @return {Object}
+ */
+export const parseCacheHeaders = function parseCacheHeaders({ cacheControl = '', etag = null } = {}) {
+  if (!cacheControl) return {};
+  const directives = getDirectives(cacheControl);
+  const metadata = { etag };
+
+  directives.forEach((dir) => {
+    if (dir.match(/=/)) {
+      const [key, value] = dir.split('=');
+      metadata[camelCase(key)] = Number(value);
+      return;
+    }
+
+    metadata[camelCase(dir)] = true;
+  });
+
+  metadata.ttl = setTTL(metadata);
+  metadata.printCacheControl = () => printCacheControl(metadata);
+  metadata.check = () => checkCacheability(metadata);
+  return metadata;
 };
