@@ -75,17 +75,19 @@ describe('the redis cachemap', () => {
       await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
-    describe('when a valid key exists in the cachemap', () => {
-      it('should return true', async () => {
-        expect(await cachemap.has(key, { hash: true })).to.be.true();
+    describe('when a key exists in the cachemap', () => {
+      it('should return the key cacheability metadata', async () => {
+        const cacheability = await cachemap.has(key, { hash: true });
+        expect(cacheability.public).to.be.true();
+        expect(cacheability.maxAge).to.eql(1);
       });
     });
 
-    describe('when an expired key exists in the cachemap', () => {
+    describe('when an expired key exists in the cachemap and deleteExpired is passed in', () => {
       it('should return false and delete the expired key/value', (done) => {
         setTimeout(async () => {
-          expect(await cachemap.has(key, { checkMeta: false, hash: true })).to.be.true();
-          expect(await cachemap.has(key, { hash: true })).to.be.false();
+          expect(await cachemap.has(key, { hash: true })).to.be.a('object');
+          expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
           expect(await cachemap.size()).to.eql(0);
           expect(cachemap.metaData).lengthOf(0);
           done();
@@ -187,17 +189,19 @@ describe('the localStorage cachemap', () => {
       await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
-    describe('when a valid key exists in the cachemap', () => {
+    describe('when a key exists in the cachemap', () => {
       it('should return true', async () => {
-        expect(await cachemap.has(key, { hash: true })).to.be.true();
+        const cacheability = await cachemap.has(key, { hash: true });
+        expect(cacheability.public).to.be.true();
+        expect(cacheability.maxAge).to.eql(1);
       });
     });
 
-    describe('when an expired key exists in the cachemap', () => {
+    describe('when an expired key exists in the cachemap and deleteExpired is passed in', () => {
       it('should return false and delete the expired key/value', (done) => {
         setTimeout(async () => {
-          expect(await cachemap.has(key, { checkMeta: false, hash: true })).to.be.true();
-          expect(await cachemap.has(key, { hash: true })).to.be.false();
+          expect(await cachemap.has(key, { hash: true })).to.be.a('object');
+          expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
           expect(await cachemap.size()).to.eql(0);
           expect(cachemap.metaData).lengthOf(0);
           done();
