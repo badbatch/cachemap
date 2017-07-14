@@ -1,7 +1,7 @@
 import { isFunction, get } from 'lodash';
 import md5 from 'md5';
 import sizeof from 'object-sizeof';
-import { checkCacheability, hasNoStore, setCacheability } from './helpers';
+import { parseCacheHeaders } from './helpers';
 import logger from './logger';
 import Reaper from './reaper';
 
@@ -62,12 +62,14 @@ export default class Cachemap {
     this._disableCacheInvalidation = disableCacheInvalidation;
 
     if (process.env.WEB_ENV) {
+      this._env = 'web';
       const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
       this._map = new LocalStorageProxy(localStorageOptions);
       const { maxHeapSize } = localStorageOptions;
       this._maxHeapSize = maxHeapSize || 4194304;
       this._metaDataStorage = new LocalStorageProxy(localStorageOptions);
     } else {
+      this._env = 'node';
       const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
       this._map = new RedisProxy({ name, options: redisOptions });
 
@@ -124,18 +126,18 @@ export default class Cachemap {
    * @private
    * @param {string} key
    * @param {number} size
-   * @param {string} cacheControl
+   * @param {Object} cacheMetadata
    * @return {void}
    */
-  _addMetaData(key, size, cacheControl) {
+  _addMetaData(key, size, cacheMetadata) {
     this._metaData.push({
       accessedCount: 0,
       added: Date.now(),
+      cacheability: cacheMetadata,
       key,
       lastAccessed: null,
       lastUpdated: null,
       size,
-      cacheability: setCacheability(cacheControl),
     });
 
     this._sortMetaData();
@@ -183,7 +185,7 @@ export default class Cachemap {
   _checkMetaData(key) {
     if (this._disableCacheInvalidation) return true;
     const { cacheability } = this._getMetaDataValue(key);
-    return checkCacheability(cacheability);
+    return cacheability.check();
   }
 
   /**
@@ -307,10 +309,10 @@ export default class Cachemap {
    * @private
    * @param {string} key
    * @param {number} [size]
-   * @param {string} [cacheControl]
+   * @param {Object} [cacheMetadata]
    * @return {void}
    */
-  _updateMetaData(key, size, cacheControl) {
+  _updateMetaData(key, size, cacheMetadata) {
     const entry = this._getMetaDataValue(key);
 
     if (size) {
@@ -321,7 +323,7 @@ export default class Cachemap {
       entry.lastAccessed = Date.now();
     }
 
-    if (cacheControl) entry.cacheability = setCacheability(cacheControl);
+    if (cacheMetadata) entry.cacheability = cacheMetadata;
     this._sortMetaData();
     this._updateHeapSize();
     this._storeMetaData();
@@ -345,17 +347,18 @@ export default class Cachemap {
    * @return {Promise}
    */
   async delete(key, { hash = false } = {}) {
-    if (hash) key = this.hash(key);
+    let _key = key;
+    if (hash) _key = this.hash(_key);
     let hasDel;
 
     try {
-      hasDel = await this._map.delete(key);
+      hasDel = await this._map.delete(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!hasDel) return false;
-    this._deleteMetaData(key);
+    this._deleteMetaData(_key);
     return true;
   }
 
@@ -366,19 +369,21 @@ export default class Cachemap {
    * @return {Promise}
    */
   async get(key, { hash = false, parse = true } = {}) {
-    if (hash) key = this.hash(key);
+    let _key = key;
+    if (hash) _key = this.hash(_key);
     let value;
 
     try {
-      value = await this._map.get(key);
+      value = await this._map.get(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!value) return null;
-    this._updateMetaData(key);
+    this._updateMetaData(_key);
     if (parse) value = JSON.parse(value);
-    return value;
+    const metadata = this.getCacheability(_key);
+    return !metadata.noCache ? value : { etag: metadata.etag, noCache: metadata.noCache, value };
   }
 
   /**
@@ -398,19 +403,20 @@ export default class Cachemap {
    * @return {Promise}
    */
   async has(key, { checkMeta = true, hash = false } = {}) {
-    if (hash) key = this.hash(key);
+    let _key = key;
+    if (hash) _key = this.hash(_key);
     let hasKey;
 
     try {
-      hasKey = await this._map.has(key);
+      hasKey = await this._map.has(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!hasKey) return false;
 
-    if (checkMeta && !this._checkMetaData(key)) {
-      await this.delete(key);
+    if (checkMeta && !this._checkMetaData(_key)) {
+      await this.delete(_key);
       return false;
     }
 
@@ -431,17 +437,23 @@ export default class Cachemap {
    * @param {any} key
    * @param {any} value
    * @param {Object} [opts]
+   * @param {Object} [opts.cacheHeaders]
+   * @param {boolean} [opts.hash]
+   * @param {boolean} [opts.stringify]
    * @return {Promise}
    */
-  async set(key, value, { cacheControl, hash = false, stringify = true } = {}) {
-    if (hash) key = this.hash(key);
-    if (hasNoStore(cacheControl)) return false;
-    if (stringify) value = JSON.stringify(value);
+  async set(key, value, { cacheHeaders = {}, hash = false, stringify = true } = {}) {
+    const cacheMetadata = parseCacheHeaders(cacheHeaders);
+    if (cacheMetadata.noStore || (this._env === 'node' && cacheMetadata.private)) return false;
+    let _key = key;
+    if (hash) _key = this.hash(_key);
+    let _value = value;
+    if (stringify) _value = JSON.stringify(_value);
     let hasKey, setValue;
 
     try {
-      hasKey = await this._map.has(key);
-      setValue = await this._map.set(key, value);
+      hasKey = await this._map.has(_key);
+      setValue = await this._map.set(_key, _value);
     } catch (err) {
       logger.error(err);
     }
@@ -449,9 +461,9 @@ export default class Cachemap {
     if (!setValue) return false;
 
     if (hasKey) {
-      this._updateMetaData(key, sizeof(value), cacheControl);
+      this._updateMetaData(_key, sizeof(_value), cacheMetadata);
     } else {
-      this._addMetaData(key, sizeof(value), cacheControl);
+      this._addMetaData(_key, sizeof(_value), cacheMetadata);
     }
 
     return true;

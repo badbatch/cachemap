@@ -52,7 +52,7 @@ describe('the redis cachemap', () => {
 
     describe('when a new key/value is stored in the cachemap', () => {
       it('should store the key/value and add the meta data', async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData.length).to.eql(1);
       });
@@ -60,7 +60,7 @@ describe('the redis cachemap', () => {
 
     describe('when a key already exists in the cachemap', () => {
       it('should store the key/value and update the meta data', async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData).lengthOf(1);
         const metaEntry = cachemap.metaData[0];
@@ -72,7 +72,7 @@ describe('the redis cachemap', () => {
 
   describe('the .has() method', () => {
     before(async () => {
-      await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+      await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
     describe('when a valid key exists in the cachemap', () => {
@@ -103,7 +103,7 @@ describe('the redis cachemap', () => {
   describe('the .get() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
       after(async () => {
@@ -123,12 +123,36 @@ describe('the redis cachemap', () => {
         expect(await cachemap.get(key, { hash: true })).to.be.null();
       });
     });
+
+    describe('when a noCache key exists in the cachemap', () => {
+      const cacheControl = 'public, no-cache, max-age=1';
+      const etag = '33a64df551425fcc55e4d42a148795d9f25f89d4';
+
+      before(async () => {
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl, etag }, hash: true });
+      });
+
+      after(async () => {
+        await cachemap.delete(key, { hash: true });
+      });
+
+      it('should return the value wrapped in an cache object and update the meta data', async () => {
+        const res = await cachemap.get(key, { hash: true });
+        expect(res.etag).to.eql(etag);
+        expect(res.noCache).to.eql(true);
+        expect(res.value).to.eql(value);
+        const metaEntry = cachemap.metaData[0];
+        expect(metaEntry.lastAccessed).to.be.a('number');
+        expect(metaEntry.accessedCount).to.eql(1);
+        expect(metaEntry.cacheability.printCacheControl()).to.eql(cacheControl);
+      });
+    });
   });
 
   describe('the .delete() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
       it('should delete the key/value and the meta data', async () => {
@@ -163,7 +187,7 @@ describe('the localStorage cachemap', () => {
 
     describe('when a new key/value is stored in the cachemap', () => {
       it('should store the key/value and add the meta data', async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData.length).to.eql(1);
       });
@@ -171,7 +195,7 @@ describe('the localStorage cachemap', () => {
 
     describe('when a key already exists in the cachemap', () => {
       it('should store the key/value and update the meta data', async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metaData).lengthOf(1);
         const metaEntry = cachemap.metaData[0];
@@ -183,7 +207,7 @@ describe('the localStorage cachemap', () => {
 
   describe('the .has() method', () => {
     before(async () => {
-      await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+      await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
     describe('when a valid key exists in the cachemap', () => {
@@ -214,7 +238,7 @@ describe('the localStorage cachemap', () => {
   describe('the .get() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
       after(async () => {
@@ -234,12 +258,36 @@ describe('the localStorage cachemap', () => {
         expect(await cachemap.get(key, { hash: true })).to.be.null();
       });
     });
+
+    describe('when a noCache key exists in the cachemap', () => {
+      const cacheControl = 'public, no-cache, max-age=1';
+      const etag = '33a64df551425fcc55e4d42a148795d9f25f89d4';
+
+      before(async () => {
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl, etag }, hash: true });
+      });
+
+      after(async () => {
+        await cachemap.delete(key, { hash: true });
+      });
+
+      it('should return the value wrapped in an cache object and update the meta data', async () => {
+        const res = await cachemap.get(key, { hash: true });
+        expect(res.etag).to.eql(etag);
+        expect(res.noCache).to.eql(true);
+        expect(res.value).to.eql(value);
+        const metaEntry = cachemap.metaData[0];
+        expect(metaEntry.lastAccessed).to.be.a('number');
+        expect(metaEntry.accessedCount).to.eql(1);
+        expect(metaEntry.cacheability.printCacheControl()).to.eql(cacheControl);
+      });
+    });
   });
 
   describe('the .delete() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheControl: 'public, max-age=1', hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
       it('should delete the key/value and the meta data', async () => {
@@ -266,7 +314,7 @@ describe('the reaper', () => {
       await cachemap.set(
         data['136-7317'].url,
         data['136-7317'].body,
-        { cacheControl: 'public, max-age=1', hash: true },
+        { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true },
       );
     });
 
@@ -296,7 +344,7 @@ describe('the reaper', () => {
 
       keys.forEach((key) => {
         promises.push(cachemap.set(data[key].url, data[key].body, {
-          cacheControl: 'public, max-age=1', hash: true,
+          cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
         }));
       });
 
@@ -313,7 +361,7 @@ describe('the reaper', () => {
       expect(cachemap.usedHeapSize).to.eql(28026);
 
       await cachemap.set(data[last[0]].url, data[last[0]].body, {
-        cacheControl: 'public, max-age=1', hash: true,
+        cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
       });
 
       expect(await cachemap.size()).to.eql(3);
