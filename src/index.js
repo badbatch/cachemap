@@ -399,9 +399,11 @@ export default class Cachemap {
    *
    * @param {any} key
    * @param {Object} [opts]
+   * @param {boolean} [opts.deleteExpired]
+   * @param {boolean} [opts.hash]
    * @return {Promise}
    */
-  async has(key, { checkMeta = true, hash = false } = {}) {
+  async has(key, { deleteExpired = false, hash = false } = {}) {
     let _key = key;
     if (hash) _key = this.hash(_key);
     let hasKey;
@@ -414,12 +416,12 @@ export default class Cachemap {
 
     if (!hasKey) return false;
 
-    if (checkMeta && !this._checkMetaData(_key)) {
+    if (deleteExpired && !this._checkMetaData(_key)) {
       await this.delete(_key);
       return false;
     }
 
-    return true;
+    return this.getCacheability(_key);
   }
 
   /**
