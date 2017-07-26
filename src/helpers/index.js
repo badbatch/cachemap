@@ -61,24 +61,25 @@ export const printCacheControl = function printCacheControl(metadata) {
 /**
  *
  * @param {Object} cacheHeaders
- * @param {string} cacheHeaders.cacheControl
- * @param {string} cacheHeaders.etag
  * @return {Object}
  */
-export const parseCacheHeaders = function parseCacheHeaders({ cacheControl = '', etag = null } = {}) {
-  if (!cacheControl) return {};
-  const directives = getDirectives(cacheControl);
-  const metadata = { etag };
+export const parseCacheHeaders = function parseCacheHeaders(cacheHeaders = {}) {
+  const { cacheControl, etag = null } = cacheHeaders;
+  const metadata = cacheControl ? { etag } : cacheHeaders;
 
-  directives.forEach((dir) => {
-    if (dir.match(/=/)) {
-      const [key, value] = dir.split('=');
-      metadata[camelCase(key)] = Number(value);
-      return;
-    }
+  if (cacheControl) {
+    const directives = getDirectives(cacheControl);
 
-    metadata[camelCase(dir)] = true;
-  });
+    directives.forEach((dir) => {
+      if (dir.match(/=/)) {
+        const [key, value] = dir.split('=');
+        metadata[camelCase(key)] = Number(value);
+        return;
+      }
+
+      metadata[camelCase(dir)] = true;
+    });
+  }
 
   metadata.ttl = setTTL(metadata);
   metadata.printCacheControl = () => printCacheControl(metadata);

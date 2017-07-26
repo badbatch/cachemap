@@ -10,7 +10,7 @@ export default class RedisProxy {
    *
    * @constructor
    * @param {Object} config
-   * @return {void|Object}
+   * @return {void}
    */
   constructor({ name = 'redis client', options = {} } = {}) {
     this._client = options.mock ? options.mock() : redis.createClient(options);
