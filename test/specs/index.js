@@ -13,8 +13,8 @@ describe('when WEB_ENV variable is not set to "true"', () => {
   describe('when no redisOptions are passed in', () => {
     it('should create an instance of the localStorage cachemap with the default options', () => {
       const cachemap = new Cachemap({ redisOptions: { db: 0, mock: redisMock } });
-      expect(cachemap._map).instanceof(RedisProxy);
-      expect(cachemap._metaDataStorage).instanceof(RedisProxy);
+      expect(cachemap._store).instanceof(RedisProxy);
+      expect(cachemap._maxHeapSize).to.eql(4194304);
       expect(cachemap._name).to.eql('cachemap');
       expect(cachemap._reaper).instanceof(Reaper);
     });
@@ -26,9 +26,7 @@ describe('when WEB_ENV variable is set to "true"', () => {
     it('should create an instance of the localStorage cachemap with the default options', () => {
       process.env.WEB_ENV = true;
       const cachemap = new Cachemap({ localStorageOptions: { mock: localStorageMock } });
-      expect(cachemap._map).instanceof(LocalStorageProxy);
-      expect(cachemap._maxHeapSize).to.eql(4194304);
-      expect(cachemap._metaDataStorage).instanceof(LocalStorageProxy);
+      expect(cachemap._store).instanceof(LocalStorageProxy);
       expect(cachemap._name).to.eql('cachemap');
       expect(cachemap._reaper).instanceof(Reaper);
       delete process.env.WEB_ENV;
@@ -53,17 +51,17 @@ describe('the redis cachemap', () => {
     describe('when a new key/value is stored in the cachemap', () => {
       it('should store the key/value and add the meta data', async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData.length).to.eql(1);
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata.length).to.eql(1);
       });
     });
 
     describe('when a key already exists in the cachemap', () => {
       it('should store the key/value and update the meta data', async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData).lengthOf(1);
-        const metaEntry = cachemap.metaData[0];
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
+        const metaEntry = cachemap.metadata[0];
         expect(metaEntry.lastAccessed).to.be.null();
         expect(metaEntry.lastUpdated).to.be.a('number');
       });
@@ -88,8 +86,8 @@ describe('the redis cachemap', () => {
         setTimeout(async () => {
           expect(await cachemap.has(key, { hash: true })).to.be.a('object');
           expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
-          expect(await cachemap.size()).to.eql(0);
-          expect(cachemap.metaData).lengthOf(0);
+          expect(await cachemap.size()).to.eql(1);
+          expect(cachemap.metadata).lengthOf(0);
           done();
         }, 1000);
       });
@@ -114,7 +112,7 @@ describe('the redis cachemap', () => {
 
       it('should return the value and update the meta data', async () => {
         expect(await cachemap.get(key, { hash: true })).to.eql(value);
-        const metaEntry = cachemap.metaData[0];
+        const metaEntry = cachemap.metadata[0];
         expect(metaEntry.lastAccessed).to.be.a('number');
         expect(metaEntry.accessedCount).to.eql(1);
         expect(metaEntry.cacheability.printCacheControl()).to.eql('public, max-age=1');
@@ -135,11 +133,11 @@ describe('the redis cachemap', () => {
       });
 
       it('should delete the key/value and the meta data', async () => {
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData).lengthOf(1);
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
         expect(await cachemap.delete(key, { hash: true })).to.be.true();
-        expect(await cachemap.size()).to.eql(0);
-        expect(cachemap.metaData).lengthOf(0);
+        expect(await cachemap.size()).to.eql(1);
+        expect(cachemap.metadata).lengthOf(0);
       });
     });
   });
@@ -167,17 +165,17 @@ describe('the localStorage cachemap', () => {
     describe('when a new key/value is stored in the cachemap', () => {
       it('should store the key/value and add the meta data', async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData.length).to.eql(1);
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata.length).to.eql(1);
       });
     });
 
     describe('when a key already exists in the cachemap', () => {
       it('should store the key/value and update the meta data', async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData).lengthOf(1);
-        const metaEntry = cachemap.metaData[0];
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
+        const metaEntry = cachemap.metadata[0];
         expect(metaEntry.lastAccessed).to.be.null();
         expect(metaEntry.lastUpdated).to.be.a('number');
       });
@@ -202,8 +200,8 @@ describe('the localStorage cachemap', () => {
         setTimeout(async () => {
           expect(await cachemap.has(key, { hash: true })).to.be.a('object');
           expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
-          expect(await cachemap.size()).to.eql(0);
-          expect(cachemap.metaData).lengthOf(0);
+          expect(await cachemap.size()).to.eql(1);
+          expect(cachemap.metadata).lengthOf(0);
           done();
         }, 1000);
       });
@@ -228,7 +226,7 @@ describe('the localStorage cachemap', () => {
 
       it('should return the value and update the meta data', async () => {
         expect(await cachemap.get(key, { hash: true })).to.eql(value);
-        const metaEntry = cachemap.metaData[0];
+        const metaEntry = cachemap.metadata[0];
         expect(metaEntry.lastAccessed).to.be.a('number');
         expect(metaEntry.accessedCount).to.eql(1);
         expect(metaEntry.cacheability.printCacheControl()).to.eql('public, max-age=1');
@@ -249,11 +247,11 @@ describe('the localStorage cachemap', () => {
       });
 
       it('should delete the key/value and the meta data', async () => {
-        expect(await cachemap.size()).to.eql(1);
-        expect(cachemap.metaData).lengthOf(1);
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
         expect(await cachemap.delete(key, { hash: true })).to.be.true();
-        expect(await cachemap.size()).to.eql(0);
-        expect(cachemap.metaData).lengthOf(0);
+        expect(await cachemap.size()).to.eql(1);
+        expect(cachemap.metadata).lengthOf(0);
       });
     });
   });
@@ -277,12 +275,12 @@ describe('the reaper', () => {
     });
 
     it('should delete the key/value and the meta data', async () => {
-      expect(await cachemap.size()).to.eql(1);
-      expect(cachemap.metaData).lengthOf(1);
+      expect(await cachemap.size()).to.eql(2);
+      expect(cachemap.metadata).lengthOf(1);
       const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
       await delay(1100);
-      expect(await cachemap.size()).to.eql(0);
-      expect(cachemap.metaData).lengthOf(0);
+      expect(await cachemap.size()).to.eql(1);
+      expect(cachemap.metadata).lengthOf(0);
     });
   });
 
@@ -293,7 +291,7 @@ describe('the reaper', () => {
       process.env.WEB_ENV = true;
 
       cachemap = new Cachemap({
-        localStorageOptions: { maxHeapSize: 30000, mock: localStorageMock },
+        localStorageOptions: { mock: localStorageMock }, maxHeapSize: 30000,
       });
 
       const keys = Object.keys(data);
@@ -314,16 +312,16 @@ describe('the reaper', () => {
     });
 
     it('should delete the necessary key/values', async () => {
-      expect(await cachemap.size()).to.eql(3);
-      expect(cachemap.metaData).lengthOf(3);
+      expect(await cachemap.size()).to.eql(4);
+      expect(cachemap.metadata).lengthOf(3);
       expect(cachemap.usedHeapSize).to.eql(28026);
 
       await cachemap.set(data[last[0]].url, data[last[0]].body, {
         cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
       });
 
-      expect(await cachemap.size()).to.eql(3);
-      expect(cachemap.metaData).lengthOf(3);
+      expect(await cachemap.size()).to.eql(4);
+      expect(cachemap.metadata).lengthOf(3);
       expect(cachemap.usedHeapSize).to.eql(21818);
     });
   });

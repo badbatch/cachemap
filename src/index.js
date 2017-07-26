@@ -39,6 +39,12 @@ export default class Cachemap {
      */
     localStorageOptions = {},
     /**
+     * Optional maximum amount of memory the cachemap can use.
+     *
+     * @type {number}
+     */
+    maxHeapSize = 4194304,
+    /**
      * Name of the cachemap, used for logging and
      * as part of the metadata storage key.
      *
@@ -57,46 +63,43 @@ export default class Cachemap {
      * @type {Object}
      */
     reaperOptions,
+    /**
+     * Optional type to specify Map rather than
+     * use LocalStorage or Redis.
+     *
+     * @type {string}
+     */
+    storageType,
   } = {}) {
     if (isFunction(comparator)) this._comparator = comparator;
     this._disableCacheInvalidation = disableCacheInvalidation;
 
-    if (process.env.WEB_ENV) {
+    if (storageType === 'map') {
+      this._env = process.env.WEB_ENV ? 'web' : 'node';
+      const MapProxy = require('./map-proxy').default; // eslint-disable-line global-require
+      this._store = new MapProxy();
+    } else if (process.env.WEB_ENV) {
       this._env = 'web';
       const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
-      this._map = new LocalStorageProxy(localStorageOptions);
-      const { maxHeapSize } = localStorageOptions;
-      this._maxHeapSize = maxHeapSize || 4194304;
-      this._metaDataStorage = new LocalStorageProxy(localStorageOptions);
+      this._store = new LocalStorageProxy(localStorageOptions);
     } else {
       this._env = 'node';
       const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
-      this._map = new RedisProxy({ name, options: redisOptions });
-
-      this._metaDataStorage = new RedisProxy({
-        name: `${name} metadata`,
-        options: { ...redisOptions, ...{ db: redisOptions.db + 1 } },
-      });
+      this._store = new RedisProxy({ name, options: redisOptions });
     }
 
+    this._maxHeapSize = maxHeapSize;
     this._name = name;
     this._reaper = new Reaper(this, reaperOptions);
-    this._getStoredMetaData();
+    this._getStoredMetadata();
   }
-
-  /**
-   *
-   * @private
-   * @type {number}
-   */
-  _maxHeapSize = 0;
 
   /**
    *
    * @private
    * @type {Array<Object>}
    */
-  _metaData = [];
+  _metadata = [];
 
   /**
    *
@@ -109,8 +112,8 @@ export default class Cachemap {
    *
    * @return {Array<Object>}
    */
-  get metaData() {
-    return this._metaData;
+  get metadata() {
+    return this._metadata;
   }
 
   /**
@@ -129,8 +132,8 @@ export default class Cachemap {
    * @param {Object} cacheMetadata
    * @return {void}
    */
-  _addMetaData(key, size, cacheMetadata) {
-    this._metaData.push({
+  _addMetadata(key, size, cacheMetadata) {
+    this._metadata.push({
       accessedCount: 0,
       added: Date.now(),
       cacheability: cacheMetadata,
@@ -140,9 +143,9 @@ export default class Cachemap {
       size,
     });
 
-    this._sortMetaData();
+    this._sortMetadata();
     this._updateHeapSize();
-    this._storeMetaData();
+    this._storeMetadata();
   }
 
   /**
@@ -155,8 +158,8 @@ export default class Cachemap {
     let chunkSize = 0;
     let index;
 
-    for (let i = this._metaData.length - 1; i >= 0; i -= 1) {
-      chunkSize += this._metaData[i].size;
+    for (let i = this._metadata.length - 1; i >= 0; i -= 1) {
+      chunkSize += this._metadata[i].size;
 
       if (chunkSize > reductionSize) {
         index = i;
@@ -182,9 +185,9 @@ export default class Cachemap {
    * @param {string} key
    * @return {boolean}
    */
-  _checkMetaData(key) {
+  _checkMetadata(key) {
     if (this._disableCacheInvalidation) return true;
-    const { cacheability } = this._getMetaDataValue(key);
+    const { cacheability } = this._getMetadataValue(key);
     return cacheability.check();
   }
 
@@ -231,12 +234,12 @@ export default class Cachemap {
    * @param {string} key
    * @return {void}
    */
-  _deleteMetaData(key) {
-    const index = this._metaData.findIndex(value => value.key === key);
-    this._metaData.splice(index, 1);
-    this._sortMetaData();
+  _deleteMetadata(key) {
+    const index = this._metadata.findIndex(value => value.key === key);
+    this._metadata.splice(index, 1);
+    this._sortMetadata();
     this._updateHeapSize();
-    this._storeMetaData();
+    this._storeMetadata();
   }
 
   /**
@@ -245,8 +248,8 @@ export default class Cachemap {
    * @param {string} key
    * @return {Object}
    */
-  _getMetaDataValue(key) {
-    return this._metaData.find(value => value.key === key);
+  _getMetadataValue(key) {
+    return this._metadata.find(value => value.key === key);
   }
 
   /**
@@ -254,16 +257,16 @@ export default class Cachemap {
    * @private
    * @return {Promise}
    */
-  async _getStoredMetaData() {
-    let metaData;
+  async _getStoredMetadata() {
+    let metadata;
 
     try {
-      metaData = await this._metaDataStorage.get(`${this._name} metaData`);
+      metadata = await this._store.get(`${this._name} metadata`);
     } catch (err) {
       logger.error(err);
     }
 
-    if (metaData) this._metaData = JSON.parse(metaData);
+    if (metadata) this._metadata = JSON.parse(metadata);
   }
 
   /**
@@ -273,7 +276,7 @@ export default class Cachemap {
    */
   async _reduceHeapSize() {
     const index = this._calcReductionChunk();
-    this._reaper.cull(this._metaData.slice(index, this._metaData.length));
+    this._reaper.cull(this._metadata.slice(index, this._metadata.length));
   }
 
   /**
@@ -281,8 +284,8 @@ export default class Cachemap {
    * @private
    * @return {Promise}
    */
-  async _storeMetaData() {
-    this._metaDataStorage.set(`${this._name} metaData`, JSON.stringify(this._metaData));
+  async _storeMetadata() {
+    this._store.set(`${this._name} metadata`, JSON.stringify(this._metadata));
   }
 
   /**
@@ -290,8 +293,8 @@ export default class Cachemap {
    * @private
    * @return {void}
    */
-  _sortMetaData() {
-    this._metaData.sort(this._comparator);
+  _sortMetadata() {
+    this._metadata.sort(this._comparator);
   }
 
   /**
@@ -300,7 +303,7 @@ export default class Cachemap {
    * @return {number}
    */
   _updateHeapSize() {
-    this._usedHeapSize = this._metaData.reduce((acc, value) => (acc + value.size), 0);
+    this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
     if (this._maxHeapSize) this._checkHeapThreshold();
   }
 
@@ -312,8 +315,8 @@ export default class Cachemap {
    * @param {Object} [cacheMetadata]
    * @return {void}
    */
-  _updateMetaData(key, size, cacheMetadata) {
-    const entry = this._getMetaDataValue(key);
+  _updateMetadata(key, size, cacheMetadata) {
+    const entry = this._getMetadataValue(key);
 
     if (size) {
       entry.size = size;
@@ -324,9 +327,9 @@ export default class Cachemap {
     }
 
     if (cacheMetadata) entry.cacheability = cacheMetadata;
-    this._sortMetaData();
+    this._sortMetadata();
     this._updateHeapSize();
-    this._storeMetaData();
+    this._storeMetadata();
   }
 
   /**
@@ -334,9 +337,9 @@ export default class Cachemap {
    * @return {Promise}
    */
   async clear() {
-    this._map.clear();
-    this._metaData = [];
-    this._storeMetaData();
+    this._store.clear();
+    this._metadata = [];
+    this._storeMetadata();
     this._usedHeapSize = 0;
   }
 
@@ -352,13 +355,13 @@ export default class Cachemap {
     let hasDel;
 
     try {
-      hasDel = await this._map.delete(_key);
+      hasDel = await this._store.delete(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!hasDel) return false;
-    this._deleteMetaData(_key);
+    this._deleteMetadata(_key);
     return true;
   }
 
@@ -374,13 +377,13 @@ export default class Cachemap {
     let value;
 
     try {
-      value = await this._map.get(_key);
+      value = await this._store.get(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!value) return null;
-    this._updateMetaData(_key);
+    this._updateMetadata(_key);
     if (parse) value = JSON.parse(value);
     return value;
   }
@@ -391,7 +394,7 @@ export default class Cachemap {
    * @return {Object}
    */
   getCacheability(key) {
-    const entry = this._getMetaDataValue(key);
+    const entry = this._getMetadataValue(key);
     return get(entry, ['cacheability'], null);
   }
 
@@ -409,14 +412,14 @@ export default class Cachemap {
     let hasKey;
 
     try {
-      hasKey = await this._map.has(_key);
+      hasKey = await this._store.has(_key);
     } catch (err) {
       logger.error(err);
     }
 
     if (!hasKey) return false;
 
-    if (deleteExpired && !this._checkMetaData(_key)) {
+    if (deleteExpired && !this._checkMetadata(_key)) {
       await this.delete(_key);
       return false;
     }
@@ -453,8 +456,8 @@ export default class Cachemap {
     let hasKey, setValue;
 
     try {
-      hasKey = await this._map.has(_key);
-      setValue = await this._map.set(_key, _value);
+      hasKey = await this._store.has(_key);
+      setValue = await this._store.set(_key, _value);
     } catch (err) {
       logger.error(err);
     }
@@ -462,9 +465,9 @@ export default class Cachemap {
     if (!setValue) return false;
 
     if (hasKey) {
-      this._updateMetaData(_key, sizeof(_value), cacheMetadata);
+      this._updateMetadata(_key, sizeof(_value), cacheMetadata);
     } else {
-      this._addMetaData(_key, sizeof(_value), cacheMetadata);
+      this._addMetadata(_key, sizeof(_value), cacheMetadata);
     }
 
     return true;
@@ -475,6 +478,6 @@ export default class Cachemap {
    * @return {Promise}
    */
   async size() {
-    return this._map.size();
+    return this._store.size();
   }
 }

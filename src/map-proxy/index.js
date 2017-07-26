@@ -1,16 +1,15 @@
 /**
  *
- * The cachemap local storage proxy
+ * The cachemap map proxy
  */
-export default class LocalProxy {
+export default class MapProxy {
   /**
    *
    * @constructor
-   * @param {Object} config
    * @return {void}
    */
-  constructor({ mock }) {
-    this._storage = mock ? mock() : localStorage;
+  constructor() {
+    this._map = new Map();
   }
 
   /**
@@ -19,7 +18,7 @@ export default class LocalProxy {
    */
   clear() {
     return new Promise((resolve) => {
-      resolve(this._storage.clear());
+      resolve(this._map.clear());
     });
   }
 
@@ -30,7 +29,7 @@ export default class LocalProxy {
    */
   delete(key) {
     return new Promise((resolve) => {
-      resolve(this._storage.removeItem(key));
+      resolve(this._map.delete(key));
     });
   }
 
@@ -41,7 +40,7 @@ export default class LocalProxy {
    */
   get(key) {
     return new Promise((resolve) => {
-      resolve(this._storage.getItem(key) || null);
+      resolve(this._map.get(key) || null);
     });
   }
 
@@ -52,7 +51,7 @@ export default class LocalProxy {
    */
   has(key) {
     return new Promise((resolve) => {
-      resolve(this._storage.getItem(key) !== undefined);
+      resolve(this._map.has(key));
     });
   }
 
@@ -64,7 +63,7 @@ export default class LocalProxy {
    */
   set(key, value) {
     return new Promise((resolve) => {
-      resolve(!!this._storage.setItem(key, value));
+      resolve(!!this._map.set(key, value));
     });
   }
 
@@ -74,7 +73,7 @@ export default class LocalProxy {
    */
   size() {
     return new Promise((resolve) => {
-      resolve(this._storage.length);
+      resolve(this._map.size);
     });
   }
 }

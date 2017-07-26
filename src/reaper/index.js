@@ -31,8 +31,8 @@ export default class Reaper {
    * @private
    * @return {Array<Object>}
    */
-  _getExpiredMetaData() {
-    return this._map.metaData.filter((entry) => {
+  _getExpiredMetadata() {
+    return this._map.metadata.filter((entry) => {
       if (!get(entry, ['cacheability', 'ttl'], null)) return false;
       return !entry.cacheability.check();
     });
@@ -40,13 +40,13 @@ export default class Reaper {
 
   /**
    *
-   * @param {Array<Object>} metaData
+   * @param {Array<Object>} metadata
    * @return {Promise}
    */
-  async cull(metaData) {
-    if (!metaData.length) return;
+  async cull(metadata) {
+    if (!metadata.length) return;
 
-    metaData.forEach(({ key }) => {
+    metadata.forEach(({ key }) => {
       this._map.delete(key);
     });
   }
@@ -57,7 +57,7 @@ export default class Reaper {
    */
   start() {
     this._intervalID = setInterval(() => {
-      this.cull(this._getExpiredMetaData());
+      this.cull(this._getExpiredMetadata());
     }, this._interval);
   }
 
