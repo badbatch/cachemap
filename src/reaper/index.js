@@ -15,7 +15,6 @@ export default class Reaper {
   constructor(map, { interval = 60000, start = true } = {}) {
     this._map = map;
     this._interval = interval;
-
     if (start) this.start();
   }
 
