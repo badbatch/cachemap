@@ -4,6 +4,7 @@ import data from '../data';
 import Cachemap from '../../src';
 import { localStorageMock, redisMock } from '../mocks';
 import LocalStorageProxy from '../../src/local-storage-proxy';
+import MapProxy from '../../src/map-proxy';
 import Reaper from '../../src/reaper';
 import RedisProxy from '../../src/redis-proxy';
 
@@ -31,6 +32,17 @@ describe('when WEB_ENV variable is set to "true"', () => {
       expect(cachemap._reaper).instanceof(Reaper);
       delete process.env.WEB_ENV;
     });
+  });
+});
+
+describe('when storageType is set to "map"', () => {
+  it('should create an instance of the map cachemap with the default options', () => {
+    process.env.WEB_ENV = true;
+    const cachemap = new Cachemap({ storageType: 'map' });
+    expect(cachemap._store).instanceof(MapProxy);
+    expect(cachemap._name).to.eql('cachemap');
+    expect(cachemap._reaper).instanceof(Reaper);
+    delete process.env.WEB_ENV;
   });
 });
 
@@ -244,6 +256,120 @@ describe('the localStorage cachemap', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
+      });
+
+      it('should delete the key/value and the meta data', async () => {
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
+        expect(await cachemap.delete(key, { hash: true })).to.be.true();
+        expect(await cachemap.size()).to.eql(1);
+        expect(cachemap.metadata).lengthOf(0);
+      });
+    });
+  });
+});
+
+describe('the map cachemap', () => {
+  let cachemap, key, value;
+
+  before(() => {
+    process.env.WEB_ENV = true;
+    cachemap = new Cachemap({ storageType: 'map' });
+    key = data['136-7317'].url;
+    value = data['136-7317'].body;
+  });
+
+  after(() => {
+    delete process.env.WEB_ENV;
+  });
+
+  describe('the .set() method', () => {
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    describe('when a new key/value is stored in the cachemap', () => {
+      it('should store the key/value and add the meta data', async () => {
+        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata.length).to.eql(1);
+      });
+    });
+
+    describe('when a key already exists in the cachemap', () => {
+      it('should store the key/value and update the meta data', async () => {
+        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+        expect(await cachemap.size()).to.eql(2);
+        expect(cachemap.metadata).lengthOf(1);
+        const metaEntry = cachemap.metadata[0];
+        expect(metaEntry.lastAccessed).to.be.null();
+        expect(metaEntry.lastUpdated).to.be.a('number');
+      });
+    });
+  });
+
+  describe('the .has() method', () => {
+    before(async () => {
+      await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+    });
+
+    describe('when a key exists in the cachemap', () => {
+      it('should return true', async () => {
+        const cacheability = await cachemap.has(key, { hash: true });
+        expect(cacheability.public).to.be.true();
+        expect(cacheability.maxAge).to.eql(1);
+      });
+    });
+
+    describe('when an expired key exists in the cachemap and deleteExpired is passed in', () => {
+      it('should return false and delete the expired key/value', (done) => {
+        setTimeout(async () => {
+          expect(await cachemap.has(key, { hash: true })).to.be.a('object');
+          expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
+          expect(await cachemap.size()).to.eql(1);
+          expect(cachemap.metadata).lengthOf(0);
+          done();
+        }, 1000);
+      });
+    });
+
+    describe('when no key exists in the cachemap', () => {
+      it('should return false', async () => {
+        expect(await cachemap.has(key, { hash: true })).to.be.false();
+      });
+    });
+  });
+
+  describe('the .get() method', () => {
+    describe('when a valid key exists in the cachemap', () => {
+      before(async () => {
+        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+      });
+
+      after(async () => {
+        await cachemap.delete(key, { hash: true });
+      });
+
+      it('should return the value and update the meta data', async () => {
+        expect(await cachemap.get(key, { hash: true })).to.eql(value);
+        const metaEntry = cachemap.metadata[0];
+        expect(metaEntry.lastAccessed).to.be.a('number');
+        expect(metaEntry.accessedCount).to.eql(1);
+        expect(metaEntry.cacheability.printCacheControl()).to.eql('public, max-age=1');
+      });
+    });
+
+    describe('when no key exists in the cachemap', () => {
+      it('should return null', async () => {
+        expect(await cachemap.get(key, { hash: true })).to.be.null();
+      });
+    });
+  });
+
+  describe('the .delete() method', () => {
+    describe('when a valid key exists in the cachemap', () => {
+      before(async () => {
+        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
       });
 
       it('should delete the key/value and the meta data', async () => {

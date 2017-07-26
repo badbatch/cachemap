@@ -73,24 +73,27 @@ export default class Cachemap {
   } = {}) {
     if (isFunction(comparator)) this._comparator = comparator;
     this._disableCacheInvalidation = disableCacheInvalidation;
+    this._maxHeapSize = maxHeapSize;
+    this._name = name;
+    this._reaper = new Reaper(this, reaperOptions);
 
     if (storageType === 'map') {
       this._env = process.env.WEB_ENV ? 'web' : 'node';
       const MapProxy = require('./map-proxy').default; // eslint-disable-line global-require
+      this._storageType = storageType;
       this._store = new MapProxy();
     } else if (process.env.WEB_ENV) {
       this._env = 'web';
       const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
+      this._storageType = 'local';
       this._store = new LocalStorageProxy(localStorageOptions);
     } else {
       this._env = 'node';
       const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
+      this._storageType = 'redis';
       this._store = new RedisProxy({ name, options: redisOptions });
     }
 
-    this._maxHeapSize = maxHeapSize;
-    this._name = name;
-    this._reaper = new Reaper(this, reaperOptions);
     this._getStoredMetadata();
   }
 
