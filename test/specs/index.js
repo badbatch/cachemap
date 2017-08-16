@@ -12,7 +12,7 @@ chai.use(dirtyChai);
 
 describe('when WEB_ENV variable is not set to "true"', () => {
   describe('when no redisOptions are passed in', () => {
-    it('should create an instance of the localStorage cachemap with the default options', () => {
+    it('should create an instance of the redis cachemap with the default options', () => {
       const cachemap = new Cachemap({ redisOptions: { db: 0, mock: redisMock } });
       expect(cachemap._store).instanceof(RedisProxy);
       expect(cachemap._maxHeapSize).to.eql(4194304);
