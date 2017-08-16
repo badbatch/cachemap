@@ -8,7 +8,4 @@ An isomorphic cache that uses Redis on the server and LocalStorage on the client
 [![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
 
-[![NPM](https://nodei.co/npm/cachemap.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/cachemap/)
-[![NPM](https://nodei.co/npm-dl/cachemap.png?months=3&height=2)](https://nodei.co/npm/cachemap/)
-
 ### More to follow...
