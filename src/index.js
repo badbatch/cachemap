@@ -82,16 +82,18 @@ export default class Cachemap {
       const MapProxy = require('./map-proxy').default; // eslint-disable-line global-require
       this._storageType = storageType;
       this._store = new MapProxy();
-    } else if (process.env.WEB_ENV) {
-      this._env = 'web';
-      const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
-      this._storageType = 'local';
-      this._store = new LocalStorageProxy(localStorageOptions);
     } else {
-      this._env = 'node';
-      const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
-      this._storageType = 'redis';
-      this._store = new RedisProxy({ name, options: redisOptions });
+      if (process.env.WEB_ENV) { // eslint-disable-line no-lonely-if
+        this._env = 'web';
+        const LocalStorageProxy = require('./local-storage-proxy').default; // eslint-disable-line global-require
+        this._storageType = 'local';
+        this._store = new LocalStorageProxy(localStorageOptions);
+      } else {
+        this._env = 'node';
+        const RedisProxy = require('./redis-proxy').default; // eslint-disable-line global-require
+        this._storageType = 'redis';
+        this._store = new RedisProxy({ name, options: redisOptions });
+      }
     }
 
     this._getStoredMetadata();
@@ -437,6 +439,15 @@ export default class Cachemap {
    */
   hash(value) {
     return md5(value);
+  }
+
+  /**
+   *
+   * @param {Object} cacheHeaders
+   * @return {Object}
+   */
+  parseCacheHeaders(cacheHeaders) {
+    return parseCacheHeaders(cacheHeaders);
   }
 
   /**
