@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "An isomorphic cache that uses Redis on the server and LocalStorage on the client.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "transpile:module": " cross-env BABEL_ENV=module babel src --out-dir lib/module --copy-files"
   },
   "dependencies": {
+    "cache-headers-parser": "0.0.6",
     "es6-promise": "^4.1.1",
     "iso-logger": "0.0.7",
     "lodash": "^4.17.4",

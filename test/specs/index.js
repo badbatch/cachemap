@@ -88,8 +88,9 @@ describe('the redis cachemap', () => {
     describe('when a key exists in the cachemap', () => {
       it('should return the key cacheability metadata', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
-        expect(cacheability.public).to.be.true();
-        expect(cacheability.maxAge).to.eql(1);
+        const cacheControl = cacheability.metadata.cacheControl;
+        expect(cacheControl.public).to.be.true();
+        expect(cacheControl.maxAge).to.eql(1);
       });
     });
 
@@ -202,8 +203,9 @@ describe('the localStorage cachemap', () => {
     describe('when a key exists in the cachemap', () => {
       it('should return true', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
-        expect(cacheability.public).to.be.true();
-        expect(cacheability.maxAge).to.eql(1);
+        const cacheControl = cacheability.metadata.cacheControl;
+        expect(cacheControl.public).to.be.true();
+        expect(cacheControl.maxAge).to.eql(1);
       });
     });
 
@@ -310,14 +312,15 @@ describe('the map cachemap', () => {
 
   describe('the .has() method', () => {
     before(async () => {
-      await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+      await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
     describe('when a key exists in the cachemap', () => {
       it('should return true', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
-        expect(cacheability.public).to.be.true();
-        expect(cacheability.maxAge).to.eql(1);
+        const cacheControl = cacheability.metadata.cacheControl;
+        expect(cacheControl.public).to.be.true();
+        expect(cacheControl.maxAge).to.eql(1);
       });
     });
 
@@ -343,7 +346,7 @@ describe('the map cachemap', () => {
   describe('the .get() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
       after(async () => {

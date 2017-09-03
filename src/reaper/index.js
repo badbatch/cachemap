@@ -32,8 +32,8 @@ export default class Reaper {
    */
   _getExpiredMetadata() {
     return this._map.metadata.filter((entry) => {
-      if (!get(entry, ['cacheability', 'ttl'], null)) return false;
-      return !entry.cacheability.check();
+      if (!get(entry, ['cacheability', 'metadata', 'ttl'], null)) return false;
+      return !entry.cacheability.checkTTL();
     });
   }
 

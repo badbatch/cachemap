@@ -1,7 +1,7 @@
+import Parser from 'cache-headers-parser';
 import { isFunction, get } from 'lodash';
 import md5 from 'md5';
 import sizeof from 'object-sizeof';
-import { parseCacheHeaders } from './helpers';
 import logger from './logger';
 import Reaper from './reaper';
 
@@ -193,7 +193,7 @@ export default class Cachemap {
   _checkMetadata(key) {
     if (this._disableCacheInvalidation) return true;
     const { cacheability } = this._getMetadataValue(key);
-    return cacheability.check();
+    return cacheability.checkTTL();
   }
 
   /**
@@ -317,10 +317,10 @@ export default class Cachemap {
    * @private
    * @param {string} key
    * @param {number} [size]
-   * @param {Object} [cacheMetadata]
+   * @param {Parser} [cacheability]
    * @return {void}
    */
-  _updateMetadata(key, size, cacheMetadata) {
+  _updateMetadata(key, size, cacheability) {
     const entry = this._getMetadataValue(key);
 
     if (size) {
@@ -331,7 +331,7 @@ export default class Cachemap {
       entry.lastAccessed = Date.now();
     }
 
-    if (cacheMetadata) entry.cacheability = cacheMetadata;
+    if (cacheability) entry.cacheability = cacheability;
     this._sortMetadata();
     this._updateHeapSize();
     this._storeMetadata();
@@ -443,15 +443,6 @@ export default class Cachemap {
 
   /**
    *
-   * @param {Object} cacheHeaders
-   * @return {Object}
-   */
-  parseCacheHeaders(cacheHeaders) {
-    return parseCacheHeaders(cacheHeaders);
-  }
-
-  /**
-   *
    * @param {any} key
    * @param {any} value
    * @param {Object} [opts]
@@ -461,8 +452,10 @@ export default class Cachemap {
    * @return {Promise}
    */
   async set(key, value, { cacheHeaders = {}, hash = false, stringify = true } = {}) {
-    const cacheMetadata = parseCacheHeaders(cacheHeaders);
-    if (cacheMetadata.noStore || (this._env === 'node' && cacheMetadata.private)) return false;
+    const cacheability = new Parser();
+    const cacheMetadata = cacheability.parseHeaders(cacheHeaders);
+    const cacheControl = cacheMetadata.cacheControl || {};
+    if (cacheControl.noStore || (this._env === 'node' && cacheControl.private)) return false;
     let _key = key;
     if (hash) _key = this.hash(_key);
     let _value = value;
@@ -479,9 +472,9 @@ export default class Cachemap {
     if (!setValue) return false;
 
     if (hasKey) {
-      this._updateMetadata(_key, sizeof(_value), cacheMetadata);
+      this._updateMetadata(_key, sizeof(_value), cacheability);
     } else {
-      this._addMetadata(_key, sizeof(_value), cacheMetadata);
+      this._addMetadata(_key, sizeof(_value), cacheability);
     }
 
     return true;
