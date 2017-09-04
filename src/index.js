@@ -1,4 +1,4 @@
-import Parser from 'cache-headers-parser';
+import Cacheability from 'cacheability';
 import { isFunction, get } from 'lodash';
 import md5 from 'md5';
 import sizeof from 'object-sizeof';
@@ -452,7 +452,7 @@ export default class Cachemap {
    * @return {Promise}
    */
   async set(key, value, { cacheHeaders = {}, hash = false, stringify = true } = {}) {
-    const cacheability = new Parser();
+    const cacheability = new Cacheability();
     const cacheMetadata = cacheability.parseHeaders(cacheHeaders);
     const cacheControl = cacheMetadata.cacheControl || {};
     if (cacheControl.noStore || (this._env === 'node' && cacheControl.private)) return false;
