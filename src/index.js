@@ -94,9 +94,9 @@ export default class Cachemap {
         this._storageType = 'redis';
         this._store = new RedisProxy({ name, options: redisOptions });
       }
-    }
 
-    this._getStoredMetadata();
+      this._getStoredMetadata();
+    }
   }
 
   /**
