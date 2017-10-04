@@ -85,6 +85,10 @@ describe('the redis cachemap', () => {
       await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
+    after(async () => {
+      await cachemap.clear();
+    });
+
     describe('when a key exists in the cachemap', () => {
       it('should return the key cacheability metadata', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
@@ -120,7 +124,7 @@ describe('the redis cachemap', () => {
       });
 
       after(async () => {
-        await cachemap.delete(key, { hash: true });
+        await cachemap.clear();
       });
 
       it('should return the value and update the meta data', async () => {
@@ -145,6 +149,10 @@ describe('the redis cachemap', () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
+      after(async () => {
+        await cachemap.clear();
+      });
+
       it('should delete the key/value and the meta data', async () => {
         expect(await cachemap.size()).to.eql(2);
         expect(cachemap.metadata).lengthOf(1);
@@ -152,6 +160,50 @@ describe('the redis cachemap', () => {
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metadata).lengthOf(0);
       });
+    });
+  });
+
+  describe('then .forEach() method', () => {
+    let values;
+
+    const compare = function compare(a, b) {
+      if (a.id < b.id) return 1;
+      if (a.id > b.id) return -1;
+      return 0;
+    };
+
+    before(async () => {
+      const entries = [
+        { key: data['136-7317'].url, value: data['136-7317'].body },
+        { key: data['180-1387'].url, value: data['180-1387'].body },
+        { key: data['183-3905'].url, value: data['183-3905'].body },
+        { key: data['202-3315'].url, value: data['202-3315'].body },
+      ];
+
+      values = entries.map(entry => entry.value).sort(compare);
+      const promises = [];
+
+      entries.forEach((entry) => {
+        promises.push(cachemap.set(entry.key, entry.value, {
+          cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
+        }));
+      });
+
+      await Promise.all(promises);
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it('should iterate over all the entries and run the callback on each one', async () => {
+      const output = [];
+
+      await cachemap.forEach((_value) => {
+        output.push(_value);
+      });
+
+      expect(output).to.eql(values);
     });
   });
 });
@@ -200,6 +252,10 @@ describe('the localStorage cachemap', () => {
       await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
+    after(async () => {
+      await cachemap.clear();
+    });
+
     describe('when a key exists in the cachemap', () => {
       it('should return true', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
@@ -235,7 +291,7 @@ describe('the localStorage cachemap', () => {
       });
 
       after(async () => {
-        await cachemap.delete(key, { hash: true });
+        await cachemap.clear();
       });
 
       it('should return the value and update the meta data', async () => {
@@ -260,6 +316,10 @@ describe('the localStorage cachemap', () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
       });
 
+      after(async () => {
+        await cachemap.clear();
+      });
+
       it('should delete the key/value and the meta data', async () => {
         expect(await cachemap.size()).to.eql(2);
         expect(cachemap.metadata).lengthOf(1);
@@ -267,6 +327,50 @@ describe('the localStorage cachemap', () => {
         expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metadata).lengthOf(0);
       });
+    });
+  });
+
+  describe('then .forEach() method', () => {
+    let values;
+
+    const compare = function compare(a, b) {
+      if (a.id < b.id) return 1;
+      if (a.id > b.id) return -1;
+      return 0;
+    };
+
+    before(async () => {
+      const entries = [
+        { key: data['136-7317'].url, value: data['136-7317'].body },
+        { key: data['180-1387'].url, value: data['180-1387'].body },
+        { key: data['183-3905'].url, value: data['183-3905'].body },
+        { key: data['202-3315'].url, value: data['202-3315'].body },
+      ];
+
+      values = entries.map(entry => entry.value).sort(compare);
+      const promises = [];
+
+      entries.forEach((entry) => {
+        promises.push(cachemap.set(entry.key, entry.value, {
+          cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
+        }));
+      });
+
+      await Promise.all(promises);
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it('should iterate over all the entries and run the callback on each one', async () => {
+      const output = [];
+
+      await cachemap.forEach((_value) => {
+        output.push(_value);
+      });
+
+      expect(output).to.eql(values);
     });
   });
 });
@@ -292,16 +396,16 @@ describe('the map cachemap', () => {
 
     describe('when a new key/value is stored in the cachemap', () => {
       it('should store the key/value and add the meta data', async () => {
-        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
-        expect(await cachemap.size()).to.eql(2);
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
+        expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metadata.length).to.eql(1);
       });
     });
 
     describe('when a key already exists in the cachemap', () => {
       it('should store the key/value and update the meta data', async () => {
-        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
-        expect(await cachemap.size()).to.eql(2);
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
+        expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metadata).lengthOf(1);
         const metaEntry = cachemap.metadata[0];
         expect(metaEntry.lastAccessed).to.be.null();
@@ -315,8 +419,12 @@ describe('the map cachemap', () => {
       await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
     });
 
+    after(async () => {
+      await cachemap.clear();
+    });
+
     describe('when a key exists in the cachemap', () => {
-      it('should return true', async () => {
+      it('should return the cacheability object', async () => {
         const cacheability = await cachemap.has(key, { hash: true });
         const cacheControl = cacheability.metadata.cacheControl;
         expect(cacheControl.public).to.be.true();
@@ -329,7 +437,7 @@ describe('the map cachemap', () => {
         setTimeout(async () => {
           expect(await cachemap.has(key, { hash: true })).to.be.a('object');
           expect(await cachemap.has(key, { deleteExpired: true, hash: true })).to.be.false();
-          expect(await cachemap.size()).to.eql(1);
+          expect(await cachemap.size()).to.eql(0);
           expect(cachemap.metadata).lengthOf(0);
           done();
         }, 1000);
@@ -350,7 +458,7 @@ describe('the map cachemap', () => {
       });
 
       after(async () => {
-        await cachemap.delete(key, { hash: true });
+        await cachemap.clear();
       });
 
       it('should return the value and update the meta data', async () => {
@@ -372,16 +480,64 @@ describe('the map cachemap', () => {
   describe('the .delete() method', () => {
     describe('when a valid key exists in the cachemap', () => {
       before(async () => {
-        await cachemap.set(key, value, { cacheHeaders: { public: true, maxAge: 1 }, hash: true });
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true });
+      });
+
+      after(async () => {
+        await cachemap.clear();
       });
 
       it('should delete the key/value and the meta data', async () => {
-        expect(await cachemap.size()).to.eql(2);
+        expect(await cachemap.size()).to.eql(1);
         expect(cachemap.metadata).lengthOf(1);
         expect(await cachemap.delete(key, { hash: true })).to.be.true();
-        expect(await cachemap.size()).to.eql(1);
+        expect(await cachemap.size()).to.eql(0);
         expect(cachemap.metadata).lengthOf(0);
       });
+    });
+  });
+
+  describe('then .forEach() method', () => {
+    let values;
+
+    const compare = function compare(a, b) {
+      if (a.id < b.id) return 1;
+      if (a.id > b.id) return -1;
+      return 0;
+    };
+
+    before(async () => {
+      const entries = [
+        { key: data['136-7317'].url, value: data['136-7317'].body },
+        { key: data['180-1387'].url, value: data['180-1387'].body },
+        { key: data['183-3905'].url, value: data['183-3905'].body },
+        { key: data['202-3315'].url, value: data['202-3315'].body },
+      ];
+
+      values = entries.map(entry => entry.value).sort(compare);
+      const promises = [];
+
+      entries.forEach((entry) => {
+        promises.push(cachemap.set(entry.key, entry.value, {
+          cacheHeaders: { cacheControl: 'public, max-age=1' }, hash: true,
+        }));
+      });
+
+      await Promise.all(promises);
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it('should iterate over all the entries and run the callback on each one', async () => {
+      const output = [];
+
+      await cachemap.forEach((_value) => {
+        output.push(_value);
+      });
+
+      expect(output).to.eql(values);
     });
   });
 });

@@ -290,6 +290,7 @@ export default class Cachemap {
    * @return {Promise}
    */
   async _storeMetadata() {
+    if (this._storageType === 'map') return;
     this._store.set(`${this._name} metadata`, JSON.stringify(this._metadata));
   }
 
@@ -372,6 +373,25 @@ export default class Cachemap {
 
   /**
    *
+   * @param {Function} callback
+   * @return {void}
+   */
+  async forEach(callback) {
+    await Promise.all(
+      this._metadata.map(({ cacheability, key }) => {
+        const promise = this.get(key);
+
+        promise.then((value) => {
+          callback(value, key, cacheability);
+        });
+
+        return promise;
+      }),
+    );
+  }
+
+  /**
+   *
    * @param {any} key
    * @param {Object} [opts]
    * @return {Promise}
@@ -389,7 +409,7 @@ export default class Cachemap {
 
     if (!value) return null;
     this._updateMetadata(_key);
-    if (parse) value = JSON.parse(value);
+    if (parse && this._storageType !== 'map') value = JSON.parse(value);
     return value;
   }
 
@@ -459,7 +479,7 @@ export default class Cachemap {
     let _key = key;
     if (hash) _key = this.hash(_key);
     let _value = value;
-    if (stringify) _value = JSON.stringify(_value);
+    if (stringify && this._storageType !== 'map') _value = JSON.stringify(_value);
     let hasKey, setValue;
 
     try {
