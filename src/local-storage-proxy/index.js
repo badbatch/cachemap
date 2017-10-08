@@ -17,10 +17,12 @@ export default class LocalProxy {
    *
    * @return {Promise}
    */
-  clear() {
-    return new Promise((resolve) => {
+  async clear() {
+    const output = await new Promise((resolve) => {
       resolve(this._storage.clear());
     });
+
+    return output;
   }
 
   /**
@@ -28,10 +30,12 @@ export default class LocalProxy {
    * @param {string} key
    * @return {Promise}
    */
-  delete(key) {
-    return new Promise((resolve) => {
+  async delete(key) {
+    const output = await new Promise((resolve) => {
       resolve(this._storage.removeItem(key));
     });
+
+    return output;
   }
 
   /**
@@ -39,10 +43,12 @@ export default class LocalProxy {
    * @param {string} key
    * @return {Promise}
    */
-  get(key) {
-    return new Promise((resolve) => {
+  async get(key) {
+    const output = await new Promise((resolve) => {
       resolve(this._storage.getItem(key) || null);
     });
+
+    return output;
   }
 
   /**
@@ -50,10 +56,12 @@ export default class LocalProxy {
    * @param {string} key
    * @return {Promise}
    */
-  has(key) {
-    return new Promise((resolve) => {
+  async has(key) {
+    const output = await new Promise((resolve) => {
       resolve(this._storage.getItem(key) !== undefined);
     });
+
+    return output;
   }
 
   /**
@@ -62,19 +70,23 @@ export default class LocalProxy {
    * @param {string} value
    * @return {Promise}
    */
-  set(key, value) {
-    return new Promise((resolve) => {
+  async set(key, value) {
+    const output = await new Promise((resolve) => {
       resolve(!!this._storage.setItem(key, value));
     });
+
+    return output;
   }
 
   /**
    *
    * @return {Promise}
    */
-  size() {
-    return new Promise((resolve) => {
+  async size() {
+    const output = await new Promise((resolve) => {
       resolve(this._storage.length);
     });
+
+    return output;
   }
 }

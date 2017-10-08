@@ -32,12 +32,14 @@ export default class RedisProxy {
    *
    * @return {Promise}
    */
-  clear() {
-    return new Promise((resolve) => {
+  async clear() {
+    const output = await new Promise((resolve) => {
       this._client.flushdb((err, reply) => {
         resolve(!!reply);
       });
     });
+
+    return output;
   }
 
   /**
@@ -45,12 +47,13 @@ export default class RedisProxy {
    * @param {string} key
    * @return {Promise}
    */
-  delete(key) {
-    return new Promise((resolve) => {
+  async delete(key) {
+    const output = await new Promise((resolve) => {
       this._client.del(key, (err, reply) => {
         resolve(!!reply);
       });
     });
+    return output;
   }
 
   /**
@@ -58,12 +61,14 @@ export default class RedisProxy {
    * @param {string} key
    * @return {Promise}
    */
-  get(key) {
-    return new Promise((resolve) => {
+  async get(key) {
+    const output = await new Promise((resolve) => {
       this._client.get(key, (err, reply) => {
         resolve(reply || null);
       });
     });
+
+    return output;
   }
 
   /**
@@ -71,12 +76,14 @@ export default class RedisProxy {
    * @param {string} key
    * @return {Promise}
    */
-  has(key) {
-    return new Promise((resolve) => {
+  async has(key) {
+    const output = await new Promise((resolve) => {
       this._client.exists(key, (err, reply) => {
         resolve(!!reply);
       });
     });
+
+    return output;
   }
 
   /**
@@ -85,23 +92,27 @@ export default class RedisProxy {
    * @param {string} value
    * @return {Promise}
    */
-  set(key, value) {
-    return new Promise((resolve) => {
+  async set(key, value) {
+    const output = await new Promise((resolve) => {
       this._client.set(key, value, (err, reply) => {
         resolve(!!reply);
       });
     });
+
+    return output;
   }
 
   /**
    *
    * @return {Promise}
    */
-  size() {
-    return new Promise((resolve) => {
+  async size() {
+    const output = await new Promise((resolve) => {
       this._client.dbsize((err, reply) => {
         resolve(reply);
       });
     });
+
+    return output;
   }
 }
