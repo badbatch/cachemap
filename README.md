@@ -1,5 +1,5 @@
 # cachemap
-An isomorphic cache that uses Redis on the server and LocalStorage on the client.
+An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.
 
 [![Build Status](https://travis-ci.org/dylanaubrey/cachemap.svg?branch=master)](https://travis-ci.org/dylanaubrey/cachemap)
 [![codecov](https://codecov.io/gh/dylanaubrey/cachemap/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/cachemap)
@@ -8,4 +8,4 @@ An isomorphic cache that uses Redis on the server and LocalStorage on the client
 [![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
 
-### More to follow...
+### Work in progress...
