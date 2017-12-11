@@ -1,81 +1,99 @@
-import Cacheability from 'cacheability';
-import { isFunction, get } from 'lodash';
-import md5 from 'md5';
-import sizeof from 'object-sizeof';
-import logger from './logger';
-import Reaper from './reaper';
+import Cacheability from "cacheability";
+import { polyfill } from "es6-promise";
+import "isomorphic-fetch";
+import { get, isFunction } from "lodash";
+import md5 from "md5";
+import sizeof from "object-sizeof";
+import { ClientOpts } from "redis";
+import Reaper from "./reaper";
 
-require('es6-promise').polyfill();
+import {
+  CachemapArgs,
+  ClientStoreTypes,
+  ServerStoreTypes,
+  StoreProxyTypes,
+  StoreTypes,
+} from "./types";
 
-/**
- *
- * The cachemap
- */
+polyfill();
+
 export default class Cachemap {
-  /**
-   *
-   * @constructor
-   * @param {Object} config
-   * @return {void}
-   */
-  constructor({
-    /**
-     * Optional function used to compare meta data
-     * as part of the sorting process.
-     *
-     * @type {Function}
-     */
-    comparator = null,
-    /**
-     * Optional flag to disable cache invalidation.
-     *
-     * @type {boolean}
-     */
-    disableCacheInvalidation,
-    /**
-     * Optional configuration settings for localStorage.
-     *
-     * @type {Object}
-     */
-    localStorageOptions = {},
-    /**
-     * Optional maximum amount of memory the cachemap can use.
-     *
-     * @type {number}
-     */
-    maxHeapSize = 4194304,
-    /**
-     * Name of the cachemap, used for logging and
-     * as part of the metadata storage key.
-     *
-     * @type {string}
-     */
-    name = 'cachemap',
-    /**
-     * Optional configuration settings for redis.
-     *
-     * @type {Object}
-     */
-    redisOptions = { db: 0 },
-    /**
-     * Optional configuration settings for the reaper.
-     *
-     * @type {Object}
-     */
-    reaperOptions,
-    /**
-     * Optional type to specify Map rather than
-     * use LocalStorage or Redis.
-     *
-     * @type {string}
-     */
-    storageType,
-  } = {}) {
-    if (isFunction(comparator)) this._comparator = comparator;
+  private static _storeTypes: string[] = ["indexedDB", "localStorage", "map", "redis"];
+
+  private static _calcMaxHeapSize(storeType: string, maxHeapSize?: { client?: number, server?: number }): number {
+    // TODO
+  }
+
+  private static _getStore(storeType: string, mock: boolean, redisOptions?: ClientOpts): StoreProxyTypes {
+    // TODO
+  }
+
+  private static _getStoreType(use?: { client?: ClientStoreTypes, server?: ServerStoreTypes }): StoreTypes {
+    if (!use) return "map";
+    const { client, server } = use;
+    return process.env.WEB_ENV ? (client || "map") : (server || "map");
+  }
+
+  private static _sortComparator(a: Metadata, b: Metadata): number {
+    let i;
+
+    if (a.accessedCount > b.accessedCount) {
+      i = -1;
+    } else if (a.accessedCount < b.accessedCount) {
+      i = 1;
+    } else if (a.lastAccessed > b.lastAccessed) {
+      i = -1;
+    } else if (a.lastAccessed < b.lastAccessed) {
+      i = 1;
+    } else if (a.lastUpdated > b.lastUpdated) {
+      i = -1;
+    } else if (a.lastUpdated < b.lastUpdated) {
+      i = 1;
+    } else if (a.added > b.added) {
+      i = -1;
+    } else if (a.added < b.added) {
+      i = 1;
+    } else if (a.size < b.size) {
+      i = -1;
+    } else if (a.size > b.size) {
+      i = 1;
+    } else {
+      i = 0;
+    }
+
+    return i;
+  }
+
+  private _disableCacheInvalidation: boolean;
+  private _environment: "node" | "web";
+  private _maxHeapSize: number;
+  private _reaper: Reaper;
+  private _store: IndexedDBProxy | MapProxy | RedisProxy | StorageProxy;
+  private _storeType: StoreTypes;
+
+  constructor(args: CachemapArgs) {
+    const {
+      disableCacheInvalidation = false,
+      maxHeapSize,
+      mock = false,
+      reaperOptions,
+      redisOptions,
+      sortComparator,
+      use,
+    } = args;
+
+    const storeType = Cachemap._getStoreType(use);
+
+    if (!Cachemap._storeTypes.find((type) => type === storeType)) {
+      throw new TypeError("constructor expected store type to be 'indexedDB', 'localStorage', 'map', or 'redis'.");
+    }
+
     this._disableCacheInvalidation = disableCacheInvalidation;
-    this._maxHeapSize = maxHeapSize;
-    this._name = name;
+    this._environment = process.env.WEB_ENV ? "web" : "node";
+    this._maxHeapSize = Cachemap._calcMaxHeapSize(storeType, maxHeapSize);
     this._reaper = new Reaper(this, reaperOptions);
+    this._store = Cachemap._getStore(storeType, mock, redisOptions);
+    this._storeType = storeType;
 
     if (storageType === 'map') {
       this._env = process.env.WEB_ENV ? 'web' : 'node';
@@ -97,6 +115,8 @@ export default class Cachemap {
 
       this._getStoredMetadata();
     }
+
+    if (isFunction(sortComparator)) Cachemap._sortComparator = sortComparator;
   }
 
   /**
@@ -194,43 +214,6 @@ export default class Cachemap {
     if (this._disableCacheInvalidation) return true;
     const { cacheability } = this._getMetadataValue(key);
     return cacheability.checkTTL();
-  }
-
-  /**
-   *
-   * @private
-   * @param {Object} a
-   * @param {Object} b
-   * @return {number}
-   */
-  _comparator(a, b) {
-    let i;
-
-    if (a.accessedCount > b.accessedCount) {
-      i = -1;
-    } else if (a.accessedCount < b.accessedCount) {
-      i = 1;
-    } else if (a.lastAccessed > b.lastAccessed) {
-      i = -1;
-    } else if (a.lastAccessed < b.lastAccessed) {
-      i = 1;
-    } else if (a.lastUpdated > b.lastUpdated) {
-      i = -1;
-    } else if (a.lastUpdated < b.lastUpdated) {
-      i = 1;
-    } else if (a.added > b.added) {
-      i = -1;
-    } else if (a.added < b.added) {
-      i = 1;
-    } else if (a.size < b.size) {
-      i = -1;
-    } else if (a.size > b.size) {
-      i = 1;
-    } else {
-      i = 0;
-    }
-
-    return i;
   }
 
   /**
