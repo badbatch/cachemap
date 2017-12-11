@@ -1,27 +1,38 @@
-import IndexedDBProxy from "idb-keyval";
+import Cacheability from "cacheability";
 import { ClientOpts } from "redis";
-import LocalStorageProxy from "./local-storage-proxy";
-import MapProxy from "./map-proxy";
-import RedisProxy from "./redis-proxy";
+import IndexedDBProxy from "./proxies/indexed-db";
+import LocalStorageProxy from "./proxies/local-storage";
+import MapProxy from "./proxies/map";
+import RedisProxy from "./proxies/redis";
 
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface CachemapArgs {
   disableCacheInvalidation: boolean;
-  maxHeapSize?: { client?: number, server?: number };
-  mock: boolean;
-  reaperOptions: ReaperOptions;
-  redisOptions: ClientOpts;
+  maxHeapSize: { client?: number, server?: number };
+  name: string;
+  reaperOptions?: ReaperOptions;
+  redisOptions?: ClientOpts;
   sortComparator?(a: any, b: any): number;
-  use?: { client?: ClientStoreTypes, server?: ServerStoreTypes };
+  use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
 };
 
 export interface Metadata {
-
+  accessedCount: number;
+  added: number;
+  cacheability: Cacheability;
+  key: string;
+  lastAccessed: number;
+  lastUpdated: number;
+  size: number;
 }
 
 export interface ObjectMap {
   [key: string]: any;
+}
+
+export interface ObjectStringMap {
+  [key: string]: string;
 }
 
 export interface ReaperOptions {
