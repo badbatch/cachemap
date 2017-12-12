@@ -40,7 +40,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.10",
+    "cacheability": "0.0.11",
     "es6-promise": "^4.1.1",
     "idb-keyval": "^2.3.0",
     "isomorphic-fetch": "^2.2.1",

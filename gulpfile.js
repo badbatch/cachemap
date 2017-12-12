@@ -14,9 +14,8 @@ gulp.task('clean', () => {
 });
 
 gulp.task('main', () => {
-  const tsProject = ts.createProject('tsconfig.base.json', {
+  const tsProject = ts.createProject('tsconfig.json', {
     declaration: true,
-    module: 'es6',
   });
 
   const babelrc = {
@@ -45,9 +44,8 @@ gulp.task('main', () => {
 });
 
 gulp.task('module', () => {
-  const tsProject = ts.createProject('tsconfig.base.json', {
+  const tsProject = ts.createProject('tsconfig.json', {
     declaration: true,
-    module: 'es6',
   });
 
   const babelrc = {

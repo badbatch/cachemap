@@ -36,7 +36,6 @@ module.exports = {
           transpileOnly: true,
           compilerOptions: {
             declaration: false,
-            target: 'es5',
           },
         },
       }],
