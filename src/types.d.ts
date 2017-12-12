@@ -1,9 +1,9 @@
 import Cacheability from "cacheability";
 import { ClientOpts } from "redis";
-import IndexedDBProxy from "./proxies/indexed-db";
-import LocalStorageProxy from "./proxies/local-storage";
-import MapProxy from "./proxies/map";
-import RedisProxy from "./proxies/redis";
+import IndexedDBProxy from "./cachemap/proxies/indexed-db";
+import LocalStorageProxy from "./cachemap/proxies/local-storage";
+import MapProxy from "./cachemap/proxies/map";
+import RedisProxy from "./cachemap/proxies/redis";
 
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
@@ -34,6 +34,21 @@ export interface Metadata {
 
 export interface ObjectMap {
   [key: string]: any;
+}
+
+export interface PostMessageArgs {
+  args?: CachemapArgs;
+  callback?(value: any, key: string, cacheability: Cacheability): void;
+  key?: string;
+  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean };
+  type: string;
+  value?: any;
+}
+
+export interface PostMessageResult {
+  metadata: Metadata[];
+  result?: any;
+  usedHeapSize: number;
 }
 
 export interface ReaperOptions {

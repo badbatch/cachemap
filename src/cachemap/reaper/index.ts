@@ -1,5 +1,5 @@
 import Cachemap from "../";
-import { Metadata, ReaperOptions } from "../types";
+import { Metadata, ReaperOptions } from "../../types";
 
 export default class Reaper {
   private _cachemap: Cachemap;

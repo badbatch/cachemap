@@ -47,6 +47,7 @@
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0",
+    "promise-worker": "^1.1.1",
     "redis": "^2.8.0"
   },
   "devDependencies": {
