@@ -1,70 +1,39 @@
-import { get } from 'lodash';
+import Cachemap from "../";
+import { Metadata, ReaperOptions } from "../types";
 
-/**
- *
- * The cachemap reaper
- */
 export default class Reaper {
-  /**
-   *
-   * @constructor
-   * @param {Object} map
-   * @param {Object} options
-   * @return {void}
-   */
-  constructor(map, { interval = 60000, start = true } = {}) {
-    this._map = map;
+  private _cachemap: Cachemap;
+  private _interval: number;
+  private _intervalID: NodeJS.Timer;
+
+  constructor(cachemap: Cachemap, opts: ReaperOptions = {}) {
+    const { interval = 60000, start = true } = opts;
+    this._cachemap = cachemap;
     this._interval = interval;
     if (start) this.start();
   }
 
-  /**
-   *
-   * @private
-   * @type {number}
-   */
-  _intervalID;
-
-  /**
-   *
-   * @private
-   * @return {Array<Object>}
-   */
-  _getExpiredMetadata() {
-    return this._map.metadata.filter((entry) => {
-      if (!get(entry, ['cacheability', 'metadata', 'ttl'], null)) return false;
-      return !entry.cacheability.checkTTL();
-    });
-  }
-
-  /**
-   *
-   * @param {Array<Object>} metadata
-   * @return {Promise}
-   */
-  async cull(metadata) {
+  public async cull(metadata: Metadata[]): Promise<void> {
     if (!metadata.length) return;
 
     metadata.forEach(({ key }) => {
-      this._map.delete(key);
+      this._cachemap.delete(key);
     });
   }
 
-  /**
-   *
-   * @return {void}
-   */
-  start() {
+  public start(): void {
     this._intervalID = setInterval(() => {
       this.cull(this._getExpiredMetadata());
     }, this._interval);
   }
 
-  /**
-   *
-   * @return {void}
-   */
-  stop() {
+  public stop(): void {
     clearInterval(this._intervalID);
+  }
+
+  private _getExpiredMetadata(): Metadata[] {
+    return this._cachemap.metadata.filter((metadata) => {
+      return !metadata.cacheability.checkTTL();
+    });
   }
 }

@@ -5,8 +5,9 @@ export default class LocalProxy {
     this._storage.clear();
   }
 
-  public async delete(key: string): Promise<void> {
+  public async delete(key: string): Promise<boolean> {
     this._storage.removeItem(key);
+    return this._storage.getItem(key) === null;
   }
 
   public async get(key: string): Promise<any> {

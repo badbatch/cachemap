@@ -5,8 +5,8 @@ export default class MapProxy {
     this._map.clear();
   }
 
-  public async delete(key: string): Promise<void> {
-    this._map.delete(key);
+  public async delete(key: string): Promise<boolean> {
+    return this._map.delete(key);
   }
 
   public async get(key: string): Promise<any> {

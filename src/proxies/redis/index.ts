@@ -15,10 +15,10 @@ export default class RedisProxy {
     });
   }
 
-  public async delete(key: string): Promise<void> {
-    await new Promise((resolve) => {
+  public async delete(key: string): Promise<boolean> {
+    return new Promise((resolve: (value: boolean) => void) => {
       this._client.del(key, (err, reply) => {
-        resolve();
+        resolve(!!reply);
       });
     });
   }

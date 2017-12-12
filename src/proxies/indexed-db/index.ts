@@ -7,8 +7,9 @@ export default class IndexedDBProxy {
     await this._indexedDB.clear();
   }
 
-  public async delete(key: string): Promise<void> {
+  public async delete(key: string): Promise<boolean> {
     await this._indexedDB.delete(key);
+    return await this._indexedDB.get(key) === undefined;
   }
 
   public async get(key: string): Promise<any> {

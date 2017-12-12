@@ -7,6 +7,11 @@ import RedisProxy from "./proxies/redis";
 
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
+export interface CacheHeaders {
+  cacheControl?: string;
+  etag?: string;
+}
+
 export interface CachemapArgs {
   disableCacheInvalidation: boolean;
   maxHeapSize: { client?: number, server?: number };
@@ -31,15 +36,11 @@ export interface ObjectMap {
   [key: string]: any;
 }
 
-export interface ObjectStringMap {
-  [key: string]: string;
-}
-
 export interface ReaperOptions {
-  interval: number;
-  start: boolean;
+  interval?: number;
+  start?: boolean;
 };
 
 export type ServerStoreTypes = "map" | "redis";
-export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | StorageProxy;
+export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";
