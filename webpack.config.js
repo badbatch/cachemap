@@ -40,7 +40,7 @@ module.exports = {
         },
       }],
     }, {
-      test: /\.worker\.js$/,
+      test: /worker\.ts$/,
       use: { loader: 'worker-loader' },
     }],
   },

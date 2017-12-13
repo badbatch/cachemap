@@ -1,10 +1,20 @@
-import redis, { ClientOpts, RedisClient } from "redis";
+import { isPlainObject } from "lodash";
+import { ClientOpts, createClient, RedisClient } from "redis";
 
 export default class RedisProxy {
   private _client: RedisClient;
 
-  constructor(options?: ClientOpts) {
-    this._client = redis.createClient(options);
+  constructor(opts: ClientOpts = {}, mock?: boolean) {
+    if (!isPlainObject(opts)) {
+      throw new TypeError("constructor expected opts to be a plain object.");
+    }
+
+    if (mock) {
+      const redisMock = require("redis-mock");
+      this._client = redisMock.createClient(opts);
+    } else {
+      this._client = createClient(opts);
+    }
   }
 
   public async clear(): Promise<void> {

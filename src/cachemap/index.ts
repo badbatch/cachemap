@@ -1,8 +1,8 @@
 import Cacheability from "cacheability";
 import { polyfill } from "es6-promise";
 import "isomorphic-fetch";
-import { isFunction, isPlainObject, isString } from "lodash";
-import md5 from "md5";
+import { isBoolean, isFunction, isPlainObject, isString } from "lodash";
+import * as md5 from "md5";
 import { sizeof } from "object-sizeof";
 import { ClientOpts } from "redis";
 import MapProxy from "./proxies/map";
@@ -88,6 +88,7 @@ export default class Cachemap {
   private _maxHeapSize: number;
   private _maxHeapThreshold: number;
   private _metadata: Metadata[] = [];
+  private _mockRedis: boolean;
   private _name: string;
   private _reaper: Reaper;
   private _redisOptions?: ClientOpts;
@@ -103,6 +104,7 @@ export default class Cachemap {
     const {
       disableCacheInvalidation = false,
       maxHeapSize = {},
+      mockRedis,
       name,
       reaperOptions,
       redisOptions,
@@ -140,6 +142,7 @@ export default class Cachemap {
     );
 
     this._maxHeapThreshold = this._maxHeapSize !== Infinity ? (this._maxHeapSize * 0.8) : Infinity;
+    this._mockRedis = isBoolean(mockRedis) ? mockRedis : false;
     this._name = name;
     this._reaper = new Reaper(this, reaperOptions);
     if (isPlainObject(redisOptions)) this._redisOptions = redisOptions;
@@ -355,10 +358,10 @@ export default class Cachemap {
 
     if (process.env.WEB_ENV) {
       if (this._storeType === "indexedDB" && window.hasOwnProperty("indexedDB")) {
-        const indexedDBProxy = require("./proxies/indexed-db");
+        const indexedDBProxy = await import("./proxies/indexed-db");
         this._store = new indexedDBProxy.default();
       } else if (window.hasOwnProperty("localStorage")) {
-        const module = require("./proxies/local-storage");
+        const module = await import("./proxies/local-storage");
         this._store = new module.default();
         this._storeType = "localStorage";
       } else {
@@ -366,8 +369,8 @@ export default class Cachemap {
         this._storeType = "map";
       }
     } else {
-      const module = require("./proxies/redis");
-      this._store = new module.default(this._redisOptions);
+      const module = await import("./proxies/redis");
+      this._store = new module.default(this._redisOptions, this._mockRedis);
     }
   }
 

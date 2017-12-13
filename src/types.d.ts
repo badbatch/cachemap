@@ -16,6 +16,7 @@ export interface CacheHeaders {
 export interface CachemapArgs {
   disableCacheInvalidation?: boolean;
   maxHeapSize?: { client?: number, server?: number };
+  mockRedis?: boolean;
   name: string;
   reaperOptions?: ReaperOptions;
   redisOptions?: ClientOpts;

@@ -12,7 +12,7 @@ import {
 export default class WorkerCachemap {
   public static async create(args: CachemapArgs): Promise<WorkerCachemap> {
     const workerCachemap = new WorkerCachemap();
-    workerCachemap._worker = new PromiseWorker(new Worker("../worker.js"));
+    workerCachemap._worker = new PromiseWorker(new Worker("../worker.ts"));
     const { metadata, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
     workerCachemap._setMetadata(metadata, usedHeapSize);
     return workerCachemap;

@@ -1,4 +1,4 @@
-import idbKeyval from "idb-keyval";
+import * as idbKeyval from "idb-keyval";
 
 export default class IndexedDBProxy {
   private _indexedDB = idbKeyval;
