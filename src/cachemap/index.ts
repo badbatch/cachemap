@@ -96,6 +96,10 @@ export default class Cachemap {
   private _usedHeapSize: number = 0;
 
   constructor(args: CachemapArgs) {
+    if (!isPlainObject(args)) {
+      throw new TypeError("constructor expected args to ba a plain object.");
+    }
+
     const {
       disableCacheInvalidation = false,
       maxHeapSize = {},
@@ -349,10 +353,10 @@ export default class Cachemap {
     }
 
     if (process.env.WEB_ENV) {
-      if (this._storeType === "indexedDB" && window.indexedDB) {
+      if (this._storeType === "indexedDB" && window.hasOwnProperty("indexedDB")) {
         const indexedDBProxy = await import("./proxies/indexed-db");
         this._store = new indexedDBProxy.default();
-      } else if (window.localStorage) {
+      } else if (window.hasOwnProperty("localStorage")) {
         const module = await import("./proxies/local-storage");
         this._store = new module.default();
         this._storeType = "localStorage";
