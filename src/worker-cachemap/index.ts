@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import { PromiseWorker } from "promise-worker";
+import PromiseWorker from "promise-worker";
 
 import {
   CacheHeaders,

@@ -275,8 +275,9 @@ export default class Cachemap {
     }
 
     if (errors.length) throw errors;
+    const cacheHeaders = opts.cacheHeaders || {};
     const cacheability = new Cacheability();
-    const metadata = cacheability.parseHeaders(new Headers(opts.cacheHeaders));
+    const metadata = cacheability.parseHeaders(new Headers(cacheHeaders));
     const cacheControl = metadata.cacheControl;
     if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
     const _key = opts.hash ? Cachemap._hash(key) : key;
@@ -354,10 +355,10 @@ export default class Cachemap {
 
     if (process.env.WEB_ENV) {
       if (this._storeType === "indexedDB" && window.hasOwnProperty("indexedDB")) {
-        const indexedDBProxy = await import("./proxies/indexed-db");
+        const indexedDBProxy = require("./proxies/indexed-db");
         this._store = new indexedDBProxy.default();
       } else if (window.hasOwnProperty("localStorage")) {
-        const module = await import("./proxies/local-storage");
+        const module = require("./proxies/local-storage");
         this._store = new module.default();
         this._storeType = "localStorage";
       } else {
@@ -365,7 +366,7 @@ export default class Cachemap {
         this._storeType = "map";
       }
     } else {
-      const module = await import("./proxies/redis");
+      const module = require("./proxies/redis");
       this._store = new module.default(this._redisOptions);
     }
   }

@@ -39,12 +39,18 @@ module.exports = {
           },
         },
       }],
+    }, {
+      test: /\.worker\.js$/,
+      use: { loader: 'worker-loader' },
     }],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   plugins: [
+    new webpack.EnvironmentPlugin({
+      WEB_ENV: true,
+    }),
     new webpack.optimize.UglifyJsPlugin({
       include: /\.min\.js$/,
       sourceMap: true,

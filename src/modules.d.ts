@@ -3,7 +3,7 @@ declare module "object-sizeof" {
 }
 
 declare module "promise-worker" {
-  export class PromiseWorker {
+  export default class PromiseWorker {
     constructor(worker: Worker);
     postMessage(message: any): Promise<any>;
   }

@@ -10,11 +10,12 @@ export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 export interface CacheHeaders {
   cacheControl?: string;
   etag?: string;
+  [key: string]: string;
 }
 
 export interface CachemapArgs {
-  disableCacheInvalidation: boolean;
-  maxHeapSize: { client?: number, server?: number };
+  disableCacheInvalidation?: boolean;
+  maxHeapSize?: { client?: number, server?: number };
   name: string;
   reaperOptions?: ReaperOptions;
   redisOptions?: ClientOpts;
