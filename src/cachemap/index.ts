@@ -1,7 +1,7 @@
 import Cacheability from "cacheability";
 import { polyfill } from "es6-promise";
 import "isomorphic-fetch";
-import { isBoolean, isFunction, isPlainObject, isString } from "lodash";
+import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import { sizeof } from "object-sizeof";
 import { ClientOpts } from "redis";
@@ -357,11 +357,11 @@ export default class Cachemap {
     }
 
     if (process.env.WEB_ENV) {
-      if (this._storeType === "indexedDB" && window.hasOwnProperty("indexedDB")) {
-        const indexedDBProxy = await import("./proxies/indexed-db");
+      if (this._storeType === "indexedDB" && self.hasOwnProperty("indexedDB")) {
+        const indexedDBProxy = require("./proxies/indexed-db");
         this._store = new indexedDBProxy.default();
-      } else if (window.hasOwnProperty("localStorage")) {
-        const module = await import("./proxies/local-storage");
+      } else if (self.hasOwnProperty("localStorage")) {
+        const module = require("./proxies/local-storage");
         this._store = new module.default();
         this._storeType = "localStorage";
       } else {
@@ -369,7 +369,7 @@ export default class Cachemap {
         this._storeType = "map";
       }
     } else {
-      const module = await import("./proxies/redis");
+      const module = require("./proxies/redis");
       this._store = new module.default(this._redisOptions, this._mockRedis);
     }
   }
@@ -401,7 +401,8 @@ export default class Cachemap {
 
   private async _retreiveMetadata(): Promise<void> {
     try {
-      this._metadata = await this._store.get(`${this._name} metadata`);
+      const metadata = await this._store.get(`${this._name} metadata`);
+      if (isArray(metadata)) this._metadata = metadata;
     } catch (error) {
       // no catch
     }

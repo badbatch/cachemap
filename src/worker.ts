@@ -1,4 +1,4 @@
-import { registerPromiseWorker } from "promise-worker/register";
+import registerPromiseWorker from "promise-worker/register";
 import Cachemap from "./cachemap";
 import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 

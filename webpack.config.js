@@ -24,6 +24,7 @@ module.exports = {
           plugins: ['lodash'],
           presets: [
             ['@babel/preset-env', {
+              debug: true,
               targets: { browsers: 'last 4 versions' },
               useBuiltIns: 'usage',
             }],
@@ -40,7 +41,7 @@ module.exports = {
         },
       }],
     }, {
-      test: /worker\.ts$/,
+      test: /\.worker\.js$/,
       use: { loader: 'worker-loader' },
     }],
   },

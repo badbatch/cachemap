@@ -20,9 +20,9 @@ export interface CachemapArgs {
   name: string;
   reaperOptions?: ReaperOptions;
   redisOptions?: ClientOpts;
-  sortComparator?(a: any, b: any): number;
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
-};
+  sortComparator?(a: any, b: any): number;
+}
 
 export interface Metadata {
   accessedCount: number;
@@ -40,11 +40,11 @@ export interface ObjectMap {
 
 export interface PostMessageArgs {
   args?: CachemapArgs;
-  callback?(value: any, key: string, cacheability: Cacheability): void;
   key?: string;
   opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean };
   type: string;
   value?: any;
+  callback?(value: any, key: string, cacheability: Cacheability): void;
 }
 
 export interface PostMessageResult {
@@ -56,7 +56,7 @@ export interface PostMessageResult {
 export interface ReaperOptions {
   interval?: number;
   start?: boolean;
-};
+}
 
 export type ServerStoreTypes = "map" | "redis";
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
