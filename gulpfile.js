@@ -5,6 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
 const { Linter } = require('tslint');
+const webpack = require('webpack-stream');
 
 gulp.task('clean', () => del('lib/*', { force: true }));
 
@@ -59,30 +60,8 @@ gulp.task('module', () => {
     .pipe(gulp.dest('lib/module'));
 });
 
-gulp.task('browser', () => {
-  const tsProject = ts.createProject('tsconfig.json');
-
-  const babelrc = {
-    ignore: ['**/*.d.ts'],
-    plugins: ['lodash'],
-    presets: [
-      ['@babel/preset-env', {
-        debug: true,
-        modules: false,
-        targets: { browsers: 'last 4 versions' },
-        useBuiltIns: 'usage',
-      }],
-      '@babel/preset-stage-0',
-    ],
-  };
-
-  return gulp.src(['src/**/*.ts'])
-    .pipe(sourcemaps.init())
-    .pipe(tsProject())
-    .pipe(babel(babelrc))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('lib/browser'));
-});
+gulp.task('browser', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
+  .pipe(gulp.dest('lib/browser')));
 
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', {

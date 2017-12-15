@@ -1,6 +1,4 @@
 import Cacheability from "cacheability";
-import { polyfill } from "es6-promise";
-import "isomorphic-fetch";
 import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import { sizeof } from "object-sizeof";
@@ -15,8 +13,6 @@ import {
   StoreProxyTypes,
   StoreTypes,
 } from "../types";
-
-polyfill();
 
 export default class Cachemap {
   public static async create(args: CachemapArgs): Promise<Cachemap> {

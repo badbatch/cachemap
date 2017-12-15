@@ -1,6 +1,13 @@
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  entry: {
+    index: './src/index.ts',
+  },
+  output: {
+    filename: '[name].js',
+  },
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -24,6 +31,11 @@ module.exports = {
           transpileOnly: true,
         },
       }],
+    }, {
+      test: /.worker\.js$/,
+      use: {
+        loader: 'worker-loader',
+      },
     }],
   },
   resolve: {
@@ -33,6 +45,10 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       WEB_ENV: true,
     }),
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+    }),
+    new LodashModuleReplacementPlugin(),
   ],
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 };

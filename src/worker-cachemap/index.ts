@@ -11,8 +11,9 @@ import {
 
 export default class WorkerCachemap {
   public static async create(args: CachemapArgs): Promise<WorkerCachemap> {
+    const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
     const workerCachemap = new WorkerCachemap();
-    workerCachemap._worker = new PromiseWorker(new Worker("worker.js"));
+    workerCachemap._worker = new PromiseWorker(new webpackWorker());
     const { metadata, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
     workerCachemap._setMetadata(metadata, usedHeapSize);
     return workerCachemap;

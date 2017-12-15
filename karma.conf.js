@@ -10,7 +10,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/**/*': ['webpack', 'sourcemap'],
     },
-    webpack: webpackConfig,
+    webpack: { ...webpackConfig, devtool: 'cheap-module-eval-source-map' },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
