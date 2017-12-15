@@ -1,19 +1,6 @@
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const { resolve } = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    cachemap: './src/index.ts',
-    'cachemap.min': './src/index.ts',
-  },
-  output: {
-    filename: '[name].js',
-    libraryTarget: 'umd',
-    library: 'Cachemap',
-    path: resolve(__dirname, 'lib', 'browser'),
-    umdNamedDefine: true,
-  },
   module: {
     rules: [{
       test: /\.tsx?$/,
@@ -35,14 +22,8 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
-          compilerOptions: {
-            declaration: false,
-          },
         },
       }],
-    }, {
-      test: /\.worker\.js$/,
-      use: { loader: 'worker-loader' },
     }],
   },
   resolve: {
@@ -52,11 +33,6 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       WEB_ENV: true,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      sourceMap: true,
-    }),
-    new LodashModuleReplacementPlugin(),
   ],
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
 };

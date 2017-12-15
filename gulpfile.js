@@ -4,14 +4,9 @@ const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
-const merge = require('merge-stream');
-const { Linter } = require('tslint')
-const { getPreEmitDiagnostics } = require('typescript');
-const webpack = require('webpack-stream');
+const { Linter } = require('tslint');
 
-gulp.task('clean', () => {
-  return del('lib/*', { force: true });
-});
+gulp.task('clean', () => del('lib/*', { force: true }));
 
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', {
@@ -23,59 +18,69 @@ gulp.task('main', () => {
     plugins: ['lodash'],
     presets: [
       ['@babel/preset-env', {
+        debug: true,
         targets: { node: '6' },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
       }],
-      '@babel/preset-stage-0'
-    ]
+      '@babel/preset-stage-0',
+    ],
   };
 
-  const transpiled = gulp.src(['src/**/*.ts'])
+  return gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel(babelrc))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/main'));
-
-  const copied = gulp.src(['src/**/*.d.ts'])
-    .pipe(gulp.dest('lib/main'));
-
-  return merge(transpiled, copied);
 });
 
 gulp.task('module', () => {
-  const tsProject = ts.createProject('tsconfig.json', {
-    declaration: true,
-  });
+  const tsProject = ts.createProject('tsconfig.json');
 
   const babelrc = {
     ignore: ['**/*.d.ts'],
     plugins: ['lodash'],
     presets: [
       ['@babel/preset-env', {
-        "modules": false,
+        debug: true,
+        modules: false,
         targets: { node: '6' },
-        useBuiltIns: 'usage'
+        useBuiltIns: 'usage',
       }],
-      '@babel/preset-stage-0'
-    ]
+      '@babel/preset-stage-0',
+    ],
   };
 
-  const transpiled = gulp.src(['src/**/*.ts'])
+  return gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel(babelrc))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/module'));
-
-  const copied = gulp.src(['src/**/*.d.ts'])
-    .pipe(gulp.dest('lib/module'));
-
-  return merge(transpiled, copied);
 });
 
 gulp.task('browser', () => {
-  return webpack(require('./webpack.config'))
+  const tsProject = ts.createProject('tsconfig.json');
+
+  const babelrc = {
+    ignore: ['**/*.d.ts'],
+    plugins: ['lodash'],
+    presets: [
+      ['@babel/preset-env', {
+        debug: true,
+        modules: false,
+        targets: { browsers: 'last 4 versions' },
+        useBuiltIns: 'usage',
+      }],
+      '@babel/preset-stage-0',
+    ],
+  };
+
+  return gulp.src(['src/**/*.ts'])
+    .pipe(sourcemaps.init())
+    .pipe(tsProject())
+    .pipe(babel(babelrc))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/browser'));
 });
 

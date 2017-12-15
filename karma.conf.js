@@ -1,5 +1,3 @@
-const { resolve } = require('path');
-const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 
 module.exports = (config) => {
@@ -12,7 +10,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/**/*': ['webpack', 'sourcemap'],
     },
-    webpack: { ...webpackConfig, devtool: 'cheap-module-eval-source-map' },
+    webpack: webpackConfig,
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -20,7 +18,7 @@ module.exports = (config) => {
     concurrency: Infinity,
     client: { captureConsole: true },
     mime: {
-      'text/x-typescript': ['ts','tsx'],
+      'text/x-typescript': ['ts', 'tsx'],
     },
   });
 };
