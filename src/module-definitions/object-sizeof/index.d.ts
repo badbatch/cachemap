@@ -1,3 +1,5 @@
 declare module "object-sizeof" {
-  export function sizeof(object: any): number;
+  function sizeof(object: any): number;
+  namespace sizeof {};
+  export = sizeof;
 }

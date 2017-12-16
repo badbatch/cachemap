@@ -1,7 +1,7 @@
 import Cacheability from "cacheability";
 import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
-import { sizeof } from "object-sizeof";
+import * as sizeof from "object-sizeof";
 import { ClientOpts } from "redis";
 import MapProxy from "./proxies/map";
 import Reaper from "./reaper";
@@ -276,7 +276,7 @@ export default class Cachemap {
     if (errors.length) throw errors;
     const cacheHeaders = opts.cacheHeaders || {};
     const cacheability = new Cacheability();
-    const metadata = cacheability.parseHeaders(new Headers(cacheHeaders));
+    const metadata = cacheability.parseHeaders(cacheHeaders);
     const cacheControl = metadata.cacheControl;
     if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
     const _key = opts.hash ? Cachemap._hash(key) : key;

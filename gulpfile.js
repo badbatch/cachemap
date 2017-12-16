@@ -4,6 +4,7 @@ const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const tslint = require('gulp-tslint');
 const ts = require('gulp-typescript');
+const merge = require('merge-stream');
 const { Linter } = require('tslint');
 const webpack = require('webpack-stream');
 
@@ -27,12 +28,17 @@ gulp.task('main', () => {
     ],
   };
 
-  return gulp.src(['src/**/*.ts'])
+  const transpiled = gulp.src(['src/**/*.ts'])
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel(babelrc))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('lib/main'));
+
+  const copied = gulp.src(['src/**/*.d.ts'])
+    .pipe(gulp.dest('lib/main'));
+
+  return merge(transpiled, copied);
 });
 
 gulp.task('module', () => {
