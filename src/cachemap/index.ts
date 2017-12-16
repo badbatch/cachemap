@@ -2,9 +2,11 @@ import Cacheability from "cacheability";
 import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import * as sizeof from "object-sizeof";
-import { ClientOpts } from "redis";
+import IndexedDBProxy from "./proxies/indexed-db";
+import LocalStorageProxy from "./proxies/local-storage";
 import MapProxy from "./proxies/map";
 import Reaper from "./reaper";
+import { ClientOpts } from "redis";
 
 import {
   CacheHeaders,
@@ -39,6 +41,10 @@ export default class Cachemap {
     }
 
     return max;
+  }
+
+  private static _calcMaxHeapThreshold(maxHeapSize: number): number {
+    return maxHeapSize !== Infinity ? (maxHeapSize * 0.8) : Infinity;
   }
 
   private static _getStoreType(storeType?: StoreTypes): StoreTypes {
@@ -137,7 +143,7 @@ export default class Cachemap {
       process.env.WEB_ENV ? maxHeapSize.client : maxHeapSize.server,
     );
 
-    this._maxHeapThreshold = this._maxHeapSize !== Infinity ? (this._maxHeapSize * 0.8) : Infinity;
+    this._maxHeapThreshold = Cachemap._calcMaxHeapThreshold(this._maxHeapSize);
     this._mockRedis = isBoolean(mockRedis) ? mockRedis : false;
     this._name = name;
     this._reaper = new Reaper(this, reaperOptions);
@@ -352,21 +358,20 @@ export default class Cachemap {
       return;
     }
 
-    if (process.env.WEB_ENV) {
-      if (this._storeType === "indexedDB" && self.hasOwnProperty("indexedDB")) {
-        const indexedDBProxy = require("./proxies/indexed-db");
-        this._store = new indexedDBProxy.default();
-      } else if (self.hasOwnProperty("localStorage")) {
-        const module = require("./proxies/local-storage");
-        this._store = new module.default();
-        this._storeType = "localStorage";
-      } else {
-        this._store = new MapProxy();
-        this._storeType = "map";
-      }
-    } else {
+    if (!process.env.WEB_ENV) {
       const module = require("./proxies/redis");
       this._store = new module.default(this._redisOptions, this._mockRedis);
+    } else {
+      if (this._storeType === "indexedDB" && self.indexedDB) {
+        this._store = new IndexedDBProxy();
+      } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
+        this._store = new LocalStorageProxy();
+      } else {
+        this._storeType = "map";
+        this._store = new MapProxy();
+        this._maxHeapSize = Cachemap._calcMaxHeapSize(this._storeType);
+        this._maxHeapThreshold = Cachemap._calcMaxHeapThreshold(this._maxHeapSize);
+      }
     }
   }
 

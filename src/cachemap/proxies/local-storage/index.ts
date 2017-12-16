@@ -1,4 +1,4 @@
-export default class LocalProxy {
+export default class LocalStorageProxy {
   private _storage = window.localStorage;
 
   public async clear(): Promise<void> {
