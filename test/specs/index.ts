@@ -1,6 +1,5 @@
 import Cacheability from "cacheability";
 import { expect } from "chai";
-import * as delay from "delay";
 import testData from "../data";
 import createCachemap from "../../src";
 import Cachemap from "../../src/cachemap";
@@ -102,7 +101,7 @@ function testCachemapClass(args: CachemapArgs): void {
             const updatedMetadata = cachemap.metadata[0];
             expect(updatedMetadata.accessedCount).to.equal(0);
             expect(updatedMetadata.added).to.equal(metadata.added);
-            expect(updatedMetadata.cacheability).to.deep.equal(metadata.cacheability);
+            expect(updatedMetadata.cacheability.metadata.ttl).to.be.above(metadata.cacheability.metadata.ttl);
             expect(updatedMetadata.key).to.equal(metadata.key);
             expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
             expect(updatedMetadata.lastUpdated).to.be.above(metadata.lastUpdated);

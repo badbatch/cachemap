@@ -40,8 +40,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.17",
-    "delay": "^2.0.0",
+    "cacheability": "0.0.21",
     "idb-keyval": "^2.3.0",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
@@ -54,7 +53,6 @@
     "@babel/preset-env": "^7.0.0-beta.32",
     "@babel/preset-stage-0": "^7.0.0-beta.32",
     "@types/chai": "^4.0.8",
-    "@types/delay": "^2.0.1",
     "@types/lodash": "^4.14.85",
     "@types/md5": "^2.1.32",
     "@types/mocha": "^2.2.44",
