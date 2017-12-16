@@ -33,8 +33,9 @@ describe("the createCachemap method", () => {
     context("when the environment is a browser", () => {
       context("when use.client is set to 'indexedDB'", () => {
         it("the method should return an instance of the WorkerCachemap class that uses indexedDB", async () => {
-          const workerCachemap = await createCachemap(workerArgs);
+          const workerCachemap = await createCachemap(workerArgs) as WorkerCachemap;
           expect(workerCachemap).to.be.instanceof(WorkerCachemap);
+          workerCachemap.terminate();
         });
       });
 
@@ -74,6 +75,7 @@ function testCachemapClass(args: CachemapArgs): void {
 
       after(async () => {
         await cachemap.clear();
+        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       context("when a new key/value pair is stored in the cachemap", () => {

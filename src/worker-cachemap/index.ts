@@ -13,14 +13,16 @@ export default class WorkerCachemap {
   public static async create(args: CachemapArgs): Promise<WorkerCachemap> {
     const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
     const workerCachemap = new WorkerCachemap();
-    workerCachemap._worker = new PromiseWorker(new webpackWorker());
+    workerCachemap._worker = new webpackWorker();
+    workerCachemap._promiseWorker = new PromiseWorker(workerCachemap._worker);
     const { metadata, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
     workerCachemap._setMetadata(metadata, usedHeapSize);
     return workerCachemap;
   }
 
   private _metadata: Metadata[] = [];
-  private _worker: PromiseWorker;
+  private _promiseWorker: PromiseWorker;
+  private _worker: Worker;
   private _usedHeapSize: number = 0;
 
   get metadata(): Metadata[] {
@@ -73,11 +75,15 @@ export default class WorkerCachemap {
     return result;
   }
 
+  public terminate(): void {
+    this._worker.terminate();
+  }
+
   private async _postMessage(args: PostMessageArgs): Promise<PostMessageResult> {
     let message: PostMessageResult;
 
     try {
-      message = await this._worker.postMessage(args);
+      message = await this._promiseWorker.postMessage(args);
     } catch (error) {
       throw error;
     }
