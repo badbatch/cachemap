@@ -63,6 +63,31 @@ function testCachemapClass(args: CachemapArgs): void {
   describe(`the cachemap class for the ${args.name}`, () => {
     let cachemap: Cachemap | WorkerCachemap;
 
+    describe("the delete method", () => {
+      context("when a key exists in the cachemap", () => {
+        const key: string = testData["136-7317"].url;
+        const value: ObjectMap = testData["136-7317"].body;
+        const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
+        const hash = true;
+
+        before(async () => {
+          cachemap = await createCachemap(args);
+          await cachemap.set(key, value, { cacheHeaders, hash });
+        });
+
+        after(async () => {
+          await cachemap.clear();
+          if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+        });
+
+        it("then the method should delete the key/value pair", async () => {
+          await cachemap.delete(key, { hash });
+          expect(await cachemap.size()).to.eql(1);
+          expect(cachemap.metadata).lengthOf(0);
+        });
+      });
+    });
+
     describe("the has method", () => {
       const key: string = testData["136-7317"].url;
       const value: ObjectMap = testData["136-7317"].body;
