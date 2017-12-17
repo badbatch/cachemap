@@ -7,6 +7,7 @@ import {
   Metadata,
   PostMessageArgs,
   PostMessageResult,
+  WorkerMetadata,
 } from "../types";
 
 export default class WorkerCachemap {
@@ -91,7 +92,16 @@ export default class WorkerCachemap {
     return message;
   }
 
-  private _setMetadata(metadata: Metadata[], usedHeapSize: number): void {
+  private _setMetadata(workerMetadata: WorkerMetadata[], usedHeapSize: number): void {
+    const metadata: Metadata[] = [];
+
+    workerMetadata.forEach(({ cacheability: cacheabilityObject, ...props }) => {
+      const cacheability = new Cacheability();
+      cacheability.metadata = cacheabilityObject.metadata;
+      const metadataEntry: Metadata = { ...props, cacheability };
+      metadata.push(metadataEntry);
+    });
+
     this._metadata = metadata;
     this._usedHeapSize = usedHeapSize;
   }

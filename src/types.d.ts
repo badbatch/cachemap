@@ -1,11 +1,13 @@
-import Cacheability from "cacheability";
+import Cacheability, { CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
 import IndexedDBProxy from "./cachemap/proxies/indexed-db";
 import LocalStorageProxy from "./cachemap/proxies/local-storage";
 import MapProxy from "./cachemap/proxies/map";
 import RedisProxy from "./cachemap/proxies/redis";
 
-export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
+export interface CacheabilityObject {
+  metadata: CacheabilityMetadata;
+}
 
 export interface CacheHeaders {
   cacheControl?: string;
@@ -23,6 +25,8 @@ export interface CachemapArgs {
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
   sortComparator?(a: any, b: any): number;
 }
+
+export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface Metadata {
   accessedCount: number;
@@ -48,7 +52,7 @@ export interface PostMessageArgs {
 }
 
 export interface PostMessageResult {
-  metadata: Metadata[];
+  metadata: WorkerMetadata[];
   result?: any;
   usedHeapSize: number;
 }
@@ -61,3 +65,13 @@ export interface ReaperOptions {
 export type ServerStoreTypes = "map" | "redis";
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";
+
+export interface WorkerMetadata {
+  accessedCount: number;
+  added: number;
+  cacheability: CacheabilityObject;
+  key: string;
+  lastAccessed: number;
+  lastUpdated: number;
+  size: number;
+}

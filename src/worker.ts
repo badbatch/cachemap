@@ -1,11 +1,19 @@
 import registerPromiseWorker from "promise-worker/register";
 import Cachemap from "./cachemap";
-import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
+import { CacheabilityObject, PostMessageArgs, PostMessageResult, WorkerMetadata } from "./types";
 
 let cachemap: Cachemap;
 
-function getMetadata({ metadata, usedHeapSize }: Cachemap): { metadata: Metadata[], usedHeapSize: number } {
-  return { metadata, usedHeapSize };
+function getMetadata({ metadata, usedHeapSize }: Cachemap): { metadata: WorkerMetadata[], usedHeapSize: number } {
+  const workerMetadata: WorkerMetadata[] = [];
+
+  metadata.forEach(({ cacheability, ...props }) => {
+    const cacheabilityObject: CacheabilityObject = { metadata: cacheability.metadata };
+    const workerMetadataEntry: WorkerMetadata = { ...props, cacheability: cacheabilityObject };
+    workerMetadata.push(workerMetadataEntry);
+  });
+
+  return { metadata: workerMetadata, usedHeapSize };
 }
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {
