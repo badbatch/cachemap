@@ -7,7 +7,6 @@ import {
   Metadata,
   PostMessageArgs,
   PostMessageResult,
-  WorkerMetadata,
 } from "../types";
 
 export default class WorkerCachemap {
@@ -59,7 +58,10 @@ export default class WorkerCachemap {
   public async has(key: string, opts: { deleteExpired?: boolean, hash?: boolean } = {}): Promise<Cacheability | false> {
     const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "has" });
     this._setMetadata(metadata, usedHeapSize);
-    return result;
+    if (!result) return false;
+    const cacheability = new Cacheability();
+    cacheability.metadata = result.metadata;
+    return cacheability;
   }
 
   public async set(
@@ -92,7 +94,7 @@ export default class WorkerCachemap {
     return message;
   }
 
-  private _setMetadata(workerMetadata: WorkerMetadata[], usedHeapSize: number): void {
+  private _setMetadata(workerMetadata: Metadata[], usedHeapSize: number): void {
     const metadata: Metadata[] = [];
 
     workerMetadata.forEach(({ cacheability: cacheabilityObject, ...props }) => {

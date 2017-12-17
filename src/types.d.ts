@@ -5,10 +5,6 @@ import LocalStorageProxy from "./cachemap/proxies/local-storage";
 import MapProxy from "./cachemap/proxies/map";
 import RedisProxy from "./cachemap/proxies/redis";
 
-export interface CacheabilityObject {
-  metadata: CacheabilityMetadata;
-}
-
 export interface CacheHeaders {
   cacheControl?: string;
   etag?: string;
@@ -52,7 +48,7 @@ export interface PostMessageArgs {
 }
 
 export interface PostMessageResult {
-  metadata: WorkerMetadata[];
+  metadata: Metadata[];
   result?: any;
   usedHeapSize: number;
 }
@@ -65,13 +61,3 @@ export interface ReaperOptions {
 export type ServerStoreTypes = "map" | "redis";
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";
-
-export interface WorkerMetadata {
-  accessedCount: number;
-  added: number;
-  cacheability: CacheabilityObject;
-  key: string;
-  lastAccessed: number;
-  lastUpdated: number;
-  size: number;
-}
