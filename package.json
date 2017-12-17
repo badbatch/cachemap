@@ -36,7 +36,7 @@
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
     "test:node": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" nyc mocha --opts \"./mocha.opts\"",
-    "test:web": "karma start --single-run --browsers PhantomJS",
+    "test:web": "karma start --single-run --browsers ChromeHeadless",
     "type-check": "gulp type-check"
   },
   "dependencies": {
@@ -82,7 +82,6 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-mocha": "^1.3.0",
-    "karma-phantomjs-launcher": "^1.0.4",
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.6",
@@ -90,7 +89,6 @@
     "merge-stream": "^1.0.1",
     "mocha": "^4.0.1",
     "nyc": "^11.0.3",
-    "phantomjs-prebuilt": "^2.1.16",
     "sinon": "^4.1.2",
     "sinon-chai": "^2.11.0",
     "source-map-support": "^0.5.0",
