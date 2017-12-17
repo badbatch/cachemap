@@ -11,7 +11,8 @@ export default class LocalStorageProxy {
   }
 
   public async get(key: string): Promise<any> {
-    return Promise.resolve(this._storage.getItem(key));
+    const item = this._storage.getItem(key);
+    if (item) return Promise.resolve(JSON.parse(item));
   }
 
   public async has(key: string): Promise<boolean> {
@@ -19,7 +20,7 @@ export default class LocalStorageProxy {
   }
 
   public async set(key: string, value: any): Promise<void> {
-    this._storage.setItem(key, value);
+    this._storage.setItem(key, JSON.stringify(value));
   }
 
   public async size(): Promise<number> {

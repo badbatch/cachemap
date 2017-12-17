@@ -61,15 +61,14 @@ describe("the createCachemap method", () => {
 
 function testCachemapClass(args: CachemapArgs): void {
   describe(`the cachemap class for the ${args.name}`, () => {
+    const key: string = testData["136-7317"].url;
+    const value: ObjectMap = testData["136-7317"].body;
+    const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
+    const hash = true;
     let cachemap: Cachemap | WorkerCachemap;
 
     describe("the delete method", () => {
       context("when a key exists in the cachemap", () => {
-        const key: string = testData["136-7317"].url;
-        const value: ObjectMap = testData["136-7317"].body;
-        const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
-        const hash = true;
-
         before(async () => {
           cachemap = await createCachemap(args);
           await cachemap.set(key, value, { cacheHeaders, hash });
@@ -88,12 +87,37 @@ function testCachemapClass(args: CachemapArgs): void {
       });
     });
 
-    describe("the has method", () => {
-      const key: string = testData["136-7317"].url;
-      const value: ObjectMap = testData["136-7317"].body;
-      const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
-      const hash = true;
+    describe("the get method", () => {
+      let metadata: Metadata;
 
+      context("when a key exists in the cachemap", () => {
+        before(async () => {
+          cachemap = await createCachemap(args);
+          await cachemap.set(key, value, { cacheHeaders, hash });
+          metadata = { ...cachemap.metadata[0] };
+        });
+
+        after(async () => {
+          await cachemap.clear();
+          if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+        });
+
+        it("then the method should return the value and update the metadata", async () => {
+          const result = await cachemap.get(key, { hash });
+          expect(result).to.deep.equal(value);
+          const updatedMetadata = cachemap.metadata[0];
+          expect(updatedMetadata.accessedCount).to.equal(1);
+          expect(updatedMetadata.added).to.equal(metadata.added);
+          expect(updatedMetadata.cacheability).to.deep.equal(metadata.cacheability);
+          expect(updatedMetadata.key).to.equal(metadata.key);
+          expect(updatedMetadata.lastAccessed).to.be.above(metadata.lastAccessed);
+          expect(updatedMetadata.lastUpdated).to.equal(metadata.lastUpdated);
+          expect(updatedMetadata.size).to.equal(metadata.size);
+        });
+      });
+    });
+
+    describe("the has method", () => {
       before(async () => {
         cachemap = await createCachemap(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
@@ -133,10 +157,6 @@ function testCachemapClass(args: CachemapArgs): void {
     });
 
     describe("the set method", () => {
-      const key: string = testData["136-7317"].url;
-      const value: ObjectMap = testData["136-7317"].body;
-      const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
-      const hash = true;
       let metadata: Metadata;
 
       before(async () => {
