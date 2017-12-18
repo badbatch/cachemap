@@ -44,7 +44,6 @@ export interface PostMessageArgs {
   opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean };
   type: string;
   value?: any;
-  callback?(value: any, key: string, cacheability: Cacheability): void;
 }
 
 export interface PostMessageResult {

@@ -9,7 +9,7 @@ function getMetadata({ metadata, usedHeapSize }: Cachemap): { metadata: Metadata
 }
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {
-  const { args, callback, key, opts, type, value } = message;
+  const { args, key, opts, type, value } = message;
 
   if (type === "create" && args) {
     cachemap = await Cachemap.create(args);
