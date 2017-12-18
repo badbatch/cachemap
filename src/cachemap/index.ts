@@ -193,20 +193,6 @@ export default class Cachemap {
     return true;
   }
 
-  public async forEach(callback: (value: any, key: string, cacheability: Cacheability) => void): Promise<void> {
-    await Promise.all(
-      this._metadata.map(({ cacheability, key }) => {
-        const promise = this.get(key);
-
-        promise.then((value) => {
-          callback(value, key, cacheability);
-        });
-
-        return promise;
-      }),
-    );
-  }
-
   public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
     const errors: TypeError[] = [];
 

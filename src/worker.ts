@@ -25,9 +25,6 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
     case "delete":
       if (key) result = await cachemap.delete(key, opts);
       break;
-    case "forEach":
-      if (callback) await cachemap.forEach(callback);
-      break;
     case "get":
       if (key) result = await cachemap.get(key, opts);
       break;

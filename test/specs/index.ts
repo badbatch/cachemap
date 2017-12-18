@@ -87,37 +87,6 @@ function testCachemapClass(args: CachemapArgs): void {
       });
     });
 
-    describe("the forEach method", () => {
-      let ids: string[];
-
-      before(async () => {
-        cachemap = await createCachemap(args);
-        const entries: { [key: string]: { url: string, body: any } } = testData;
-        ids = Object.keys(entries);
-
-        await Promise.all(ids.map((id) => cachemap.set(
-          entries[id].url,
-          entries[id].body,
-          { cacheHeaders, hash },
-        )));
-      });
-
-      after(async () => {
-        await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
-      });
-
-      it("the method should iterate over the keys and execute the callback on each one", async () => {
-        let counter = 0;
-
-        await cachemap.forEach((entry) => {
-          if (ids.some((id) => id === entry.id)) counter += 1;
-        });
-
-        expect(counter).to.equal(ids.length);
-      });
-    });
-
     describe("the get method", () => {
       let metadata: Metadata;
 

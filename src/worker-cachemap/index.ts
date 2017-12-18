@@ -44,11 +44,6 @@ export default class WorkerCachemap {
     return result;
   }
 
-  public async forEach(callback: (value: any, key: string, cacheability: Cacheability) => void): Promise<void> {
-    const { metadata, usedHeapSize } = await this._postMessage({ callback, type: "forEach" });
-    this._setMetadata(metadata, usedHeapSize);
-  }
-
   public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
     const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "get" });
     this._setMetadata(metadata, usedHeapSize);
