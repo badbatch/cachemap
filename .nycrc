@@ -6,6 +6,7 @@
   "statements": 80,
   "all": true,
   "cache": true,
+  "exclude": ["**/*.d.ts"],
   "extension": [".ts"],
   "include": ["src/**/*"],
   "instrument": true,
