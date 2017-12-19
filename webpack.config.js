@@ -14,24 +14,24 @@ module.exports = {
     rules: [{
       test: /\.tsx?$/,
       use: [{
-        loader: 'babel-loader',
+        loader: 'awesome-typescript-loader',
         options: {
-          babelrc: false,
-          plugins: ['lodash'],
-          presets: [
-            ['@babel/preset-env', {
-              debug: true,
-              modules: false,
-              targets: { browsers: 'last 4 versions' },
-              useBuiltIns: 'usage',
-            }],
-            '@babel/preset-stage-0',
-          ],
-        },
-      }, {
-        loader: 'ts-loader',
-        options: {
+          babelCore: '@babel/core',
+          babelOptions: {
+            babelrc: false,
+            plugins: ['lodash'],
+            presets: [
+              ['@babel/preset-env', {
+                debug: true,
+                modules: false,
+                targets: { browsers: 'last 4 versions' },
+                useBuiltIns: 'usage',
+              }],
+              '@babel/preset-stage-0',
+            ],
+          },
           transpileOnly: true,
+          useBabel: true,
         },
       }],
     }, {
