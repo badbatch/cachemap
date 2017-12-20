@@ -40,7 +40,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.28",
+    "cacheability": "0.0.30",
     "delay": "^2.0.0",
     "idb-keyval": "^2.3.0",
     "lodash": "^4.17.4",

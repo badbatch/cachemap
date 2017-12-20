@@ -15,6 +15,11 @@
     "prefer-conditional-expression": false,
     "prefer-function-over-method": true,
     "return-undefined": false,
+    "space-before-function-paren": [true, {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
   }
 }

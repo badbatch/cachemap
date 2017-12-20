@@ -2,11 +2,11 @@ import Cacheability from "cacheability";
 import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import * as sizeof from "object-sizeof";
+import { ClientOpts } from "redis";
 import IndexedDBProxy from "./proxies/indexed-db";
 import LocalStorageProxy from "./proxies/local-storage";
 import MapProxy from "./proxies/map";
 import Reaper from "./reaper";
-import { ClientOpts } from "redis";
 
 import {
   CacheHeaders,

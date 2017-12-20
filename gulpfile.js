@@ -41,7 +41,8 @@ gulp.task('main', () => {
   const copied = gulp.src(['src/**/*.d.ts'])
     .pipe(gulp.dest('lib/main'));
 
-  return merge(transpiled, copied);
+  return merge(transpiled, copied)
+    .on('error', () => process.exit(1));
 });
 
 gulp.task('module', () => {
@@ -66,11 +67,13 @@ gulp.task('module', () => {
     .pipe(tsProject())
     .pipe(babel(babelrc))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('lib/module'));
+    .pipe(gulp.dest('lib/module'))
+    .on('error', () => process.exit(1));
 });
 
 gulp.task('browser', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
-  .pipe(gulp.dest('lib/browser')));
+  .pipe(gulp.dest('lib/browser')))
+  .on('error', () => process.exit(1));
 
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', {
@@ -78,7 +81,8 @@ gulp.task('type-check', () => {
   });
 
   gulp.src(['src/**/*.ts'])
-    .pipe(tsProject());
+    .pipe(tsProject())
+    .on('error', () => process.exit(1));
 });
 
 gulp.task('lint', () => {
@@ -89,5 +93,6 @@ gulp.task('lint', () => {
       formatter: 'stylish',
       program: Linter.createProgram('tsconfig.json'),
     }))
-    .pipe(tslint.report());
+    .pipe(tslint.report())
+    .on('error', () => process.exit(1));
 });
