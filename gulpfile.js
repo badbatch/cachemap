@@ -8,7 +8,10 @@ const merge = require('merge-stream');
 const { Linter } = require('tslint');
 const webpack = require('webpack-stream');
 
-gulp.task('clean', () => del('lib/*', { force: true }));
+gulp.task('clean', () => {
+  del('lib/*', { force: true });
+  del('coverage/*', { force: true });
+});
 
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', {

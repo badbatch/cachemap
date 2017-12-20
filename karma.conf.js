@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 const webpackConfig = require('./webpack.config');
 
 module.exports = (config) => {
@@ -22,6 +23,11 @@ module.exports = (config) => {
     },
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
+    },
+    coverageIstanbulReporter: {
+      dir: resolve(__dirname, 'coverage', 'web'),
+      fixWebpackSourcePaths: true,
+      reports: ['json', 'lcov', 'text-summary'],
     },
   });
 };
