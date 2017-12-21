@@ -11,6 +11,8 @@ export interface CacheHeaders {
   [key: string]: string;
 }
 
+export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
+
 export interface ConstructorArgs {
   disableCacheInvalidation?: boolean;
   maxHeapSize?: { client?: number, server?: number };
@@ -21,8 +23,6 @@ export interface ConstructorArgs {
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
   sortComparator?(a: any, b: any): number;
 }
-
-export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface Metadata {
   accessedCount: number;
