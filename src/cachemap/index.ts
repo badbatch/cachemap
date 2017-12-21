@@ -10,15 +10,15 @@ import Reaper from "./reaper";
 
 import {
   CacheHeaders,
-  CachemapArgs,
+  ConstructorArgs,
   Metadata,
   StoreProxyTypes,
   StoreTypes,
 } from "../types";
 
-export default class Cachemap {
-  public static async create(args: CachemapArgs): Promise<Cachemap> {
-    const cachemap = new Cachemap(args);
+export default class DefaultCachemap {
+  public static async create(args: ConstructorArgs): Promise<DefaultCachemap> {
+    const cachemap = new DefaultCachemap(args);
     await cachemap._createStore();
     await cachemap._retreiveMetadata();
     return cachemap;
@@ -98,7 +98,7 @@ export default class Cachemap {
   private _storeType: StoreTypes;
   private _usedHeapSize: number = 0;
 
-  constructor(args: CachemapArgs) {
+  constructor(args: ConstructorArgs) {
     if (!isPlainObject(args)) {
       throw new TypeError("constructor expected args to ba a plain object.");
     }
@@ -129,27 +129,27 @@ export default class Cachemap {
     }
 
     if (errors.length) throw errors;
-    const storeType = Cachemap._getStoreType(process.env.WEB_ENV ? use.client : use.server);
+    const storeType = DefaultCachemap._getStoreType(process.env.WEB_ENV ? use.client : use.server);
 
-    if (!Cachemap._storeTypes.find((type) => type === storeType)) {
+    if (!DefaultCachemap._storeTypes.find((type) => type === storeType)) {
       throw new TypeError("constructor expected store type to be 'indexedDB', 'localStorage', 'map', or 'redis'.");
     }
 
     this._disableCacheInvalidation = disableCacheInvalidation;
     this._environment = process.env.WEB_ENV ? "web" : "node";
 
-    this._maxHeapSize = Cachemap._calcMaxHeapSize(
+    this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(
       storeType,
       process.env.WEB_ENV ? maxHeapSize.client : maxHeapSize.server,
     );
 
-    this._maxHeapThreshold = Cachemap._calcMaxHeapThreshold(this._maxHeapSize);
+    this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
     this._mockRedis = isBoolean(mockRedis) ? mockRedis : false;
     this._name = name;
     this._reaper = new Reaper(this, reaperOptions);
     if (redisOptions && isPlainObject(redisOptions)) this._redisOptions = redisOptions;
     this._storeType = storeType;
-    if (isFunction(sortComparator)) Cachemap._sortComparator = sortComparator;
+    if (isFunction(sortComparator)) DefaultCachemap._sortComparator = sortComparator;
   }
 
   get metadata(): Metadata[] {
@@ -179,7 +179,7 @@ export default class Cachemap {
     }
 
     if (errors.length) throw errors;
-    const _key = opts.hash ? Cachemap._hash(key) : key;
+    const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     let deleted = false;
 
     try {
@@ -205,7 +205,7 @@ export default class Cachemap {
     }
 
     if (errors.length) throw errors;
-    const _key = opts.hash ? Cachemap._hash(key) : key;
+    const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     let value: any;
 
     try {
@@ -231,7 +231,7 @@ export default class Cachemap {
     }
 
     if (errors.length) throw errors;
-    const _key = opts.hash ? Cachemap._hash(key) : key;
+    const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     let exists = false;
 
     try {
@@ -271,7 +271,7 @@ export default class Cachemap {
     const metadata = cacheability.parseHeaders(cacheHeaders);
     const cacheControl = metadata.cacheControl;
     if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
-    const _key = opts.hash ? Cachemap._hash(key) : key;
+    const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     let exists = false;
 
     try {
@@ -355,8 +355,8 @@ export default class Cachemap {
       } else {
         this._storeType = "map";
         this._store = new MapProxy();
-        this._maxHeapSize = Cachemap._calcMaxHeapSize(this._storeType);
-        this._maxHeapThreshold = Cachemap._calcMaxHeapThreshold(this._maxHeapSize);
+        this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(this._storeType);
+        this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
       }
     }
   }
@@ -396,7 +396,7 @@ export default class Cachemap {
   }
 
   private _sortMetadata(): void {
-    this._metadata.sort(Cachemap._sortComparator);
+    this._metadata.sort(DefaultCachemap._sortComparator);
   }
 
   private _updateHeapSize(): void {

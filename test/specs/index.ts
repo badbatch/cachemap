@@ -3,27 +3,27 @@ import { expect } from "chai";
 import * as delay from "delay";
 import testData from "../data";
 import createCachemap from "../../src";
-import Cachemap from "../../src/cachemap";
+import DefaultCachemap from "../../src/cachemap";
 import WorkerCachemap from "../../src/worker-cachemap";
 
 import {
   CacheHeaders,
-  CachemapArgs,
+  ConstructorArgs,
   Metadata,
   ObjectMap,
 } from "../../src/types";
 
-const clientArgs: CachemapArgs = {
+const clientArgs: ConstructorArgs = {
   name: "client",
   use: { client: "localStorage" },
 };
 
-const workerArgs: CachemapArgs = {
+const workerArgs: ConstructorArgs = {
   name: "worker",
   use: { client: "indexedDB" },
 };
 
-const serverArgs: CachemapArgs = {
+const serverArgs: ConstructorArgs = {
   mockRedis: true,
   name: "server",
   use: { server: "redis" },
@@ -43,7 +43,7 @@ describe("the createCachemap method", () => {
       context("when use.client is set to 'localStorage'", () => {
         it("the method should return an instance of the Cachemap class that uses local storage", async () => {
           const cachemap = await createCachemap(clientArgs);
-          expect(cachemap).to.be.instanceof(Cachemap);
+          expect(cachemap).to.be.instanceof(DefaultCachemap);
         });
       });
     });
@@ -52,20 +52,20 @@ describe("the createCachemap method", () => {
       context("when use.server is set to 'redis'", () => {
         it("the method should return an instance of the Cachemap class that uses redis", async () => {
           const cachemap = await createCachemap(serverArgs);
-          expect(cachemap).to.be.instanceof(Cachemap);
+          expect(cachemap).to.be.instanceof(DefaultCachemap);
         });
       });
     });
   }
 });
 
-function testCachemapClass(args: CachemapArgs): void {
+function testCachemapClass(args: ConstructorArgs): void {
   describe(`the cachemap class for the ${args.name}`, () => {
     const key: string = testData["136-7317"].url;
     const value: ObjectMap = testData["136-7317"].body;
     const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
     const hash = true;
-    let cachemap: Cachemap | WorkerCachemap;
+    let cachemap: DefaultCachemap | WorkerCachemap;
 
     describe("the delete method", () => {
       context("when a key exists in the cachemap", () => {
@@ -203,7 +203,7 @@ function testCachemapClass(args: CachemapArgs): void {
   });
 }
 
-const cachemapArgs: CachemapArgs[] = process.env.WEB_ENV ? [clientArgs, workerArgs] : [serverArgs];
+const cachemapArgs: ConstructorArgs[] = process.env.WEB_ENV ? [clientArgs, workerArgs] : [serverArgs];
 
 cachemapArgs.forEach((args) => {
   testCachemapClass(args);

@@ -3,14 +3,14 @@ import PromiseWorker from "promise-worker";
 
 import {
   CacheHeaders,
-  CachemapArgs,
+  ConstructorArgs,
   Metadata,
   PostMessageArgs,
   PostMessageResult,
 } from "../types";
 
 export default class WorkerCachemap {
-  public static async create(args: CachemapArgs): Promise<WorkerCachemap> {
+  public static async create(args: ConstructorArgs): Promise<WorkerCachemap> {
     const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
     const workerCachemap = new WorkerCachemap();
     workerCachemap._worker = new webpackWorker();

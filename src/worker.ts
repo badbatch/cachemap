@@ -1,10 +1,10 @@
 import registerPromiseWorker from "promise-worker/register";
-import Cachemap from "./cachemap";
+import DefaultCachemap from "./cachemap";
 import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 
-let cachemap: Cachemap;
+let cachemap: DefaultCachemap;
 
-function getMetadata({ metadata, usedHeapSize }: Cachemap): { metadata: Metadata[], usedHeapSize: number } {
+function getMetadata({ metadata, usedHeapSize }: DefaultCachemap): { metadata: Metadata[], usedHeapSize: number } {
   return { metadata, usedHeapSize };
 }
 
@@ -12,7 +12,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
   const { args, key, opts, type, value } = message;
 
   if (type === "create" && args) {
-    cachemap = await Cachemap.create(args);
+    cachemap = await DefaultCachemap.create(args);
     return getMetadata(cachemap);
   }
 

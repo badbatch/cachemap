@@ -1,13 +1,13 @@
 import { isPlainObject } from "lodash";
-import Cachemap from "../";
+import DefaultCachemap from "../";
 import { Metadata, ReaperOptions } from "../../types";
 
 export default class Reaper {
-  private _cachemap: Cachemap;
+  private _cachemap: DefaultCachemap;
   private _interval: number;
   private _intervalID: NodeJS.Timer;
 
-  constructor(cachemap: Cachemap, opts: ReaperOptions = {}) {
+  constructor(cachemap: DefaultCachemap, opts: ReaperOptions = {}) {
     if (!isPlainObject(opts)) {
       throw new TypeError("constructor expected opts to be a plain object.");
     }

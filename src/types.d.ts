@@ -11,7 +11,7 @@ export interface CacheHeaders {
   [key: string]: string;
 }
 
-export interface CachemapArgs {
+export interface ConstructorArgs {
   disableCacheInvalidation?: boolean;
   maxHeapSize?: { client?: number, server?: number };
   mockRedis?: boolean;
@@ -39,7 +39,7 @@ export interface ObjectMap {
 }
 
 export interface PostMessageArgs {
-  args?: CachemapArgs;
+  args?: ConstructorArgs;
   key?: string;
   opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean };
   type: string;
