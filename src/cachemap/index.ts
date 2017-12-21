@@ -147,7 +147,7 @@ export default class Cachemap {
     this._mockRedis = isBoolean(mockRedis) ? mockRedis : false;
     this._name = name;
     this._reaper = new Reaper(this, reaperOptions);
-    if (isPlainObject(redisOptions)) this._redisOptions = redisOptions;
+    if (redisOptions && isPlainObject(redisOptions)) this._redisOptions = redisOptions;
     this._storeType = storeType;
     if (isFunction(sortComparator)) Cachemap._sortComparator = sortComparator;
   }
