@@ -7,6 +7,9 @@ declare global {
   interface Window {
       Worker: Worker;
   }
+  interface WorkerGlobalScope {
+    Worker: Worker;
+  }
 }
 
 export type Cachemap = DefaultCachemap | WorkerCachemap;
@@ -28,7 +31,7 @@ export default async function createCachemap(args: CachemapArgs): Promise<Cachem
       throw new TypeError("createCachemap expected use to be a plain object.");
     }
 
-    if (use.client === "indexedDB" && window.Worker && window.indexedDB) {
+    if (use.client === "indexedDB" && self.Worker && self.indexedDB) {
       cachemap = await WorkerCachemap.create(args);
     } else {
       cachemap = await DefaultCachemap.create(args);
