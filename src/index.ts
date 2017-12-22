@@ -1,6 +1,6 @@
 import { isPlainObject } from "lodash";
 import DefaultCachemap from "./cachemap";
-import { ConstructorArgs } from "./types";
+import { ClientStoreTypes, ConstructorArgs, ServerStoreTypes } from "./types";
 import WorkerCachemap from "./worker-cachemap";
 
 declare global {
@@ -11,6 +11,8 @@ declare global {
 
 export type Cachemap = DefaultCachemap | WorkerCachemap;
 export type CachemapArgs = ConstructorArgs;
+export type CachemapClientStoreTypes = ClientStoreTypes;
+export type CachemapServerStoreTypes = ServerStoreTypes;
 
 export default async function createCachemap(args: CachemapArgs): Promise<Cachemap> {
   if (!isPlainObject(args)) {
