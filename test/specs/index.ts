@@ -26,7 +26,6 @@ const workerArgs: ConstructorArgs = {
 const serverArgs: ConstructorArgs = {
   mockRedis: true,
   name: "server",
-  redisOptions: { fast: true },
   use: { server: "redis" },
 };
 
