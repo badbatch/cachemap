@@ -10,8 +10,8 @@ export default class RedisProxy {
     }
 
     if (mock) {
-      const redisMock = require("fakeredis");
-      this._client = redisMock.createClient(opts);
+      const fakeRedis = require("fakeredis");
+      this._client = fakeRedis.createClient(opts.port, opts.host, opts);
     } else {
       this._client = createClient(opts);
     }

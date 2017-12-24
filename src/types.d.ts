@@ -19,7 +19,7 @@ export interface ConstructorArgs {
   mockRedis?: boolean;
   name: string;
   reaperOptions?: ReaperOptions;
-  redisOptions?: ClientOpts;
+  redisOptions?: RedisOptions;
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
   sortComparator?(a: any, b: any): number;
 }
@@ -55,6 +55,10 @@ export interface PostMessageResult {
 export interface ReaperOptions {
   interval?: number;
   start?: boolean;
+}
+
+export interface RedisOptions extends ClientOpts {
+  fast?: boolean;
 }
 
 export type ServerStoreTypes = "map" | "redis";
