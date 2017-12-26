@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -17,6 +17,7 @@
   "browser": "lib/browser/index.js",
   "types": "lib/main/index.d.ts",
   "keywords": [
+    "cachemap",
     "cache",
     "map",
     "redis",
@@ -40,7 +41,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.40",
+    "cacheability": "0.0.42",
     "delay": "^2.0.0",
     "idb-keyval": "^2.3.0",
     "lodash": "^4.17.4",
@@ -50,9 +51,9 @@
     "redis": "^2.8.0"
   },
   "devDependencies": {
-    "@babel/core": "7.0.0-beta.34",
-    "@babel/preset-env": "7.0.0-beta.34",
-    "@babel/preset-stage-0": "7.0.0-beta.34",
+    "@babel/core": "^7.0.0-beta.36",
+    "@babel/preset-env": "^7.0.0-beta.36",
+    "@babel/preset-stage-0": "^7.0.0-beta.36",
     "@types/chai": "^4.0.8",
     "@types/delay": "^2.0.1",
     "@types/lodash": "^4.14.85",
