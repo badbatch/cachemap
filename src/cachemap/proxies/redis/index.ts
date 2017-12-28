@@ -18,73 +18,49 @@ export default class RedisProxy {
   }
 
   public async clear(): Promise<void> {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
       this._client.flushdb((err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+        resolve();
       });
     });
   }
 
   public async delete(key: string): Promise<boolean> {
-    return new Promise((resolve: (value: boolean) => void, reject) => {
+    return new Promise((resolve: (value: boolean) => void) => {
       this._client.del(key, (err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(!!reply);
-        }
+        resolve(!!reply);
       });
     });
   }
 
   public async get(key: string): Promise<any> {
-    return new Promise((resolve: (value: any) => void, reject) => {
+    return new Promise((resolve: (value: any) => void) => {
       this._client.get(key, (err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(JSON.parse(reply));
-        }
+        resolve(JSON.parse(reply));
       });
     });
   }
 
   public async has(key: string): Promise<boolean> {
-    return new Promise((resolve: (value: boolean) => void, reject) => {
+    return new Promise((resolve: (value: boolean) => void) => {
       this._client.exists(key, (err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(!!reply);
-        }
+        resolve(!!reply);
       });
     });
   }
 
   public async set(key: string, value: any): Promise<void> {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
       this._client.set(key, JSON.stringify(value), (err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
-        }
+        resolve();
       });
     });
   }
 
   public async size(): Promise<number> {
-    return new Promise((resolve: (value: number) => void, reject) => {
+    return new Promise((resolve: (value: number) => void) => {
       this._client.dbsize((err, reply) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(reply);
-        }
+        resolve(reply);
       });
     });
   }
