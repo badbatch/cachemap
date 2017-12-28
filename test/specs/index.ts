@@ -19,6 +19,10 @@ const clientArgs: ConstructorArgs = {
 };
 
 const workerArgs: ConstructorArgs = {
+  indexedDBOptions: {
+    databaseName: "alfa-database",
+    objectStoreName: "bravo-object-store",
+  },
   name: "worker",
   use: { client: "indexedDB" },
 };
