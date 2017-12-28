@@ -6,6 +6,7 @@ import { ClientOpts } from "redis";
 import IndexedDBProxy from "./proxies/indexed-db";
 import LocalStorageProxy from "./proxies/local-storage";
 import MapProxy from "./proxies/map";
+import RedisProxy from "./proxies/redis";
 import Reaper from "./reaper";
 
 import {
@@ -16,6 +17,12 @@ import {
   StoreProxyTypes,
   StoreTypes,
 } from "../types";
+
+let redisProxy: typeof RedisProxy;
+
+if (!process.env.WEB_ENV) {
+  redisProxy = require("./proxies/redis").default;
+}
 
 export default class DefaultCachemap {
   public static async create(args: ConstructorArgs): Promise<DefaultCachemap> {
@@ -349,8 +356,7 @@ export default class DefaultCachemap {
     }
 
     if (!process.env.WEB_ENV) {
-      const module = require("./proxies/redis");
-      this._store = new module.default(this._redisOptions, this._mockRedis);
+      this._store = new redisProxy(this._redisOptions, this._mockRedis);
     } else {
       if (this._storeType === "indexedDB" && self.indexedDB) {
         this._store = await IndexedDBProxy.create(this._indexedDBOptions);
