@@ -15,6 +15,7 @@ export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface ConstructorArgs {
   disableCacheInvalidation?: boolean;
+  indexedDBOptions?: IndexedDBOptions;
   maxHeapSize?: { client?: number, server?: number };
   mockRedis?: boolean;
   name: string;
@@ -22,6 +23,11 @@ export interface ConstructorArgs {
   redisOptions?: ClientOpts;
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
   sortComparator?(a: any, b: any): number;
+}
+
+export interface IndexedDBOptions {
+  databaseName?: string;
+  objectStoreName?: string;
 }
 
 export interface Metadata {

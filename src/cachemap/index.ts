@@ -11,6 +11,7 @@ import Reaper from "./reaper";
 import {
   CacheHeaders,
   ConstructorArgs,
+  IndexedDBOptions,
   Metadata,
   StoreProxyTypes,
   StoreTypes,
@@ -87,6 +88,7 @@ export default class DefaultCachemap {
 
   private _disableCacheInvalidation: boolean;
   private _environment: "node" | "web";
+  private _indexedDBOptions?: IndexedDBOptions;
   private _maxHeapSize: number;
   private _maxHeapThreshold: number;
   private _metadata: Metadata[] = [];
@@ -105,6 +107,7 @@ export default class DefaultCachemap {
 
     const {
       disableCacheInvalidation = false,
+      indexedDBOptions,
       maxHeapSize = {},
       mockRedis,
       name,
@@ -137,6 +140,7 @@ export default class DefaultCachemap {
 
     this._disableCacheInvalidation = disableCacheInvalidation;
     this._environment = process.env.WEB_ENV ? "web" : "node";
+    if (indexedDBOptions && isPlainObject(indexedDBOptions)) this._indexedDBOptions = indexedDBOptions;
 
     this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(
       storeType,
@@ -282,9 +286,9 @@ export default class DefaultCachemap {
     }
 
     if (exists) {
-      this._updateMetadata(_key, sizeof(value), cacheability);
+      await this._updateMetadata(_key, sizeof(value), cacheability);
     } else {
-      this._addMetadata(_key, sizeof(value), cacheability);
+      await this._addMetadata(_key, sizeof(value), cacheability);
     }
   }
 
@@ -292,7 +296,7 @@ export default class DefaultCachemap {
     return this._store.size();
   }
 
-  private _addMetadata(key: string, size: number, cacheability: Cacheability): void {
+  private async _addMetadata(key: string, size: number, cacheability: Cacheability): Promise<void> {
     this._metadata.push({
       accessedCount: 0,
       added: Date.now(),
@@ -305,12 +309,12 @@ export default class DefaultCachemap {
 
     this._sortMetadata();
     this._updateHeapSize();
-    this._backupMetadata();
+    await this._backupMetadata();
   }
 
   private async _backupMetadata(): Promise<void> {
     if (this._storeType !== "map") {
-      this._store.set(`${this._name} metadata`, this._metadata);
+      await this._store.set(`${this._name} metadata`, this._metadata);
     }
   }
 
@@ -349,7 +353,7 @@ export default class DefaultCachemap {
       this._store = new module.default(this._redisOptions, this._mockRedis);
     } else {
       if (this._storeType === "indexedDB" && self.indexedDB) {
-        this._store = new IndexedDBProxy();
+        this._store = await IndexedDBProxy.create(this._indexedDBOptions);
       } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
         this._store = new LocalStorageProxy();
       } else {
@@ -404,7 +408,7 @@ export default class DefaultCachemap {
     if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
   }
 
-  private _updateMetadata(key: string, size?: number, cacheability?: Cacheability): void {
+  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability): Promise<void> {
     const entry = this._getMetadataEntry(key);
     if (!entry) return;
 
@@ -419,6 +423,6 @@ export default class DefaultCachemap {
     if (cacheability) entry.cacheability = cacheability;
     this._sortMetadata();
     this._updateHeapSize();
-    this._backupMetadata();
+    await this._backupMetadata();
   }
 }
