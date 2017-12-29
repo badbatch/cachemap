@@ -21,7 +21,16 @@ const clientArgs: ConstructorArgs = {
 const workerArgs: ConstructorArgs = {
   indexedDBOptions: {
     databaseName: "alfa-database",
-    objectStoreName: "bravo-object-store",
+    objectStoreName: "bravo",
+  },
+  name: "worker",
+  use: { client: "indexedDB" },
+};
+
+const workerTwoArgs: ConstructorArgs = {
+  indexedDBOptions: {
+    databaseName: "alfa-database",
+    objectStoreName: "charlie",
   },
   name: "worker",
   use: { client: "indexedDB" },
@@ -63,7 +72,7 @@ describe("the createCachemap method", () => {
   }
 });
 
-function testCachemapClass(args: ConstructorArgs): void {
+async function testCachemapClass(args: ConstructorArgs): Promise<void> {
   describe(`the cachemap class for the ${args.name}`, () => {
     const key: string = testData["136-7317"].url;
     const value: ObjectMap = testData["136-7317"].body;
@@ -207,8 +216,12 @@ function testCachemapClass(args: ConstructorArgs): void {
   });
 }
 
-const cachemapArgs: ConstructorArgs[] = process.env.WEB_ENV ? [clientArgs, workerArgs] : [serverArgs];
-
-cachemapArgs.forEach((args) => {
-  testCachemapClass(args);
-});
+(async () => {
+  if (process.env.WEB_ENV) {
+    await testCachemapClass(clientArgs);
+    testCachemapClass(workerArgs);
+    testCachemapClass(workerTwoArgs);
+  } else {
+    await testCachemapClass(serverArgs);
+  }
+})();

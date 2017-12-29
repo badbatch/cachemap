@@ -9,6 +9,7 @@ function getMetadata({ metadata, usedHeapSize }: DefaultCachemap): { metadata: M
 }
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {
+  debugger;
   const { args, key, opts, type, value } = message;
 
   if (type === "create" && args) {
