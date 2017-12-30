@@ -4,13 +4,17 @@ import { IndexedDBOptions } from "../../../types";
 
 export default class IndexedDBProxy {
   public static async create(opts?: IndexedDBOptions): Promise<IndexedDBProxy> {
-    const indexedDBProxy = new IndexedDBProxy(opts);
+    try {
+      const indexedDBProxy = new IndexedDBProxy(opts);
 
-    indexedDBProxy._indexedDB = await idb.open(indexedDBProxy._databaseName, 1, (upgradeDB) => {
-      upgradeDB.createObjectStore(indexedDBProxy._objectStoreName);
-    });
+      indexedDBProxy._indexedDB = await idb.open(indexedDBProxy._databaseName, 1, (upgradeDB) => {
+        upgradeDB.createObjectStore(indexedDBProxy._objectStoreName);
+      });
 
-    return indexedDBProxy;
+      return indexedDBProxy;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private _databaseName = "keyval-store";
@@ -23,45 +27,70 @@ export default class IndexedDBProxy {
   }
 
   public async clear(): Promise<void> {
-    const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-    await tx.objectStore(this._objectStoreName).clear();
-    await tx.complete;
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
+      await tx.objectStore(this._objectStoreName).clear();
+      await tx.complete;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async delete(key: string): Promise<boolean> {
-    const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-    await tx.objectStore(this._objectStoreName).delete(key);
-    await tx.complete;
-    return await this.get(key) === undefined;
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
+      await tx.objectStore(this._objectStoreName).delete(key);
+      await tx.complete;
+      return await this.get(key) === undefined;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async get(key: string): Promise<any> {
-    const tx = this._indexedDB.transaction(this._objectStoreName);
-    return tx.objectStore(this._objectStoreName).get(key);
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName);
+      return tx.objectStore(this._objectStoreName).get(key);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async has(key: string): Promise<boolean> {
-    return await this.get(key) !== undefined;
+    try {
+      const entry = await this.get(key);
+      return entry !== undefined;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async set(key: string, value: any): Promise<void> {
-    const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-    await tx.objectStore(this._objectStoreName).put(value, key);
-    await tx.complete;
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
+      await tx.objectStore(this._objectStoreName).put(value, key);
+      await tx.complete;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async size(): Promise<number> {
-    const tx = this._indexedDB.transaction(this._objectStoreName);
-    const objectStore = tx.objectStore(this._objectStoreName);
-    const keys: Array<IDBKeyRange | IDBValidKey> = [];
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName);
+      const objectStore = tx.objectStore(this._objectStoreName);
+      const keys: Array<IDBKeyRange | IDBValidKey> = [];
 
-    objectStore.iterateCursor((cursor: Cursor) => {
-      if (!cursor) return;
-      keys.push(cursor.key);
-      cursor.continue();
-    });
+      objectStore.iterateCursor((cursor: Cursor) => {
+        if (!cursor) return;
+        keys.push(cursor.key);
+        cursor.continue();
+      });
 
-    await tx.complete;
-    return keys.length;
+      await tx.complete;
+      return keys.length;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }

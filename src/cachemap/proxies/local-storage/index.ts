@@ -2,28 +2,52 @@ export default class LocalStorageProxy {
   private _storage = window.localStorage;
 
   public async clear(): Promise<void> {
-    this._storage.clear();
+    try {
+      this._storage.clear();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async delete(key: string): Promise<boolean> {
-    this._storage.removeItem(key);
-    return this._storage.getItem(key) === null;
+    try {
+      this._storage.removeItem(key);
+      return this._storage.getItem(key) === null;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async get(key: string): Promise<any> {
-    const item = this._storage.getItem(key);
-    if (item) return Promise.resolve(JSON.parse(item));
+    try {
+      const item = this._storage.getItem(key);
+      if (item) return JSON.parse(item);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async has(key: string): Promise<boolean> {
-    return Promise.resolve(this._storage.getItem(key) !== null);
+    try {
+      return this._storage.getItem(key) !== null;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async set(key: string, value: any): Promise<void> {
-    this._storage.setItem(key, JSON.stringify(value));
+    try {
+      this._storage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   public async size(): Promise<number> {
-    return Promise.resolve(this._storage.length);
+    try {
+      return this._storage.length;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }

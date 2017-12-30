@@ -10,11 +10,11 @@ export default class MapProxy {
   }
 
   public async get(key: string): Promise<any> {
-    return Promise.resolve(this._map.get(key));
+    return this._map.get(key);
   }
 
   public async has(key: string): Promise<boolean> {
-    return Promise.resolve(this._map.get(key) !== undefined);
+    return this._map.get(key) !== undefined;
   }
 
   public async set(key: string, value: any): Promise<void> {
@@ -22,6 +22,6 @@ export default class MapProxy {
   }
 
   public async size(): Promise<number> {
-    return Promise.resolve(this._map.size);
+    return this._map.size;
   }
 }

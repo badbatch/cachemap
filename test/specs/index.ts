@@ -21,16 +21,7 @@ const clientArgs: ConstructorArgs = {
 const workerArgs: ConstructorArgs = {
   indexedDBOptions: {
     databaseName: "alfa-database",
-    objectStoreName: "bravo",
-  },
-  name: "worker",
-  use: { client: "indexedDB" },
-};
-
-const workerTwoArgs: ConstructorArgs = {
-  indexedDBOptions: {
-    databaseName: "alfa-database",
-    objectStoreName: "charlie",
+    objectStoreName: "alfa",
   },
   name: "worker",
   use: { client: "indexedDB" },
@@ -40,6 +31,11 @@ const serverArgs: ConstructorArgs = {
   mockRedis: true,
   name: "server",
   use: { server: "redis" },
+};
+
+const mapArgs: ConstructorArgs = {
+  name: "map",
+  use: { server: "map" },
 };
 
 describe("the createCachemap method", () => {
@@ -72,7 +68,7 @@ describe("the createCachemap method", () => {
   }
 });
 
-async function testCachemapClass(args: ConstructorArgs): Promise<void> {
+function testCachemapClass(args: ConstructorArgs): void {
   describe(`the cachemap class for the ${args.name}`, () => {
     const key: string = testData["136-7317"].url;
     const value: ObjectMap = testData["136-7317"].body;
@@ -94,7 +90,13 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
 
         it("then the method should delete the key/value pair", async () => {
           await cachemap.delete(key, { hash });
-          expect(await cachemap.size()).to.eql(1);
+
+          if (args.name === "map") {
+            expect(await cachemap.size()).to.eql(0);
+          } else {
+            expect(await cachemap.size()).to.eql(1);
+          }
+
           expect(cachemap.metadata).lengthOf(0);
         });
       });
@@ -123,7 +125,7 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
           expect(updatedMetadata.added).to.equal(metadata.added);
           expect(updatedMetadata.cacheability).to.deep.equal(metadata.cacheability);
           expect(updatedMetadata.key).to.equal(metadata.key);
-          expect(updatedMetadata.lastAccessed).to.be.above(metadata.lastAccessed);
+          expect(updatedMetadata.lastAccessed >= metadata.lastAccessed).to.equal(true);
           expect(updatedMetadata.lastUpdated).to.equal(metadata.lastUpdated);
           expect(updatedMetadata.size).to.equal(metadata.size);
         });
@@ -156,7 +158,13 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
           await delay(1000);
           const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
           expect(cacheability).to.equal(false);
-          expect(await cachemap.size()).to.equal(1);
+
+          if (args.name === "map") {
+            expect(await cachemap.size()).to.eql(0);
+          } else {
+            expect(await cachemap.size()).to.eql(1);
+          }
+
           expect(cachemap.metadata).lengthOf(0);
         });
       });
@@ -184,7 +192,13 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
       context("when a key does not exist in the cachemap", () => {
         it("then the method should store the pair and add its metadata", async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
-          expect(await cachemap.size()).to.eql(2);
+
+          if (args.name === "map") {
+            expect(await cachemap.size()).to.eql(1);
+          } else {
+            expect(await cachemap.size()).to.eql(2);
+          }
+
           expect(cachemap.metadata).lengthOf(1);
           metadata = { ...cachemap.metadata[0] };
           expect(metadata.accessedCount).to.equal(0);
@@ -200,7 +214,13 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
       context("when a key already exists in the cachemap", () => {
         it("then the method should overwrite the existing value and update the metadata", async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
-          expect(await cachemap.size()).to.eql(2);
+
+          if (args.name === "map") {
+            expect(await cachemap.size()).to.eql(1);
+          } else {
+            expect(await cachemap.size()).to.eql(2);
+          }
+
           expect(cachemap.metadata).lengthOf(1);
           const updatedMetadata = cachemap.metadata[0];
           expect(updatedMetadata.accessedCount).to.equal(0);
@@ -208,7 +228,7 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
           expect(updatedMetadata.cacheability.metadata.ttl).to.be.above(metadata.cacheability.metadata.ttl);
           expect(updatedMetadata.key).to.equal(metadata.key);
           expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
-          expect(updatedMetadata.lastUpdated).to.be.above(metadata.lastUpdated);
+          expect(updatedMetadata.lastUpdated >= metadata.lastUpdated).to.equal(true);
           expect(updatedMetadata.size).to.equal(metadata.size);
         });
       });
@@ -216,12 +236,10 @@ async function testCachemapClass(args: ConstructorArgs): Promise<void> {
   });
 }
 
-(async () => {
-  if (process.env.WEB_ENV) {
-    await testCachemapClass(clientArgs);
-    testCachemapClass(workerArgs);
-    testCachemapClass(workerTwoArgs);
-  } else {
-    await testCachemapClass(serverArgs);
-  }
-})();
+if (process.env.WEB_ENV) {
+  testCachemapClass(clientArgs);
+  testCachemapClass(workerArgs);
+} else {
+  testCachemapClass(serverArgs);
+  testCachemapClass(mapArgs);
+}

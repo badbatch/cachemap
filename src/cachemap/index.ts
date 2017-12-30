@@ -26,10 +26,14 @@ if (!process.env.WEB_ENV) {
 
 export default class DefaultCachemap {
   public static async create(args: ConstructorArgs): Promise<DefaultCachemap> {
-    const cachemap = new DefaultCachemap(args);
-    await cachemap._createStore();
-    await cachemap._retreiveMetadata();
-    return cachemap;
+    try {
+      const cachemap = new DefaultCachemap(args);
+      await cachemap._createStore();
+      await cachemap._retreiveMetadata();
+      return cachemap;
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private static _storeTypes: string[] = ["indexedDB", "localStorage", "map", "redis"];
@@ -172,10 +176,14 @@ export default class DefaultCachemap {
   }
 
   public async clear(): Promise<void> {
-    this._store.clear();
-    this._metadata = [];
-    this._usedHeapSize = 0;
-    this._backupMetadata();
+    try {
+      this._store.clear();
+      this._metadata = [];
+      this._usedHeapSize = 0;
+      this._backupMetadata();
+    } catch (error) {
+      Promise.reject(error);
+    }
   }
 
   public async delete(key: string, opts: { hash?: boolean } = {}): Promise<boolean> {
@@ -189,19 +197,17 @@ export default class DefaultCachemap {
       errors.push(new TypeError("delete expected opts to be a plain object."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) return Promise.reject(errors);
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
-    let deleted = false;
 
     try {
-      deleted = await this._store.delete(_key);
+      const deleted = await this._store.delete(_key);
+      if (!deleted) return false;
+      this._deleteMetadata(_key);
+      return true;
     } catch (error) {
-      // no catch
+      return Promise.reject(error);
     }
-
-    if (!deleted) return false;
-    this._deleteMetadata(_key);
-    return true;
   }
 
   public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
@@ -215,22 +221,23 @@ export default class DefaultCachemap {
       errors.push(new TypeError("get expected opts to be a plain object."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) return Promise.reject(errors);
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
-    let value: any;
 
     try {
-      value = await this._store.get(_key);
+      const value = await this._store.get(_key);
+      if (!value) return undefined;
+      this._updateMetadata(_key);
+      return value;
     } catch (error) {
-      // no catch
+      return Promise.reject(error);
     }
-
-    if (!value) return undefined;
-    this._updateMetadata(_key);
-    return value;
   }
 
-  public async has(key: string, opts: { deleteExpired?: boolean, hash?: boolean } = {}): Promise<Cacheability | false> {
+  public async has(
+    key: string,
+    opts: { deleteExpired?: boolean, hash?: boolean } = {},
+  ): Promise<Cacheability | false> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
@@ -241,24 +248,22 @@ export default class DefaultCachemap {
       errors.push(new TypeError("has expected opts to be a plain object."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) return Promise.reject(errors);
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
-    let exists = false;
 
     try {
-      exists = await this._store.has(_key);
+      const exists = await this._store.has(_key);
+      if (!exists) return false;
+
+      if (opts.deleteExpired && !this._checkMetadata(_key)) {
+        await this.delete(_key);
+        return false;
+      }
+
+      return this._getCacheability(_key) || false;
     } catch (error) {
-      // no catch
+      return Promise.reject(error);
     }
-
-    if (!exists) return false;
-
-    if (opts.deleteExpired && !this._checkMetadata(_key)) {
-      await this.delete(_key);
-      return false;
-    }
-
-    return this._getCacheability(_key) || false;
   }
 
   public async set(
@@ -276,31 +281,34 @@ export default class DefaultCachemap {
       errors.push(new TypeError("set expected opts to be a plain object."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) return Promise.reject(errors);
     const cacheHeaders = opts.cacheHeaders || {};
     const cacheability = new Cacheability();
     const metadata = cacheability.parseHeaders(cacheHeaders);
     const cacheControl = metadata.cacheControl;
     if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
-    let exists = false;
 
     try {
-      exists = await this._store.has(_key);
+      const exists = await this._store.has(_key);
       await this._store.set(_key, value);
-    } catch (error) {
-      // no catch
-    }
 
-    if (exists) {
-      await this._updateMetadata(_key, sizeof(value), cacheability);
-    } else {
-      await this._addMetadata(_key, sizeof(value), cacheability);
+      if (exists) {
+        await this._updateMetadata(_key, sizeof(value), cacheability);
+      } else {
+        await this._addMetadata(_key, sizeof(value), cacheability);
+      }
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 
   public async size(): Promise<number> {
-    return this._store.size();
+    try {
+      return this._store.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _addMetadata(key: string, size: number, cacheability: Cacheability): Promise<void> {
@@ -315,13 +323,22 @@ export default class DefaultCachemap {
     });
 
     this._sortMetadata();
-    this._updateHeapSize();
-    await this._backupMetadata();
+
+    try {
+      this._updateHeapSize();
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _backupMetadata(): Promise<void> {
     if (this._storeType !== "map") {
-      await this._store.set(`${this._name} metadata`, this._metadata);
+      try {
+        await this._store.set(`${this._name} metadata`, this._metadata);
+      } catch (error) {
+        return Promise.reject(error);
+      }
     }
   }
 
@@ -355,19 +372,23 @@ export default class DefaultCachemap {
       return;
     }
 
-    if (!process.env.WEB_ENV) {
-      this._store = new redisProxy(this._redisOptions, this._mockRedis);
-    } else {
-      if (this._storeType === "indexedDB" && self.indexedDB) {
-        this._store = await IndexedDBProxy.create(this._indexedDBOptions);
-      } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
-        this._store = new LocalStorageProxy();
+    try {
+      if (!process.env.WEB_ENV) {
+        this._store = new redisProxy(this._redisOptions, this._mockRedis);
       } else {
-        this._storeType = "map";
-        this._store = new MapProxy();
-        this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(this._storeType);
-        this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
+        if (this._storeType === "indexedDB" && self.indexedDB) {
+          this._store = await IndexedDBProxy.create(this._indexedDBOptions);
+        } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
+          this._store = new LocalStorageProxy();
+        } else {
+          this._storeType = "map";
+          this._store = new MapProxy();
+          this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(this._storeType);
+          this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
+        }
       }
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 
@@ -376,8 +397,13 @@ export default class DefaultCachemap {
     if (index === -1) return;
     this._metadata.splice(index, 1);
     this._sortMetadata();
-    this._updateHeapSize();
-    this._backupMetadata();
+
+    try {
+      this._updateHeapSize();
+      this._backupMetadata();
+    } catch (error) {
+      throw error;
+    }
   }
 
   private _getCacheability(key: string): Cacheability | undefined {
@@ -393,7 +419,12 @@ export default class DefaultCachemap {
   private async _reduceHeapSize(): Promise<void> {
     const index = this._calcReductionChunk();
     if (!index) return;
-    this._reaper.cull(this._metadata.slice(index, this._metadata.length));
+
+    try {
+      this._reaper.cull(this._metadata.slice(index, this._metadata.length));
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   private async _retreiveMetadata(): Promise<void> {
@@ -401,7 +432,7 @@ export default class DefaultCachemap {
       const metadata = await this._store.get(`${this._name} metadata`);
       if (isArray(metadata)) this._metadata = metadata;
     } catch (error) {
-      // no catch
+      return Promise.reject(error);
     }
   }
 
@@ -411,7 +442,12 @@ export default class DefaultCachemap {
 
   private _updateHeapSize(): void {
     this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
-    if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
+
+    try {
+      if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
+    } catch (error) {
+      throw error;
+    }
   }
 
   private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability): Promise<void> {
@@ -428,7 +464,12 @@ export default class DefaultCachemap {
 
     if (cacheability) entry.cacheability = cacheability;
     this._sortMetadata();
-    this._updateHeapSize();
-    await this._backupMetadata();
+
+    try {
+      this._updateHeapSize();
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 }

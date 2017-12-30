@@ -21,9 +21,13 @@ export default class Reaper {
   public async cull(metadata: Metadata[]): Promise<void> {
     if (!metadata.length) return;
 
-    metadata.forEach(({ key }) => {
-      this._cachemap.delete(key);
-    });
+    try {
+      metadata.forEach(({ key }) => {
+        this._cachemap.delete(key);
+      });
+    } catch (error) {
+      // no catch
+    }
   }
 
   public start(): void {
