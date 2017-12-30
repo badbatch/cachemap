@@ -378,8 +378,8 @@ export default class DefaultCachemap {
       } else {
         if (this._storeType === "indexedDB" && self.indexedDB) {
           this._store = await IndexedDBProxy.create(this._indexedDBOptions);
-        } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
-          this._store = new LocalStorageProxy();
+        } else if (self instanceof Window && self.localStorage) {
+          this._store = new LocalStorageProxy(this._name);
         } else {
           this._storeType = "map";
           this._store = new MapProxy();
