@@ -335,7 +335,7 @@ export default class DefaultCachemap {
   private async _backupMetadata(): Promise<void> {
     if (this._storeType !== "map") {
       try {
-        await this._store.set(`${this._name} metadata`, this._metadata);
+        await this._store.set("metadata", this._metadata);
       } catch (error) {
         return Promise.reject(error);
       }
@@ -424,7 +424,7 @@ export default class DefaultCachemap {
 
   private async _retreiveMetadata(): Promise<void> {
     try {
-      const metadata = await this._store.get(`${this._name} metadata`);
+      const metadata = await this._store.get("metadata");
       if (isArray(metadata)) this._metadata = metadata;
     } catch (error) {
       return Promise.reject(error);

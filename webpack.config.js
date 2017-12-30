@@ -53,7 +53,10 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map',
+      test: /\.tsx?$/,
+    }),
     new LodashModuleReplacementPlugin(),
   ],
-  devtool: 'source-map',
 };
