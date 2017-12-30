@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "compile:browser": "cross-env BABEL_ENV=browser gulp browser",
     "compile:main": "cross-env BABEL_ENV=main gulp main",
     "compile:module": "cross-env BABEL_ENV=module gulp module",
-    "debug:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --no-single-run --browsers Chrome",
+    "debug:web": "cross-env BABEL_ENV=debug TEST_ENV=true karma start --no-single-run --browsers Chrome",
     "lint": "gulp lint",
     "publish:pkg": "npm run build && npm publish",
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
@@ -41,7 +41,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.42",
+    "cacheability": "0.0.43",
     "delay": "^2.0.0",
     "idb": "^2.0.4",
     "lodash": "^4.17.4",
