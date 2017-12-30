@@ -1,6 +1,8 @@
 import Cacheability from "cacheability";
 import { expect } from "chai";
 import * as delay from "delay";
+import { get } from "lodash";
+import * as sinon from "sinon";
 import testData from "../data";
 import createCachemap from "../../src";
 import DefaultCachemap from "../../src/cachemap";
@@ -11,6 +13,7 @@ import {
   ConstructorArgs,
   Metadata,
   ObjectMap,
+  StoreProxyTypes,
 } from "../../src/types";
 
 const clientArgs: ConstructorArgs = {
@@ -77,17 +80,17 @@ function testCachemapClass(args: ConstructorArgs): void {
     let cachemap: DefaultCachemap | WorkerCachemap;
 
     describe("the delete method", () => {
+      beforeEach(async () => {
+        cachemap = await createCachemap(args);
+        await cachemap.set(key, value, { cacheHeaders, hash });
+      });
+
+      afterEach(async () => {
+        await cachemap.clear();
+        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+      });
+
       context("when a key exists in the cachemap", () => {
-        before(async () => {
-          cachemap = await createCachemap(args);
-          await cachemap.set(key, value, { cacheHeaders, hash });
-        });
-
-        after(async () => {
-          await cachemap.clear();
-          if (cachemap instanceof WorkerCachemap) cachemap.terminate();
-        });
-
         it("then the method should delete the key/value pair", async () => {
           await cachemap.delete(key, { hash });
 
@@ -100,23 +103,48 @@ function testCachemapClass(args: ConstructorArgs): void {
           expect(cachemap.metadata).lengthOf(0);
         });
       });
+
+      context("when the database throws an exception", () => {
+        const message = "Oops, there seems to be a problem";
+        let stub: sinon.SinonStub;
+
+        beforeEach(() => {
+          if (args.name === "worker") return;
+          const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
+          const error = new Error(message);
+          stub = sinon.stub(storeClient, "set").rejects(error);
+        });
+
+        afterEach(() => {
+          if (args.name === "worker") return;
+          stub.restore();
+        });
+
+        it("then the method should return a rejected promise with the reason", async () => {
+          try {
+            await cachemap.delete(key, { hash, stub: true });
+          } catch (error) {
+            expect(error.message).to.equal(message);
+          }
+        });
+      });
     });
 
     describe("the get method", () => {
       let metadata: Metadata;
 
+      beforeEach(async () => {
+        cachemap = await createCachemap(args);
+        await cachemap.set(key, value, { cacheHeaders, hash });
+        metadata = { ...cachemap.metadata[0] };
+      });
+
+      afterEach(async () => {
+        await cachemap.clear();
+        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+      });
+
       context("when a key exists in the cachemap", () => {
-        before(async () => {
-          cachemap = await createCachemap(args);
-          await cachemap.set(key, value, { cacheHeaders, hash });
-          metadata = { ...cachemap.metadata[0] };
-        });
-
-        after(async () => {
-          await cachemap.clear();
-          if (cachemap instanceof WorkerCachemap) cachemap.terminate();
-        });
-
         it("then the method should return the value and update the metadata", async () => {
           const result = await cachemap.get(key, { hash });
           expect(result).to.deep.equal(value);
@@ -128,6 +156,31 @@ function testCachemapClass(args: ConstructorArgs): void {
           expect(updatedMetadata.lastAccessed >= metadata.lastAccessed).to.equal(true);
           expect(updatedMetadata.lastUpdated).to.equal(metadata.lastUpdated);
           expect(updatedMetadata.size).to.equal(metadata.size);
+        });
+      });
+
+      context("when the database throws an exception", () => {
+        const message = "Oops, there seems to be a problem";
+        let stub: sinon.SinonStub;
+
+        beforeEach(() => {
+          if (args.name === "worker") return;
+          const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
+          const error = new Error(message);
+          stub = sinon.stub(storeClient, "set").rejects(error);
+        });
+
+        afterEach(() => {
+          if (args.name === "worker") return;
+          stub.restore();
+        });
+
+        it("then the method should return a rejected promise with the reason", async () => {
+          try {
+            await cachemap.get(key, { hash, stub: true });
+          } catch (error) {
+            expect(error.message).to.equal(message);
+          }
         });
       });
     });
@@ -173,6 +226,32 @@ function testCachemapClass(args: ConstructorArgs): void {
         it("then the method should return false", async () => {
           const cacheability = await cachemap.has(key, { hash }) as false;
           expect(cacheability).to.equal(false);
+        });
+      });
+
+      context("when the database throws an exception", () => {
+        const message = "Oops, there seems to be a problem";
+        let stub: sinon.SinonStub;
+
+        before(async () => {
+          await cachemap.set(key, value, { cacheHeaders, hash });
+          if (args.name === "worker") return;
+          const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
+          const error = new Error(message);
+          stub = sinon.stub(storeClient, "set").rejects(error);
+        });
+
+        after(() => {
+          if (args.name === "worker") return;
+          stub.restore();
+        });
+
+        it("then the method should return a rejected promise with the reason", async () => {
+          try {
+            await cachemap.has(key, { deleteExpired: true, hash, stub: true });
+          } catch (error) {
+            expect(error.message).to.equal(message);
+          }
         });
       });
     });
@@ -230,6 +309,31 @@ function testCachemapClass(args: ConstructorArgs): void {
           expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
           expect(updatedMetadata.lastUpdated >= metadata.lastUpdated).to.equal(true);
           expect(updatedMetadata.size).to.equal(metadata.size);
+        });
+      });
+
+      context("when the database throws an exception", () => {
+        const message = "Oops, there seems to be a problem";
+        let stub: sinon.SinonStub;
+
+        before(() => {
+          if (args.name === "worker") return;
+          const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
+          const error = new Error(message);
+          stub = sinon.stub(storeClient, "set").rejects(error);
+        });
+
+        after(() => {
+          if (args.name === "worker") return;
+          stub.restore();
+        });
+
+        it("then the method should return a rejected promise with the reason", async () => {
+          try {
+            await cachemap.set(key, value, { cacheHeaders, hash, stub: true });
+          } catch (error) {
+            expect(error.message).to.equal(message);
+          }
         });
       });
     });

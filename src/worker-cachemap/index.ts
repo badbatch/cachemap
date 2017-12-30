@@ -46,7 +46,7 @@ export default class WorkerCachemap {
     }
   }
 
-  public async delete(key: string, opts: { hash?: boolean } = {}): Promise<boolean> {
+  public async delete(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<boolean> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "delete" });
       this._setMetadata(metadata, usedHeapSize);
@@ -56,7 +56,7 @@ export default class WorkerCachemap {
     }
   }
 
-  public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
+  public async get(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<any> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "get" });
       this._setMetadata(metadata, usedHeapSize);
@@ -66,7 +66,10 @@ export default class WorkerCachemap {
     }
   }
 
-  public async has(key: string, opts: { deleteExpired?: boolean, hash?: boolean } = {}): Promise<Cacheability | false> {
+  public async has(
+    key: string,
+    opts: { deleteExpired?: boolean, hash?: boolean, stub?: boolean } = {},
+  ): Promise<Cacheability | false> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "has" });
       this._setMetadata(metadata, usedHeapSize);
@@ -82,7 +85,7 @@ export default class WorkerCachemap {
   public async set(
     key: string,
     value: any,
-    opts: { cacheHeaders?: CacheHeaders, hash?: boolean } = {},
+    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, stub?: boolean } = {},
   ): Promise<void> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ key, opts, type: "set", value });

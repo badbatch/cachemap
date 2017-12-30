@@ -186,7 +186,7 @@ export default class DefaultCachemap {
     }
   }
 
-  public async delete(key: string, opts: { hash?: boolean } = {}): Promise<boolean> {
+  public async delete(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<boolean> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
@@ -203,14 +203,14 @@ export default class DefaultCachemap {
     try {
       const deleted = await this._store.delete(_key);
       if (!deleted) return false;
-      this._deleteMetadata(_key);
+      await this._deleteMetadata(_key);
       return true;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
+  public async get(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<any> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
@@ -227,7 +227,7 @@ export default class DefaultCachemap {
     try {
       const value = await this._store.get(_key);
       if (!value) return undefined;
-      this._updateMetadata(_key);
+      await this._updateMetadata(_key);
       return value;
     } catch (error) {
       return Promise.reject(error);
@@ -236,7 +236,7 @@ export default class DefaultCachemap {
 
   public async has(
     key: string,
-    opts: { deleteExpired?: boolean, hash?: boolean } = {},
+    opts: { deleteExpired?: boolean, hash?: boolean, stub?: boolean } = {},
   ): Promise<Cacheability | false> {
     const errors: TypeError[] = [];
 
@@ -269,7 +269,7 @@ export default class DefaultCachemap {
   public async set(
     key: string,
     value: any,
-    opts: { cacheHeaders?: CacheHeaders, hash?: boolean } = {},
+    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, stub?: boolean } = {},
   ): Promise<void> {
     const errors: TypeError[] = [];
 
@@ -323,9 +323,9 @@ export default class DefaultCachemap {
     });
 
     this._sortMetadata();
+    this._updateHeapSize();
 
     try {
-      this._updateHeapSize();
       await this._backupMetadata();
     } catch (error) {
       return Promise.reject(error);
@@ -392,17 +392,17 @@ export default class DefaultCachemap {
     }
   }
 
-  private _deleteMetadata(key: string): void {
+  private async _deleteMetadata(key: string): Promise<void> {
     const index = this._metadata.findIndex((value) => value.key === key);
     if (index === -1) return;
     this._metadata.splice(index, 1);
     this._sortMetadata();
+    this._updateHeapSize();
 
     try {
-      this._updateHeapSize();
-      this._backupMetadata();
+      await this._backupMetadata();
     } catch (error) {
-      throw error;
+      return Promise.reject(error);
     }
   }
 
@@ -419,12 +419,7 @@ export default class DefaultCachemap {
   private async _reduceHeapSize(): Promise<void> {
     const index = this._calcReductionChunk();
     if (!index) return;
-
-    try {
-      this._reaper.cull(this._metadata.slice(index, this._metadata.length));
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    this._reaper.cull(this._metadata.slice(index, this._metadata.length));
   }
 
   private async _retreiveMetadata(): Promise<void> {
@@ -442,12 +437,7 @@ export default class DefaultCachemap {
 
   private _updateHeapSize(): void {
     this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
-
-    try {
-      if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
-    } catch (error) {
-      throw error;
-    }
+    if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
   }
 
   private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability): Promise<void> {
@@ -464,9 +454,9 @@ export default class DefaultCachemap {
 
     if (cacheability) entry.cacheability = cacheability;
     this._sortMetadata();
+    this._updateHeapSize();
 
     try {
-      this._updateHeapSize();
       await this._backupMetadata();
     } catch (error) {
       return Promise.reject(error);

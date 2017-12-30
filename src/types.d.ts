@@ -47,7 +47,7 @@ export interface ObjectMap {
 export interface PostMessageArgs {
   args?: ConstructorArgs;
   key?: string;
-  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean };
+  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean, stub?: boolean };
   type: string;
   value?: any;
 }

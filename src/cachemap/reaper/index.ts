@@ -22,9 +22,7 @@ export default class Reaper {
     if (!metadata.length) return;
 
     try {
-      metadata.forEach(({ key }) => {
-        this._cachemap.delete(key);
-      });
+      await Promise.all(metadata.map(({ key }) => this._cachemap.delete(key)));
     } catch (error) {
       // no catch
     }

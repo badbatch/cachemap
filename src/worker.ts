@@ -1,6 +1,12 @@
 import registerPromiseWorker from "promise-worker/register";
 import DefaultCachemap from "./cachemap";
-import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
+import { Metadata, PostMessageArgs, PostMessageResult, StoreProxyTypes } from "./types";
+
+let sinon: any;
+
+if (process.env.TEST_ENV) {
+  sinon = require("sinon");
+}
 
 let cachemap: DefaultCachemap;
 
@@ -14,6 +20,15 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
   if (type === "create" && args) {
     cachemap = await DefaultCachemap.create(args);
     return getMetadata(cachemap);
+  }
+
+  let stub: sinon.SinonStub | undefined;
+
+  if (sinon && opts && opts.stub) {
+    const { get } = require("lodash");
+    const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
+    const error = new Error("Oops, there seems to be a problem");
+    stub = sinon.stub(storeClient, "set").rejects(error);
   }
 
   let result: any;
@@ -42,6 +57,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
         // no default
     }
   } catch (error) {
+    if (stub) stub.restore();
     return Promise.reject(error);
   }
 
