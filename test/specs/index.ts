@@ -304,7 +304,7 @@ function testCachemapClass(args: ConstructorArgs): void {
           const updatedMetadata = cachemap.metadata[0];
           expect(updatedMetadata.accessedCount).to.equal(0);
           expect(updatedMetadata.added).to.equal(metadata.added);
-          expect(updatedMetadata.cacheability.metadata.ttl).to.be.above(metadata.cacheability.metadata.ttl);
+          expect(updatedMetadata.cacheability.metadata.ttl >= metadata.cacheability.metadata.ttl).to.equal(true);
           expect(updatedMetadata.key).to.equal(metadata.key);
           expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
           expect(updatedMetadata.lastUpdated >= metadata.lastUpdated).to.equal(true);
