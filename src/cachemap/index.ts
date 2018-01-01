@@ -424,8 +424,15 @@ export default class DefaultCachemap {
 
   private async _retreiveMetadata(): Promise<void> {
     try {
-      const metadata = await this._store.get(`${this._name} metadata`);
-      if (isArray(metadata)) this._metadata = metadata;
+      const metadata: Metadata[] = await this._store.get(`${this._name} metadata`);
+      if (isArray(metadata)) {
+        this._metadata = metadata.map((entry) => {
+          const cacheability = new Cacheability();
+          cacheability.metadata = entry.cacheability.metadata;
+          entry.cacheability = cacheability;
+          return entry;
+        });
+      }
     } catch (error) {
       return Promise.reject(error);
     }
