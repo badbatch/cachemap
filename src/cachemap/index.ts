@@ -335,7 +335,7 @@ export default class DefaultCachemap {
   private async _backupMetadata(): Promise<void> {
     if (this._storeType !== "map") {
       try {
-        await this._store.set(`${this._name} metadata`, this._metadata);
+        await this._store.set("metadata", this._metadata);
       } catch (error) {
         return Promise.reject(error);
       }
@@ -378,8 +378,8 @@ export default class DefaultCachemap {
       } else {
         if (this._storeType === "indexedDB" && self.indexedDB) {
           this._store = await IndexedDBProxy.create(this._indexedDBOptions);
-        } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
-          this._store = new LocalStorageProxy();
+        } else if (self instanceof Window && self.localStorage) {
+          this._store = new LocalStorageProxy(this._name);
         } else {
           this._storeType = "map";
           this._store = new MapProxy();
@@ -424,7 +424,7 @@ export default class DefaultCachemap {
 
   private async _retreiveMetadata(): Promise<void> {
     try {
-      const metadata: Metadata[] = await this._store.get(`${this._name} metadata`);
+      const metadata: Metadata[] = await this._store.get(`metadata`);
       if (isArray(metadata)) {
         this._metadata = metadata.map((entry) => {
           const cacheability = new Cacheability();

@@ -31,15 +31,6 @@ module.exports = {
       use: {
         loader: 'worker-loader',
       },
-    }, {
-      enforce: 'post',
-      exclude: ['**/*.d.ts'],
-      include: resolve(__dirname, 'src'),
-      test: /\.tsx?$/,
-      use: [{
-        loader: 'istanbul-instrumenter-loader',
-        options: { esModules: true },
-      }],
     }],
   },
   resolve: {
@@ -53,7 +44,10 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       debug: true,
     }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map',
+      test: /\.(tsx?|jsx?)$/,
+    }),
     new LodashModuleReplacementPlugin(),
   ],
-  devtool: 'source-map',
 };

@@ -1,5 +1,27 @@
 const { resolve } = require('path');
+const webpack = require('webpack'); // eslint-disable-line
 const webpackConfig = require('./webpack.config');
+
+webpackConfig.module.rules.push({
+  enforce: 'pre',
+  test: /\.(tsx?|jsx?)$/,
+  use: {
+    loader: 'source-map-loader',
+  },
+}, {
+  enforce: 'post',
+  exclude: ['**/*.d.ts'],
+  include: resolve(__dirname, 'src'),
+  test: /\.tsx?$/,
+  use: [{
+    loader: 'istanbul-instrumenter-loader',
+    options: { esModules: true },
+  }],
+});
+
+webpackConfig.plugins.splice(2, 1, new webpack.SourceMapDevToolPlugin({
+  test: /\.(tsx?|jsx?)$/,
+}));
 
 module.exports = (config) => {
   config.set({
@@ -11,7 +33,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    webpack: { ...webpackConfig, devtool: 'cheap-module-eval-source-map' },
+    webpack: webpackConfig,
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
