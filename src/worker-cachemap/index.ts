@@ -9,7 +9,7 @@ import {
   PostMessageResult,
 } from "../types";
 
-export default class WorkerCachemap {
+export class WorkerCachemap {
   public static async create(args: ConstructorArgs): Promise<WorkerCachemap> {
     try {
       const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line

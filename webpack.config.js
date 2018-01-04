@@ -5,7 +5,12 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   entry: {
-    index: './src/index.ts',
+    cachemap: './src/index.ts',
+    'cachemap.min': './src/index.ts',
+    'default-cachemap': './src/default-cachemap/index.ts',
+    'default-cachemap.min': './src/default-cachemap/index.ts',
+    'worker-cachemap': './src/worker-cachemap/index.ts',
+    'worker-cachemap.min': './src/worker-cachemap/index.ts',
   },
   output: {
     filename: '[name].js',
@@ -48,6 +53,10 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].js.map',
       test: /\.(tsx?|jsx?)$/,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      include: /\.min\.js$/,
+      sourceMap: true,
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'disabled',

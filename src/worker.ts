@@ -1,5 +1,5 @@
 import registerPromiseWorker from "promise-worker/register";
-import DefaultCachemap from "./cachemap";
+import { DefaultCachemap } from "./default-cachemap";
 import { Metadata, PostMessageArgs, PostMessageResult, StoreProxyTypes } from "./types";
 
 let sinon: any;

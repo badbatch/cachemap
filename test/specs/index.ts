@@ -4,9 +4,7 @@ import * as delay from "delay";
 import { get } from "lodash";
 import * as sinon from "sinon";
 import testData from "../data";
-import createCachemap from "../../src";
-import DefaultCachemap from "../../src/cachemap";
-import WorkerCachemap from "../../src/worker-cachemap";
+import { Cachemap, DefaultCachemap, WorkerCachemap } from "../../src";
 
 import {
   CacheHeaders,
@@ -41,12 +39,12 @@ const mapArgs: ConstructorArgs = {
   use: { server: "map" },
 };
 
-describe("the createCachemap method", () => {
+describe("the Cachemap.create method", () => {
   if (process.env.WEB_ENV) {
     context("when the environment is a browser", () => {
       context("when use.client is set to 'indexedDB'", () => {
         it("the method should return an instance of the WorkerCachemap class that uses indexedDB", async () => {
-          const workerCachemap = await createCachemap(workerArgs) as WorkerCachemap;
+          const workerCachemap = await Cachemap.create(workerArgs) as WorkerCachemap;
           expect(workerCachemap).to.be.instanceof(WorkerCachemap);
           workerCachemap.terminate();
         });
@@ -54,7 +52,7 @@ describe("the createCachemap method", () => {
 
       context("when use.client is set to 'localStorage'", () => {
         it("the method should return an instance of the Cachemap class that uses local storage", async () => {
-          const cachemap = await createCachemap(clientArgs);
+          const cachemap = await Cachemap.create(clientArgs);
           expect(cachemap).to.be.instanceof(DefaultCachemap);
         });
       });
@@ -63,7 +61,7 @@ describe("the createCachemap method", () => {
     context("when the environment is a server", () => {
       context("when use.server is set to 'redis'", () => {
         it("the method should return an instance of the Cachemap class that uses redis", async () => {
-          const cachemap = await createCachemap(serverArgs);
+          const cachemap = await Cachemap.create(serverArgs);
           expect(cachemap).to.be.instanceof(DefaultCachemap);
         });
       });
@@ -81,7 +79,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
     describe("the delete method", () => {
       beforeEach(async () => {
-        cachemap = await createCachemap(args);
+        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
       });
 
@@ -134,7 +132,7 @@ function testCachemapClass(args: ConstructorArgs): void {
       let metadata: Metadata;
 
       beforeEach(async () => {
-        cachemap = await createCachemap(args);
+        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
         metadata = { ...cachemap.metadata[0] };
       });
@@ -187,7 +185,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
     describe("the has method", () => {
       before(async () => {
-        cachemap = await createCachemap(args);
+        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
       });
 
@@ -260,7 +258,7 @@ function testCachemapClass(args: ConstructorArgs): void {
       let metadata: Metadata;
 
       before(async () => {
-        cachemap = await createCachemap(args);
+        cachemap = await Cachemap.create(args);
       });
 
       after(async () => {

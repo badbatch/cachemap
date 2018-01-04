@@ -1,5 +1,5 @@
 import { isPlainObject } from "lodash";
-import DefaultCachemap from "../";
+import { DefaultCachemap } from "../";
 import { Metadata, ReaperOptions } from "../../types";
 
 export default class Reaper {
