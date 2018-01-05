@@ -1,4 +1,4 @@
-import Cacheability, { CacheabilityMetadata } from "cacheability";
+import { Cacheability, CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
 import IndexedDBProxy from "./cachemap/proxies/indexed-db";
 import LocalStorageProxy from "./cachemap/proxies/local-storage";

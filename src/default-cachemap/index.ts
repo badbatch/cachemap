@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
 import * as md5 from "md5";
 import * as sizeof from "object-sizeof";

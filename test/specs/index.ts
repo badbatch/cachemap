@@ -1,4 +1,4 @@
-import Cacheability from "cacheability";
+import { Cacheability } from "cacheability";
 import { expect } from "chai";
 import * as delay from "delay";
 import { get } from "lodash";
