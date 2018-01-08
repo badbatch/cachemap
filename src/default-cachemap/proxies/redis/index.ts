@@ -22,12 +22,12 @@ export default class RedisProxy {
   }
 
   public async clear(): Promise<void> {
-    await new Promise((resolve, reject: (reason: Error) => void) => {
+    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
       this._client.flushdb((error, reply) => {
         if (error) {
            reject(error);
         } else {
-          resolve();
+          resolve(undefined);
         }
       });
     });
@@ -70,12 +70,12 @@ export default class RedisProxy {
   }
 
   public async set(key: string, value: any): Promise<void> {
-    await new Promise((resolve, reject: (reason: Error) => void) => {
+    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
       this._client.set(key, JSON.stringify(value), (error, reply) => {
         if (error) {
           reject(error);
         } else {
-          resolve();
+          resolve(undefined);
         }
       });
     });
