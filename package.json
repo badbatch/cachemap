@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -43,7 +43,7 @@
     "type-check": "gulp type-check"
   },
   "dependencies": {
-    "cacheability": "0.0.48",
+    "cacheability": "0.0.50",
     "delay": "^2.0.0",
     "idb": "^2.0.4",
     "lodash": "^4.17.4",
@@ -104,6 +104,7 @@
     "ts-node": "^4.0.2",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
+    "uglifyjs-webpack-plugin": "^1.1.6",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-stream": "^4.0.0",
