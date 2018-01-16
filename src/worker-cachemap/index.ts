@@ -14,6 +14,7 @@ import {
  * can use IndexedDB or an in-memory Map.
  *
  * ```typescript
+ * import { WorkerCachemap } from "cachemap";
  * const cachemap = await WorkerCachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },

@@ -30,6 +30,7 @@ if (!process.env.WEB_ENV) {
  * or an in-memory Map.
  *
  * ```typescript
+ * import { DefaultCachemap } from "cachemap";
  * const cachemap = await DefaultCachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },

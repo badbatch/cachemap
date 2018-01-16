@@ -18,6 +18,7 @@ declare global {
  * IndexedDB or an in-memory Map.
  *
  * ```typescript
+ * import { Cachemap } from "cachemap";
  * const cachemap = await Cachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },
