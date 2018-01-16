@@ -14,14 +14,70 @@ export interface CacheHeaders {
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface ConstructorArgs {
+  /**
+   * This property disables all cache invalidation.
+   * Stale entries will not be culled from the cachemap
+   * and the reaper will not run at set intervals if this
+   * property is set to true.
+   *
+   */
   disableCacheInvalidation?: boolean;
+  /**
+   * This property specifies the database name and object
+   * store name to be provided to IndexedDB. If none are
+   * provided, the database name defaults to keyval-store"
+   * and the object store name defaults to "keyval".
+   *
+   */
   indexedDBOptions?: IndexedDBOptions;
+  /**
+   * This property specifies the approximate maximum
+   * memory the Cachemap can use on the client and server.
+   * IndexedDB and LocalStorage default to 5MB, Map defaults
+   * to 1MB, and Redis defaults to Infinity.
+   *
+   */
   maxHeapSize?: { client?: number, server?: number };
+  /**
+   * If true, this property replaces Redis with a mocked version
+   * of the library, which is useful for testing.
+   *
+   */
   mockRedis?: boolean;
+  /**
+   * The name of the DefaultCachemap instance, which is used to
+   * prefix the key backed up metadata is stored against,
+   * as well as prefix all LocalStorage data keys.
+   *
+   */
   name: string;
+  /**
+   * The property specifies configuration options passed
+   * to the reaper: the interval time and whether to start
+   * the reaper on initialisation.
+   *
+   */
   reaperOptions?: ReaperOptions;
+  /**
+   * The property specifies the configuration options passed
+   * to the redis client, which are detailed on the node_redis
+   * [github readme](https://github.com/NodeRedis/node_redis).
+   *
+   */
   redisOptions?: ClientOpts;
+  /**
+   * The storage type for the client and the server. In the
+   * browser, the storage type defaults to a Map, while on
+   * the server it defaults to the redis client.
+   *
+   */
   use: { client?: ClientStoreTypes, server?: ServerStoreTypes };
+  /**
+   * A sort comparator to replace the default comparator used
+   * to order the metadata of each data entry in the
+   * DefaultCachemap instance.
+   *
+   */
   sortComparator?(a: any, b: any): number;
 }
 
@@ -31,12 +87,48 @@ export interface IndexedDBOptions {
 }
 
 export interface Metadata {
+  /**
+   * The number of times the corresponding data
+   * entry has been accessed.
+   *
+   */
   accessedCount: number;
+  /**
+   * The timestamp of when the corresponding data
+   * entry was added to the DefaultCachemap instance.
+   *
+   */
   added: number;
+  /**
+   * The cache information of the corresponding
+   * data entry, which uses the [Cacheability
+   * module](https://github.com/dylanaubrey/cacheability).
+   *
+   */
   cacheability: Cacheability;
+  /**
+   * The key the corresponding data entry was stored
+   * against.
+   *
+   */
   key: string;
+  /**
+   * The timestamp of when the corresponding data
+   * entry was last accessed.
+   *
+   */
   lastAccessed: number;
+  /**
+   * The timestamp of when the corresponding data
+   * entry was last updated.
+   *
+   */
   lastUpdated: number;
+  /**
+   * The approximate amount of memory the corresponding
+   * data entry takes up.
+   *
+   */
   size: number;
 }
 

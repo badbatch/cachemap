@@ -106,9 +106,17 @@
 					<div class="tsd-signature tsd-kind-icon">disable<wbr>Cache<wbr>Invalidation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L17">types.d.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L24">types.d.ts:24</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This property disables all cache invalidation.
+								Stale entries will not be culled from the cachemap
+								and the reaper will not run at set intervals if this
+							property is set to true.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="indexeddboptions" class="tsd-anchor"></a>
@@ -116,9 +124,17 @@
 					<div class="tsd-signature tsd-kind-icon">indexedDBOptions<span class="tsd-signature-symbol">:</span> <a href="indexeddboptions.html" class="tsd-signature-type">IndexedDBOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L18">types.d.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L32">types.d.ts:32</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This property specifies the database name and object
+								store name to be provided to IndexedDB. If none are
+								provided, the database name defaults to keyval-store&quot;
+							and the object store name defaults to &quot;keyval&quot;.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="maxheapsize" class="tsd-anchor"></a>
@@ -126,9 +142,17 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Heap<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L19">types.d.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L40">types.d.ts:40</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This property specifies the approximate maximum
+								memory the Cachemap can use on the client and server.
+								IndexedDB and LocalStorage default to 5MB, Map defaults
+							to 1MB, and Redis defaults to Infinity.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -147,9 +171,15 @@
 					<div class="tsd-signature tsd-kind-icon">mock<wbr>Redis<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L20">types.d.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L46">types.d.ts:46</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If true, this property replaces Redis with a mocked version
+							of the library, which is useful for testing.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="name" class="tsd-anchor"></a>
@@ -157,9 +187,16 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L21">types.d.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L53">types.d.ts:53</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the DefaultCachemap instance, which is used to
+								prefix the key backed up metadata is stored against,
+							as well as prefix all LocalStorage data keys.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="reaperoptions" class="tsd-anchor"></a>
@@ -167,9 +204,16 @@
 					<div class="tsd-signature tsd-kind-icon">reaper<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="reaperoptions.html" class="tsd-signature-type">ReaperOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L22">types.d.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L60">types.d.ts:60</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The property specifies configuration options passed
+								to the reaper: the interval time and whether to start
+							the reaper on initialisation.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="redisoptions" class="tsd-anchor"></a>
@@ -177,9 +221,16 @@
 					<div class="tsd-signature tsd-kind-icon">redis<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ClientOpts</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L23">types.d.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L67">types.d.ts:67</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The property specifies the configuration options passed
+								to the redis client, which are detailed on the node_redis
+							<a href="https://github.com/NodeRedis/node_redis">github readme</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="use" class="tsd-anchor"></a>
@@ -187,9 +238,16 @@
 					<div class="tsd-signature tsd-kind-icon">use<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L24">types.d.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L74">types.d.ts:74</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The storage type for the client and the server. In the
+								browser, the storage type defaults to a Map, while on
+							the server it defaults to the redis client.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -215,9 +273,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/types.d.ts#L25">types.d.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/types.d.ts#L81">types.d.ts:81</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A sort comparator to replace the default comparator used
+										to order the metadata of each data entry in the
+									DefaultCachemap instance.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>

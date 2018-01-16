@@ -9,6 +9,16 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 [![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
 
+### Summary
+* Use Redis or an in-memory Map on the server.
+* Use LocalStorage, IndexedDB or an in-memory Map on the client.
+* Store data alongside cache-control directives and etag.
+* Cache headers used to derive whether data is fresh or stale.
+* Sort stored data based on metadata values.
+* Build-in reaper to cull stale data at specified intervals.
+* Set approximate maximum memory size for data.
+* Use on main thread or as web worker in browser.
+
 ### Installation
 ```
 npm install cachemap --save

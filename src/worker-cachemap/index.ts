@@ -9,7 +9,30 @@ import {
   PostMessageResult,
 } from "../types";
 
+/**
+ * A browser cache that works in web workers, that
+ * can use IndexedDB or an in-memory Map.
+ *
+ * ```typescript
+ * const cachemap = await WorkerCachemap.create({
+ *   name: "alfa",
+ *   use: { client: "localStorage", server: "redis" },
+ * });
+ * ```
+ *
+ */
 export class WorkerCachemap {
+  /**
+   * The method creates an instance of WorkerCachemap.
+   *
+   * ```typescript
+   * const cachemap = await WorkerCachemap.create({
+   *   name: "alfa",
+   *   use: { client: "indexedDB" },
+   * });
+   * ```
+   *
+   */
   public static async create(args: ConstructorArgs): Promise<WorkerCachemap> {
     try {
       const webpackWorker = require("worker-loader?inline=true&fallback=false!../worker"); // tslint:disable-line
@@ -29,14 +52,36 @@ export class WorkerCachemap {
   private _worker: Worker;
   private _usedHeapSize: number = 0;
 
+  /**
+   * The property holds the metadata for each data
+   * entry in the WorkerCachemap instance.
+   *
+   */
   get metadata(): Metadata[] {
     return this._metadata;
   }
 
+  /**
+   * The property holds the approximate amount of
+   * memory the WorkerCachemap instance as used.
+   *
+   */
   get usedHeapSize(): number {
     return this._usedHeapSize;
   }
 
+  /**
+   * The method removes all data entries from the
+   * WorkerCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.clear();
+   * const size = await cachemap.size();
+   * // size is 0;
+   * ```
+   *
+   */
   public async clear(): Promise<void> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ type: "clear" });
@@ -46,6 +91,19 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method removes a specific data entry from the
+   * WorkerCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const isDeleted = await cachemap.delete("alfa");
+   * // isDeleted is true
+   * const size = await cachemap.size();
+   * // size is 0;
+   * ```
+   *
+   */
   public async delete(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<boolean> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "delete" });
@@ -56,6 +114,17 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method retrievs a data entry from the WorkerCachemap
+   * instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const entry = await cachemap.get("alfa");
+   * // entry is [1, 2, 3, 4, 5]
+   * ```
+   *
+   */
   public async get(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<any> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "get" });
@@ -66,6 +135,22 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method retrievs the cache metadata for a data
+   * entry or returns false if no matching data entry is found.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
+   *   cacheHeaders: { cacheControl: "public, max-age=5" },
+   * });
+   * const hasEntry = await cachemap.has("alfa");
+   * // hasEntry is instanceof Cacheability
+   * // Six seconds elapse...
+   * const stillHasEntry = await cachemap.has("alfa", { deleteExpired: true });
+   * // stillHasEntry is false
+   * ```
+   *
+   */
   public async has(
     key: string,
     opts: { deleteExpired?: boolean, hash?: boolean, stub?: boolean } = {},
@@ -82,6 +167,20 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method adds a data entry to the WorkerCachemap
+   * instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
+   *   cacheHeaders: { cacheControl: "public, max-age=5" },
+   *   hash: true,
+   * });
+   * const size = await cachemap.size();
+   * // size is 1
+   * ```
+   *
+   */
   public async set(
     key: string,
     value: any,
@@ -95,6 +194,17 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method gets the number of data entries in the
+   * WorkerCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const size = await cachemap.size();
+   * // size is 1
+   * ```
+   *
+   */
   public async size(): Promise<number> {
     try {
       const { result } = await this._postMessage({ type: "size" });
@@ -104,6 +214,14 @@ export class WorkerCachemap {
     }
   }
 
+  /**
+   * The method immediately terminates the web worker.
+   *
+   * ```typescript
+   * cachemap.terminate();
+   * ```
+   *
+   */
   public terminate(): void {
     this._worker.terminate();
   }

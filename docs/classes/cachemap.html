@@ -64,6 +64,20 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>An isomorphic cache that works on the server, browser
+							and in web workers, that can use Redis, LocalStorage,
+						IndexedDB or an in-memory Map.</p>
+					</div>
+					<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> Cachemap.create({
+  name: <span class="hljs-string">"alfa"</span>,
+  use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
+});
+</code></pre>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -97,9 +111,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/715a8d1/src/cachemap/index.ts#L16">cachemap/index.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/cachemap/index.ts#L43">cachemap/index.ts:43</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The method creates an instance of either DefaultCachemap for
+										the server, DefaultCachemap for the browser, or WorkerCachemap,
+										based on whether the WEB_ENV environment variable is set to &quot;true&quot;
+									and whether the environment supports web workers.</p>
+								</div>
+								<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> Cachemap.create({
+  name: <span class="hljs-string">"alfa"</span>,
+  use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
+});
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>

@@ -24,7 +24,33 @@ if (!process.env.WEB_ENV) {
   redisProxy = require("./proxies/redis").default;
 }
 
+/**
+ * An isomorphic cache that works on the server and the
+ * browser, that can use Redis, LocalStorage, IndexedDB
+ * or an in-memory Map.
+ *
+ * ```typescript
+ * const cachemap = await DefaultCachemap.create({
+ *   name: "alfa",
+ *   use: { client: "localStorage", server: "redis" },
+ * });
+ * ```
+ *
+ */
 export class DefaultCachemap {
+  /**
+   * The method creates an instance of either the server or
+   * browser version of DefaultCachemap based on whether
+   * the WEB_ENV environment variable is set to "true".
+   *
+   * ```typescript
+   * const cachemap = await DefaultCachemap.create({
+   *   name: "alfa",
+   *   use: { client: "localStorage", server: "redis" },
+   * });
+   * ```
+   *
+   */
   public static async create(args: ConstructorArgs): Promise<DefaultCachemap> {
     try {
       const cachemap = new DefaultCachemap(args);
@@ -161,20 +187,42 @@ export class DefaultCachemap {
     this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
     this._mockRedis = isBoolean(mockRedis) ? mockRedis : false;
     this._name = name;
-    this._reaper = new Reaper(this, reaperOptions);
+    if (!this._disableCacheInvalidation) this._reaper = new Reaper(this, reaperOptions);
     if (redisOptions && isPlainObject(redisOptions)) this._redisOptions = redisOptions;
     this._storeType = storeType;
     if (isFunction(sortComparator)) DefaultCachemap._sortComparator = sortComparator;
   }
 
+  /**
+   * The property holds the metadata for each data
+   * entry in the DefaultCachemap instance.
+   *
+   */
   get metadata(): Metadata[] {
     return this._metadata;
   }
 
+  /**
+   * The property holds the approximate amount of
+   * memory the DefaultCachemap instance as used.
+   *
+   */
   get usedHeapSize(): number {
     return this._usedHeapSize;
   }
 
+  /**
+   * The method removes all data entries from the
+   * DefaultCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.clear();
+   * const size = await cachemap.size();
+   * // size is 0;
+   * ```
+   *
+   */
   public async clear(): Promise<void> {
     try {
       this._store.clear();
@@ -186,6 +234,19 @@ export class DefaultCachemap {
     }
   }
 
+  /**
+   * The method removes a specific data entry from the
+   * DefaultCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const isDeleted = await cachemap.delete("alfa");
+   * // isDeleted is true
+   * const size = await cachemap.size();
+   * // size is 0;
+   * ```
+   *
+   */
   public async delete(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<boolean> {
     const errors: TypeError[] = [];
 
@@ -210,6 +271,17 @@ export class DefaultCachemap {
     }
   }
 
+  /**
+   * The method retrievs a data entry from the DefaultCachemap
+   * instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const entry = await cachemap.get("alfa");
+   * // entry is [1, 2, 3, 4, 5]
+   * ```
+   *
+   */
   public async get(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<any> {
     const errors: TypeError[] = [];
 
@@ -234,6 +306,22 @@ export class DefaultCachemap {
     }
   }
 
+  /**
+   * The method retrievs the cache metadata for a data
+   * entry or returns false if no matching data entry is found.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
+   *   cacheHeaders: { cacheControl: "public, max-age=5" },
+   * });
+   * const hasEntry = await cachemap.has("alfa");
+   * // hasEntry is instanceof Cacheability
+   * // Six seconds elapse...
+   * const stillHasEntry = await cachemap.has("alfa", { deleteExpired: true });
+   * // stillHasEntry is false
+   * ```
+   *
+   */
   public async has(
     key: string,
     opts: { deleteExpired?: boolean, hash?: boolean, stub?: boolean } = {},
@@ -266,6 +354,20 @@ export class DefaultCachemap {
     }
   }
 
+  /**
+   * The method adds a data entry to the DefaultCachemap
+   * instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
+   *   cacheHeaders: { cacheControl: "public, max-age=5" },
+   *   hash: true,
+   * });
+   * const size = await cachemap.size();
+   * // size is 1
+   * ```
+   *
+   */
   public async set(
     key: string,
     value: any,
@@ -303,6 +405,17 @@ export class DefaultCachemap {
     }
   }
 
+  /**
+   * The method gets the number of data entries in the
+   * DefaultCachemap instance.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * const size = await cachemap.size();
+   * // size is 1
+   * ```
+   *
+   */
   public async size(): Promise<number> {
     try {
       return this._store.size();
@@ -444,7 +557,7 @@ export class DefaultCachemap {
 
   private _updateHeapSize(): void {
     this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
-    if (this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
+    if (!this._disableCacheInvalidation && this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
   }
 
   private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability): Promise<void> {
