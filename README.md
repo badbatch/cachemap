@@ -9,4 +9,10 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 [![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
 
-### Work in progress...
+### Installation
+```
+npm install cachemap --save
+```
+
+### Documentation
+Please read the documentation on the cachemap [github pages](https://dylanaubrey.github.io/cachemap).
