@@ -13,8 +13,10 @@ addons:
       secure: $SONAR_TOKEN
     github_token:
       secure: $SONAR_PR_ANALYSIS_TOKEN
+  sauce_connect: true
 script:
   - npm test
+  - npm run test:sauceLabs
   - sonar-scanner
   - codecov
   - npm run compile
