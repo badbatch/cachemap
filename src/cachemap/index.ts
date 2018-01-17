@@ -30,8 +30,11 @@ export class Cachemap {
   /**
    * The method creates an instance of either DefaultCachemap for
    * the server, DefaultCachemap for the browser, or WorkerCachemap,
-   * based on whether the WEB_ENV environment variable is set to "true"
+   * based on whether the `WEB_ENV` environment variable is set to `true`
    * and whether the environment supports web workers.
+   *
+   * NOTE: Set the `WEB_ENV` environment variable when compiling
+   * browser bundle.
    *
    * ```typescript
    * const cachemap = await Cachemap.create({

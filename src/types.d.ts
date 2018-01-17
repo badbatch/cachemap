@@ -16,7 +16,7 @@ export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 export interface ConstructorArgs {
   /**
    * This property disables all cache invalidation.
-   * Stale entries will not be culled from the cachemap
+   * Stale entries will not be culled from the Cachemap instance
    * and the reaper will not run at set intervals if this
    * property is set to true.
    *
@@ -25,27 +25,27 @@ export interface ConstructorArgs {
   /**
    * This property specifies the database name and object
    * store name to be provided to IndexedDB. If none are
-   * provided, the database name defaults to keyval-store"
-   * and the object store name defaults to "keyval".
+   * provided, the database name defaults to `"keyval-store"`
+   * and the object store name defaults to `"keyval"`.
    *
    */
   indexedDBOptions?: IndexedDBOptions;
   /**
    * This property specifies the approximate maximum
-   * memory the Cachemap can use on the client and server.
+   * memory the Cachemap instance can use on the client and server.
    * IndexedDB and LocalStorage default to 5MB, Map defaults
    * to 1MB, and Redis defaults to Infinity.
    *
    */
   maxHeapSize?: { client?: number, server?: number };
   /**
-   * If true, this property replaces Redis with a mocked version
+   * If `true`, this property replaces Redis with a mocked version
    * of the library, which is useful for testing.
    *
    */
   mockRedis?: boolean;
   /**
-   * The name of the DefaultCachemap instance, which is used to
+   * The name of the Cachemap instance, which is used to
    * prefix the key backed up metadata is stored against,
    * as well as prefix all LocalStorage data keys.
    *
@@ -95,7 +95,7 @@ export interface Metadata {
   accessedCount: number;
   /**
    * The timestamp of when the corresponding data
-   * entry was added to the DefaultCachemap instance.
+   * entry was added to the Cachemap instance.
    *
    */
   added: number;

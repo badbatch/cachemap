@@ -70,7 +70,8 @@
 						<p>A browser cache that works in web workers, that
 						can use IndexedDB or an in-memory Map.</p>
 					</div>
-					<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> WorkerCachemap.create({
+					<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { WorkerCachemap } <span class="hljs-keyword">from</span> <span class="hljs-string">"cachemap"</span>;
+<span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> WorkerCachemap.create({
   name: <span class="hljs-string">"alfa"</span>,
   use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
 });
@@ -124,7 +125,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L60">worker-cachemap/index.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L61">worker-cachemap/index.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -147,7 +148,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L69">worker-cachemap/index.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L70">worker-cachemap/index.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -173,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L85">worker-cachemap/index.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L86">worker-cachemap/index.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -201,7 +202,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L107">worker-cachemap/index.ts:107</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L108">worker-cachemap/index.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +248,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L128">worker-cachemap/index.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L129">worker-cachemap/index.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -291,7 +292,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L154">worker-cachemap/index.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L155">worker-cachemap/index.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -343,7 +344,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L184">worker-cachemap/index.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L185">worker-cachemap/index.ts:185</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L208">worker-cachemap/index.ts:208</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L209">worker-cachemap/index.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,7 +424,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L225">worker-cachemap/index.ts:225</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L226">worker-cachemap/index.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -447,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/48b0538/src/worker-cachemap/index.ts#L36">worker-cachemap/index.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2adcb75/src/worker-cachemap/index.ts#L37">worker-cachemap/index.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
