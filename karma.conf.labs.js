@@ -76,10 +76,11 @@ module.exports = (config) => {
     },
     reporters: ['saucelabs'],
     sauceLabs: {
-      testName: 'Cachemap',
-      startConnect: true,
+      startConnect: false,
+      testName: 'Cachemap browser unit tests',
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
     },
-    singleRun: true,
+    singleRun: false,
     webpack: webpackConfig,
   });
 };
