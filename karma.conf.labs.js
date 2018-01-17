@@ -7,30 +7,30 @@ const customLaunchers = {
     platform: 'Windows 10',
     version: 'latest',
   },
-  // sl_firefox: {
-  //   base: 'SauceLabs',
-  //   browserName: 'firefox',
-  //   platform: 'Windows 10',
-  //   version: 'latest',
-  // },
-  // sl_ie: {
-  //   base: 'SauceLabs',
-  //   browserName: 'internet explorer',
-  //   platform: 'Windows 7',
-  //   version: 'latest',
-  // },
-  // sl_edge: {
-  //   base: 'SauceLabs',
-  //   browserName: 'MicrosoftEdge',
-  //   platform: 'Windows 10',
-  //   version: 'latest',
-  // },
-  // sl_safari: {
-  //   base: 'SauceLabs',
-  //   browserName: 'safari',
-  //   platform: 'MacOS Sierra 10.12',
-  //   version: 'latest',
-  // },
+  sl_firefox: {
+    base: 'SauceLabs',
+    browserName: 'firefox',
+    platform: 'Windows 10',
+    version: 'latest',
+  },
+  sl_ie: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 7',
+    version: 'latest',
+  },
+  sl_edge: {
+    base: 'SauceLabs',
+    browserName: 'MicrosoftEdge',
+    platform: 'Windows 10',
+    version: 'latest',
+  },
+  sl_safari: {
+    base: 'SauceLabs',
+    browserName: 'safari',
+    platform: 'MacOS Sierra 10.12',
+    version: 'latest',
+  },
   // sl_ios: {
   //   base: 'SauceLabs',
   //   browserName: 'Safari',
@@ -74,13 +74,13 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    reporters: ['saucelabs'],
+    reporters: ['progress', 'saucelabs'],
     sauceLabs: {
       startConnect: false,
       testName: 'Cachemap browser unit tests',
       tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
     },
-    singleRun: false,
+    singleRun: true,
     webpack: webpackConfig,
   });
 };
