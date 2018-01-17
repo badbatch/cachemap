@@ -139,7 +139,7 @@ export interface ObjectMap {
 export interface PostMessageArgs {
   args?: ConstructorArgs;
   key?: string;
-  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean, stub?: boolean };
+  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean, _stub?: boolean };
   type: string;
   value?: any;
 }

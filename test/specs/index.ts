@@ -120,7 +120,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
         it("then the method should return a rejected promise with the reason", async () => {
           try {
-            await cachemap.delete(key, { hash, stub: true });
+            await cachemap.delete(key, { hash, _stub: true });
           } catch (error) {
             expect(error.message).to.equal(message);
           }
@@ -175,7 +175,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
         it("then the method should return a rejected promise with the reason", async () => {
           try {
-            await cachemap.get(key, { hash, stub: true });
+            await cachemap.get(key, { hash, _stub: true });
           } catch (error) {
             expect(error.message).to.equal(message);
           }
@@ -246,7 +246,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
         it("then the method should return a rejected promise with the reason", async () => {
           try {
-            await cachemap.has(key, { deleteExpired: true, hash, stub: true });
+            await cachemap.has(key, { deleteExpired: true, hash, _stub: true });
           } catch (error) {
             expect(error.message).to.equal(message);
           }
@@ -328,7 +328,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
         it("then the method should return a rejected promise with the reason", async () => {
           try {
-            await cachemap.set(key, value, { cacheHeaders, hash, stub: true });
+            await cachemap.set(key, value, { cacheHeaders, hash, _stub: true });
           } catch (error) {
             expect(error.message).to.equal(message);
           }

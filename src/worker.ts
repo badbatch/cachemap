@@ -24,7 +24,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
 
   let stub: sinon.SinonStub | undefined;
 
-  if (sinon && opts && opts.stub) {
+  if (sinon && opts && opts._stub) {
     const { get } = require("lodash");
     const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
     const error = new Error("Oops, there seems to be a problem");

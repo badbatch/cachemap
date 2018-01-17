@@ -251,7 +251,7 @@ export class DefaultCachemap {
    * ```
    *
    */
-  public async delete(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<boolean> {
+  public async delete(key: string, opts: { hash?: boolean, _stub?: boolean } = {}): Promise<boolean> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
@@ -286,7 +286,7 @@ export class DefaultCachemap {
    * ```
    *
    */
-  public async get(key: string, opts: { hash?: boolean, stub?: boolean } = {}): Promise<any> {
+  public async get(key: string, opts: { hash?: boolean, _stub?: boolean } = {}): Promise<any> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
@@ -328,7 +328,7 @@ export class DefaultCachemap {
    */
   public async has(
     key: string,
-    opts: { deleteExpired?: boolean, hash?: boolean, stub?: boolean } = {},
+    opts: { deleteExpired?: boolean, hash?: boolean, _stub?: boolean } = {},
   ): Promise<Cacheability | false> {
     const errors: TypeError[] = [];
 
@@ -375,7 +375,7 @@ export class DefaultCachemap {
   public async set(
     key: string,
     value: any,
-    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, stub?: boolean } = {},
+    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, _stub?: boolean } = {},
   ): Promise<void> {
     const errors: TypeError[] = [];
 
