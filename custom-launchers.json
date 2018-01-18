@@ -22,5 +22,13 @@
     "browserName": "firefox",
     "platform": "Windows 10",
     "version": "latest-1"
+  },
+  "sl_android": {
+    "base": "SauceLabs",
+    "browserName": "Chrome",
+    "deviceName": "Android Emulator",
+    "deviceOrientation": "portrait",
+    "platformName": "Android",
+    "platformVersion": "6"
   }
 }
