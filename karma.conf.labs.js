@@ -1,18 +1,18 @@
 const webpackConfig = require('./webpack.config.labs');
 
 const customLaunchers = {
-  // sl_chrome: {
-  //   base: 'SauceLabs',
-  //   browserName: 'chrome',
-  //   platform: 'Windows 10',
-  //   version: 'latest',
-  // },
-  // sl_firefox: {
-  //   base: 'SauceLabs',
-  //   browserName: 'firefox',
-  //   platform: 'Windows 10',
-  //   version: 'latest',
-  // },
+  sl_chrome: {
+    base: 'SauceLabs',
+    browserName: 'chrome',
+    platform: 'Windows 10',
+    version: 'latest',
+  },
+  sl_firefox: {
+    base: 'SauceLabs',
+    browserName: 'firefox',
+    platform: 'Windows 10',
+    version: 'latest',
+  },
   // sl_ie: {
   //   base: 'SauceLabs',
   //   browserName: 'internet explorer',
@@ -25,12 +25,12 @@ const customLaunchers = {
   //   platform: 'Windows 10',
   //   version: 'latest',
   // },
-  sl_safari: {
-    base: 'SauceLabs',
-    browserName: 'safari',
-    platform: 'macOS 10.12',
-    version: 'latest',
-  },
+  // sl_safari: {
+  //   base: 'SauceLabs',
+  //   browserName: 'safari',
+  //   platform: 'macOS 10.12',
+  //   version: 'latest',
+  // },
   // sl_ios: {
   //   base: 'SauceLabs',
   //   browserName: 'Safari',
