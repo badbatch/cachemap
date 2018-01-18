@@ -1,0 +1,26 @@
+{
+  "sl_chrome_latest": {
+    "base": "SauceLabs",
+    "browserName": "chrome",
+    "platform": "Windows 10",
+    "version": "latest"
+  },
+  "sl_chrome_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "chrome",
+    "platform": "Windows 10",
+    "version": "latest-1"
+  },
+  "sl_firefox_latest": {
+    "base": "SauceLabs",
+    "browserName": "firefox",
+    "platform": "Windows 10",
+    "version": "latest"
+  },
+  "sl_firefox_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "firefox",
+    "platform": "Windows 10",
+    "version": "latest-1"
+  }
+}
