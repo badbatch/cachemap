@@ -13,12 +13,12 @@ const customLaunchers = {
     platform: 'Windows 10',
     version: 'latest',
   },
-  // sl_ie: {
-  //   base: 'SauceLabs',
-  //   browserName: 'internet explorer',
-  //   platform: 'Windows 7',
-  //   version: 'latest',
-  // },
+  sl_ie: {
+    base: 'SauceLabs',
+    browserName: 'internet explorer',
+    platform: 'Windows 7',
+    version: 'latest',
+  },
   // sl_edge: {
   //   base: 'SauceLabs',
   //   browserName: 'MicrosoftEdge',
