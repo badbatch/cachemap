@@ -19,18 +19,18 @@ const customLaunchers = {
   //   platform: 'Windows 7',
   //   version: 'latest',
   // },
-  sl_edge: {
-    base: 'SauceLabs',
-    browserName: 'MicrosoftEdge',
-    platform: 'Windows 10',
-    version: 'latest',
-  },
-  // sl_safari: {
+  // sl_edge: {
   //   base: 'SauceLabs',
-  //   browserName: 'safari',
-  //   platform: 'MacOS Sierra 10.12',
+  //   browserName: 'MicrosoftEdge',
+  //   platform: 'Windows 10',
   //   version: 'latest',
   // },
+  sl_safari: {
+    base: 'SauceLabs',
+    browserName: 'safari',
+    platform: 'MacOS Sierra 10.12',
+    version: 'latest',
+  },
   // sl_ios: {
   //   base: 'SauceLabs',
   //   browserName: 'Safari',
