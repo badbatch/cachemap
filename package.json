@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -91,6 +91,8 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "^1.3.0",
+    "karma-edge-launcher": "^0.4.2",
+    "karma-ie-launcher": "^1.0.0",
     "karma-mocha": "^1.3.0",
     "karma-mocha-reporter": "^2.2.5",
     "karma-safari-launcher": "^1.0.0",

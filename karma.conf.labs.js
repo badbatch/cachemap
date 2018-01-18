@@ -26,7 +26,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    reporters: ['saucelabs'],
+    reporters: ['progress', 'saucelabs'],
     sauceLabs: {
       startConnect: false,
       testName: 'Cachemap browser unit tests',
