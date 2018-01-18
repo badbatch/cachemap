@@ -1,18 +1,18 @@
 const webpackConfig = require('./webpack.config.labs');
 
 const customLaunchers = {
-  sl_chrome: {
-    base: 'SauceLabs',
-    browserName: 'chrome',
-    platform: 'Windows 10',
-    version: 'latest',
-  },
-  sl_firefox: {
-    base: 'SauceLabs',
-    browserName: 'firefox',
-    platform: 'Windows 10',
-    version: 'latest',
-  },
+  // sl_chrome: {
+  //   base: 'SauceLabs',
+  //   browserName: 'chrome',
+  //   platform: 'Windows 10',
+  //   version: 'latest',
+  // },
+  // sl_firefox: {
+  //   base: 'SauceLabs',
+  //   browserName: 'firefox',
+  //   platform: 'Windows 10',
+  //   version: 'latest',
+  // },
   // sl_ie: {
   //   base: 'SauceLabs',
   //   browserName: 'internet explorer',
