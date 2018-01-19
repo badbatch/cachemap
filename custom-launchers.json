@@ -29,6 +29,12 @@
     "platform": "macOS 10.12",
     "version": "latest"
   },
+  "sl_safari_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "safari",
+    "platform": "macOS 10.12",
+    "version": "latest-1"
+  },
   "sl_android_latest": {
     "base": "SauceLabs",
     "browserName": "Chrome",
@@ -36,13 +42,5 @@
     "deviceOrientation": "portrait",
     "platformName": "Android",
     "platformVersion": "6"
-  },
-  "sl_ios_latest": {
-    "base": "SauceLabs",
-    "browserName": "Safari",
-    "deviceName": "iPhone Simulator",
-    "deviceOrientation": "portrait",
-    "platformName": "iOS",
-    "platformVersion": "11.0"
   }
 }
