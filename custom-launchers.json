@@ -23,6 +23,12 @@
     "platform": "Windows 10",
     "version": "latest-1"
   },
+  "sl_safari": {
+    "base": "SauceLabs",
+    "browserName": "safari",
+    "platform": "macOS 10.12",
+    "version": "latest"
+  },
   "sl_android": {
     "base": "SauceLabs",
     "browserName": "Chrome",

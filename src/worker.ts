@@ -1,12 +1,6 @@
 import registerPromiseWorker from "promise-worker/register";
 import { DefaultCachemap } from "./default-cachemap";
-import { Metadata, PostMessageArgs, PostMessageResult, StoreProxyTypes } from "./types";
-
-let sinon: any;
-
-if (process.env.TEST_ENV) {
-  sinon = require("sinon");
-}
+import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 
 let cachemap: DefaultCachemap;
 
@@ -22,19 +16,14 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
     return getMetadata(cachemap);
   }
 
-  let stub: sinon.SinonStub | undefined;
-
-  if (sinon && opts && opts._stub) {
-    const { get } = require("lodash");
-    const storeClient: StoreProxyTypes = get(cachemap, ["_store"]);
-    const error = new Error("Oops, there seems to be a problem");
-    stub = sinon.stub(storeClient, "set").rejects(error);
+  if (type !== "clear" && type !== "size" && !key) {
+    return Promise.reject(new TypeError("Worker expected key to have a length greather than 0."));
   }
 
   let result: any;
 
   try {
-    switch (message.type) {
+    switch (type) {
       case "clear":
         await cachemap.clear();
         break;
@@ -57,7 +46,6 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
         // no default
     }
   } catch (error) {
-    if (stub) stub.restore();
     return Promise.reject(error);
   }
 

@@ -77,15 +77,22 @@ function testCachemapClass(args: ConstructorArgs): void {
     const hash = true;
     let cachemap: DefaultCachemap | WorkerCachemap;
 
+    before(async () => {
+      cachemap = await Cachemap.create(args);
+      await cachemap.clear();
+    });
+
+    after(async () => {
+      if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+    });
+
     describe("the delete method", () => {
       beforeEach(async () => {
-        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
       });
 
       afterEach(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       context("when a key exists in the cachemap", () => {
@@ -119,10 +126,18 @@ function testCachemapClass(args: ConstructorArgs): void {
         });
 
         it("then the method should return a rejected promise with the reason", async () => {
+          let _key = key;
+          let _message = message;
+
+          if (args.name === "worker") {
+            _key = "";
+            _message = "Worker expected key to have a length greather than 0.";
+          }
+
           try {
-            await cachemap.delete(key, { hash, _stub: true });
+            await cachemap.delete(_key, { hash });
           } catch (error) {
-            expect(error.message).to.equal(message);
+            expect(error.message).to.equal(_message);
           }
         });
       });
@@ -132,14 +147,12 @@ function testCachemapClass(args: ConstructorArgs): void {
       let metadata: Metadata;
 
       beforeEach(async () => {
-        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
         metadata = { ...cachemap.metadata[0] };
       });
 
       afterEach(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       context("when a key exists in the cachemap", () => {
@@ -174,10 +187,18 @@ function testCachemapClass(args: ConstructorArgs): void {
         });
 
         it("then the method should return a rejected promise with the reason", async () => {
+          let _key = key;
+          let _message = message;
+
+          if (args.name === "worker") {
+            _key = "";
+            _message = "Worker expected key to have a length greather than 0.";
+          }
+
           try {
-            await cachemap.get(key, { hash, _stub: true });
+            await cachemap.get(_key, { hash });
           } catch (error) {
-            expect(error.message).to.equal(message);
+            expect(error.message).to.equal(_message);
           }
         });
       });
@@ -185,13 +206,11 @@ function testCachemapClass(args: ConstructorArgs): void {
 
     describe("the has method", () => {
       before(async () => {
-        cachemap = await Cachemap.create(args);
         await cachemap.set(key, value, { cacheHeaders, hash });
       });
 
       after(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       context("when a key exists in the cachemap", () => {
@@ -245,10 +264,18 @@ function testCachemapClass(args: ConstructorArgs): void {
         });
 
         it("then the method should return a rejected promise with the reason", async () => {
+          let _key = key;
+          let _message = message;
+
+          if (args.name === "worker") {
+            _key = "";
+            _message = "Worker expected key to have a length greather than 0.";
+          }
+
           try {
-            await cachemap.has(key, { deleteExpired: true, hash, _stub: true });
+            await cachemap.has(_key, { deleteExpired: true, hash });
           } catch (error) {
-            expect(error.message).to.equal(message);
+            expect(error.message).to.equal(_message);
           }
         });
       });
@@ -257,13 +284,8 @@ function testCachemapClass(args: ConstructorArgs): void {
     describe("the set method", () => {
       let metadata: Metadata;
 
-      before(async () => {
-        cachemap = await Cachemap.create(args);
-      });
-
       after(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       context("when a key does not exist in the cachemap", () => {
@@ -327,10 +349,18 @@ function testCachemapClass(args: ConstructorArgs): void {
         });
 
         it("then the method should return a rejected promise with the reason", async () => {
+          let _key = key;
+          let _message = message;
+
+          if (args.name === "worker") {
+            _key = "";
+            _message = "Worker expected key to have a length greather than 0.";
+          }
+
           try {
-            await cachemap.set(key, value, { cacheHeaders, hash, _stub: true });
+            await cachemap.set(_key, value, { cacheHeaders, hash });
           } catch (error) {
-            expect(error.message).to.equal(message);
+            expect(error.message).to.equal(_message);
           }
         });
       });
