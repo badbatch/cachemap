@@ -49,6 +49,22 @@
     "deviceName": "Android Emulator",
     "deviceOrientation": "portrait",
     "platformName": "Android",
-    "platformVersion": "6"
+    "platformVersion": "5"
+  },
+  "sl_ios_latest": {
+    "base": "SauceLabs",
+    "browserName": "Safari",
+    "deviceName": "iPhone Simulator",
+    "deviceOrientation": "portrait",
+    "platformName": "iOS",
+    "platformVersion": "11.0"
+  },
+  "sl_ios_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "Safari",
+    "deviceName": "iPhone Simulator",
+    "deviceOrientation": "portrait",
+    "platformName": "iOS",
+    "platformVersion": "10.0"
   }
 }
