@@ -23,13 +23,27 @@
     "platform": "Windows 10",
     "version": "latest-1"
   },
-  "sl_safari": {
+  "sl_safari_latest": {
     "base": "SauceLabs",
     "browserName": "safari",
     "platform": "macOS 10.12",
     "version": "latest"
   },
-  "sl_android": {
+  "sl_safari_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "safari",
+    "platform": "macOS 10.12",
+    "version": "latest-1"
+  },
+  "sl_android_latest": {
+    "base": "SauceLabs",
+    "browserName": "Chrome",
+    "deviceName": "Android Emulator",
+    "deviceOrientation": "portrait",
+    "platformName": "Android",
+    "platformVersion": "6"
+  },
+  "sl_android_latest-1": {
     "base": "SauceLabs",
     "browserName": "Chrome",
     "deviceName": "Android Emulator",
