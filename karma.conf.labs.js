@@ -5,7 +5,7 @@ module.exports = (config) => {
   config.set({
     autoWatch: true,
     basePath: '',
-    browserNoActivityTimeout: 45000,
+    browserNoActivityTimeout: 120000,
     browsers: Object.keys(customLaunchers),
     client: {
       captureConsole: true,
