@@ -41,7 +41,7 @@
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
     "test:node": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" nyc mocha --opts \"./mocha.opts\"",
     "test:labs": "cross-env BABEL_ENV=browser TEST_ENV=true karma start karma.conf.labs.js",
-    "test:labs:local": "cross-env BABEL_ENV=browser LOCAL_ENV=true karma start karma.conf.labs.js",
+    "test:labs:local": "cross-env BABEL_ENV=browser LOCAL_ENV=true karma start karma.conf.labs.js --hostname karma.proxy",
     "test:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --single-run --browsers ChromeHeadless --reporters mocha,coverage-istanbul",
     "type-check": "gulp type-check"
   },

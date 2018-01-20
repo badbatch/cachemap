@@ -4,10 +4,6 @@ const webpackConfig = require('./webpack.config.labs');
 let reporters = ['dots'];
 
 const sauceLabs = {
-  connectOptions: {
-    noSslBumpDomains: 'all',
-    sharedTunnel: true,
-  },
   startConnect: false,
   testName: 'Cachemap browser unit tests',
   tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
@@ -17,8 +13,12 @@ if (process.env.LOCAL_ENV) {
   require('dotenv').config(); // eslint-disable-line
   reporters = ['mocha'];
   sauceLabs.startConnect = true;
-  sauceLabs.connectOptions.logfile = '-';
-  sauceLabs.connectOptions.verbose = true;
+  sauceLabs.connectOptions = {
+    logfile: '-',
+    noSslBumpDomains: 'all',
+    sharedTunnel: true,
+    verbose: true,
+  };
 }
 
 module.exports = (config) => {
