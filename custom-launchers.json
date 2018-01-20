@@ -36,11 +36,39 @@
     "version": "latest-1"
   },
   "sl_android_latest": {
+    "appiumVersion": "1.6.4",
     "base": "SauceLabs",
     "browserName": "Chrome",
-    "deviceName": "Android Emulator",
+    "deviceName": "Android GoogleAPI Emulator",
     "deviceOrientation": "portrait",
     "platformName": "Android",
-    "platformVersion": "6"
+    "platformVersion": "7.0"
+  },
+  "sl_android_latest-1": {
+    "appiumVersion": "1.6.4",
+    "base": "SauceLabs",
+    "browserName": "Chrome",
+    "deviceName": "Android GoogleAPI Emulator",
+    "deviceOrientation": "portrait",
+    "platformName": "Android",
+    "platformVersion": "6.0"
+  },
+  "sl_ios_latest": {
+    "appiumVersion": "1.7.2",
+    "base": "SauceLabs",
+    "browserName": "Safari",
+    "deviceName": "iPhone Simulator",
+    "deviceOrientation": "portrait",
+    "platformName": "iOS",
+    "platformVersion": "11.0"
+  },
+  "sl_ios_latest-1": {
+    "appiumVersion": "1.7.2",
+    "base": "SauceLabs",
+    "browserName": "Safari",
+    "deviceName": "iPhone Simulator",
+    "deviceOrientation": "portrait",
+    "platformName": "iOS",
+    "platformVersion": "10.0"
   }
 }

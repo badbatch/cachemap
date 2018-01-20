@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.56",
+  "version": "0.0.57",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -41,6 +41,7 @@
     "test": "npm run lint && npm run type-check && npm run test:web && npm run test:node",
     "test:node": "cross-env TS_NODE_PROJECT=\"./tsconfig.test.json\" nyc mocha --opts \"./mocha.opts\"",
     "test:labs": "cross-env BABEL_ENV=browser TEST_ENV=true karma start karma.conf.labs.js",
+    "test:labs:local": "cross-env BABEL_ENV=browser LOCAL_ENV=true karma start karma.conf.labs.js",
     "test:web": "cross-env BABEL_ENV=browser TEST_ENV=true karma start --single-run --browsers ChromeHeadless --reporters mocha,coverage-istanbul",
     "type-check": "gulp type-check"
   },
@@ -74,6 +75,7 @@
     "codecov": "^3.0.0",
     "cross-env": "^5.0.1",
     "del": "^3.0.0",
+    "dotenv": "^4.0.0",
     "eslint": "^4.13.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",

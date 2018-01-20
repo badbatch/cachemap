@@ -1,12 +1,35 @@
 const customLaunchers = require('./custom-launchers.json');
 const webpackConfig = require('./webpack.config.labs');
 
+let reporters = ['dots'];
+
+const sauceLabs = {
+  startConnect: false,
+  testName: 'Cachemap browser unit tests',
+  tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+};
+
+if (process.env.LOCAL_ENV) {
+  require('dotenv').config(); // eslint-disable-line
+  reporters = ['mocha'];
+  sauceLabs.startConnect = true;
+  sauceLabs.connectOptions = {
+    logfile: '-',
+    noSslBumpDomains: 'all',
+    sharedTunnel: true,
+    verbose: true,
+  };
+}
+
 module.exports = (config) => {
   config.set({
     autoWatch: true,
     basePath: '',
-    browserNoActivityTimeout: 120000,
+    browserDisconnectTimeout: 10000,
+    browserDisconnectTolerance: 2,
+    browserNoActivityTimeout: 180000,
     browsers: Object.keys(customLaunchers),
+    captureTimeout: 0,
     client: {
       captureConsole: true,
       mocha: { timeout: 0 },
@@ -18,7 +41,8 @@ module.exports = (config) => {
     files: [
       'test/specs/index.ts',
     ],
-    logLevel: config.LOG_INFO,
+    hostname: 'karma.proxy',
+    logLevel: process.env.LOCAL_ENV ? config.LOG_DEBUG : config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
     },
@@ -26,12 +50,8 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    reporters: ['progress', 'saucelabs'],
-    sauceLabs: {
-      startConnect: false,
-      testName: 'Cachemap browser unit tests',
-      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-    },
+    reporters: [...reporters, 'saucelabs'],
+    sauceLabs,
     singleRun: true,
     webpack: webpackConfig,
   });
