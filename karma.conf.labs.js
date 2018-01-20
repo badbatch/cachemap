@@ -41,7 +41,6 @@ module.exports = (config) => {
     files: [
       'test/specs/index.ts',
     ],
-    hostname: 'karma.proxy',
     logLevel: process.env.LOCAL_ENV ? config.LOG_DEBUG : config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
