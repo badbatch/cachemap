@@ -1,4 +1,4 @@
-const customLaunchers = require('./custom-launchers.json');
+let customLaunchers = require('./custom-launchers.json');
 const webpackConfig = require('./webpack.config.labs');
 
 let reporters = ['dots'];
@@ -11,8 +11,19 @@ const sauceLabs = {
 
 if (process.env.LOCAL_ENV) {
   require('dotenv').config(); // eslint-disable-line
+
+  customLaunchers = {
+    sl_browser: {
+      base: 'SauceLabs',
+      browserName: 'MicrosoftEdge',
+      platform: 'Windows 10',
+      version: 'latest',
+    },
+  };
+
   reporters = ['mocha'];
   sauceLabs.startConnect = true;
+
   sauceLabs.connectOptions = {
     logfile: '-',
     noSslBumpDomains: 'all',
@@ -41,6 +52,7 @@ module.exports = (config) => {
     files: [
       'test/specs/index.ts',
     ],
+    hostname: 'ci.build',
     logLevel: process.env.LOCAL_ENV ? config.LOG_DEBUG : config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],

@@ -7,13 +7,16 @@ cache:
   directories:
     - "node_modules"
 addons:
+  hosts:
+      - ci.build
+  sauce_connect:
+    no_ssl_bump_domains: "all"
   sonarcloud:
     organization: "dylanaubrey-github"
     token:
       secure: $SONAR_TOKEN
     github_token:
       secure: $SONAR_PR_ANALYSIS_TOKEN
-  sauce_connect: true
 script:
   - npm test
   - npm run test:labs
