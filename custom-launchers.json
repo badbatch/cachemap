@@ -52,14 +52,5 @@
     "deviceOrientation": "portrait",
     "platformName": "Android",
     "platformVersion": "6.0"
-  },
-  "sl_ios_latest": {
-    "appiumVersion": "1.7.2",
-    "base": "SauceLabs",
-    "browserName": "Safari",
-    "deviceName": "iPhone Simulator",
-    "deviceOrientation": "portrait",
-    "platformName": "iOS",
-    "platformVersion": "11.0"
   }
 }
