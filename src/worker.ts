@@ -4,8 +4,12 @@ import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 
 let cachemap: DefaultCachemap;
 
-function getMetadata({ metadata, usedHeapSize }: DefaultCachemap): { metadata: Metadata[], usedHeapSize: number } {
-  return { metadata, usedHeapSize };
+function getMetadata({
+  metadata,
+  storeType,
+  usedHeapSize,
+}: DefaultCachemap): { metadata: Metadata[], storeType: string, usedHeapSize: number } {
+  return { metadata, storeType, usedHeapSize };
 }
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {

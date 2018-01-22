@@ -147,6 +147,7 @@ export interface PostMessageArgs {
 export interface PostMessageResult {
   metadata: Metadata[];
   result?: any;
+  storeType: string;
   usedHeapSize: number;
 }
 

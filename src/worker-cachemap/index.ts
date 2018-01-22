@@ -40,8 +40,8 @@ export class WorkerCachemap {
       const workerCachemap = new WorkerCachemap();
       workerCachemap._worker = new webpackWorker();
       workerCachemap._promiseWorker = new PromiseWorker(workerCachemap._worker);
-      const { metadata, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
-      workerCachemap._setMetadata(metadata, usedHeapSize);
+      const { metadata, storeType, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
+      workerCachemap._setProps(metadata, usedHeapSize, storeType);
       return workerCachemap;
     } catch (error) {
       return Promise.reject(error);
@@ -50,8 +50,9 @@ export class WorkerCachemap {
 
   private _metadata: Metadata[] = [];
   private _promiseWorker: PromiseWorker;
-  private _worker: Worker;
+  private _storeType: string;
   private _usedHeapSize: number = 0;
+  private _worker: Worker;
 
   /**
    * The property holds the metadata for each data
@@ -60,6 +61,15 @@ export class WorkerCachemap {
    */
   get metadata(): Metadata[] {
     return this._metadata;
+  }
+
+  /**
+   * The property holds the name of the store type the
+   * DefaultCachemap is using.
+   *
+   */
+  get storeType(): string {
+    return this._storeType;
   }
 
   /**
@@ -86,7 +96,7 @@ export class WorkerCachemap {
   public async clear(): Promise<void> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ type: "clear" });
-      this._setMetadata(metadata, usedHeapSize);
+      this._setProps(metadata, usedHeapSize);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -108,7 +118,7 @@ export class WorkerCachemap {
   public async delete(key: string, opts: { hash?: boolean } = {}): Promise<boolean> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "delete" });
-      this._setMetadata(metadata, usedHeapSize);
+      this._setProps(metadata, usedHeapSize);
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -129,7 +139,7 @@ export class WorkerCachemap {
   public async get(key: string, opts: { hash?: boolean } = {}): Promise<any> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "get" });
-      this._setMetadata(metadata, usedHeapSize);
+      this._setProps(metadata, usedHeapSize);
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -158,7 +168,7 @@ export class WorkerCachemap {
   ): Promise<Cacheability | false> {
     try {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "has" });
-      this._setMetadata(metadata, usedHeapSize);
+      this._setProps(metadata, usedHeapSize);
       if (!result) return false;
       const cacheability = new Cacheability();
       cacheability.metadata = result.metadata;
@@ -189,7 +199,7 @@ export class WorkerCachemap {
   ): Promise<void> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ key, opts, type: "set", value });
-      this._setMetadata(metadata, usedHeapSize);
+      this._setProps(metadata, usedHeapSize);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -235,7 +245,7 @@ export class WorkerCachemap {
     }
   }
 
-  private _setMetadata(workerMetadata: Metadata[], usedHeapSize: number): void {
+  private _setProps(workerMetadata: Metadata[], usedHeapSize: number, storeType?: string): void {
     const metadata: Metadata[] = [];
 
     workerMetadata.forEach(({ cacheability: cacheabilityObject, ...props }) => {
@@ -246,6 +256,7 @@ export class WorkerCachemap {
     });
 
     this._metadata = metadata;
+    if (storeType) this._storeType = storeType;
     this._usedHeapSize = usedHeapSize;
   }
 }

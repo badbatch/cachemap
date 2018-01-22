@@ -76,9 +76,11 @@ function testCachemapClass(args: ConstructorArgs): void {
     const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
     const hash = true;
     let cachemap: DefaultCachemap | WorkerCachemap;
+    let usingMap = args.name === "map";
 
     before(async () => {
       cachemap = await Cachemap.create(args);
+      usingMap = cachemap.storeType === "map";
       await cachemap.clear();
     });
 
@@ -99,7 +101,7 @@ function testCachemapClass(args: ConstructorArgs): void {
         it("then the method should delete the key/value pair", async () => {
           await cachemap.delete(key, { hash });
 
-          if (args.name === "map") {
+          if (usingMap) {
             expect(await cachemap.size()).to.eql(0);
           } else {
             expect(await cachemap.size()).to.eql(1);
@@ -229,7 +231,7 @@ function testCachemapClass(args: ConstructorArgs): void {
           const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
           expect(cacheability).to.equal(false);
 
-          if (args.name === "map") {
+          if (usingMap) {
             expect(await cachemap.size()).to.eql(0);
           } else {
             expect(await cachemap.size()).to.eql(1);
@@ -292,7 +294,7 @@ function testCachemapClass(args: ConstructorArgs): void {
         it("then the method should store the pair and add its metadata", async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
 
-          if (args.name === "map") {
+          if (usingMap) {
             expect(await cachemap.size()).to.eql(1);
           } else {
             expect(await cachemap.size()).to.eql(2);
@@ -314,7 +316,7 @@ function testCachemapClass(args: ConstructorArgs): void {
         it("then the method should overwrite the existing value and update the metadata", async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
 
-          if (args.name === "map") {
+          if (usingMap) {
             expect(await cachemap.size()).to.eql(1);
           } else {
             expect(await cachemap.size()).to.eql(2);

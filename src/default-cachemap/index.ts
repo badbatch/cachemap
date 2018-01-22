@@ -207,6 +207,15 @@ export class DefaultCachemap {
   }
 
   /**
+   * The property holds the name of the store type the
+   * DefaultCachemap is using.
+   *
+   */
+  get storeType(): string {
+    return this._storeType;
+  }
+
+  /**
    * The property holds the approximate amount of
    * memory the DefaultCachemap instance as used.
    *
@@ -495,7 +504,7 @@ export class DefaultCachemap {
       } else {
         if (this._storeType === "indexedDB" && self.indexedDB) {
           this._store = await IndexedDBProxy.create(this._indexedDBOptions);
-        } else if (self instanceof Window && self.localStorage) {
+        } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
           this._store = new LocalStorageProxy(this._name);
         } else {
           this._storeType = "map";

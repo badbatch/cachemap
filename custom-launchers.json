@@ -11,6 +11,18 @@
     "platform": "Windows 10",
     "version": "latest-1"
   },
+  "sl_edge_latest": {
+    "base": "SauceLabs",
+    "browserName": "MicrosoftEdge",
+    "platform": "Windows 10",
+    "version": "latest"
+  },
+  "sl_edge_latest-1": {
+    "base": "SauceLabs",
+    "browserName": "MicrosoftEdge",
+    "platform": "Windows 10",
+    "version": "latest-1"
+  },
   "sl_firefox_latest": {
     "base": "SauceLabs",
     "browserName": "firefox",
