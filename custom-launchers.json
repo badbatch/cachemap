@@ -11,9 +11,9 @@
     "platform": "Windows 10",
     "version": "latest-1"
   },
-  "sl_edge_latest": {
+  "sl_ie_latest": {
     "base": "SauceLabs",
-    "browserName": "MicrosoftEdge",
+    "browserName": "internet explorer",
     "platform": "Windows 10",
     "version": "latest"
   },
@@ -40,12 +40,6 @@
     "browserName": "safari",
     "platform": "macOS 10.12",
     "version": "latest"
-  },
-  "sl_safari_latest-1": {
-    "base": "SauceLabs",
-    "browserName": "safari",
-    "platform": "macOS 10.12",
-    "version": "latest-1"
   },
   "sl_android_latest": {
     "appiumVersion": "1.6.4",

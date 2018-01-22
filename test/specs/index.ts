@@ -1,6 +1,5 @@
 import { Cacheability } from "cacheability";
 import { expect } from "chai";
-import * as delay from "delay";
 import { get } from "lodash";
 import * as sinon from "sinon";
 import testData from "../data";
@@ -226,18 +225,20 @@ function testCachemapClass(args: ConstructorArgs): void {
       });
 
       context("when an expired key exists in the cachemap and deleteExpired is passed in", () => {
-        it("then the method should return false and delete the expired key/value pair", async () => {
-          await delay(1000);
-          const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
-          expect(cacheability).to.equal(false);
+        it("then the method should return false and delete the expired key/value pair", (done) => {
+          setTimeout(async () => {
+            const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
+            expect(cacheability).to.equal(false);
 
-          if (usingMap) {
-            expect(await cachemap.size()).to.eql(0);
-          } else {
-            expect(await cachemap.size()).to.eql(1);
-          }
+            if (usingMap) {
+              expect(await cachemap.size()).to.eql(0);
+            } else {
+              expect(await cachemap.size()).to.eql(1);
+            }
 
-          expect(cachemap.metadata).lengthOf(0);
+            expect(cachemap.metadata).lengthOf(0);
+            done();
+          }, 1000);
         });
       });
 
