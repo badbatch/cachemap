@@ -11,6 +11,7 @@ import {
   ConstructorArgs,
   Metadata,
   ObjectMap,
+  ReaperOptions,
   StoreProxyTypes,
 } from "../../src/types";
 
@@ -76,14 +77,15 @@ describe("the Cachemap.create method", () => {
 });
 
 function testCachemapClass(args: ConstructorArgs): void {
-  describe(`the cachemap class for the ${args.name}`, () => {
-    const key: string = testData["136-7317"].url;
-    const value: ObjectMap = testData["136-7317"].body;
-    const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
-    const hash = true;
-    let cachemap: DefaultCachemap | WorkerCachemap;
-    let usingMap = args.name === "map";
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const key: string = testData["136-7317"].url;
+  const value: ObjectMap = testData["136-7317"].body;
+  const cacheHeaders: CacheHeaders = { cacheControl: "public, max-age=1" };
+  const hash = true;
+  let cachemap: DefaultCachemap | WorkerCachemap;
+  let usingMap = args.name === "map";
 
+  describe(`the cachemap class for the ${args.name}`, () => {
     before(async () => {
       cachemap = await Cachemap.create(args);
       usingMap = cachemap.storeType === "map";
@@ -232,20 +234,18 @@ function testCachemapClass(args: ConstructorArgs): void {
       });
 
       context("when an expired key exists in the cachemap and deleteExpired is passed in", () => {
-        it("then the method should return false and delete the expired key/value pair", (done) => {
-          setTimeout(async () => {
-            const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
-            expect(cacheability).to.equal(false);
+        it("then the method should return false and delete the expired key/value pair", async () => {
+          await delay(1000);
+          const cacheability = await cachemap.has(key, { deleteExpired: true, hash }) as false;
+          expect(cacheability).to.equal(false);
 
-            if (usingMap) {
-              expect(await cachemap.size()).to.eql(0);
-            } else {
-              expect(await cachemap.size()).to.eql(1);
-            }
+          if (usingMap) {
+            expect(await cachemap.size()).to.eql(0);
+          } else {
+            expect(await cachemap.size()).to.eql(1);
+          }
 
-            expect(cachemap.metadata).lengthOf(0);
-            done();
-          }, 1000);
+          expect(cachemap.metadata).lengthOf(0);
         });
       });
 
@@ -373,6 +373,83 @@ function testCachemapClass(args: ConstructorArgs): void {
             expect(error.message).to.equal(_message);
           }
         });
+      });
+    });
+  });
+
+  describe("the Reaper class", () => {
+    context(`when a key/value in the cachemap has expired`, () => {
+      before(async () => {
+        const reaperOptions: ReaperOptions = { interval: 500 };
+        cachemap = await Cachemap.create({ ...args, reaperOptions });
+        usingMap = cachemap.storeType === "map";
+        await cachemap.clear();
+        await cachemap.set(key, value, { cacheHeaders: { cacheControl: "public, max-age=0" }, hash });
+      });
+
+      after(async () => {
+        await cachemap.clear();
+        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+      });
+
+      it("then the class instance should delete the key/value and its metadata", async () => {
+        if (usingMap) {
+          expect(await cachemap.size()).to.eql(1);
+        } else {
+          expect(await cachemap.size()).to.eql(2);
+        }
+
+        expect(cachemap.metadata).lengthOf(1);
+        await delay(1000);
+
+        if (usingMap) {
+          expect(await cachemap.size()).to.eql(0);
+        } else {
+          expect(await cachemap.size()).to.eql(1);
+        }
+
+        expect(cachemap.metadata).lengthOf(0);
+      });
+    });
+
+    context("when the cachemap heap size exceeds its threshold", () => {
+      let lastKey: string;
+
+      before(async () => {
+        const maxHeapSize = { client: 30000, server: 30000 };
+        cachemap = await Cachemap.create({ ...args, maxHeapSize });
+        usingMap = cachemap.storeType === "map";
+        await cachemap.clear();
+        const keys = Object.keys(testData);
+        lastKey = keys.splice(2, 1)[0];
+        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+      });
+
+      after(async () => {
+        await cachemap.clear();
+        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+      });
+
+      it("then the class instance should delete the necessary key/values and their metadata", async () => {
+        if (usingMap) {
+          expect(await cachemap.size()).to.eql(2);
+        } else {
+          expect(await cachemap.size()).to.eql(3);
+        }
+
+        expect(cachemap.metadata).lengthOf(2);
+        expect(cachemap.usedHeapSize).to.eql(17970);
+        await cachemap.set(testData[lastKey].url, testData[lastKey].body, { cacheHeaders, hash });
+        await delay(1000);
+
+        if (usingMap) {
+          expect(await cachemap.size()).to.eql(2);
+        } else {
+          expect(await cachemap.size()).to.eql(3);
+        }
+
+        expect(cachemap.metadata).lengthOf(2);
+        expect(cachemap.usedHeapSize).to.eql(15284);
       });
     });
   });

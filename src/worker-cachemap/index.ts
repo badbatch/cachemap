@@ -218,7 +218,8 @@ export class WorkerCachemap {
    */
   public async size(): Promise<number> {
     try {
-      const { result } = await this._postMessage({ type: "size" });
+      const { metadata, result, usedHeapSize } = await this._postMessage({ type: "size" });
+      this._setProps(metadata, usedHeapSize);
       return result;
     } catch (error) {
       return Promise.reject(error);
