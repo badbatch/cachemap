@@ -14,10 +14,13 @@ if (process.env.LOCAL_ENV) {
 
   customLaunchers = {
     sl_browser: {
+      appiumVersion: '1.7.2',
       base: 'SauceLabs',
-      browserName: 'MicrosoftEdge',
-      platform: 'Windows 10',
-      version: 'latest',
+      browserName: 'Safari',
+      deviceName: 'iPhone Simulator',
+      deviceOrientation: 'portrait',
+      platformName: 'iOS',
+      platformVersion: '11.0',
     },
   };
 

@@ -4,6 +4,7 @@ import { get } from "lodash";
 import * as sinon from "sinon";
 import testData from "../data";
 import { Cachemap, DefaultCachemap, WorkerCachemap } from "../../src";
+import { supportsWorkerIndexedDB } from "../../src/helpers/user-agent-parser";
 
 import {
   CacheHeaders,
@@ -43,9 +44,15 @@ describe("the Cachemap.create method", () => {
     context("when the environment is a browser", () => {
       context("when use.client is set to 'indexedDB'", () => {
         it("the method should return an instance of the WorkerCachemap class that uses indexedDB", async () => {
-          const workerCachemap = await Cachemap.create(workerArgs) as WorkerCachemap;
-          expect(workerCachemap).to.be.instanceof(WorkerCachemap);
-          workerCachemap.terminate();
+          const cachemap = await Cachemap.create(workerArgs);
+
+          if (supportsWorkerIndexedDB(self.navigator.userAgent)) {
+            expect(cachemap).to.be.instanceof(WorkerCachemap);
+          } else {
+            expect(cachemap).to.be.instanceof(DefaultCachemap);
+          }
+
+          if (cachemap instanceof WorkerCachemap) cachemap.terminate();
         });
       });
 

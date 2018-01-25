@@ -15,6 +15,13 @@ export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
 export interface ConstructorArgs {
   /**
+   * This private property is set within the WorkerCachemap to
+   * tell the instance of the DefaultCachemap it is being
+   * used within a web worker.
+   *
+   */
+  _inWorker?: boolean;
+  /**
    * This property disables all cache invalidation.
    * Stale entries will not be culled from the Cachemap instance
    * and the reaper will not run at set intervals if this

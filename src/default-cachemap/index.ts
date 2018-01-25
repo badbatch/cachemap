@@ -8,6 +8,7 @@ import LocalStorageProxy from "./proxies/local-storage";
 import MapProxy from "./proxies/map";
 import RedisProxy from "./proxies/redis";
 import Reaper from "./reaper";
+import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
 
 import {
   CacheHeaders,
@@ -130,6 +131,7 @@ export class DefaultCachemap {
   private _disableCacheInvalidation: boolean;
   private _environment: "node" | "web";
   private _indexedDBOptions?: IndexedDBOptions;
+  private _inWorker: boolean;
   private _maxHeapSize: number;
   private _maxHeapThreshold: number;
   private _metadata: Metadata[] = [];
@@ -147,6 +149,7 @@ export class DefaultCachemap {
     }
 
     const {
+      _inWorker = false,
       disableCacheInvalidation = false,
       indexedDBOptions,
       maxHeapSize = {},
@@ -179,6 +182,7 @@ export class DefaultCachemap {
       throw new TypeError("constructor expected store type to be 'indexedDB', 'localStorage', 'map', or 'redis'.");
     }
 
+    this._inWorker = _inWorker;
     this._disableCacheInvalidation = disableCacheInvalidation;
     this._environment = process.env.WEB_ENV ? "web" : "node";
     if (indexedDBOptions && isPlainObject(indexedDBOptions)) this._indexedDBOptions = indexedDBOptions;
@@ -502,9 +506,9 @@ export class DefaultCachemap {
       if (!process.env.WEB_ENV) {
         this._store = new redisProxy(this._redisOptions, this._mockRedis);
       } else {
-        if (this._storeType === "indexedDB" && self.indexedDB) {
+        if (this._storeType === "indexedDB" && this._supportsIndexedDB()) {
           this._store = await IndexedDBProxy.create(this._indexedDBOptions);
-        } else if (this._storeType === "localStorage" && self instanceof Window && self.localStorage) {
+        } else if (this._storeType === "localStorage" && this._supportsLocalStorage()) {
           this._store = new LocalStorageProxy(this._name);
         } else {
           this._storeType = "map";
@@ -566,6 +570,14 @@ export class DefaultCachemap {
 
   private _sortMetadata(): void {
     this._metadata.sort(DefaultCachemap._sortComparator);
+  }
+
+  private _supportsIndexedDB(): boolean {
+    return self.indexedDB && (!this._inWorker || supportsWorkerIndexedDB(self.navigator.userAgent));
+  }
+
+  private _supportsLocalStorage(): boolean {
+    return !this._inWorker && self instanceof Window && !!self.localStorage;
   }
 
   private _updateHeapSize(): void {

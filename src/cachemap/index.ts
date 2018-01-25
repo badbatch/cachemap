@@ -1,5 +1,6 @@
 import { isPlainObject } from "lodash";
 import { DefaultCachemap } from "../default-cachemap";
+import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
 import { ConstructorArgs } from "../types";
 import { WorkerCachemap } from "../worker-cachemap";
 
@@ -58,7 +59,7 @@ export class Cachemap {
         throw new TypeError("createCachemap expected use to be a plain object.");
       }
 
-      if (use.client === "indexedDB" && self.Worker && self.indexedDB) {
+      if (use.client === "indexedDB" && supportsWorkerIndexedDB(self.navigator.userAgent)) {
         cachemap = await WorkerCachemap.create(args);
       } else {
         cachemap = await DefaultCachemap.create(args);
