@@ -103,6 +103,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#clear" class="tsd-kind-icon">clear</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#entries" class="tsd-kind-icon">entries</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#has" class="tsd-kind-icon">has</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="workercachemap.html#set" class="tsd-kind-icon">set</a></li>
@@ -126,7 +127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L62">worker-cachemap/index.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L62">worker-cachemap/index.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -149,7 +150,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L71">worker-cachemap/index.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L71">worker-cachemap/index.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -172,7 +173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L80">worker-cachemap/index.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L80">worker-cachemap/index.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -198,7 +199,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L96">worker-cachemap/index.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L96">worker-cachemap/index.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -226,7 +227,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L118">worker-cachemap/index.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L118">worker-cachemap/index.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -260,6 +261,41 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="entries" class="tsd-anchor"></a>
+					<h3>entries</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">entries<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L141">worker-cachemap/index.ts:141</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>If a list of keys is provided, the method retrieves the
+										requested key/value pairs, while if no list is provided it retrieves
+									all key/value pairs in the instance of the DefaultCachemap.</p>
+								</div>
+								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+<span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"bravo"</span>, [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]);
+<span class="hljs-keyword">const</span> entries = <span class="hljs-keyword">await</span> cachemap.entries();
+<span class="hljs-comment">// entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]</span>
+</code></pre>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> keys: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -269,7 +305,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L139">worker-cachemap/index.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L162">worker-cachemap/index.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -310,7 +346,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L165">worker-cachemap/index.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L188">worker-cachemap/index.ts:188</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -359,7 +395,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L195">worker-cachemap/index.ts:195</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L218">worker-cachemap/index.ts:218</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -392,6 +428,9 @@
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> hash<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5>
 										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> tag<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span></h5>
+										</li>
 									</ul>
 								</li>
 							</ul>
@@ -409,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L219">worker-cachemap/index.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L242">worker-cachemap/index.ts:242</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,7 +475,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L236">worker-cachemap/index.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L260">worker-cachemap/index.ts:260</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -460,7 +499,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/d436072/src/worker-cachemap/index.ts#L37">worker-cachemap/index.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/52798a5/src/worker-cachemap/index.ts#L37">worker-cachemap/index.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -495,6 +534,12 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="cachemap.html" class="tsd-kind-icon">Cachemap</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="defaultcachemap.html" class="tsd-kind-icon">Default<wbr>Cachemap</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
@@ -514,6 +559,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="workercachemap.html#delete" class="tsd-kind-icon">delete</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="workercachemap.html#entries" class="tsd-kind-icon">entries</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="workercachemap.html#get" class="tsd-kind-icon">get</a>
@@ -537,6 +585,60 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cacheheaders.html" class="tsd-kind-icon">Cache<wbr>Headers</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/constructorargs.html" class="tsd-kind-icon">Constructor<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/indexeddboptions.html" class="tsd-kind-icon">IndexedDBOptions</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/metadata.html" class="tsd-kind-icon">Metadata</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/objectmap.html" class="tsd-kind-icon">Object<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/postmessageargs.html" class="tsd-kind-icon">Post<wbr>Message<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/postmessageresult.html" class="tsd-kind-icon">Post<wbr>Message<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/reaperoptions.html" class="tsd-kind-icon">Reaper<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#cachemapargs" class="tsd-kind-icon">Cachemap<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#cachemapclientstoretypes" class="tsd-kind-icon">Cachemap<wbr>Client<wbr>Store<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#cachemapserverstoreargs" class="tsd-kind-icon">Cachemap<wbr>Server<wbr>Store<wbr>Args</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#clientstoretypes" class="tsd-kind-icon">Client<wbr>Store<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#serverstoretypes" class="tsd-kind-icon">Server<wbr>Store<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#storeproxytypes" class="tsd-kind-icon">Store<wbr>Proxy<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#storetypes" class="tsd-kind-icon">Store<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../index.html#cachemap" class="tsd-kind-icon">cachemap</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../index.html#redisproxy" class="tsd-kind-icon">redis<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="../index.html#getmetadata" class="tsd-kind-icon">get<wbr>Metadata</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

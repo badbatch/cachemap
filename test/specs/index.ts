@@ -375,21 +375,64 @@ function testCachemapClass(args: ConstructorArgs): void {
         });
       });
     });
+
+    describe("the entries method", () => {
+      before(async () => {
+        const keys = Object.keys(testData);
+        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+      });
+
+      after(async () => {
+        await cachemap.clear();
+      });
+
+      context("when no keys are passed into the method", () => {
+        it("then the method should return all key/value pairs in the cachemap", async () => {
+          const result = await cachemap.entries();
+          expect(result).to.be.lengthOf(3);
+
+          result.forEach((entry) => {
+            expect(entry[0]).to.be.a("string");
+            expect(entry[1]).to.be.a("object");
+          });
+        });
+      });
+
+      context("when keys are passed into the method", () => {
+        it("then the method should return all the matching key/value pairs in the cachemap", async () => {
+          const keys = cachemap.metadata.map((entry) => entry.key);
+          const result = await cachemap.entries(keys.slice(0, 2));
+          expect(result).to.be.lengthOf(2);
+
+          result.forEach((entry) => {
+            expect(entry[0]).to.be.a("string");
+            expect(entry[1]).to.be.a("object");
+          });
+        });
+      });
+    });
   });
 
   describe("the Reaper class", () => {
+    before(async () => {
+      const maxHeapSize = { client: 30000, server: 30000 };
+      const reaperOptions: ReaperOptions = { interval: 1000 };
+      cachemap = await Cachemap.create({ ...args, maxHeapSize, reaperOptions });
+      usingMap = cachemap.storeType === "map";
+      await cachemap.clear();
+    });
+
+    after(async () => {
+      if (cachemap instanceof WorkerCachemap) cachemap.terminate();
+    });
+
     context(`when a key/value in the cachemap has expired`, () => {
       before(async () => {
-        const reaperOptions: ReaperOptions = { interval: 500 };
-        cachemap = await Cachemap.create({ ...args, reaperOptions });
-        usingMap = cachemap.storeType === "map";
-        await cachemap.clear();
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: "public, max-age=0" }, hash });
       });
 
       after(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       it("then the class instance should delete the key/value and its metadata", async () => {
@@ -400,7 +443,7 @@ function testCachemapClass(args: ConstructorArgs): void {
         }
 
         expect(cachemap.metadata).lengthOf(1);
-        await delay(1000);
+        await delay(1500);
 
         if (usingMap) {
           expect(await cachemap.size()).to.eql(0);
@@ -416,18 +459,18 @@ function testCachemapClass(args: ConstructorArgs): void {
       let lastKey: string;
 
       before(async () => {
-        const maxHeapSize = { client: 30000, server: 30000 };
-        cachemap = await Cachemap.create({ ...args, maxHeapSize });
-        usingMap = cachemap.storeType === "map";
-        await cachemap.clear();
         const keys = Object.keys(testData);
         lastKey = keys.splice(2, 1)[0];
-        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+
+        await Promise.all(keys.map((id) => cachemap.set(
+          testData[id].url,
+          testData[id].body,
+          { cacheHeaders: { cacheControl: "public, max-age=60" }, hash },
+        )));
       });
 
       after(async () => {
         await cachemap.clear();
-        if (cachemap instanceof WorkerCachemap) cachemap.terminate();
       });
 
       it("then the class instance should delete the necessary key/values and their metadata", async () => {

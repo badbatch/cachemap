@@ -86,7 +86,7 @@ gulp.task('document', () => gulp.src(['src/**/*.ts'])
     excludeExternals: true,
     excludePrivate: true,
     excludeProtected: true,
-    exclude: '**/{module-definitions,proxies,reaper}/**',
+    exclude: '**/{helpers,module-definitions,proxies,reaper}/**',
     ignoreCompilerErrors: true,
     includeDeclarations: true,
     mode: 'file',

@@ -27,6 +27,40 @@ export default class LocalStorageProxy {
     }
   }
 
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    try {
+      let _keys: string[] | undefined;
+
+      if (keys) {
+        _keys = keys.map((key) => this._buildKey(key));
+      }
+
+      const entries: Array<[string, any]> = [];
+      const regex = new RegExp(`${this._name}-`);
+
+      for (let i = 0; i < this._storage.length; i += 1) {
+        const key = this._storage.key(i);
+        if (!key || !key.startsWith(this._name)) continue;
+
+        if (_keys) {
+          if (_keys.find((val) => val === key)) {
+            const item = this._storage.getItem(key);
+            if (item) entries.push([key.replace(regex, ""), JSON.parse(item)]);
+          }
+        } else {
+          if (!key.endsWith("metadata")) {
+            const item = this._storage.getItem(key);
+            if (item) entries.push([key.replace(regex, ""), JSON.parse(item)]);
+          }
+        }
+      }
+
+      return entries;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async get(key: string): Promise<any> {
     try {
       const item = this._storage.getItem(this._buildKey(key));

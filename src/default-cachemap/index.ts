@@ -1,5 +1,5 @@
 import { Cacheability } from "cacheability";
-import { isArray, isBoolean, isFunction, isPlainObject, isString } from "lodash";
+import { isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import * as md5 from "md5";
 import * as sizeof from "object-sizeof";
 import { ClientOpts } from "redis";
@@ -145,7 +145,7 @@ export class DefaultCachemap {
 
   constructor(args: ConstructorArgs) {
     if (!isPlainObject(args)) {
-      throw new TypeError("constructor expected args to ba a plain object.");
+      throw new TypeError("Constructor expected args to ba a plain object.");
     }
 
     const {
@@ -164,22 +164,22 @@ export class DefaultCachemap {
     const errors: TypeError[] = [];
 
     if (!isString(name)) {
-      errors.push(new TypeError("constructor expected name to be a string."));
+      errors.push(new TypeError("Constructor expected name to be a string."));
     }
 
     if (!isPlainObject(maxHeapSize)) {
-      errors.push(new TypeError("constructor expected maxHeapSize to be a plain object."));
+      errors.push(new TypeError("Constructor expected maxHeapSize to be a plain object."));
     }
 
     if (!isPlainObject(use)) {
-      errors.push(new TypeError("constructor expected use to be a plain object."));
+      errors.push(new TypeError("Constructor expected use to be a plain object."));
     }
 
     if (errors.length) throw errors;
     const storeType = DefaultCachemap._getStoreType(process.env.WEB_ENV ? use.client : use.server);
 
     if (!DefaultCachemap._storeTypes.find((type) => type === storeType)) {
-      throw new TypeError("constructor expected store type to be 'indexedDB', 'localStorage', 'map', or 'redis'.");
+      throw new TypeError("Constructor expected store type to be 'indexedDB', 'localStorage', 'map', or 'redis'.");
     }
 
     this._inWorker = _inWorker;
@@ -268,11 +268,11 @@ export class DefaultCachemap {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("delete expected key to be a string."));
+      errors.push(new TypeError("Delete expected key to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      errors.push(new TypeError("delete expected opts to be a plain object."));
+      errors.push(new TypeError("Delete expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -289,7 +289,33 @@ export class DefaultCachemap {
   }
 
   /**
-   * The method retrievs a data entry from the DefaultCachemap
+   * If a list of keys is provided, the method retrieves the
+   * requested key/value pairs, while if no list is provided it retrieves
+   * all key/value pairs in the instance of the DefaultCachemap.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   * const entries = await cachemap.entries();
+   * // entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
+   * ```
+   *
+   */
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    if (keys && !isArray(keys)) {
+      Promise.reject(new TypeError("Entries expected keys to be an array"));
+    }
+
+    try {
+      const _keys = !keys && this._storeType === "redis" ? this._metadata.map((entry) => entry.key) : keys;
+      return this._store.entries(_keys);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * The method retrieves a data entry from the DefaultCachemap
    * instance.
    *
    * ```typescript
@@ -303,11 +329,11 @@ export class DefaultCachemap {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("get expected key to be a string."));
+      errors.push(new TypeError("Get expected key to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      errors.push(new TypeError("get expected opts to be a plain object."));
+      errors.push(new TypeError("Get expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -324,7 +350,7 @@ export class DefaultCachemap {
   }
 
   /**
-   * The method retrievs the cache metadata for a data
+   * The method retrieves the cache metadata for a data
    * entry or returns false if no matching data entry is found.
    *
    * ```typescript
@@ -346,11 +372,11 @@ export class DefaultCachemap {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("has expected key to be a string."));
+      errors.push(new TypeError("Has expected key to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      errors.push(new TypeError("has expected opts to be a plain object."));
+      errors.push(new TypeError("Has expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -388,16 +414,16 @@ export class DefaultCachemap {
   public async set(
     key: string,
     value: any,
-    opts: { cacheHeaders?: CacheHeaders, hash?: boolean } = {},
+    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, tag?: any } = {},
   ): Promise<void> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("set expected key to be a string."));
+      errors.push(new TypeError("Set expected key to be a string."));
     }
 
     if (!isPlainObject(opts)) {
-      errors.push(new TypeError("set expected opts to be a plain object."));
+      errors.push(new TypeError("Set expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -413,9 +439,9 @@ export class DefaultCachemap {
       await this._store.set(_key, value);
 
       if (exists) {
-        await this._updateMetadata(_key, sizeof(value), cacheability);
+        await this._updateMetadata(_key, sizeof(value), cacheability, opts.tag);
       } else {
-        await this._addMetadata(_key, sizeof(value), cacheability);
+        await this._addMetadata(_key, sizeof(value), cacheability, opts.tag);
       }
     } catch (error) {
       return Promise.reject(error);
@@ -441,7 +467,7 @@ export class DefaultCachemap {
     }
   }
 
-  private async _addMetadata(key: string, size: number, cacheability: Cacheability): Promise<void> {
+  private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: any): Promise<void> {
     this._metadata.push({
       accessedCount: 0,
       added: Date.now(),
@@ -450,6 +476,7 @@ export class DefaultCachemap {
       lastAccessed: Date.now(),
       lastUpdated: Date.now(),
       size,
+      tags: !isUndefined(tag) ? [tag] : [],
     });
 
     this._sortMetadata();
@@ -585,7 +612,7 @@ export class DefaultCachemap {
     if (!this._disableCacheInvalidation && this._usedHeapSize > this._maxHeapThreshold) this._reduceHeapSize();
   }
 
-  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability): Promise<void> {
+  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: any): Promise<void> {
     const entry = this._getMetadataEntry(key);
     if (!entry) return;
 
@@ -598,6 +625,7 @@ export class DefaultCachemap {
     }
 
     if (cacheability) entry.cacheability = cacheability;
+    if (!isUndefined(tag)) entry.tags.push(tag);
     this._sortMetadata();
     this._updateHeapSize();
 

@@ -13,14 +13,14 @@ function getMetadata({
 }
 
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {
-  const { args, key, opts, type, value } = message;
+  const { args, key, keys, opts, type, value } = message;
 
   if (type === "create" && args) {
     cachemap = await DefaultCachemap.create({ ...args, _inWorker: true });
     return getMetadata(cachemap);
   }
 
-  if (type !== "clear" && type !== "size" && !key) {
+  if (type !== "clear" && type !== "size" && type !== "entries" && !key) {
     return Promise.reject(new TypeError("Worker expected key to have a length greather than 0."));
   }
 
@@ -33,6 +33,9 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
         break;
       case "delete":
         if (key) result = await cachemap.delete(key, opts);
+        break;
+      case "entries":
+        result = await cachemap.entries(keys);
         break;
       case "get":
         if (key) result = await cachemap.get(key, opts);

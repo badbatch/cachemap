@@ -6,7 +6,7 @@ export default class RedisProxy {
 
   constructor(opts: ClientOpts = {}, mock?: boolean) {
     if (!isPlainObject(opts)) {
-      throw new TypeError("constructor expected opts to be a plain object.");
+      throw new TypeError("Constructor expected opts to be a plain object.");
     }
 
     try {
@@ -40,6 +40,26 @@ export default class RedisProxy {
           reject(error);
         } else {
           resolve(!!reply);
+        }
+      });
+    });
+  }
+
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    const _keys = keys as string[];
+
+    return new Promise((resolve: (value: Array<[string, any]>) => void, reject: (reason: Error) => void) => {
+      this._client.mget(_keys, (error, reply) => {
+        if (error) {
+          reject(error);
+        } else {
+          const entries: Array<[string, any]> = [];
+
+          _keys.forEach((key, index) => {
+            entries.push([key, JSON.parse(reply[index])]);
+          });
+
+          resolve(entries);
         }
       });
     });

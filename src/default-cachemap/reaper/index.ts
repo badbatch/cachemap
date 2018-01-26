@@ -9,7 +9,7 @@ export default class Reaper {
 
   constructor(cachemap: DefaultCachemap, opts: ReaperOptions = {}) {
     if (!isPlainObject(opts)) {
-      throw new TypeError("constructor expected opts to be a plain object.");
+      throw new TypeError("Constructor expected opts to be a plain object.");
     }
 
     const { interval = 60000, start = true } = opts;

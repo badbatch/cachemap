@@ -126,6 +126,29 @@ export class WorkerCachemap {
   }
 
   /**
+   * If a list of keys is provided, the method retrieves the
+   * requested key/value pairs, while if no list is provided it retrieves
+   * all key/value pairs in the instance of the DefaultCachemap.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   * const entries = await cachemap.entries();
+   * // entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
+   * ```
+   *
+   */
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    try {
+      const { metadata, result, usedHeapSize } = await this._postMessage({ keys, type: "entries" });
+      this._setProps(metadata, usedHeapSize);
+      return result;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
    * The method retrievs a data entry from the WorkerCachemap
    * instance.
    *
@@ -195,7 +218,7 @@ export class WorkerCachemap {
   public async set(
     key: string,
     value: any,
-    opts: { cacheHeaders?: CacheHeaders, hash?: boolean } = {},
+    opts: { cacheHeaders?: CacheHeaders, hash?: boolean, tag?: any } = {},
   ): Promise<void> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ key, opts, type: "set", value });

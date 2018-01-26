@@ -137,6 +137,13 @@ export interface Metadata {
    *
    */
   size: number;
+  /**
+   * A list of tags that can be optionally set along with
+   * the cachemap entry and used when trying to retrieve
+   * a subset of data.
+   *
+   */
+  tags: any[];
 }
 
 export interface ObjectMap {
@@ -146,7 +153,13 @@ export interface ObjectMap {
 export interface PostMessageArgs {
   args?: ConstructorArgs;
   key?: string;
-  opts?: { cacheHeaders?: CacheHeaders, deleteExpired?: boolean, hash?: boolean, _stub?: boolean };
+  keys?: string[];
+  opts?: {
+    cacheHeaders?: CacheHeaders,
+    deleteExpired?: boolean,
+    hash?: boolean,
+    tag?: any,
+  };
   type: string;
   value?: any;
 }

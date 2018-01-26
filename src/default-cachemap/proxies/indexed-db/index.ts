@@ -47,6 +47,32 @@ export default class IndexedDBProxy {
     }
   }
 
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName);
+      const objectStore = tx.objectStore(this._objectStoreName);
+      const entries: Array<[string, any]> = [];
+
+      objectStore.iterateCursor((cursor: Cursor) => {
+        if (!cursor) return;
+        const key = cursor.key as string;
+
+        if (keys) {
+          if (keys.find((value) => value === key)) entries.push([key, cursor.value]);
+        } else {
+          if (!key.endsWith("metadata")) entries.push([key, cursor.value]);
+        }
+
+        cursor.continue();
+      });
+
+      await tx.complete;
+      return entries;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async get(key: string): Promise<any> {
     try {
       const tx = this._indexedDB.transaction(this._objectStoreName);
