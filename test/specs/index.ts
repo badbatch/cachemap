@@ -443,7 +443,7 @@ function testCachemapClass(args: ConstructorArgs): void {
         }
 
         expect(cachemap.metadata).lengthOf(1);
-        await delay(1500);
+        await delay(1000);
 
         if (usingMap) {
           expect(await cachemap.size()).to.eql(0);
@@ -483,7 +483,6 @@ function testCachemapClass(args: ConstructorArgs): void {
         expect(cachemap.metadata).lengthOf(2);
         expect(cachemap.usedHeapSize).to.eql(17970);
         await cachemap.set(testData[lastKey].url, testData[lastKey].body, { cacheHeaders, hash });
-        await delay(1000);
 
         if (usingMap) {
           expect(await cachemap.size()).to.eql(2);
