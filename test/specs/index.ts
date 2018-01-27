@@ -413,7 +413,7 @@ function testCachemapClass(args: ConstructorArgs): void {
     });
   });
 
-  describe.only("the Reaper class", () => {
+  describe("the Reaper class", () => {
     before(async () => {
       const maxHeapSize = { client: 30000, server: 30000 };
       const reaperOptions: ReaperOptions = { interval: 1000 };
