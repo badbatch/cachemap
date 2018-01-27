@@ -426,7 +426,7 @@ function testCachemapClass(args: ConstructorArgs): void {
       if (cachemap instanceof WorkerCachemap) cachemap.terminate();
     });
 
-    context(`when a key/value in the cachemap has expired`, () => {
+    context("when a key/value in the cachemap has expired", () => {
       before(async () => {
         await cachemap.set(key, value, { cacheHeaders: { cacheControl: "public, max-age=0" }, hash });
       });
