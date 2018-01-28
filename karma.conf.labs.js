@@ -41,9 +41,9 @@ module.exports = (config) => {
     basePath: '',
     browserDisconnectTimeout: 10000,
     browserDisconnectTolerance: 2,
-    browserNoActivityTimeout: 180000,
+    browserNoActivityTimeout: 200000,
     browsers: Object.keys(customLaunchers),
-    captureTimeout: 0,
+    captureTimeout: 200000,
     client: {
       captureConsole: true,
       mocha: { timeout: 0 },
