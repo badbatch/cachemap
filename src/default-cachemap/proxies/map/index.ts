@@ -29,6 +29,10 @@ export default class MapProxy {
     return this._map.get(key) !== undefined;
   }
 
+  public async import(entries: Array<[string, any]>): Promise<void> {
+    this._map = new Map([...this._map, ...entries]);
+  }
+
   public async set(key: string, value: any): Promise<void> {
     this._map.set(key, value);
   }

@@ -93,6 +93,13 @@ export interface IndexedDBOptions {
   objectStoreName?: string;
 }
 
+export type ImportArgs = ExportResult;
+
+export interface ExportResult {
+  entries: Array<[string, any]>;
+  metadata: Metadata[];
+}
+
 export interface Metadata {
   /**
    * The number of times the corresponding data
@@ -152,6 +159,7 @@ export interface ObjectMap {
 
 export interface PostMessageArgs {
   args?: ConstructorArgs;
+  exported?: ImportArgs;
   key?: string;
   keys?: string[];
   opts?: {

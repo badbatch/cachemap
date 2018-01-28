@@ -1,5 +1,6 @@
 import registerPromiseWorker from "promise-worker/register";
 import { DefaultCachemap } from "./default-cachemap";
+import convertCacheability from "./helpers/convert-cacheability";
 import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 
 let cachemap: DefaultCachemap;
@@ -12,15 +13,19 @@ function getMetadata({
   return { metadata, storeType, usedHeapSize };
 }
 
+function requiresKey(type: string): boolean {
+  return type === "delete" || type === "get" || type === "has" || type === "set";
+}
+
 registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResult> => {
-  const { args, key, keys, opts, type, value } = message;
+  const { args, exported, key, keys, opts, type, value } = message;
 
   if (type === "create" && args) {
     cachemap = await DefaultCachemap.create({ ...args, _inWorker: true });
     return getMetadata(cachemap);
   }
 
-  if (type !== "clear" && type !== "size" && type !== "entries" && !key) {
+  if (requiresKey(type) && !key) {
     return Promise.reject(new TypeError("Worker expected key to have a length greather than 0."));
   }
 
@@ -37,11 +42,22 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
       case "entries":
         result = await cachemap.entries(keys);
         break;
+      case "export":
+        result = await cachemap.export(keys);
+        break;
       case "get":
         if (key) result = await cachemap.get(key, opts);
         break;
       case "has":
         if (key) result = await cachemap.has(key, opts);
+        break;
+      case "import":
+        if (exported) {
+          await cachemap.import({
+            entries: exported.entries,
+            metadata: convertCacheability(exported.metadata),
+          });
+        }
         break;
       case "set":
         if (key) await cachemap.set(key, value, opts);

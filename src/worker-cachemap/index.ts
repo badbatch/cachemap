@@ -1,9 +1,12 @@
 import { Cacheability } from "cacheability";
 import PromiseWorker from "promise-worker";
+import convertCacheability from "../helpers/convert-cacheability";
 
 import {
   CacheHeaders,
   ConstructorArgs,
+  ExportResult,
+  ImportArgs,
   Metadata,
   PostMessageArgs,
   PostMessageResult,
@@ -149,6 +152,30 @@ export class WorkerCachemap {
   }
 
   /**
+   * If a list of keys is provided, the method retreives the
+   * requested entries and metadata, while if no list is provided
+   * it retrieves all entries and metadata in the instance of
+   * the DefaultCachemap.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   * const exported = await cachemap.export();
+   * // exported.entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
+   * ```
+   *
+   */
+  public async export(keys?: string[]): Promise<ExportResult> {
+    try {
+      const { metadata, result, usedHeapSize } = await this._postMessage({ keys, type: "export" });
+      this._setProps(metadata, usedHeapSize);
+      return { entries: result.entries, metadata: convertCacheability(result.metadata) };
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
    * The method retrievs a data entry from the WorkerCachemap
    * instance.
    *
@@ -196,6 +223,25 @@ export class WorkerCachemap {
       const cacheability = new Cacheability();
       cacheability.metadata = result.metadata;
       return cacheability;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * The method imports the cache entries and metadata exported
+   * from another instance of the DefaultCachemap.
+   *
+   * ```typescript
+   * const exported = await cachemapAlfa.export();
+   * await cachemapBravo.import(exported);
+   * ```
+   *
+   */
+  public async import(exported: ImportArgs): Promise<void> {
+    try {
+      const { metadata, usedHeapSize } = await this._postMessage({ exported, type: "import" });
+      this._setProps(metadata, usedHeapSize);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -270,16 +316,7 @@ export class WorkerCachemap {
   }
 
   private _setProps(workerMetadata: Metadata[], usedHeapSize: number, storeType?: string): void {
-    const metadata: Metadata[] = [];
-
-    workerMetadata.forEach(({ cacheability: cacheabilityObject, ...props }) => {
-      const cacheability = new Cacheability();
-      cacheability.metadata = cacheabilityObject.metadata;
-      const metadataEntry: Metadata = { ...props, cacheability };
-      metadata.push(metadataEntry);
-    });
-
-    this._metadata = metadata;
+    this._metadata = convertCacheability(workerMetadata);
     if (storeType) this._storeType = storeType;
     this._usedHeapSize = usedHeapSize;
   }

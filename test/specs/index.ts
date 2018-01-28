@@ -9,6 +9,7 @@ import { supportsWorkerIndexedDB } from "../../src/helpers/user-agent-parser";
 import {
   CacheHeaders,
   ConstructorArgs,
+  ExportResult,
   Metadata,
   ObjectMap,
   ReaperOptions,
@@ -408,6 +409,82 @@ function testCachemapClass(args: ConstructorArgs): void {
             expect(entry[0]).to.be.a("string");
             expect(entry[1]).to.be.a("object");
           });
+        });
+      });
+    });
+
+    describe("the export method", () => {
+      before(async () => {
+        const keys = Object.keys(testData);
+        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+      });
+
+      after(async () => {
+        await cachemap.clear();
+      });
+
+      context("when no keys are passed into the method", () => {
+        it("then the method should return all key/value pairs in the cachemap", async () => {
+          const result = await cachemap.export();
+          expect(result.entries).to.be.lengthOf(3);
+          expect(result.metadata).to.be.lengthOf(3);
+          expect(result.metadata[0].cacheability).to.be.instanceof(Cacheability);
+
+          result.entries.forEach((entry) => {
+            expect(entry[0]).to.be.a("string");
+            expect(entry[1]).to.be.a("object");
+          });
+        });
+      });
+
+      context("when keys are passed into the method", () => {
+        it("then the method should return all the matching key/value pairs in the cachemap", async () => {
+          const keys = cachemap.metadata.map((entry) => entry.key);
+          const result = await cachemap.export(keys.slice(0, 2));
+          expect(result.entries).to.be.lengthOf(2);
+          expect(result.metadata).to.be.lengthOf(2);
+          expect(result.metadata[0].cacheability).to.be.instanceof(Cacheability);
+
+          result.entries.forEach((entry) => {
+            expect(entry[0]).to.be.a("string");
+            expect(entry[1]).to.be.a("object");
+          });
+        });
+      });
+    });
+
+    describe.only("the import method", () => {
+      let exportResult: ExportResult;
+
+      before(async () => {
+        const keys = Object.keys(testData);
+        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+        exportResult = await cachemap.export();
+        await cachemap.clear();
+      });
+
+      after(async () => {
+        await cachemap.clear();
+      });
+
+      context("when a valid export object is passed into the method", () => {
+        it("then the method should add the entries and metadata to the cachemap", async () => {
+          if (usingMap) {
+            expect(await cachemap.size()).to.eql(0);
+          } else {
+            expect(await cachemap.size()).to.eql(1);
+          }
+
+          expect(cachemap.metadata).to.be.lengthOf(0);
+          await cachemap.import(exportResult);
+
+          if (usingMap) {
+            expect(await cachemap.size()).to.eql(3);
+          } else {
+            expect(await cachemap.size()).to.eql(4);
+          }
+
+          expect(cachemap.metadata).to.be.lengthOf(3);
         });
       });
     });

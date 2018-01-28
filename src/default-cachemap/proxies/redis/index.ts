@@ -23,7 +23,7 @@ export default class RedisProxy {
 
   public async clear(): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.flushdb((error, reply) => {
+      this._client.flushdb((error) => {
         if (error) {
            reject(error);
         } else {
@@ -89,9 +89,27 @@ export default class RedisProxy {
     });
   }
 
+  public async import(entries: Array<[string, any]>): Promise<void> {
+    const _entries: string[] = [];
+
+    entries.forEach(([key, value]) => {
+      _entries.push(key, JSON.stringify(value));
+    });
+
+    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
+      this._client.mset(_entries, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(undefined);
+        }
+      });
+    });
+  }
+
   public async set(key: string, value: any): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.set(key, JSON.stringify(value), (error, reply) => {
+      this._client.set(key, JSON.stringify(value), (error) => {
         if (error) {
           reject(error);
         } else {

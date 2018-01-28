@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Metadata | Cachemap</title>
+	<title>ExportResult | Cachemap</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="metadata.html">Metadata</a>
+					<a href="exportresult.html">ExportResult</a>
 				</li>
 			</ul>
-			<h1>Interface Metadata</h1>
+			<h1>Interface ExportResult</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Metadata</span>
+						<span class="target">ExportResult</span>
 					</li>
 				</ul>
 			</section>
@@ -79,14 +79,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#accessedcount" class="tsd-kind-icon">accessed<wbr>Count</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#added" class="tsd-kind-icon">added</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#cacheability" class="tsd-kind-icon">cacheability</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#key" class="tsd-kind-icon">key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#lastaccessed" class="tsd-kind-icon">last<wbr>Accessed</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#lastupdated" class="tsd-kind-icon">last<wbr>Updated</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#size" class="tsd-kind-icon">size</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="metadata.html#tags" class="tsd-kind-icon">tags</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="exportresult.html#entries" class="tsd-kind-icon">entries</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="exportresult.html#metadata" class="tsd-kind-icon">metadata</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,134 +89,24 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="accessedcount" class="tsd-anchor"></a>
-					<h3>accessed<wbr>Count</h3>
-					<div class="tsd-signature tsd-kind-icon">accessed<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="entries" class="tsd-anchor"></a>
+					<h3>entries</h3>
+					<div class="tsd-signature tsd-kind-icon">entries<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L109">types.d.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L99">types.d.ts:99</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The number of times the corresponding data
-							entry has been accessed.</p>
-						</div>
-					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="added" class="tsd-anchor"></a>
-					<h3>added</h3>
-					<div class="tsd-signature tsd-kind-icon">added<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="metadata" class="tsd-anchor"></a>
+					<h3>metadata</h3>
+					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <a href="metadata.html" class="tsd-signature-type">Metadata</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L115">types.d.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L100">types.d.ts:100</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The timestamp of when the corresponding data
-							entry was added to the Cachemap instance.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cacheability" class="tsd-anchor"></a>
-					<h3>cacheability</h3>
-					<div class="tsd-signature tsd-kind-icon">cacheability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Cacheability</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L122">types.d.ts:122</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The cache information of the corresponding
-								data entry, which uses the <a href="https://github.com/dylanaubrey/cacheability">Cacheability
-							module</a>.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="key" class="tsd-anchor"></a>
-					<h3>key</h3>
-					<div class="tsd-signature tsd-kind-icon">key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L128">types.d.ts:128</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The key the corresponding data entry was stored
-							against.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="lastaccessed" class="tsd-anchor"></a>
-					<h3>last<wbr>Accessed</h3>
-					<div class="tsd-signature tsd-kind-icon">last<wbr>Accessed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L134">types.d.ts:134</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The timestamp of when the corresponding data
-							entry was last accessed.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="lastupdated" class="tsd-anchor"></a>
-					<h3>last<wbr>Updated</h3>
-					<div class="tsd-signature tsd-kind-icon">last<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L140">types.d.ts:140</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The timestamp of when the corresponding data
-							entry was last updated.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="size" class="tsd-anchor"></a>
-					<h3>size</h3>
-					<div class="tsd-signature tsd-kind-icon">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L146">types.d.ts:146</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The approximate amount of memory the corresponding
-							data entry takes up.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="tags" class="tsd-anchor"></a>
-					<h3>tags</h3>
-					<div class="tsd-signature tsd-kind-icon">tags<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/bcce734/src/types.d.ts#L153">types.d.ts:153</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>A list of tags that can be optionally set along with
-								the cachemap entry and used when trying to retrieve
-							a subset of data.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -251,45 +135,27 @@
 					<li class=" tsd-kind-interface">
 						<a href="constructorargs.html" class="tsd-kind-icon">Constructor<wbr>Args</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="exportresult.html" class="tsd-kind-icon">Export<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="indexeddboptions.html" class="tsd-kind-icon">IndexedDBOptions</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="metadata.html" class="tsd-kind-icon">Metadata</a>
+						<a href="exportresult.html" class="tsd-kind-icon">Export<wbr>Result</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#accessedcount" class="tsd-kind-icon">accessed<wbr>Count</a>
+								<a href="exportresult.html#entries" class="tsd-kind-icon">entries</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#added" class="tsd-kind-icon">added</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#cacheability" class="tsd-kind-icon">cacheability</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#key" class="tsd-kind-icon">key</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#lastaccessed" class="tsd-kind-icon">last<wbr>Accessed</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#lastupdated" class="tsd-kind-icon">last<wbr>Updated</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#size" class="tsd-kind-icon">size</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="metadata.html#tags" class="tsd-kind-icon">tags</a>
+								<a href="exportresult.html#metadata" class="tsd-kind-icon">metadata</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="indexeddboptions.html" class="tsd-kind-icon">IndexedDBOptions</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="metadata.html" class="tsd-kind-icon">Metadata</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="objectmap.html" class="tsd-kind-icon">Object<wbr>Map</a>
 					</li>

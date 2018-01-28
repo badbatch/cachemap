@@ -78,6 +78,16 @@ export default class LocalStorageProxy {
     }
   }
 
+  public async import(entries: Array<[string, any]>): Promise<void> {
+    try {
+      entries.forEach(([key, value]) => {
+        this._storage.setItem(this._buildKey(key), JSON.stringify(value));
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async set(key: string, value: any): Promise<void> {
     try {
       this._storage.setItem(this._buildKey(key), JSON.stringify(value));

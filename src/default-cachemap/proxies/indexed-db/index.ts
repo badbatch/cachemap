@@ -91,6 +91,16 @@ export default class IndexedDBProxy {
     }
   }
 
+  public async import(entries: Array<[string, any]>): Promise<void> {
+    try {
+      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
+      await Promise.all(entries.map(([key, value]) => tx.objectStore(this._objectStoreName).put(value, key)));
+      await tx.complete;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   public async set(key: string, value: any): Promise<void> {
     try {
       const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");

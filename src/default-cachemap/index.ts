@@ -8,11 +8,14 @@ import LocalStorageProxy from "./proxies/local-storage";
 import MapProxy from "./proxies/map";
 import RedisProxy from "./proxies/redis";
 import Reaper from "./reaper";
+import convertCacheability from "../helpers/convert-cacheability";
 import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
 
 import {
   CacheHeaders,
   ConstructorArgs,
+  ExportResult,
+  ImportArgs,
   IndexedDBOptions,
   Metadata,
   StoreProxyTypes,
@@ -307,11 +310,35 @@ export class DefaultCachemap {
     }
 
     try {
-      const _keys = !keys && this._storeType === "redis" ? this._metadata.map((entry) => entry.key) : keys;
-      return this._store.entries(_keys);
+      return this._entries(keys);
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  /**
+   * If a list of keys is provided, the method retreives the
+   * requested entries and metadata, while if no list is provided
+   * it retrieves all entries and metadata in the instance of
+   * the DefaultCachemap.
+   *
+   * ```typescript
+   * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   * const exported = await cachemap.export();
+   * // exported.entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
+   * ```
+   *
+   */
+  public async export(keys?: string[]): Promise<ExportResult> {
+    if (keys && !isArray(keys)) {
+      Promise.reject(new TypeError("Entries expected keys to be an array"));
+    }
+
+    return {
+      entries: await this._entries(keys),
+      metadata: keys ? this._metadata.filter((value) => keys.includes(value.key)) : this._metadata,
+    };
   }
 
   /**
@@ -395,6 +422,59 @@ export class DefaultCachemap {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  /**
+   * The method imports the cache entries and metadata exported
+   * from another instance of the DefaultCachemap.
+   *
+   * ```typescript
+   * const exported = await cachemapAlfa.export();
+   * await cachemapBravo.import(exported);
+   * ```
+   *
+   */
+  public async import(exported: ImportArgs): Promise<void> {
+    if (!isPlainObject(exported)) {
+      return Promise.reject("Import expected exported to be a plain object.");
+    }
+
+    const { entries, metadata } = exported;
+    const errors: TypeError[] = [];
+
+    if (!isArray(entries)) {
+      errors.push(new TypeError("Import expected entries to be an array."));
+    }
+
+    if (!isArray(metadata)) {
+      errors.push(new TypeError("Import expected metadata to be an array."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+    let filterd: Metadata[];
+
+    if (this._metadata.length) {
+      filterd = this._metadata.filter((valueOne) => !metadata.find((valueTwo) => valueOne.key === valueTwo.key));
+    } else {
+      filterd = this._metadata;
+    }
+
+    try {
+      await this._store.import(entries);
+      this._metadata = [...filterd, ...metadata];
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    this._sortMetadata();
+
+    try {
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    this._updateHeapSize();
   }
 
   /**
@@ -563,6 +643,15 @@ export class DefaultCachemap {
     }
   }
 
+  private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
+    try {
+      const _keys = !keys && this._storeType === "redis" ? this._metadata.map((value) => value.key) : keys;
+      return this._store.entries(_keys);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
   private _getCacheability(key: string): Cacheability | undefined {
     const entry = this._getMetadataEntry(key);
     if (!entry) return undefined;
@@ -583,12 +672,7 @@ export class DefaultCachemap {
     try {
       const metadata: Metadata[] = await this._store.get(`metadata`);
       if (isArray(metadata)) {
-        this._metadata = metadata.map((entry) => {
-          const cacheability = new Cacheability();
-          cacheability.metadata = entry.cacheability.metadata;
-          entry.cacheability = cacheability;
-          return entry;
-        });
+        this._metadata = convertCacheability(metadata);
       }
     } catch (error) {
       return Promise.reject(error);
