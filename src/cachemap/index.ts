@@ -52,20 +52,24 @@ export class Cachemap {
 
     let cachemap: DefaultCachemap | WorkerCachemap;
 
-    if (process.env.WEB_ENV) {
-      const { use = {} } = args;
+    try {
+      if (process.env.WEB_ENV) {
+        const { use = {} } = args;
 
-      if (!isPlainObject(use)) {
-        return Promise.reject(new TypeError("CreateCachemap expected use to be a plain object."));
-      }
+        if (!isPlainObject(use)) {
+          return Promise.reject(new TypeError("CreateCachemap expected use to be a plain object."));
+        }
 
-      if (use.client === "indexedDB" && supportsWorkerIndexedDB(self.navigator.userAgent)) {
-        cachemap = await WorkerCachemap.create(args);
+        if (use.client === "indexedDB" && supportsWorkerIndexedDB(self.navigator.userAgent)) {
+          cachemap = await WorkerCachemap.create(args);
+        } else {
+          cachemap = await DefaultCachemap.create(args);
+        }
       } else {
         cachemap = await DefaultCachemap.create(args);
       }
-    } else {
-      cachemap = await DefaultCachemap.create(args);
+    } catch (error) {
+      return Promise.reject(error);
     }
 
     return cachemap;
