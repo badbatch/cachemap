@@ -47,7 +47,7 @@ export class Cachemap {
    */
   public static async create(args: ConstructorArgs): Promise<DefaultCachemap | WorkerCachemap> {
     if (!isPlainObject(args)) {
-      throw new TypeError("CreateCachemap expected args to ba a plain object.");
+      return Promise.reject(new TypeError("CreateCachemap expected args to ba a plain object."));
     }
 
     let cachemap: DefaultCachemap | WorkerCachemap;
@@ -56,7 +56,7 @@ export class Cachemap {
       const { use = {} } = args;
 
       if (!isPlainObject(use)) {
-        throw new TypeError("CreateCachemap expected use to be a plain object.");
+        return Promise.reject(new TypeError("CreateCachemap expected use to be a plain object."));
       }
 
       if (use.client === "indexedDB" && supportsWorkerIndexedDB(self.navigator.userAgent)) {
