@@ -453,7 +453,7 @@ function testCachemapClass(args: ConstructorArgs): void {
       });
     });
 
-    describe.only("the import method", () => {
+    describe("the import method", () => {
       let exportResult: ExportResult;
 
       before(async () => {
