@@ -21,8 +21,12 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
   const { args, exported, key, keys, opts, type, value } = message;
 
   if (type === "create" && args) {
-    cachemap = await DefaultCachemap.create({ ...args, _inWorker: true });
-    return getMetadata(cachemap);
+    try {
+      cachemap = await DefaultCachemap.create({ ...args, _inWorker: true });
+      return getMetadata(cachemap);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
   if (requiresKey(type) && !key) {
