@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.0.72",
+  "version": "0.0.73",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "cacheability": "0.0.61",
+    "fakeredis": "^2.0.0",
     "idb": "^2.0.4",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
@@ -79,7 +80,6 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
-    "fakeredis": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0-beta.0",
     "gulp-sourcemaps": "^2.6.1",
