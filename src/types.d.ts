@@ -166,6 +166,7 @@ export interface PostMessageArgs {
     cacheHeaders?: CacheHeaders,
     deleteExpired?: boolean,
     hash?: boolean,
+    keys?: string[],
     tag?: any,
   };
   type: string;

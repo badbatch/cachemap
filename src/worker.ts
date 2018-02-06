@@ -47,7 +47,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
         result = await cachemap.entries(keys);
         break;
       case "export":
-        result = await cachemap.export(keys);
+        result = await cachemap.export(opts);
         break;
       case "get":
         if (key) result = await cachemap.get(key, opts);

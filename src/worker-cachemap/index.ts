@@ -165,9 +165,9 @@ export class WorkerCachemap {
    * ```
    *
    */
-  public async export(keys?: string[]): Promise<ExportResult> {
+  public async export(opts?: { keys?: string[], tag?: any }): Promise<ExportResult> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ keys, type: "export" });
+      const { metadata, result, usedHeapSize } = await this._postMessage({ opts, type: "export" });
       this._setProps(metadata, usedHeapSize);
       return { entries: result.entries, metadata: convertCacheability(result.metadata) };
     } catch (error) {

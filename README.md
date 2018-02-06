@@ -15,7 +15,8 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 ### Summary
 * Use Redis or an in-memory Map on the server.
 * Use LocalStorage, IndexedDB or an in-memory Map on the client.
-* Store data alongside cache-control directives and etag.
+* Export/import entries and metadata from one cachemap to another.
+* Store data alongside cache-control directives, etag and uuid (tag).
 * Cache headers used to derive whether data is fresh or stale.
 * Sort stored data based on metadata values.
 * Build-in reaper to cull stale data at specified intervals.
@@ -26,6 +27,9 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 ```
 npm install cachemap --save
 ```
+
+### Compilation
+A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set when you compile your browser bundle in order to exclude Redis from the build. Secondly, the worker cachemap is currently only set up to be built with Webpack's worker-loader via blob URL.
 
 ### Documentation
 Please read the documentation on the cachemap [github pages](https://dylanaubrey.github.io/cachemap).

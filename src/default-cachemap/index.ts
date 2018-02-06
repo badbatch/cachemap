@@ -330,15 +330,30 @@ export class DefaultCachemap {
    * ```
    *
    */
-  public async export(keys?: string[]): Promise<ExportResult> {
-    if (keys && !isArray(keys)) {
-      Promise.reject(new TypeError("Entries expected keys to be an array"));
+  public async export(opts?: { keys?: string[], tag?: any }): Promise<ExportResult> {
+    let keys: string[] | undefined;
+    let metadata = this._metadata;
+
+    if (opts) {
+      if (!isPlainObject(opts)) {
+        Promise.reject(new TypeError("Export expected opts to be an plain object."));
+      }
+
+      if (opts.keys && !isArray(opts.keys)) {
+        Promise.reject(new TypeError("Export expected opts.keys to be an array."));
+      }
+
+      if (opts.tag) {
+        metadata = this._metadata.filter((value) => value.tags.includes(opts.tag));
+        keys = metadata.map((value) => value.key);
+      } else if (opts.keys) {
+        const optsKeys = opts.keys as string[];
+        keys = optsKeys;
+        metadata = this._metadata.filter((value) => optsKeys.includes(value.key));
+      }
     }
 
-    return {
-      entries: await this._entries(keys),
-      metadata: keys ? this._metadata.filter((value) => keys.includes(value.key)) : this._metadata,
-    };
+    return { entries: await this._entries(keys), metadata };
   }
 
   /**

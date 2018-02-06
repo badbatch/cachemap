@@ -416,7 +416,12 @@ function testCachemapClass(args: ConstructorArgs): void {
     describe("the export method", () => {
       before(async () => {
         const keys = Object.keys(testData);
-        await Promise.all(keys.map((id) => cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash })));
+        const tags = ["alfa", "bravo", "charlie"];
+
+        await Promise.all(keys.map((id) => {
+          const tag = tags.pop();
+          return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash, tag });
+        }));
       });
 
       after(async () => {
@@ -440,9 +445,23 @@ function testCachemapClass(args: ConstructorArgs): void {
       context("when keys are passed into the method", () => {
         it("then the method should return all the matching key/value pairs in the cachemap", async () => {
           const keys = cachemap.metadata.map((entry) => entry.key);
-          const result = await cachemap.export(keys.slice(0, 2));
+          const result = await cachemap.export({ keys: keys.slice(0, 2) });
           expect(result.entries).to.be.lengthOf(2);
           expect(result.metadata).to.be.lengthOf(2);
+          expect(result.metadata[0].cacheability).to.be.instanceof(Cacheability);
+
+          result.entries.forEach((entry) => {
+            expect(entry[0]).to.be.a("string");
+            expect(entry[1]).to.be.a("object");
+          });
+        });
+      });
+
+      context("when a tag is passed into the method", () => {
+        it("then the method should return all the matching key/value pairs in the cachemap", async () => {
+          const result = await cachemap.export({ tag: "alfa" });
+          expect(result.entries).to.be.lengthOf(1);
+          expect(result.metadata).to.be.lengthOf(1);
           expect(result.metadata[0].cacheability).to.be.instanceof(Cacheability);
 
           result.entries.forEach((entry) => {
