@@ -532,6 +532,7 @@ export class DefaultCachemap {
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     const processing = this._processing.includes(_key);
     if (!processing) this._processing.push(_key);
+    const processed = () => this._processing = this._processing.filter((val) => val !== _key);
 
     try {
       const exists = await this._store.has(_key) || processing;
@@ -542,10 +543,11 @@ export class DefaultCachemap {
       } else {
         await this._addMetadata(_key, sizeof(value), cacheability, opts.tag);
       }
+
+      processed();
     } catch (error) {
+      processed();
       return Promise.reject(error);
-    } finally {
-      this._processing = this._processing.filter((val) => val !== _key);
     }
   }
 

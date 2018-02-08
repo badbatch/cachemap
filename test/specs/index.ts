@@ -394,9 +394,9 @@ function testCachemapClass(args: ConstructorArgs): void {
           stub = sinon.stub(storeClient, "set").rejects(error);
         });
 
-        after(() => {
-          if (args.name === "worker") return;
-          stub.restore();
+        after(async () => {
+          if (args.name !== "worker") stub.restore();
+          await cachemap.clear();
         });
 
         it("then the method should return a rejected promise with the reason", async () => {
