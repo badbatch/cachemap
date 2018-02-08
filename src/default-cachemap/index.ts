@@ -140,6 +140,7 @@ export class DefaultCachemap {
   private _metadata: Metadata[] = [];
   private _mockRedis: boolean;
   private _name: string;
+  private _processing: string[] = [];
   private _reaper: Reaper;
   private _redisOptions?: ClientOpts;
   private _store: StoreProxyTypes;
@@ -247,6 +248,7 @@ export class DefaultCachemap {
     try {
       this._store.clear();
       this._metadata = [];
+      this._processing = [];
       this._usedHeapSize = 0;
       this._backupMetadata();
     } catch (error) {
@@ -528,9 +530,11 @@ export class DefaultCachemap {
     const cacheControl = metadata.cacheControl;
     if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
+    const processing = this._processing.includes(_key);
+    if (!processing) this._processing.push(_key);
 
     try {
-      const exists = await this._store.has(_key);
+      const exists = await this._store.has(_key) || processing;
       await this._store.set(_key, value);
 
       if (exists) {
@@ -540,6 +544,8 @@ export class DefaultCachemap {
       }
     } catch (error) {
       return Promise.reject(error);
+    } finally {
+      this._processing = this._processing.filter((val) => val !== _key);
     }
   }
 
@@ -572,6 +578,7 @@ export class DefaultCachemap {
       lastUpdated: Date.now(),
       size,
       tags: !isUndefined(tag) ? [tag] : [],
+      updatedCount: 0,
     });
 
     this._sortMetadata();
@@ -718,6 +725,7 @@ export class DefaultCachemap {
     if (size) {
       entry.size = size;
       entry.lastUpdated = Date.now();
+      entry.updatedCount += 1;
     } else {
       entry.accessedCount += 1;
       entry.lastAccessed = Date.now();

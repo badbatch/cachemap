@@ -151,6 +151,12 @@ export interface Metadata {
    *
    */
   tags: any[];
+  /**
+   * The number of times the corresponding data
+   * entry has been updated.
+   *
+   */
+  updatedCount: number;
 }
 
 export interface ObjectMap {

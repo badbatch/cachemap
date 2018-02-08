@@ -293,16 +293,16 @@ function testCachemapClass(args: ConstructorArgs): void {
     });
 
     describe("the set method", () => {
-      let metadata: Metadata;
-
-      after(async () => {
-        await cachemap.clear();
-      });
-
       context("when a key does not exist in the cachemap", () => {
-        it("then the method should store the pair and add its metadata", async () => {
+        before(async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
+        });
 
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("then the method should store the key/value pair and add its metadata", async () => {
           if (usingMap) {
             expect(await cachemap.size()).to.eql(1);
           } else {
@@ -310,7 +310,7 @@ function testCachemapClass(args: ConstructorArgs): void {
           }
 
           expect(cachemap.metadata).lengthOf(1);
-          metadata = { ...cachemap.metadata[0] };
+          const metadata = { ...cachemap.metadata[0] };
           expect(metadata.accessedCount).to.equal(0);
           expect(metadata.added).to.be.a("number");
           expect(metadata.cacheability).to.be.instanceOf(Cacheability);
@@ -322,6 +322,17 @@ function testCachemapClass(args: ConstructorArgs): void {
       });
 
       context("when a key already exists in the cachemap", () => {
+        let metadata: Metadata;
+
+        before(async () => {
+          await cachemap.set(key, value, { cacheHeaders, hash });
+          metadata = { ...cachemap.metadata[0] };
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
         it("then the method should overwrite the existing value and update the metadata", async () => {
           await cachemap.set(key, value, { cacheHeaders, hash });
 
@@ -340,6 +351,35 @@ function testCachemapClass(args: ConstructorArgs): void {
           expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
           expect(updatedMetadata.lastUpdated >= metadata.lastUpdated).to.equal(true);
           expect(updatedMetadata.size).to.equal(metadata.size);
+          expect(updatedMetadata.updatedCount).to.equal(1);
+        });
+      });
+
+      context("when the same key is added twice at the 'same time'", () => {
+        before(async () => {
+          await Promise.all([
+            cachemap.set(key, value, { cacheHeaders, hash }),
+            cachemap.set(key, value, { cacheHeaders, hash }),
+          ]);
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("then the method should store the first key/value pair and then update the existing value", async () => {
+          if (usingMap) {
+            expect(await cachemap.size()).to.eql(1);
+          } else {
+            expect(await cachemap.size()).to.eql(2);
+          }
+
+          expect(cachemap.metadata).lengthOf(1);
+          const metadata = cachemap.metadata[0];
+          expect(metadata.lastAccessed).to.equal(metadata.added);
+          expect(metadata.accessedCount).to.equal(0);
+          expect(metadata.lastUpdated >= metadata.added).to.equal(true);
+          expect(metadata.updatedCount).to.equal(1);
         });
       });
 
