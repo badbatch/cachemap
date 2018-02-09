@@ -1,4 +1,4 @@
-let customLaunchers = require('./custom-launchers.json');
+const customLaunchers = require('./custom-launchers.json');
 const webpackConfig = require('./webpack.config.labs');
 
 let reporters = ['dots'];
@@ -12,17 +12,17 @@ const sauceLabs = {
 if (process.env.LOCAL_ENV) {
   require('dotenv').config(); // eslint-disable-line
 
-  customLaunchers = {
-    sl_browser: {
-      appiumVersion: '1.7.2',
-      base: 'SauceLabs',
-      browserName: 'Safari',
-      deviceName: 'iPhone Simulator',
-      deviceOrientation: 'portrait',
-      platformName: 'iOS',
-      platformVersion: '11.0',
-    },
-  };
+  // customLaunchers = {
+  //   sl_browser: {
+  //     appiumVersion: '1.7.2',
+  //     base: 'SauceLabs',
+  //     browserName: 'Safari',
+  //     deviceName: 'iPhone Simulator',
+  //     deviceOrientation: 'portrait',
+  //     platformName: 'iOS',
+  //     platformVersion: '11.0',
+  //   },
+  // };
 
   reporters = ['mocha'];
   sauceLabs.startConnect = true;
