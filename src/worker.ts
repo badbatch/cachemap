@@ -1,6 +1,5 @@
 import registerPromiseWorker from "promise-worker/register";
 import { DefaultCachemap } from "./default-cachemap";
-import convertCacheability from "./helpers/convert-cacheability";
 import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
 
 let cachemap: DefaultCachemap;
@@ -56,12 +55,7 @@ registerPromiseWorker(async (message: PostMessageArgs): Promise<PostMessageResul
         if (key) result = await cachemap.has(key, opts);
         break;
       case "import":
-        if (exported) {
-          await cachemap.import({
-            entries: exported.entries,
-            metadata: convertCacheability(exported.metadata),
-          });
-        }
+        if (exported) await cachemap.import(exported);
         break;
       case "set":
         if (key) await cachemap.set(key, value, opts);

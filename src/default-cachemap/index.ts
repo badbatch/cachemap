@@ -478,7 +478,7 @@ export class DefaultCachemap {
 
     try {
       await this._store.import(entries);
-      this._metadata = [...filterd, ...metadata];
+      this._metadata = convertCacheability([...filterd, ...metadata]);
     } catch (error) {
       return Promise.reject(error);
     }
