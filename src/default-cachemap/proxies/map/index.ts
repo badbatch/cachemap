@@ -1,5 +1,16 @@
+import { logCacheEntry } from "../../../monitoring";
+
 export default class MapProxy {
+  private _cacheType: string;
   private _map = new Map();
+
+  constructor(cacheType: string) {
+    this._cacheType = cacheType;
+  }
+
+  get cacheType(): string {
+    return this._cacheType;
+  }
 
   public async clear(): Promise<void> {
     this._map.clear();
@@ -33,6 +44,7 @@ export default class MapProxy {
     this._map = new Map([...this._map, ...entries]);
   }
 
+  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     this._map.set(key, value);
   }

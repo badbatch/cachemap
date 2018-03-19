@@ -1,13 +1,17 @@
 import { isPlainObject } from "lodash";
 import { ClientOpts, createClient, RedisClient } from "redis";
+import { logCacheEntry } from "../../../monitoring";
 
 export default class RedisProxy {
+  private _cacheType: string;
   private _client: RedisClient;
 
-  constructor(opts: ClientOpts = {}, mock?: boolean) {
+  constructor(cacheType: string, opts: ClientOpts = {}, mock?: boolean) {
     if (!isPlainObject(opts)) {
       throw new TypeError("Constructor expected opts to be a plain object.");
     }
+
+    this._cacheType = cacheType;
 
     try {
       if (mock) {
@@ -19,6 +23,10 @@ export default class RedisProxy {
     } catch (error) {
       throw error;
     }
+  }
+
+  get cacheType(): string {
+    return this._cacheType;
   }
 
   public async clear(): Promise<void> {
@@ -107,6 +115,7 @@ export default class RedisProxy {
     });
   }
 
+  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
       this._client.set(key, JSON.stringify(value), (error) => {
