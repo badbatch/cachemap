@@ -49,6 +49,7 @@
     "cacheability": "0.0.61",
     "fakeredis": "^2.0.0",
     "idb": "^2.0.4",
+    "iso-logger": "0.0.12",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0",

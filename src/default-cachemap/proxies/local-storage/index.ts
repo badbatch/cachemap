@@ -1,16 +1,22 @@
+import { logCacheEntry } from "../../../monitoring";
+
 export default class LocalStorageProxy {
-  private _name: string;
+  private _cacheType: string;
   private _storage: Storage = window.localStorage;
 
-  constructor(name: string) {
-    this._name = name;
+  constructor(cacheType: string) {
+    this._cacheType = cacheType;
+  }
+
+  get cacheType(): string {
+    return this._cacheType;
   }
 
   public async clear(): Promise<void> {
     try {
       for (let i = this._storage.length - 1; i >= 0; i -= 1) {
         const key = this._storage.key(i);
-        if (key && key.startsWith(this._name)) this._storage.removeItem(key);
+        if (key && key.startsWith(this._cacheType)) this._storage.removeItem(key);
       }
     } catch (error) {
       return Promise.reject(error);
@@ -36,11 +42,11 @@ export default class LocalStorageProxy {
       }
 
       const entries: Array<[string, any]> = [];
-      const regex = new RegExp(`${this._name}-`);
+      const regex = new RegExp(`${this._cacheType}-`);
 
       for (let i = 0; i < this._storage.length; i += 1) {
         const key = this._storage.key(i);
-        if (!key || !key.startsWith(this._name)) continue;
+        if (!key || !key.startsWith(this._cacheType)) continue;
 
         if (_keys) {
           if (_keys.find((val) => val === key)) {
@@ -88,6 +94,7 @@ export default class LocalStorageProxy {
     }
   }
 
+  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     try {
       this._storage.setItem(this._buildKey(key), JSON.stringify(value));
@@ -102,7 +109,7 @@ export default class LocalStorageProxy {
 
       for (let i = 0; i < this._storage.length; i += 1) {
         const key = this._storage.key(i);
-        if (key && key.startsWith(this._name)) keys.push(key);
+        if (key && key.startsWith(this._cacheType)) keys.push(key);
       }
 
       return keys.length;
@@ -112,6 +119,6 @@ export default class LocalStorageProxy {
   }
 
   private _buildKey(key: string): string {
-    return `${this._name}-${key}`;
+    return `${this._cacheType}-${key}`;
   }
 }

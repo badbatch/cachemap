@@ -1,11 +1,12 @@
 import idb, { Cursor, DB } from "idb";
 import { isString } from "lodash";
 import { IndexedDBOptions } from "../../../types";
+import { logCacheEntry } from "../../../monitoring";
 
 export default class IndexedDBProxy {
-  public static async create(opts?: IndexedDBOptions): Promise<IndexedDBProxy> {
+  public static async create(cacheType: string, opts?: IndexedDBOptions): Promise<IndexedDBProxy> {
     try {
-      const indexedDBProxy = new IndexedDBProxy(opts);
+      const indexedDBProxy = new IndexedDBProxy(cacheType, opts);
 
       indexedDBProxy._indexedDB = await idb.open(indexedDBProxy._databaseName, 1, (upgradeDB) => {
         upgradeDB.createObjectStore(indexedDBProxy._objectStoreName);
@@ -17,13 +18,19 @@ export default class IndexedDBProxy {
     }
   }
 
+  private _cacheType: string;
   private _databaseName = "keyval-store";
   private _indexedDB: DB;
   private _objectStoreName = "keyval";
 
-  constructor(opts: IndexedDBOptions = {}) {
+  constructor(cacheType: string, opts: IndexedDBOptions = {}) {
+    this._cacheType = cacheType;
     if (isString(opts.databaseName)) this._databaseName = opts.databaseName;
     if (isString(opts.objectStoreName)) this._objectStoreName = opts.objectStoreName;
+  }
+
+  get cacheType(): string {
+    return this._cacheType;
   }
 
   public async clear(): Promise<void> {
@@ -101,6 +108,7 @@ export default class IndexedDBProxy {
     }
   }
 
+  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     try {
       const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");

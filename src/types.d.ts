@@ -163,6 +163,7 @@ export interface ObjectMap {
   [key: string]: any;
 }
 
+/** @hidden */
 export interface PostMessageArgs {
   args?: ConstructorArgs;
   exported?: ImportArgs;
@@ -179,6 +180,7 @@ export interface PostMessageArgs {
   value?: any;
 }
 
+/** @hidden */
 export interface PostMessageResult {
   metadata: Metadata[];
   result?: any;
@@ -192,5 +194,6 @@ export interface ReaperOptions {
 }
 
 export type ServerStoreTypes = "map" | "redis";
+/** @hidden */
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";

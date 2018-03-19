@@ -629,21 +629,21 @@ export class DefaultCachemap {
 
   private async _createStore(): Promise<void> {
     if (this._storeType === "map") {
-      this._store = new MapProxy();
+      this._store = new MapProxy(this._name);
       return;
     }
 
     try {
       if (!process.env.WEB_ENV) {
-        this._store = new redisProxy(this._redisOptions, this._mockRedis);
+        this._store = new redisProxy(this._name, this._redisOptions, this._mockRedis);
       } else {
         if (this._storeType === "indexedDB" && this._supportsIndexedDB()) {
-          this._store = await IndexedDBProxy.create(this._indexedDBOptions);
+          this._store = await IndexedDBProxy.create(this._name, this._indexedDBOptions);
         } else if (this._storeType === "localStorage" && this._supportsLocalStorage()) {
           this._store = new LocalStorageProxy(this._name);
         } else {
           this._storeType = "map";
-          this._store = new MapProxy();
+          this._store = new MapProxy(this._name);
           this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(this._storeType);
           this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
         }
