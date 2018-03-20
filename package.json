@@ -83,7 +83,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
     "gulp": "^3.9.1",
-    "gulp-babel": "^8.0.0-beta.0",
+    "gulp-babel": "^8.0.0-beta.2",
     "gulp-sourcemaps": "^2.6.1",
     "gulp-tslint": "^8.1.2",
     "gulp-typedoc": "^2.2.0",
