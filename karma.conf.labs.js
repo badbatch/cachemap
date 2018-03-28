@@ -1,39 +1,6 @@
+require('dotenv').config(); // eslint-disable-line
 const customLaunchers = require('./custom-launchers.json');
 const webpackConfig = require('./webpack.config.labs');
-
-let reporters = ['dots'];
-
-const sauceLabs = {
-  startConnect: false,
-  testName: 'Cachemap browser unit tests',
-  tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-};
-
-if (process.env.LOCAL_ENV) {
-  require('dotenv').config(); // eslint-disable-line
-
-  // customLaunchers = {
-  //   sl_browser: {
-  //     appiumVersion: '1.7.2',
-  //     base: 'SauceLabs',
-  //     browserName: 'Safari',
-  //     deviceName: 'iPhone Simulator',
-  //     deviceOrientation: 'portrait',
-  //     platformName: 'iOS',
-  //     platformVersion: '11.0',
-  //   },
-  // };
-
-  reporters = ['mocha'];
-  sauceLabs.startConnect = true;
-
-  sauceLabs.connectOptions = {
-    logfile: '-',
-    noSslBumpDomains: 'all',
-    sharedTunnel: true,
-    verbose: true,
-  };
-}
 
 module.exports = (config) => {
   config.set({
@@ -64,8 +31,18 @@ module.exports = (config) => {
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
     },
-    reporters: [...reporters, 'saucelabs'],
-    sauceLabs,
+    reporters: ['dots', 'mocha', 'saucelabs'],
+    sauceLabs: {
+      connectOptions: {
+        logfile: '-',
+        noSslBumpDomains: 'all',
+        sharedTunnel: true,
+        verbose: true,
+      },
+      startConnect: true,
+      testName: 'Cachemap browser unit tests',
+      tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
+    },
     singleRun: true,
     webpack: webpackConfig,
   });

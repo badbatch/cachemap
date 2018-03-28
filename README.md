@@ -3,15 +3,12 @@
 An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.
 
 [![Build Status](https://travis-ci.org/dylanaubrey/cachemap.svg?branch=master)](https://travis-ci.org/dylanaubrey/cachemap)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/cachemap)](https://saucelabs.com/u/cachemap)
 [![codecov](https://codecov.io/gh/dylanaubrey/cachemap/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/cachemap)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=sonarqube:cachemap)](https://sonarcloud.io/dashboard?id=sonarqube%3Acachemap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dylanaubrey/cachemap/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/cachemap.svg)](https://badge.fury.io/js/cachemap)
 [![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
 [![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/cachemap.svg)](https://saucelabs.com/u/cachemap)
 
 ## Summary
 
