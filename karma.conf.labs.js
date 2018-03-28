@@ -23,7 +23,7 @@ module.exports = (config) => {
       'test/specs/index.ts',
     ],
     hostname: 'ci.build',
-    logLevel: process.env.LOCAL_ENV ? config.LOG_DEBUG : config.LOG_INFO,
+    logLevel: config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
     },
