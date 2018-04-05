@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Cachemap</title>
+	<title>Reaper | Cachemap</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,36 +52,21 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="cachemap.html">Cachemap</a>
+					<a href="reaper.html">Reaper</a>
 				</li>
 			</ul>
-			<h1>Class Cachemap</h1>
+			<h1>Class Reaper</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>An isomorphic cache that works on the server, browser
-							and in web workers, that can use Redis, LocalStorage,
-						IndexedDB or an in-memory Map.</p>
-					</div>
-					<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { Cachemap } <span class="hljs-keyword">from</span> <span class="hljs-string">"cachemap"</span>;
-<span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> Cachemap.create({
-  name: <span class="hljs-string">"alfa"</span>,
-  use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
-});
-</code></pre>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Cachemap</span>
+						<span class="target">Reaper</span>
 					</li>
 				</ul>
 			</section>
@@ -90,51 +75,107 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="reaper.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="cachemap.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="reaper.html#cull" class="tsd-kind-icon">cull</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="reaper.html#start" class="tsd-kind-icon">start</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="reaper.html#stop" class="tsd-kind-icon">stop</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="create" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> create</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><a href="../interfaces/constructorargs.html" class="tsd-signature-type">ConstructorArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="defaultcachemap.html" class="tsd-signature-type">DefaultCachemap</a><span class="tsd-signature-symbol"> | </span><a href="workercachemap.html" class="tsd-signature-type">WorkerCachemap</a><span class="tsd-signature-symbol">&gt;</span></li>
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Reaper<span class="tsd-signature-symbol">(</span>cachemap<span class="tsd-signature-symbol">: </span><a href="defaultcachemap.html" class="tsd-signature-type">DefaultCachemap</a>, opts<span class="tsd-signature-symbol">?: </span><a href="../interfaces/reaperoptions.html" class="tsd-signature-type">ReaperOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="reaper.html" class="tsd-signature-type">Reaper</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/c7d7807/src/cachemap/index.ts#L48">cachemap/index.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/c7d7807/src/default-cachemap/reaper/index.ts#L8">default-cachemap/reaper/index.ts:8</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The method creates an instance of either DefaultCachemap for
-										the server, DefaultCachemap for the browser, or WorkerCachemap,
-										based on whether the <code>WEB_ENV</code> environment variable is set to <code>true</code>
-									and whether the environment supports web workers.</p>
-								</div>
-								<p>NOTE: Set the <code>WEB_ENV</code> environment variable when compiling
-								browser bundle.</p>
-								<pre><code class="lang-typescript"><span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> Cachemap.create({
-  name: <span class="hljs-string">"alfa"</span>,
-  use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
-});
-</code></pre>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>args: <a href="../interfaces/constructorargs.html" class="tsd-signature-type">ConstructorArgs</a></h5>
+									<h5>cachemap: <a href="defaultcachemap.html" class="tsd-signature-type">DefaultCachemap</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> opts: <a href="../interfaces/reaperoptions.html" class="tsd-signature-type">ReaperOptions</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="defaultcachemap.html" class="tsd-signature-type">DefaultCachemap</a><span class="tsd-signature-symbol"> | </span><a href="workercachemap.html" class="tsd-signature-type">WorkerCachemap</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="reaper.html" class="tsd-signature-type">Reaper</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="cull" class="tsd-anchor"></a>
+					<h3>cull</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">cull<span class="tsd-signature-symbol">(</span>metadata<span class="tsd-signature-symbol">: </span><a href="../interfaces/metadata.html" class="tsd-signature-type">Metadata</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/c7d7807/src/default-cachemap/reaper/index.ts#L21">default-cachemap/reaper/index.ts:21</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>metadata: <a href="../interfaces/metadata.html" class="tsd-signature-type">Metadata</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="start" class="tsd-anchor"></a>
+					<h3>start</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/c7d7807/src/default-cachemap/reaper/index.ts#L31">default-cachemap/reaper/index.ts:31</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="stop" class="tsd-anchor"></a>
+					<h3>stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/c7d7807/src/default-cachemap/reaper/index.ts#L37">default-cachemap/reaper/index.ts:37</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -153,10 +194,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="cachemap.html" class="tsd-kind-icon">Cachemap</a>
+						<a href="reaper.html" class="tsd-kind-icon">Reaper</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="cachemap.html#create" class="tsd-kind-icon">create</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="reaper.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="reaper.html#cull" class="tsd-kind-icon">cull</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="reaper.html#start" class="tsd-kind-icon">start</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="reaper.html#stop" class="tsd-kind-icon">stop</a>
 							</li>
 						</ul>
 					</li>
