@@ -60,7 +60,7 @@ export default class IndexedDBProxy {
       const objectStore = tx.objectStore(this._objectStoreName);
       const entries: Array<[string, any]> = [];
 
-      objectStore.iterateCursor((cursor: Cursor) => {
+      objectStore.iterateCursor((cursor: Cursor<any, string>) => {
         if (!cursor) return;
         const key = cursor.key as string;
 
@@ -125,7 +125,7 @@ export default class IndexedDBProxy {
       const objectStore = tx.objectStore(this._objectStoreName);
       const keys: Array<IDBKeyRange | IDBValidKey> = [];
 
-      objectStore.iterateCursor((cursor: Cursor) => {
+      objectStore.iterateCursor((cursor: Cursor<any, IDBKeyRange | IDBValidKey>) => {
         if (!cursor) return;
         keys.push(cursor.key);
         cursor.continue();
