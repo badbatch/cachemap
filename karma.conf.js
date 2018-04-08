@@ -19,6 +19,7 @@ module.exports = (config) => {
     frameworks: ['mocha', 'chai', 'sinon'],
     files: [
       'test/specs/index.ts',
+      'src/worker.ts',
     ],
     logLevel: config.LOG_INFO,
     mime: {
@@ -27,6 +28,10 @@ module.exports = (config) => {
     port: 9876,
     preprocessors: {
       'test/specs/index.ts': ['webpack', 'sourcemap'],
+      'src/worker.ts': ['webpack', 'sourcemap'],
+    },
+    proxies: {
+      '/worker-cachemap.worker.js': '/base/src/worker.ts',
     },
     webpack: webpackConfig,
   });
