@@ -39,6 +39,7 @@ module.exports = {
     cachemap: './src/index.ts',
     'default-cachemap': './src/default-cachemap/index.ts',
     'worker-cachemap': './src/worker-cachemap/index.ts',
+    'worker-cachemap.worker': './src/worker.ts',
   },
   output: {
     filename: '[name].js',
