@@ -30,9 +30,8 @@ npm install cachemap --save
 
 ## Compilation
 
-A couple of notes on compilation. Firstly, the `WEB_ENV` environment variable must be set to `'true'` when you compile
-your browser bundle in order to exclude Redis from the build. Secondly, the worker cachemap is currently only set up to
-be built with Webpack's worker-loader via blob URL.
+The `WEB_ENV` environment variable must be set to `'true'` when you compile your browser bundle in order to exclude
+Redis from the build.
 
 ## Documentation
 
@@ -42,6 +41,12 @@ Please read the documentation on the cachemap [github pages](https://dylanaubrey
 
 Compile/run cachemap with the `DEBUG` environment variable set to `'true'` to log information to the console each time
 a cache entry is added.
+
+## Web worker interface
+
+You can run cachemap in a web worker by using `WorkerCachemap` as the cachemap interface in your bundle on the main
+thread and `{ worker-cachemap.worker: ./node_modules/cachemap/lib/browser/worker.js }` as the entry point for your
+bundle on the worker thread.
 
 ## License
 
