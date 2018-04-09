@@ -639,6 +639,11 @@ export class DefaultCachemap {
       } else {
         if (this._storeType === "indexedDB" && this._supportsIndexedDB()) {
           this._store = await IndexedDBProxy.create(this._name, this._indexedDBOptions);
+        } else if (this._storeType === "indexedDB" && this._supportsLocalStorage()) {
+          this._storeType = "localStorage";
+          this._store = new LocalStorageProxy(this._name);
+          this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(this._storeType);
+          this._maxHeapThreshold = DefaultCachemap._calcMaxHeapThreshold(this._maxHeapSize);
         } else if (this._storeType === "localStorage" && this._supportsLocalStorage()) {
           this._store = new LocalStorageProxy(this._name);
         } else {
