@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -56,7 +56,7 @@
     "redis": "^2.8.0"
   },
   "peerDependencies": {
-    "lodash": "^4.0.0"
+    "lodash": "^4.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
