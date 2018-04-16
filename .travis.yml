@@ -14,10 +14,10 @@ addons:
     github_token:
       secure: $SONAR_PR_ANALYSIS_TOKEN
 script:
-  - yarn test
+  - npm test
   - sonar-scanner
   - codecov
-  - yarn run compile
+  - npm run compile
 deploy:
   provider: npm
   email: "dylanaubrey@gmail.com"
