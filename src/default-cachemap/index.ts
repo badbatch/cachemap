@@ -132,7 +132,6 @@ export class DefaultCachemap {
   }
 
   private _disableCacheInvalidation: boolean;
-  private _environment: "node" | "web";
   private _indexedDBOptions?: IndexedDBOptions;
   private _inWorker: boolean;
   private _maxHeapSize: number;
@@ -143,6 +142,7 @@ export class DefaultCachemap {
   private _processing: string[] = [];
   private _reaper: Reaper;
   private _redisOptions?: ClientOpts;
+  private _sharedCache: boolean = false;
   private _store: StoreProxyTypes;
   private _storeType: StoreTypes;
   private _usedHeapSize: number = 0;
@@ -161,6 +161,7 @@ export class DefaultCachemap {
       name,
       reaperOptions,
       redisOptions,
+      sharedCache,
       sortComparator,
       use = {},
     } = args;
@@ -188,7 +189,6 @@ export class DefaultCachemap {
 
     this._inWorker = _inWorker;
     this._disableCacheInvalidation = disableCacheInvalidation;
-    this._environment = process.env.WEB_ENV ? "web" : "node";
     if (indexedDBOptions && isPlainObject(indexedDBOptions)) this._indexedDBOptions = indexedDBOptions;
 
     this._maxHeapSize = DefaultCachemap._calcMaxHeapSize(
@@ -201,6 +201,7 @@ export class DefaultCachemap {
     this._name = name;
     if (!this._disableCacheInvalidation) this._reaper = new Reaper(this, reaperOptions);
     if (redisOptions && isPlainObject(redisOptions)) this._redisOptions = redisOptions;
+    if (isBoolean(sharedCache)) this._sharedCache = sharedCache;
     this._storeType = storeType;
     if (isFunction(sortComparator)) DefaultCachemap._sortComparator = sortComparator;
   }
@@ -528,7 +529,7 @@ export class DefaultCachemap {
     const cacheability = new Cacheability();
     const metadata = cacheability.parseHeaders(cacheHeaders);
     const cacheControl = metadata.cacheControl;
-    if (cacheControl.noStore || (this._environment === "node" && cacheControl.private)) return;
+    if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) return;
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     const processing = this._processing.includes(_key);
     if (!processing) this._processing.push(_key);

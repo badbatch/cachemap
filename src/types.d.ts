@@ -73,6 +73,12 @@ export interface ConstructorArgs {
    */
   redisOptions?: ClientOpts;
   /**
+   * Indicates the cache is used for storing the data of
+   * multiple users.
+   *
+   */
+  sharedCache?: boolean;
+  /**
    * The storage type for the client and the server. In the
    * browser, the storage type defaults to a Map, while on
    * the server it defaults to the redis client.
