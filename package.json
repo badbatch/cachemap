@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -46,15 +46,17 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.44",
-    "cacheability": "0.0.61",
+    "cacheability": "^0.1.0",
     "fakeredis": "^2.0.0",
     "idb": "^2.1.1",
     "iso-logger": "0.0.12",
-    "lodash": "^4.17.5",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0",
     "promise-worker": "^1.1.1",
     "redis": "^2.8.0"
+  },
+  "peerDependencies": {
+    "lodash": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.44",
@@ -88,6 +90,7 @@
     "gulp-tslint": "^8.1.3",
     "gulp-typedoc": "^2.2.0",
     "gulp-typescript": "^4.0.2",
+    "isomorphic-fetch": "^2.2.1",
     "istanbul-instrumenter-loader": "^3.0.1",
     "karma": "^2.0.0",
     "karma-chai": "^0.1.0",
@@ -103,6 +106,7 @@
     "karma-sinon": "^1.0.5",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
+    "lodash": "^4.17.5",
     "lodash-webpack-plugin": "^0.11.4",
     "merge-stream": "^1.0.1",
     "mocha": "^5.0.5",
