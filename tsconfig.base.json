@@ -4,12 +4,13 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es6",
+      "dom.iterable",
       "es2016.array.include",
       "es2017.object",
-      "dom.iterable",
-      "webworker",
-      "scripthost"
+      "es6",
+      "esnext.asynciterable",
+      "scripthost",
+      "webworker"
     ],
     "moduleResolution": "node",
     "noImplicitAny": true,
@@ -17,10 +18,13 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
+    "paths": {
+      "~/*": ["src/*"]
+    },
     "pretty": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
     "target": "es6"
   },
-  "include": ["src/**/*", "test/**/*"]
+  "include": ["src/**/*"]
 }

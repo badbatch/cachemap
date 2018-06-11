@@ -1,7 +1,6 @@
-import { Cacheability } from "cacheability";
+import Cacheability from "cacheability";
 import PromiseWorker from "promise-worker";
-import convertCacheability from "../helpers/convert-cacheability";
-
+import { convertCacheability } from "~/helpers/convert-cacheability";
 import {
   CacheHeaders,
   ConstructorArgs,
@@ -10,7 +9,7 @@ import {
   Metadata,
   PostMessageArgs,
   PostMessageResult,
-} from "../types";
+} from "~/types";
 
 /**
  * A browser cache that works in web workers, that
@@ -18,6 +17,7 @@ import {
  *
  * ```typescript
  * import { WorkerCachemap } from "cachemap";
+ *
  * const cachemap = await WorkerCachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },
@@ -90,6 +90,7 @@ export class WorkerCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.clear();
+   *
    * const size = await cachemap.size();
    * // size is 0;
    * ```
@@ -110,8 +111,10 @@ export class WorkerCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const isDeleted = await cachemap.delete("alfa");
    * // isDeleted is true
+   *
    * const size = await cachemap.size();
    * // size is 0;
    * ```
@@ -135,6 +138,7 @@ export class WorkerCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   *
    * const entries = await cachemap.entries();
    * // entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
    * ```
@@ -159,6 +163,7 @@ export class WorkerCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   *
    * const exported = await cachemap.export();
    * // exported.entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
    * ```
@@ -180,6 +185,7 @@ export class WorkerCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const entry = await cachemap.get("alfa");
    * // entry is [1, 2, 3, 4, 5]
    * ```
@@ -203,9 +209,12 @@ export class WorkerCachemap {
    * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
    *   cacheHeaders: { cacheControl: "public, max-age=5" },
    * });
+   *
    * const hasEntry = await cachemap.has("alfa");
    * // hasEntry is instanceof Cacheability
+   *
    * // Six seconds elapse...
+   *
    * const stillHasEntry = await cachemap.has("alfa", { deleteExpired: true });
    * // stillHasEntry is false
    * ```
@@ -255,6 +264,7 @@ export class WorkerCachemap {
    *   cacheHeaders: { cacheControl: "public, max-age=5" },
    *   hash: true,
    * });
+   *
    * const size = await cachemap.size();
    * // size is 1
    * ```
@@ -279,6 +289,7 @@ export class WorkerCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const size = await cachemap.size();
    * // size is 1
    * ```

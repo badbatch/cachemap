@@ -1,9 +1,9 @@
 import idb, { Cursor, DB } from "idb";
 import { isString } from "lodash";
-import { IndexedDBOptions } from "../../../types";
-import { logCacheEntry } from "../../../monitoring";
+import { logCacheEntry } from "~/monitoring";
+import { IndexedDBOptions } from "~/types";
 
-export default class IndexedDBProxy {
+export class IndexedDBProxy {
   public static async create(cacheType: string, opts?: IndexedDBOptions): Promise<IndexedDBProxy> {
     try {
       const indexedDBProxy = new IndexedDBProxy(cacheType, opts);

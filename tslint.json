@@ -3,13 +3,14 @@
   "rules": {
     "curly": [true, "ignore-same-line"],
     "ordered-imports": [true, {
-      "import-sources-order": "any",
+      "import-sources-order": "case-insensitive",
       "named-imports-order": "case-insensitive"
     }],
     "interface-name": [true, "never-prefix"],
-    "no-implicit-dependencies": [true, "dev"],
+    "no-default-export": true,
+    "no-implicit-dependencies": false,
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
-    "no-submodule-imports": [true, "promise-worker/register"],
+    "no-submodule-imports": [true, "~", "promise-worker/register"],
     "no-this-assignment": [true, {"allowed-names": ["_this"] }],
     "no-var-requires": false,
     "object-literal-sort-keys": [true, "ignore-case"],

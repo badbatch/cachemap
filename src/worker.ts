@@ -1,6 +1,6 @@
 import registerPromiseWorker from "promise-worker/register";
-import { DefaultCachemap } from "./default-cachemap";
-import { Metadata, PostMessageArgs, PostMessageResult } from "./types";
+import { DefaultCachemap } from "~/default-cachemap";
+import { Metadata, PostMessageArgs, PostMessageResult } from "~/types";
 
 let cachemap: DefaultCachemap;
 

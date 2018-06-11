@@ -1,8 +1,8 @@
 import { isPlainObject } from "lodash";
-import { DefaultCachemap } from "../";
-import { Metadata, ReaperOptions } from "../../types";
+import { DefaultCachemap } from "~/default-cachemap";
+import { Metadata, ReaperOptions } from "~/types";
 
-export default class Reaper {
+export class Reaper {
   private _cachemap: DefaultCachemap;
   private _interval: number;
   private _intervalID: NodeJS.Timer;

@@ -1,7 +1,7 @@
 {
   "all": true,
   "cache": true,
-  "exclude": ["**/*.d.ts"],
+  "exclude": ["**/*.d.ts", "**/*.test.*", "**/.test/**"],
   "extension": [".ts"],
   "include": ["src/**/*"],
   "instrument": true,
