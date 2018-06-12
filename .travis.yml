@@ -2,8 +2,9 @@ dist: trusty
 sudo: required
 language: node_js
 node_js:
-  - "node"
+  - "8.9.0"
 cache:
+  yarn: true
   directories:
     - "node_modules"
 addons:
@@ -13,15 +14,23 @@ addons:
       secure: $SONAR_TOKEN
     github_token:
       secure: $SONAR_PR_ANALYSIS_TOKEN
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$HOME/.yarn/bin:$PATH
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" > .npmrc
+install:
+  - yarn
 script:
-  - npm test
+  - yarn run test
   - sonar-scanner
   - codecov
-  - npm run compile
+before_deploy:
+  - yarn run compile
 deploy:
-  provider: npm
-  email: "dylanaubrey@gmail.com"
-  api_key: $NPM_AUTH_TOKEN
+  provider: script
+  script:
+    - yarn run publish-cutoff
   skip_cleanup: true
   on:
+    tags: true
     branch: master

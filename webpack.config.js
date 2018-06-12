@@ -4,33 +4,18 @@ const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const webpackConfig = require('./webpack.config.base');
 
-webpackConfig.module.rules.unshift({
-  include: [
-    resolve(__dirname, 'src'),
-  ],
-  test: /\.tsx?$/,
-  use: [{
-    loader: 'awesome-typescript-loader',
-    options: {
-      babelCore: '@babel/core',
-      transpileOnly: true,
-      useBabel: true,
-    },
-  }],
-});
-
 webpackConfig.plugins.push(
   new webpack.SourceMapDevToolPlugin({
     filename: '[name].js.map',
     test: /\.(tsx?|jsx?)$/,
   }),
-  new UglifyJsPlugin({
-    sourceMap: true,
-  }),
   new BundleAnalyzerPlugin({
     analyzerMode: 'disabled',
     generateStatsFile: true,
     statsFilename: './bundle/stats.json',
+  }),
+  new UglifyJsPlugin({
+    sourceMap: true,
   }),
 );
 
@@ -40,6 +25,23 @@ module.exports = {
     'default-cachemap': './src/default-cachemap/index.ts',
     'worker-cachemap': './src/worker-cachemap/index.ts',
     'worker-cachemap.worker': './src/worker.ts',
+  },
+  mode: 'production',
+  module: {
+    rules: [{
+      include: [
+        resolve(__dirname, 'src'),
+      ],
+      test: /\.tsx?$/,
+      use: [{
+        loader: 'awesome-typescript-loader',
+        options: {
+          babelCore: '@babel/core',
+          transpileOnly: true,
+          useBabel: true,
+        },
+      }],
+    }],
   },
   output: {
     filename: '[name].js',

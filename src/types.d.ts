@@ -1,9 +1,9 @@
 import { Cacheability, CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
-import IndexedDBProxy from "./cachemap/proxies/indexed-db";
-import LocalStorageProxy from "./cachemap/proxies/local-storage";
-import MapProxy from "./cachemap/proxies/map";
-import RedisProxy from "./cachemap/proxies/redis";
+import IndexedDBProxy from "~/default-cachemap/proxies/indexed-db";
+import LocalStorageProxy from "~/default-cachemap/proxies/local-storage";
+import MapProxy from "~/default-cachemap/proxies/map";
+import RedisProxy from "~/default-cachemap/proxies/redis";
 
 export interface CacheHeaders {
   cacheControl?: string;

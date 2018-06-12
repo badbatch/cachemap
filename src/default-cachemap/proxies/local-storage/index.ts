@@ -1,6 +1,6 @@
-import { logCacheEntry } from "../../../monitoring";
+import { logCacheEntry } from "~/monitoring";
 
-export default class LocalStorageProxy {
+export class LocalStorageProxy {
   private _cacheType: string;
   private _storage: Storage = window.localStorage;
 

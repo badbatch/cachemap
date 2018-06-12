@@ -1,8 +1,8 @@
 import { isPlainObject } from "lodash";
 import { ClientOpts, createClient, RedisClient } from "redis";
-import { logCacheEntry } from "../../../monitoring";
+import { logCacheEntry } from "~/monitoring";
 
-export default class RedisProxy {
+export class RedisProxy {
   private _cacheType: string;
   private _client: RedisClient;
 

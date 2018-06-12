@@ -16,18 +16,18 @@ module.exports = (config) => {
       fixWebpackSourcePaths: true,
       reports: ['json', 'lcov', 'text-summary'],
     },
-    frameworks: ['mocha', 'chai', 'sinon'],
     files: [
-      'test/specs/index.ts',
+      'src/**/*.test.*',
       'src/worker.ts',
     ],
+    frameworks: ['mocha', 'chai', 'sinon'],
     logLevel: config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
     },
     port: 9876,
     preprocessors: {
-      'test/specs/index.ts': ['webpack', 'sourcemap'],
+      'src/**/*.test.*': ['webpack', 'sourcemap'],
       'src/worker.ts': ['webpack', 'sourcemap'],
     },
     proxies: {

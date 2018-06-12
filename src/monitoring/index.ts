@@ -1,5 +1,5 @@
-import logger from "../logger";
-import { StoreProxyTypes } from "../types";
+import { logger } from "~/logger";
+import { StoreProxyTypes } from "~/types";
 
 export function logCacheEntry(
   target: any,

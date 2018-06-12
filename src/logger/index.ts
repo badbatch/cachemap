@@ -10,4 +10,4 @@ if (process.env.DEBUG) {
   level = "info";
 }
 
-export default new Logger({ consoleOptions: { level }, winstonOptions: { level } });
+export const logger =  new Logger({ consoleOptions: { level }, winstonOptions: { level } });

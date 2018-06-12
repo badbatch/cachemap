@@ -1,16 +1,15 @@
-import { Cacheability } from "cacheability";
+import Cacheability from "cacheability";
 import { isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import * as md5 from "md5";
 import * as sizeof from "object-sizeof";
 import { ClientOpts } from "redis";
-import IndexedDBProxy from "./proxies/indexed-db";
-import LocalStorageProxy from "./proxies/local-storage";
-import MapProxy from "./proxies/map";
-import RedisProxy from "./proxies/redis";
-import Reaper from "./reaper";
-import convertCacheability from "../helpers/convert-cacheability";
-import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
-
+import { IndexedDBProxy } from "~/default-cachemap/proxies/indexed-db";
+import { LocalStorageProxy } from "~/default-cachemap/proxies/local-storage";
+import { MapProxy } from "~/default-cachemap/proxies/map";
+import { RedisProxy } from "~/default-cachemap/proxies/redis";
+import { Reaper } from "~/default-cachemap/reaper";
+import { convertCacheability } from "~/helpers/convert-cacheability";
+import { supportsWorkerIndexedDB } from "~/helpers/user-agent-parser";
 import {
   CacheHeaders,
   ConstructorArgs,
@@ -20,12 +19,12 @@ import {
   Metadata,
   StoreProxyTypes,
   StoreTypes,
-} from "../types";
+} from "~/types";
 
 let redisProxy: typeof RedisProxy;
 
 if (!process.env.WEB_ENV) {
-  redisProxy = require("./proxies/redis").default;
+  redisProxy = require("~/default-cachemap/proxies/redis").RedisProxy;
 }
 
 /**
@@ -35,6 +34,7 @@ if (!process.env.WEB_ENV) {
  *
  * ```typescript
  * import { DefaultCachemap } from "cachemap";
+ *
  * const cachemap = await DefaultCachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },
@@ -240,6 +240,7 @@ export class DefaultCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.clear();
+   *
    * const size = await cachemap.size();
    * // size is 0;
    * ```
@@ -263,8 +264,10 @@ export class DefaultCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const isDeleted = await cachemap.delete("alfa");
    * // isDeleted is true
+   *
    * const size = await cachemap.size();
    * // size is 0;
    * ```
@@ -302,6 +305,7 @@ export class DefaultCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   *
    * const entries = await cachemap.entries();
    * // entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
    * ```
@@ -328,6 +332,7 @@ export class DefaultCachemap {
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
    * await cachemap.set("bravo", [6, 7, 8, 9, 10]);
+   *
    * const exported = await cachemap.export();
    * // exported.entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]
    * ```
@@ -350,7 +355,7 @@ export class DefaultCachemap {
         metadata = this._metadata.filter((value) => value.tags.includes(opts.tag));
         keys = metadata.map((value) => value.key);
       } else if (opts.keys) {
-        const optsKeys = opts.keys as string[];
+        const optsKeys = opts.keys;
         keys = optsKeys;
         metadata = this._metadata.filter((value) => optsKeys.includes(value.key));
       }
@@ -365,6 +370,7 @@ export class DefaultCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const entry = await cachemap.get("alfa");
    * // entry is [1, 2, 3, 4, 5]
    * ```
@@ -402,9 +408,12 @@ export class DefaultCachemap {
    * await cachemap.set("alfa", [1, 2, 3, 4, 5], {
    *   cacheHeaders: { cacheControl: "public, max-age=5" },
    * });
+   *
    * const hasEntry = await cachemap.has("alfa");
    * // hasEntry is instanceof Cacheability
+   *
    * // Six seconds elapse...
+   *
    * const stillHasEntry = await cachemap.has("alfa", { deleteExpired: true });
    * // stillHasEntry is false
    * ```
@@ -504,6 +513,7 @@ export class DefaultCachemap {
    *   cacheHeaders: { cacheControl: "public, max-age=5" },
    *   hash: true,
    * });
+   *
    * const size = await cachemap.size();
    * // size is 1
    * ```
@@ -558,6 +568,7 @@ export class DefaultCachemap {
    *
    * ```typescript
    * await cachemap.set("alfa", [1, 2, 3, 4, 5]);
+   *
    * const size = await cachemap.size();
    * // size is 1
    * ```

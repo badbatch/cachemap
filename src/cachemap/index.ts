@@ -1,8 +1,8 @@
 import { isPlainObject } from "lodash";
-import { DefaultCachemap } from "../default-cachemap";
-import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
-import { ConstructorArgs } from "../types";
-import { WorkerCachemap } from "../worker-cachemap";
+import { DefaultCachemap } from "~/default-cachemap";
+import { supportsWorkerIndexedDB } from "~/helpers/user-agent-parser";
+import { ConstructorArgs } from "~/types";
+import { WorkerCachemap } from "~/worker-cachemap";
 
 declare global {
   interface Window {
@@ -20,6 +20,7 @@ declare global {
  *
  * ```typescript
  * import { Cachemap } from "cachemap";
+ *
  * const cachemap = await Cachemap.create({
  *   name: "alfa",
  *   use: { client: "localStorage", server: "redis" },

@@ -7,7 +7,9 @@ const typedoc = require('gulp-typedoc');
 const ts = require('gulp-typescript');
 const merge = require('merge-stream');
 const { Linter } = require('tslint');
-const webpack = require('webpack-stream');
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const webpackConfig = require('./webpack.config');
 
 gulp.task('clean', () => {
   del('lib/*', { force: true });
@@ -16,10 +18,12 @@ gulp.task('clean', () => {
   del('docs/*', { force: true });
 });
 
+const sources = ['src/**/*.ts', '!**/*.test.*', '!**/.test/**'];
+
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', { declaration: true, module: 'commonjs' });
 
-  const transpiled = gulp.src(['src/**/*.ts'])
+  const transpiled = gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel())
@@ -36,7 +40,7 @@ gulp.task('main', () => {
 gulp.task('module', () => {
   const tsProject = ts.createProject('tsconfig.json');
 
-  return gulp.src(['src/**/*.ts'])
+  return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel())
@@ -48,7 +52,7 @@ gulp.task('module', () => {
 gulp.task('browser', () => {
   const tsProject = ts.createProject('tsconfig.json');
 
-  return gulp.src(['src/**/*.ts'])
+  return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel())
@@ -57,20 +61,20 @@ gulp.task('browser', () => {
     .on('error', () => process.exit(1));
 });
 
-gulp.task('umd', () => webpack(require('./webpack.config')) // eslint-disable-line global-require
+gulp.task('umd', () => webpackStream(webpackConfig, webpack) // eslint-disable-line global-require
   .pipe(gulp.dest('lib/umd'))
   .on('error', () => process.exit(1)));
 
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', { noEmit: true });
 
-  gulp.src(['src/**/*.ts'])
+  gulp.src(sources)
     .pipe(tsProject())
     .on('error', () => process.exit(1));
 });
 
-gulp.task('lint', () => {
-  gulp.src(['src/**/*.ts'])
+gulp.task('tslint', () => {
+  gulp.src(sources)
     .pipe(tslint({
       configuration: 'tslint.json',
       fix: true,
@@ -81,13 +85,13 @@ gulp.task('lint', () => {
     .on('error', () => process.exit(1));
 });
 
-gulp.task('document', () => gulp.src(['src/**/*.ts'])
+gulp.task('document', () => gulp.src(sources)
   .pipe(typedoc({
+    exclude: '**/+(helpers|logger|module-definitions|monitoring|proxies|reaper)/**',
     excludeExternals: true,
     excludeNotExported: true,
     excludePrivate: true,
     excludeProtected: true,
-    exclude: '**/+(helpers|logger|module-definitions|monitoring|proxies|reaper)/**',
     ignoreCompilerErrors: true,
     includeDeclarations: true,
     mode: 'file',

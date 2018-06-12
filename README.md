@@ -2,13 +2,13 @@
 
 An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.
 
-[![Build Status](https://travis-ci.org/dylanaubrey/cachemap.svg?branch=master)](https://travis-ci.org/dylanaubrey/cachemap)
-[![codecov](https://codecov.io/gh/dylanaubrey/cachemap/branch/master/graph/badge.svg)](https://codecov.io/gh/dylanaubrey/cachemap)
-[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=sonarqube:cachemap)](https://sonarcloud.io/dashboard?id=sonarqube%3Acachemap)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/dylanaubrey/cachemap/blob/master/LICENSE)
+[![Build Status](https://travis-ci.org/bad-batch/cachemap.svg?branch=master)](https://travis-ci.org/bad-batch/cachemap)
+[![codecov](https://codecov.io/gh/bad-batch/cachemap/branch/master/graph/badge.svg)](https://codecov.io/gh/bad-batch/cachemap)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sonarqube%3Acachemap&metric=alert_status)](https://sonarcloud.io/dashboard?id=sonarqube%3Acachemap)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![npm version](https://badge.fury.io/js/cachemap.svg)](https://badge.fury.io/js/cachemap)
-[![dependencies Status](https://david-dm.org/dylanaubrey/cachemap/status.svg)](https://david-dm.org/dylanaubrey/cachemap)
-[![devDependencies Status](https://david-dm.org/dylanaubrey/cachemap/dev-status.svg)](https://david-dm.org/dylanaubrey/cachemap?type=dev)
+[![dependencies Status](https://david-dm.org/bad-batch/cachemap/status.svg)](https://david-dm.org/bad-batch/cachemap)
+[![devDependencies Status](https://david-dm.org/bad-batch/cachemap/dev-status.svg)](https://david-dm.org/bad-batch/cachemap?type=dev)
 
 ## Summary
 
@@ -25,7 +25,7 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 ## Installation
 
 ```bash
-npm install cachemap --save
+yarn add cachemap
 ```
 
 ## Compilation
@@ -35,12 +35,12 @@ Redis from the build.
 
 ## Documentation
 
-Please read the documentation on the cachemap [github pages](https://dylanaubrey.github.io/cachemap).
+Please read the documentation on the cachemap [github pages](https://bad-batch.github.io/cachemap).
 
 ## Debugging
 
-Compile/run cachemap with the `DEBUG` environment variable set to `'true'` to log information to the console each time
-a cache entry is added.
+Compile/run cachemap with the `DEBUG` environment variable set to `'true'` to log information to the console about each
+cache entry that is added.
 
 ## Web worker interface
 
@@ -48,6 +48,10 @@ You can run cachemap in a web worker by using `WorkerCachemap` as the cachemap i
 thread and `{ worker-cachemap.worker: ./node_modules/cachemap/lib/browser/worker.js }` as the entry point for your
 bundle on the worker thread.
 
+## Changelog
+
+Check out the [features, fixes and more](CHANGELOG.md) that go into each major, minor and patch version.
+
 ## License
 
-Cachemap is [MIT Licensed](https://github.com/dylanaubrey/cachemap/blob/master/LICENSE).
+Cachemap is [MIT Licensed](LICENSE).

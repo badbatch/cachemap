@@ -70,6 +70,7 @@
 						or an in-memory Map.</p>
 					</div>
 					<pre><code class="lang-typescript"><span class="hljs-keyword">import</span> { DefaultCachemap } <span class="hljs-keyword">from</span> <span class="hljs-string">"cachemap"</span>;
+
 <span class="hljs-keyword">const</span> cachemap = <span class="hljs-keyword">await</span> DefaultCachemap.create({
   name: <span class="hljs-string">"alfa"</span>,
   use: { client: <span class="hljs-string">"localStorage"</span>, server: <span class="hljs-string">"redis"</span> },
@@ -133,7 +134,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L148">default-cachemap/index.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L148">default-cachemap/index.ts:148</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -159,7 +160,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L214">default-cachemap/index.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L214">default-cachemap/index.ts:214</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -182,7 +183,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L223">default-cachemap/index.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L223">default-cachemap/index.ts:223</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -205,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L232">default-cachemap/index.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L232">default-cachemap/index.ts:232</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -231,7 +232,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L248">default-cachemap/index.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L249">default-cachemap/index.ts:249</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -241,6 +242,7 @@
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
 <span class="hljs-keyword">await</span> cachemap.clear();
+
 <span class="hljs-keyword">const</span> size = <span class="hljs-keyword">await</span> cachemap.size();
 <span class="hljs-comment">// size is 0;</span>
 </code></pre>
@@ -259,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L273">default-cachemap/index.ts:273</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L276">default-cachemap/index.ts:276</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -268,8 +270,10 @@
 									DefaultCachemap instance.</p>
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+
 <span class="hljs-keyword">const</span> isDeleted = <span class="hljs-keyword">await</span> cachemap.delete(<span class="hljs-string">"alfa"</span>);
 <span class="hljs-comment">// isDeleted is true</span>
+
 <span class="hljs-keyword">const</span> size = <span class="hljs-keyword">await</span> cachemap.size();
 <span class="hljs-comment">// size is 0;</span>
 </code></pre>
@@ -299,7 +303,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L310">default-cachemap/index.ts:310</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L314">default-cachemap/index.ts:314</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -310,6 +314,7 @@
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
 <span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"bravo"</span>, [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]);
+
 <span class="hljs-keyword">const</span> entries = <span class="hljs-keyword">await</span> cachemap.entries();
 <span class="hljs-comment">// entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]</span>
 </code></pre>
@@ -334,7 +339,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L336">default-cachemap/index.ts:336</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L341">default-cachemap/index.ts:341</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -346,6 +351,7 @@
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
 <span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"bravo"</span>, [<span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>]);
+
 <span class="hljs-keyword">const</span> exported = <span class="hljs-keyword">await</span> cachemap.export();
 <span class="hljs-comment">// exported.entries is [["alfa", [1, 2, 3, 4, 5]], ["bravo", [6, 7, 8, 9, 10]]]</span>
 </code></pre>
@@ -372,7 +378,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L373">default-cachemap/index.ts:373</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L379">default-cachemap/index.ts:379</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -381,6 +387,7 @@
 									instance.</p>
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+
 <span class="hljs-keyword">const</span> entry = <span class="hljs-keyword">await</span> cachemap.get(<span class="hljs-string">"alfa"</span>);
 <span class="hljs-comment">// entry is [1, 2, 3, 4, 5]</span>
 </code></pre>
@@ -410,7 +417,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L413">default-cachemap/index.ts:413</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L422">default-cachemap/index.ts:422</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -421,9 +428,12 @@
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>], {
   cacheHeaders: { cacheControl: <span class="hljs-string">"public, max-age=5"</span> },
 });
+
 <span class="hljs-keyword">const</span> hasEntry = <span class="hljs-keyword">await</span> cachemap.has(<span class="hljs-string">"alfa"</span>);
 <span class="hljs-comment">// hasEntry is instanceof Cacheability</span>
+
 <span class="hljs-comment">// Six seconds elapse...</span>
+
 <span class="hljs-keyword">const</span> stillHasEntry = <span class="hljs-keyword">await</span> cachemap.has(<span class="hljs-string">"alfa"</span>, { deleteExpired: <span class="hljs-literal">true</span> });
 <span class="hljs-comment">// stillHasEntry is false</span>
 </code></pre>
@@ -453,7 +463,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L455">default-cachemap/index.ts:455</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L464">default-cachemap/index.ts:464</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -485,7 +495,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L512">default-cachemap/index.ts:512</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L522">default-cachemap/index.ts:522</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -497,6 +507,7 @@
   cacheHeaders: { cacheControl: <span class="hljs-string">"public, max-age=5"</span> },
   hash: <span class="hljs-literal">true</span>,
 });
+
 <span class="hljs-keyword">const</span> size = <span class="hljs-keyword">await</span> cachemap.size();
 <span class="hljs-comment">// size is 1</span>
 </code></pre>
@@ -529,7 +540,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L566">default-cachemap/index.ts:566</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L577">default-cachemap/index.ts:577</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -538,6 +549,7 @@
 									DefaultCachemap instance.</p>
 								</div>
 								<pre><code class="lang-typescript"><span class="hljs-keyword">await</span> cachemap.set(<span class="hljs-string">"alfa"</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+
 <span class="hljs-keyword">const</span> size = <span class="hljs-keyword">await</span> cachemap.size();
 <span class="hljs-comment">// size is 1</span>
 </code></pre>
@@ -556,7 +568,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/eb69443/src/default-cachemap/index.ts#L62">default-cachemap/index.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/2b90aa4/src/default-cachemap/index.ts#L62">default-cachemap/index.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

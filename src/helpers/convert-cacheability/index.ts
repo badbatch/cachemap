@@ -1,7 +1,7 @@
-import { Cacheability } from "cacheability";
-import { Metadata } from "../../types";
+import Cacheability from "cacheability";
+import { Metadata } from "~/types";
 
-export default function convertCacheability(metadata: Metadata[]): Metadata[] {
+export function convertCacheability(metadata: Metadata[]): Metadata[] {
   return metadata.map(({ cacheability: cacheabilityObject, ...props }) => {
     let cacheability: Cacheability;
     const cacheabilityMetadata = cacheabilityObject.metadata;
