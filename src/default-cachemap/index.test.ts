@@ -314,7 +314,7 @@ function testCachemapClass(args: ConstructorArgs): void {
 
           expect(cachemap.metadata).lengthOf(1);
           const metadata = cachemap.metadata[0];
-          expect(metadata.lastAccessed).to.equal(metadata.added);
+          expect(metadata.lastAccessed >= metadata.added).to.equal(true);
           expect(metadata.accessedCount).to.equal(0);
           expect(metadata.lastUpdated >= metadata.added).to.equal(true);
           expect(metadata.updatedCount).to.equal(1);
