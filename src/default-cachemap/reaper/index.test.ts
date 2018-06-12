@@ -14,9 +14,9 @@ function testReaperClass(args: ConstructorArgs): void {
   let cachemap: DefaultCachemap | WorkerCachemap;
   let usingMap = args.name === "map";
 
-  describe("the Reaper class", () => {
+  describe(`the Reaper class for the ${args.name}`, () => {
     before(async () => {
-      const maxHeapSize = { client: 30000, server: 30000 };
+      const maxHeapSize = { client: 50, server: 50 };
       const reaperOptions: ReaperOptions = { interval: 1000 };
       cachemap = await Cachemap.create({ ...args, maxHeapSize, reaperOptions });
       usingMap = cachemap.storeType === "map";
