@@ -1904,9 +1904,9 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cacheability@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-1.0.6.tgz#54ad3351c20ebd576c8458c8974b2aad2cc6c381"
+cacheability@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-1.0.7.tgz#d36ee42259e9b3fb27f14710344537da6a2ccfa7"
   dependencies:
     "@babel/polyfill" "7.0.0-beta.44"
 
@@ -4293,7 +4293,7 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-husky@1.0.0-rc.8:
+husky@^1.0.0-rc.8:
   version "1.0.0-rc.8"
   resolved "https://registry.yarnpkg.com/husky/-/husky-1.0.0-rc.8.tgz#2fa25d0b89269f5b8bfa1ca001370fdb058e8792"
   dependencies:

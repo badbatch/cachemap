@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.44",
-    "cacheability": "^1.0.6",
+    "cacheability": "^1.0.7",
     "fakeredis": "^2.0.0",
     "idb": "^2.1.1",
     "iso-logger": "0.0.12",
