@@ -10,6 +10,7 @@ test/
 .*
 CHANGELOG.md
 CONTRIBUTING.md
+codecov.yml
 gulpfile.js
 jest.config.js
 karma.*
