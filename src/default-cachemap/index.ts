@@ -355,7 +355,7 @@ export class DefaultCachemap {
         metadata = this._metadata.filter((value) => value.tags.includes(opts.tag));
         keys = metadata.map((value) => value.key);
       } else if (opts.keys) {
-        const optsKeys = opts.keys as string[];
+        const optsKeys = opts.keys;
         keys = optsKeys;
         metadata = this._metadata.filter((value) => optsKeys.includes(value.key));
       }
