@@ -1,3 +1,13 @@
+#### 0.2.2 (2018-06-13)
+
+##### Chores
+
+* **dependencies:**  Update cacheability version. ([83399461](https://github.com/dylanaubrey/cachemap/commit/8339946148b8405fdaea50de64880ebee70ce33c))
+
+##### Bug Fixes
+
+* **tests:**  Updating test folder name. ([b2b767fb](https://github.com/dylanaubrey/cachemap/commit/b2b767fb968b5bbb12dfdaa1cc4b1029d5af9e6f))
+
 #### 0.2.1 (2018-06-12)
 
 ##### Chores
