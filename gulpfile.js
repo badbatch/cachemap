@@ -18,7 +18,7 @@ gulp.task('clean', () => {
   del('docs/*', { force: true });
 });
 
-const sources = ['src/**/*.ts', '!**/*.test.*', '!**/.test/**'];
+const sources = ['src/**/*.ts', '!**/*.test.*', '!**/__test__/**'];
 
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', { declaration: true, module: 'commonjs' });
@@ -68,13 +68,13 @@ gulp.task('umd', () => webpackStream(webpackConfig, webpack) // eslint-disable-l
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', { noEmit: true });
 
-  gulp.src(sources)
+  gulp.src('src/**/*.ts')
     .pipe(tsProject())
     .on('error', () => process.exit(1));
 });
 
 gulp.task('tslint', () => {
-  gulp.src(sources)
+  gulp.src('src/**/*.ts')
     .pipe(tslint({
       configuration: 'tslint.json',
       fix: true,

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { clientArgs, serverArgs, workerArgs } from "~/.test";
+import { clientArgs, serverArgs, workerArgs } from "~/__test__";
 import { Cachemap } from "~/cachemap";
 import { DefaultCachemap } from "~/default-cachemap";
 import { supportsWorkerIndexedDB } from "~/helpers/user-agent-parser";

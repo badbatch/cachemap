@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "~/.test";
+import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "~/__test__";
 import { Cachemap } from "~/cachemap";
 import { DefaultCachemap } from "~/default-cachemap";
 import { CacheHeaders, ConstructorArgs, ObjectMap, ReaperOptions } from "~/types";

@@ -35,7 +35,7 @@ module.exports = {
       },
     }, {
       enforce: 'post',
-      exclude: /node_modules|\.test|^.+\.test.tsx?$/,
+      exclude: /node_modules|__test__|^.+\.test.tsx?$/,
       include: resolve(__dirname, 'src'),
       test: /\.tsx?$/,
       use: [{

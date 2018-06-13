@@ -2,7 +2,7 @@ import Cacheability from "cacheability";
 import { expect } from "chai";
 import { get } from "lodash";
 import * as sinon from "sinon";
-import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "~/.test";
+import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "~/__test__";
 import { Cachemap } from "~/cachemap";
 import { DefaultCachemap } from "~/default-cachemap";
 import {
