@@ -1904,9 +1904,9 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cacheability@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-1.0.7.tgz#d36ee42259e9b3fb27f14710344537da6a2ccfa7"
+cacheability@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-1.0.8.tgz#6b8762e0dc8d427f21c3543441df6e61744cfec4"
   dependencies:
     "@babel/polyfill" "7.0.0-beta.44"
 
