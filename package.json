@@ -4,13 +4,13 @@
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/dylanaubrey/cachemap",
+  "homepage": "https://github.com/bad-batch/cachemap",
   "bugs": {
-    "url": "https://github.com/dylanaubrey/cachemap/issues"
+    "url": "https://github.com/bad-batch/cachemap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dylanaubrey/cachemap"
+    "url": "https://github.com/bad-batch/cachemap"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
