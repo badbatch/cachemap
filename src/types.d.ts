@@ -1,4 +1,4 @@
-import { Cacheability, CacheabilityMetadata } from "cacheability";
+import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
 import IndexedDBProxy from "~/default-cachemap/proxies/indexed-db";
 import LocalStorageProxy from "~/default-cachemap/proxies/local-storage";
@@ -92,6 +92,10 @@ export interface ConstructorArgs {
    *
    */
   sortComparator?(a: any, b: any): number;
+}
+
+export interface ConvertCacheabilityMetadata extends Metadata {
+  cacheability: Cacheability | { metadata: CacheabilityMetadata };
 }
 
 export interface IndexedDBOptions {

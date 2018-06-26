@@ -535,10 +535,8 @@ export class DefaultCachemap {
     }
 
     if (errors.length) return Promise.reject(errors);
-    const cacheHeaders = opts.cacheHeaders || {};
-    const cacheability = new Cacheability();
-    const metadata = cacheability.parseHeaders(cacheHeaders);
-    const cacheControl = metadata.cacheControl;
+    const cacheability = new Cacheability({ headers: opts.cacheHeaders });
+    const cacheControl = cacheability.metadata.cacheControl;
     if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) return;
     const _key = opts.hash ? DefaultCachemap._hash(key) : key;
     const processing = this._processing.includes(_key);

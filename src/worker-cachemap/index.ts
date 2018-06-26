@@ -228,8 +228,7 @@ export class WorkerCachemap {
       const { metadata, result, usedHeapSize } = await this._postMessage({ key, opts, type: "has" });
       this._setProps(metadata, usedHeapSize);
       if (!result) return false;
-      const cacheability = new Cacheability();
-      cacheability.metadata = result.metadata;
+      const cacheability = new Cacheability({ metadata: result.metadata });
       return cacheability;
     } catch (error) {
       return Promise.reject(error);
