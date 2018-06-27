@@ -1,4 +1,4 @@
-import { logCacheEntry } from "~/monitoring";
+import { logCacheEntry } from "../../../monitoring";
 
 export class MapProxy {
   private _cacheType: string;

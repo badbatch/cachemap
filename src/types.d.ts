@@ -1,9 +1,9 @@
 import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
-import IndexedDBProxy from "~/default-cachemap/proxies/indexed-db";
-import LocalStorageProxy from "~/default-cachemap/proxies/local-storage";
-import MapProxy from "~/default-cachemap/proxies/map";
-import RedisProxy from "~/default-cachemap/proxies/redis";
+import { IndexedDBProxy } from "./default-cachemap/proxies/indexed-db";
+import { LocalStorageProxy } from "./default-cachemap/proxies/local-storage";
+import { MapProxy } from "./default-cachemap/proxies/map";
+import { RedisProxy } from "./default-cachemap/proxies/redis";
 
 export interface CacheHeaders {
   cacheControl?: string;
@@ -13,7 +13,7 @@ export interface CacheHeaders {
 
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
-export interface ConstructorArgs {
+export interface CachemapArgs {
   /**
    * This private property is set within the WorkerCachemap to
    * tell the instance of the DefaultCachemap it is being
@@ -175,7 +175,7 @@ export interface ObjectMap {
 
 /** @hidden */
 export interface PostMessageArgs {
-  args?: ConstructorArgs;
+  args?: CachemapArgs;
   exported?: ImportArgs;
   key?: string;
   keys?: string[];

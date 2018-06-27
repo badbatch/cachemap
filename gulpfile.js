@@ -21,19 +21,24 @@ gulp.task('clean', () => {
 const sources = ['src/**/*.ts', '!**/*.test.*', '!**/__test__/**'];
 
 gulp.task('main', () => {
-  const tsProject = ts.createProject('tsconfig.json', { declaration: true, module: 'commonjs' });
+  const tsProject = ts.createProject('tsconfig.json', { module: 'commonjs' });
 
-  const transpiled = gulp.src(sources)
+  return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('lib/main'));
+    .pipe(gulp.dest('lib/main'))
+    .on('error', () => process.exit(1));
+});
 
-  const copied = gulp.src(['src/**/*.d.ts'])
-    .pipe(gulp.dest('lib/main'));
+gulp.task('types', () => {
+  const tsProject = ts.createProject('tsconfig.json', { declaration: true, module: 'commonjs', removeComments: true });
+  const transpiled = gulp.src([...sources, '!src/index.ts']).pipe(tsProject());
+  const copied = gulp.src(['src/**/*.d.ts']);
 
-  return merge(transpiled, copied)
+  return merge(transpiled.dts, copied)
+    .pipe(gulp.dest('lib/types'))
     .on('error', () => process.exit(1));
 });
 

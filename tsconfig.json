@@ -1,4 +1,8 @@
 {
   "extends": "./tsconfig.base",
-  "compilerOptions": { "module": "esnext" }
+  "compilerOptions": { "module": "esnext" },
+  "exclude": [
+    "**/__test__/**",
+    "**/*.test.*"
+  ]
 }

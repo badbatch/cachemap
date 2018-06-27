@@ -1,32 +1,36 @@
 import idb, { Cursor, DB } from "idb";
-import { isString } from "lodash";
-import { logCacheEntry } from "~/monitoring";
-import { IndexedDBOptions } from "~/types";
+import { logCacheEntry } from "../../../monitoring";
+import { IndexedDBOptions } from "../../../types";
+import { IndexedDBProxyArgs } from "./types";
 
 export class IndexedDBProxy {
-  public static async create(cacheType: string, opts?: IndexedDBOptions): Promise<IndexedDBProxy> {
+  public static async create(cacheType: string, opts: IndexedDBOptions = {}): Promise<IndexedDBProxy> {
     try {
-      const indexedDBProxy = new IndexedDBProxy(cacheType, opts);
+      const databaseName = opts.databaseName || IndexedDBProxy._databaseName;
+      const objectStoreName = opts.objectStoreName || IndexedDBProxy._objectStoreName;
 
-      indexedDBProxy._indexedDB = await idb.open(indexedDBProxy._databaseName, 1, (upgradeDB) => {
-        upgradeDB.createObjectStore(indexedDBProxy._objectStoreName);
+      const indexedDB = await idb.open(databaseName, 1, (upgradeDB) => {
+        upgradeDB.createObjectStore(objectStoreName);
       });
 
+      const indexedDBProxy = new IndexedDBProxy({ cacheType, indexedDB, objectStoreName });
       return indexedDBProxy;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private _cacheType: string;
-  private _databaseName = "keyval-store";
-  private _indexedDB: DB;
-  private _objectStoreName = "keyval";
+  private static _databaseName = "keyval-store";
+  private static _objectStoreName = "keyval";
 
-  constructor(cacheType: string, opts: IndexedDBOptions = {}) {
+  private _cacheType: string;
+  private _indexedDB: DB;
+  private _objectStoreName: string;
+
+  constructor({ cacheType, indexedDB, objectStoreName }: IndexedDBProxyArgs) {
     this._cacheType = cacheType;
-    if (isString(opts.databaseName)) this._databaseName = opts.databaseName;
-    if (isString(opts.objectStoreName)) this._objectStoreName = opts.objectStoreName;
+    this._indexedDB = indexedDB;
+    this._objectStoreName = objectStoreName;
   }
 
   get cacheType(): string {

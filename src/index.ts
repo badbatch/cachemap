@@ -1,18 +1,3 @@
-import {
-  ClientStoreTypes,
-  ConstructorArgs,
-  ExportResult,
-  ImportArgs,
-  Metadata,
-  ServerStoreTypes,
-} from "~/types";
-
-export type CachemapArgs = ConstructorArgs;
-export type CachemapClientStoreTypes = ClientStoreTypes;
-export type CachemapExportResult = ExportResult;
-export type CachemapImportArgs = ImportArgs;
-export type CachemapMetadata = Metadata;
-export type CachemapServerStoreTypes = ServerStoreTypes;
-export { Cachemap as default } from "~/cachemap";
-export { DefaultCachemap } from "~/default-cachemap";
-export { WorkerCachemap } from "~/worker-cachemap";
+export { default } from "./cachemap";
+export { DefaultCachemap } from "./default-cachemap";
+export { WorkerCachemap } from "./worker-cachemap";

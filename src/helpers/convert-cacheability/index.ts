@@ -1,5 +1,5 @@
 import Cacheability from "cacheability";
-import { ConvertCacheabilityMetadata, Metadata } from "~/types";
+import { ConvertCacheabilityMetadata, Metadata } from "../../types";
 
 export function convertCacheability(metadata: ConvertCacheabilityMetadata[]): Metadata[] {
   return metadata.map(({ cacheability: cacheabilityObject, ...props }) => {

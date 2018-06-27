@@ -1,15 +1,17 @@
 import Cacheability from "cacheability";
 import PromiseWorker from "promise-worker";
-import { convertCacheability } from "~/helpers/convert-cacheability";
+import { convertCacheability } from "../helpers/convert-cacheability";
 import {
   CacheHeaders,
-  ConstructorArgs,
+  CachemapArgs,
   ExportResult,
   ImportArgs,
   Metadata,
   PostMessageArgs,
   PostMessageResult,
-} from "~/types";
+  StoreTypes,
+} from "../types";
+import { WorkerCachemapArgs } from "./types";
 
 /**
  * A browser cache that works in web workers, that
@@ -37,11 +39,11 @@ export class WorkerCachemap {
    * ```
    *
    */
-  public static async create(args: ConstructorArgs): Promise<WorkerCachemap> {
+  public static async create(args: CachemapArgs): Promise<WorkerCachemap> {
     try {
-      const workerCachemap = new WorkerCachemap();
-      workerCachemap._worker = new Worker("worker-cachemap.worker.js");
-      workerCachemap._promiseWorker = new PromiseWorker(workerCachemap._worker);
+      const worker = new Worker("worker-cachemap.worker.js");
+      const promiseWorker = new PromiseWorker(worker);
+      const workerCachemap = new WorkerCachemap({ promiseWorker, worker });
       const { metadata, storeType, usedHeapSize } = await workerCachemap._postMessage({ args, type: "create" });
       workerCachemap._setProps(metadata, usedHeapSize, storeType);
       return workerCachemap;
@@ -52,9 +54,14 @@ export class WorkerCachemap {
 
   private _metadata: Metadata[] = [];
   private _promiseWorker: PromiseWorker;
-  private _storeType: string;
+  private _storeType?: StoreTypes;
   private _usedHeapSize: number = 0;
   private _worker: Worker;
+
+  constructor({ promiseWorker, worker }: WorkerCachemapArgs) {
+    this._promiseWorker = promiseWorker;
+    this._worker = worker;
+  }
 
   /**
    * The property holds the metadata for each data
@@ -70,7 +77,7 @@ export class WorkerCachemap {
    * DefaultCachemap is using.
    *
    */
-  get storeType(): string {
+  get storeType(): string | undefined {
     return this._storeType;
   }
 
@@ -326,7 +333,7 @@ export class WorkerCachemap {
 
   private _setProps(workerMetadata: Metadata[], usedHeapSize: number, storeType?: string): void {
     this._metadata = convertCacheability(workerMetadata);
-    if (storeType) this._storeType = storeType;
+    if (storeType) this._storeType = storeType as StoreTypes;
     this._usedHeapSize = usedHeapSize;
   }
 }
