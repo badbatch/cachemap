@@ -28,7 +28,7 @@ declare global {
  * ```
  *
  */
-export default class Cachemap {
+export class Cachemap {
   /**
    * The method creates an instance of either DefaultCachemap for
    * the server, DefaultCachemap for the browser, or WorkerCachemap,

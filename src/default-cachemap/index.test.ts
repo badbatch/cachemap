@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { get } from "lodash";
 import * as sinon from "sinon";
 import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "../__test__";
-import Cachemap from "../cachemap";
+import { Cachemap } from "../cachemap";
 import { DefaultCachemap } from "../default-cachemap";
 import {
   CacheHeaders,

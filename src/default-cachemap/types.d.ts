@@ -1,6 +1,7 @@
 import { ClientOpts } from "redis";
 import { IndexedDBOptions, ReaperOptions, StoreProxyTypes, StoreTypes } from "../types";
 
+/** @hidden */
 export interface CreateStoreArgs {
   indexedDBOptions?: IndexedDBOptions;
   inWorker?: boolean;
@@ -10,6 +11,7 @@ export interface CreateStoreArgs {
   storeType: StoreTypes;
 }
 
+/** @hidden */
 export interface CreateStoreResult {
   store: StoreProxyTypes;
   storeType: StoreTypes;

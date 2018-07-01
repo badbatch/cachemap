@@ -94,6 +94,7 @@ export interface CachemapArgs {
   sortComparator?(a: any, b: any): number;
 }
 
+/** @hidden */
 export interface ConvertCacheabilityMetadata extends Metadata {
   cacheability: Cacheability | { metadata: CacheabilityMetadata };
 }
@@ -204,6 +205,8 @@ export interface ReaperOptions {
 }
 
 export type ServerStoreTypes = "map" | "redis";
+
 /** @hidden */
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
+
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";
