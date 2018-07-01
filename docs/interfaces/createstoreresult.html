@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ReaperOptions | Cachemap</title>
+	<title>CreateStoreResult | Cachemap</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="reaperoptions.html">ReaperOptions</a>
+					<a href="createstoreresult.html">CreateStoreResult</a>
 				</li>
 			</ul>
-			<h1>Interface ReaperOptions</h1>
+			<h1>Interface CreateStoreResult</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ReaperOptions</span>
+						<span class="target">CreateStoreResult</span>
 					</li>
 				</ul>
 			</section>
@@ -77,8 +77,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reaperoptions.html#interval" class="tsd-kind-icon">interval</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reaperoptions.html#start" class="tsd-kind-icon">start</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createstoreresult.html#store" class="tsd-kind-icon">store</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createstoreresult.html#storetype" class="tsd-kind-icon">store<wbr>Type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -87,22 +87,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="interval" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> interval</h3>
-					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="store" class="tsd-anchor"></a>
+					<h3>store</h3>
+					<div class="tsd-signature tsd-kind-icon">store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StoreProxyTypes</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/types.d.ts#L202">types.d.ts:202</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L14">default-cachemap/types.d.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="start" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> start</h3>
-					<div class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="storetype" class="tsd-anchor"></a>
+					<h3>store<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">store<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../index.html#storetypes" class="tsd-signature-type">StoreTypes</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/types.d.ts#L203">types.d.ts:203</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L15">default-cachemap/types.d.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -139,9 +139,21 @@
 					<li class=" tsd-kind-interface">
 						<a href="createstoreargs.html" class="tsd-kind-icon">Create<wbr>Store<wbr>Args</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="createstoreresult.html" class="tsd-kind-icon">Create<wbr>Store<wbr>Result</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createstoreresult.html#store" class="tsd-kind-icon">store</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createstoreresult.html#storetype" class="tsd-kind-icon">store<wbr>Type</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="defaultcachemapargs.html" class="tsd-kind-icon">Default<wbr>Cachemap<wbr>Args</a>
 					</li>
@@ -157,21 +169,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="objectmap.html" class="tsd-kind-icon">Object<wbr>Map</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="reaperoptions.html" class="tsd-kind-icon">Reaper<wbr>Options</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reaperoptions.html#interval" class="tsd-kind-icon">interval</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reaperoptions.html#start" class="tsd-kind-icon">start</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="workercachemapargs.html" class="tsd-kind-icon">Worker<wbr>Cachemap<wbr>Args</a>
 					</li>

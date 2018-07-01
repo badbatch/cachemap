@@ -1,5 +1,4 @@
 import idb, { Cursor, DB } from "idb";
-import { logCacheEntry } from "../../../monitoring";
 import { IndexedDBOptions } from "../../../types";
 import { IndexedDBProxyArgs } from "./types";
 
@@ -112,7 +111,6 @@ export class IndexedDBProxy {
     }
   }
 
-  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     try {
       const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");

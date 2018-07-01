@@ -73,13 +73,13 @@ gulp.task('umd', () => webpackStream(webpackConfig, webpack) // eslint-disable-l
 gulp.task('type-check', () => {
   const tsProject = ts.createProject('tsconfig.json', { noEmit: true });
 
-  gulp.src('src/**/*.ts')
+  gulp.src(sources)
     .pipe(tsProject())
     .on('error', () => process.exit(1));
 });
 
 gulp.task('tslint', () => {
-  gulp.src('src/**/*.ts')
+  gulp.src(sources)
     .pipe(tslint({
       configuration: 'tslint.json',
       fix: true,

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ReaperOptions | Cachemap</title>
+	<title>DefaultCachemapArgs | Cachemap</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="reaperoptions.html">ReaperOptions</a>
+					<a href="defaultcachemapargs.html">DefaultCachemapArgs</a>
 				</li>
 			</ul>
-			<h1>Interface ReaperOptions</h1>
+			<h1>Interface DefaultCachemapArgs</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ReaperOptions</span>
+						<span class="target">DefaultCachemapArgs</span>
 					</li>
 				</ul>
 			</section>
@@ -77,8 +77,20 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reaperoptions.html#interval" class="tsd-kind-icon">interval</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="reaperoptions.html#start" class="tsd-kind-icon">start</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#_inworker" class="tsd-kind-icon">_in<wbr>Worker</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#disablecacheinvalidation" class="tsd-kind-icon">disable<wbr>Cache<wbr>Invalidation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#maxheapsize" class="tsd-kind-icon">max<wbr>Heap<wbr>Size</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#reaperoptions" class="tsd-kind-icon">reaper<wbr>Options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#sharedcache" class="tsd-kind-icon">shared<wbr>Cache</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#store" class="tsd-kind-icon">store</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="defaultcachemapargs.html#storetype" class="tsd-kind-icon">store<wbr>Type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="defaultcachemapargs.html#sortcomparator" class="tsd-kind-icon">sort<wbr>Comparator</a></li>
 							</ul>
 						</section>
 					</div>
@@ -87,24 +99,118 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="interval" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> interval</h3>
-					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="_inworker" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> _in<wbr>Worker</h3>
+					<div class="tsd-signature tsd-kind-icon">_in<wbr>Worker<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/types.d.ts#L202">types.d.ts:202</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L19">default-cachemap/types.d.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="start" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> start</h3>
-					<div class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="disablecacheinvalidation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> disable<wbr>Cache<wbr>Invalidation</h3>
+					<div class="tsd-signature tsd-kind-icon">disable<wbr>Cache<wbr>Invalidation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/types.d.ts#L203">types.d.ts:203</a></li>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L20">default-cachemap/types.d.ts:20</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="maxheapsize" class="tsd-anchor"></a>
+					<h3>max<wbr>Heap<wbr>Size</h3>
+					<div class="tsd-signature tsd-kind-icon">max<wbr>Heap<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L21">default-cachemap/types.d.ts:21</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L22">default-cachemap/types.d.ts:22</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="reaperoptions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> reaper<wbr>Options</h3>
+					<div class="tsd-signature tsd-kind-icon">reaper<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="reaperoptions.html" class="tsd-signature-type">ReaperOptions</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L23">default-cachemap/types.d.ts:23</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="sharedcache" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> shared<wbr>Cache</h3>
+					<div class="tsd-signature tsd-kind-icon">shared<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L24">default-cachemap/types.d.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="store" class="tsd-anchor"></a>
+					<h3>store</h3>
+					<div class="tsd-signature tsd-kind-icon">store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StoreProxyTypes</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L25">default-cachemap/types.d.ts:25</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="storetype" class="tsd-anchor"></a>
+					<h3>store<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">store<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../index.html#storetypes" class="tsd-signature-type">StoreTypes</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L26">default-cachemap/types.d.ts:26</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="sortcomparator" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>Comparator</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">sort<wbr>Comparator<span class="tsd-signature-symbol">(</span>a<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, b<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/dylanaubrey/cachemap/blob/4b5e78d/src/default-cachemap/types.d.ts#L27">default-cachemap/types.d.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>a: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>b: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -142,9 +248,42 @@
 					<li class=" tsd-kind-interface">
 						<a href="createstoreresult.html" class="tsd-kind-icon">Create<wbr>Store<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="defaultcachemapargs.html" class="tsd-kind-icon">Default<wbr>Cachemap<wbr>Args</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#_inworker" class="tsd-kind-icon">_in<wbr>Worker</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#disablecacheinvalidation" class="tsd-kind-icon">disable<wbr>Cache<wbr>Invalidation</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#maxheapsize" class="tsd-kind-icon">max<wbr>Heap<wbr>Size</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#reaperoptions" class="tsd-kind-icon">reaper<wbr>Options</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#sharedcache" class="tsd-kind-icon">shared<wbr>Cache</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#store" class="tsd-kind-icon">store</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#storetype" class="tsd-kind-icon">store<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="defaultcachemapargs.html#sortcomparator" class="tsd-kind-icon">sort<wbr>Comparator</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="exportresult.html" class="tsd-kind-icon">Export<wbr>Result</a>
 					</li>
@@ -157,21 +296,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="objectmap.html" class="tsd-kind-icon">Object<wbr>Map</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="reaperoptions.html" class="tsd-kind-icon">Reaper<wbr>Options</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reaperoptions.html#interval" class="tsd-kind-icon">interval</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="reaperoptions.html#start" class="tsd-kind-icon">start</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="workercachemapargs.html" class="tsd-kind-icon">Worker<wbr>Cachemap<wbr>Args</a>
 					</li>

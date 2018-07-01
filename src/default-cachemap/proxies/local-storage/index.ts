@@ -1,5 +1,3 @@
-import { logCacheEntry } from "../../../monitoring";
-
 export class LocalStorageProxy {
   private _cacheType: string;
   private _storage: Storage = window.localStorage;
@@ -94,7 +92,6 @@ export class LocalStorageProxy {
     }
   }
 
-  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     try {
       this._storage.setItem(this._buildKey(key), JSON.stringify(value));
