@@ -1,3 +1,13 @@
+### 0.3.0 (2018-07-02)
+
+##### Chores
+
+* **dependencies:**  Updating dependencies and resolving related issues. ([#20](https://github.com/bad-batch/cachemap/pull/20)) ([ab318e7f](https://github.com/bad-batch/cachemap/commit/ab318e7fbeb3579beaab99693e9b0f7fd81c60f1))
+
+##### Bug Fixes
+
+* **config:**  Update urls in package.json. ([4072f5d4](https://github.com/bad-batch/cachemap/commit/4072f5d4ebbc36c1e8d98cba00a9dffc22b2fb93))
+
 #### 0.2.2 (2018-06-13)
 
 ##### Chores
