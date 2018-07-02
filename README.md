@@ -14,7 +14,7 @@ An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory 
 
 * Use Redis or an in-memory Map on the server.
 * Use LocalStorage, IndexedDB or an in-memory Map on the client.
-* Export/import entries and metadata from one cachemap to another.
+* Export/import entries and metadata from one Cachemap to another.
 * Store data alongside cache-control directives, etag and uuid (tag).
 * Cache headers used to derive whether data is fresh or stale.
 * Sort stored data based on metadata values.
@@ -35,16 +35,11 @@ Redis from the build.
 
 ## Documentation
 
-Please read the documentation on the cachemap [github pages](https://bad-batch.github.io/cachemap).
-
-## Debugging
-
-Compile/run cachemap with the `DEBUG` environment variable set to `'true'` to log information to the console about each
-cache entry that is added.
+Additional documentation can be found on the Cachemap [github pages](https://bad-batch.github.io/cachemap).
 
 ## Web worker interface
 
-You can run cachemap in a web worker by using `WorkerCachemap` as the cachemap interface in your bundle on the main
+You can run Cachemap in a web worker by using `WorkerCachemap` as the Cachemap interface in your bundle on the main
 thread and `{ worker-cachemap.worker: ./node_modules/cachemap/lib/browser/worker.js }` as the entry point for your
 bundle on the worker thread.
 
