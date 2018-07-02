@@ -1,11 +1,11 @@
 import { isPlainObject } from "lodash";
-import { DefaultCachemap } from "~/default-cachemap";
-import { Metadata, ReaperOptions } from "~/types";
+import { DefaultCachemap } from "../../default-cachemap";
+import { Metadata, ReaperOptions } from "../../types";
 
 export class Reaper {
   private _cachemap: DefaultCachemap;
   private _interval: number;
-  private _intervalID: NodeJS.Timer;
+  private _intervalID?: NodeJS.Timer;
 
   constructor(cachemap: DefaultCachemap, opts: ReaperOptions = {}) {
     if (!isPlainObject(opts)) {
@@ -35,7 +35,7 @@ export class Reaper {
   }
 
   public stop(): void {
-    clearInterval(this._intervalID);
+    if (this._intervalID) clearInterval(this._intervalID);
   }
 
   private _getExpiredMetadata(): Metadata[] {

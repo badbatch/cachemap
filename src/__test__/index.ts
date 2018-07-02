@@ -1,11 +1,11 @@
-import { ConstructorArgs, ObjectMap } from "~/types";
+import { CachemapArgs, ObjectMap } from "../types";
 
-export const clientArgs: ConstructorArgs = {
+export const clientArgs: CachemapArgs = {
   name: "client",
   use: { client: "localStorage" },
 };
 
-export const workerArgs: ConstructorArgs = {
+export const workerArgs: CachemapArgs = {
   indexedDBOptions: {
     databaseName: "alfa-database",
     objectStoreName: "alfa",
@@ -14,13 +14,13 @@ export const workerArgs: ConstructorArgs = {
   use: { client: "indexedDB" },
 };
 
-export const serverArgs: ConstructorArgs = {
+export const serverArgs: CachemapArgs = {
   mockRedis: true,
   name: "server",
   use: { server: "redis" },
 };
 
-export const mapArgs: ConstructorArgs = {
+export const mapArgs: CachemapArgs = {
   name: "map",
   use: { server: "map" },
 };

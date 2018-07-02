@@ -1,14 +1,12 @@
 import Cacheability from "cacheability";
-import { Metadata } from "~/types";
+import { ConvertCacheabilityMetadata, Metadata } from "../../types";
 
-export function convertCacheability(metadata: Metadata[]): Metadata[] {
+export function convertCacheability(metadata: ConvertCacheabilityMetadata[]): Metadata[] {
   return metadata.map(({ cacheability: cacheabilityObject, ...props }) => {
     let cacheability: Cacheability;
-    const cacheabilityMetadata = cacheabilityObject.metadata;
 
     if (!(cacheabilityObject instanceof Cacheability)) {
-      cacheability = new Cacheability();
-      cacheability.metadata = cacheabilityMetadata;
+      cacheability = new Cacheability({ metadata: cacheabilityObject.metadata });
     } else {
       cacheability = cacheabilityObject;
     }

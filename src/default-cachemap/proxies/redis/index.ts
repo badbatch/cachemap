@@ -1,6 +1,5 @@
 import { isPlainObject } from "lodash";
 import { ClientOpts, createClient, RedisClient } from "redis";
-import { logCacheEntry } from "~/monitoring";
 
 export class RedisProxy {
   private _cacheType: string;
@@ -115,7 +114,6 @@ export class RedisProxy {
     });
   }
 
-  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
       this._client.set(key, JSON.stringify(value), (error) => {

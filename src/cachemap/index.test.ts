@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import { clientArgs, serverArgs, workerArgs } from "~/__test__";
-import { Cachemap } from "~/cachemap";
-import { DefaultCachemap } from "~/default-cachemap";
-import { supportsWorkerIndexedDB } from "~/helpers/user-agent-parser";
-import { WorkerCachemap } from "~/worker-cachemap";
+import { clientArgs, serverArgs, workerArgs } from "../__test__";
+import { Cachemap } from "../cachemap";
+import { DefaultCachemap } from "../default-cachemap";
+import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
+import { WorkerCachemap } from "../worker-cachemap";
 
 describe("the Cachemap.create method", () => {
   if (process.env.WEB_ENV) {

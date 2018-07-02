@@ -1,9 +1,9 @@
-import { Cacheability, CacheabilityMetadata } from "cacheability";
+import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
 import { ClientOpts } from "redis";
-import IndexedDBProxy from "~/default-cachemap/proxies/indexed-db";
-import LocalStorageProxy from "~/default-cachemap/proxies/local-storage";
-import MapProxy from "~/default-cachemap/proxies/map";
-import RedisProxy from "~/default-cachemap/proxies/redis";
+import { IndexedDBProxy } from "./default-cachemap/proxies/indexed-db";
+import { LocalStorageProxy } from "./default-cachemap/proxies/local-storage";
+import { MapProxy } from "./default-cachemap/proxies/map";
+import { RedisProxy } from "./default-cachemap/proxies/redis";
 
 export interface CacheHeaders {
   cacheControl?: string;
@@ -13,7 +13,7 @@ export interface CacheHeaders {
 
 export type ClientStoreTypes = "indexedDB" | "localStorage" | "map";
 
-export interface ConstructorArgs {
+export interface CachemapArgs {
   /**
    * This private property is set within the WorkerCachemap to
    * tell the instance of the DefaultCachemap it is being
@@ -94,6 +94,11 @@ export interface ConstructorArgs {
   sortComparator?(a: any, b: any): number;
 }
 
+/** @hidden */
+export interface ConvertCacheabilityMetadata extends Metadata {
+  cacheability: Cacheability | { metadata: CacheabilityMetadata };
+}
+
 export interface IndexedDBOptions {
   databaseName?: string;
   objectStoreName?: string;
@@ -171,7 +176,7 @@ export interface ObjectMap {
 
 /** @hidden */
 export interface PostMessageArgs {
-  args?: ConstructorArgs;
+  args?: CachemapArgs;
   exported?: ImportArgs;
   key?: string;
   keys?: string[];
@@ -200,6 +205,8 @@ export interface ReaperOptions {
 }
 
 export type ServerStoreTypes = "map" | "redis";
+
 /** @hidden */
 export type StoreProxyTypes = IndexedDBProxy | MapProxy | RedisProxy | LocalStorageProxy;
+
 export type StoreTypes = "indexedDB" | "localStorage" | "map" | "redis";

@@ -1,8 +1,8 @@
 import { isPlainObject } from "lodash";
-import { DefaultCachemap } from "~/default-cachemap";
-import { supportsWorkerIndexedDB } from "~/helpers/user-agent-parser";
-import { ConstructorArgs } from "~/types";
-import { WorkerCachemap } from "~/worker-cachemap";
+import { DefaultCachemap } from "../default-cachemap";
+import { supportsWorkerIndexedDB } from "../helpers/user-agent-parser";
+import { CachemapArgs } from "../types";
+import { WorkerCachemap } from "../worker-cachemap";
 
 declare global {
   interface Window {
@@ -46,7 +46,7 @@ export class Cachemap {
    * ```
    *
    */
-  public static async create(args: ConstructorArgs): Promise<DefaultCachemap | WorkerCachemap> {
+  public static async create(args: CachemapArgs): Promise<DefaultCachemap | WorkerCachemap> {
     if (!isPlainObject(args)) {
       return Promise.reject(new TypeError("CreateCachemap expected args to ba a plain object."));
     }

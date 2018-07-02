@@ -1,5 +1,3 @@
-import { logCacheEntry } from "~/monitoring";
-
 export class MapProxy {
   private _cacheType: string;
   private _map = new Map();
@@ -44,7 +42,6 @@ export class MapProxy {
     this._map = new Map([...this._map, ...entries]);
   }
 
-  @logCacheEntry
   public async set(key: string, value: any): Promise<void> {
     this._map.set(key, value);
   }

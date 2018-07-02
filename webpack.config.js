@@ -12,7 +12,7 @@ webpackConfig.plugins.push(
   new BundleAnalyzerPlugin({
     analyzerMode: 'disabled',
     generateStatsFile: true,
-    statsFilename: './bundle/stats.json',
+    statsFilename: '../../bundle/stats.json',
   }),
   new UglifyJsPlugin({
     sourceMap: true,
@@ -21,7 +21,7 @@ webpackConfig.plugins.push(
 
 module.exports = {
   entry: {
-    cachemap: './src/index.ts',
+    cachemap: './src/cachemap/index.ts',
     'default-cachemap': './src/default-cachemap/index.ts',
     'worker-cachemap': './src/worker-cachemap/index.ts',
     'worker-cachemap.worker': './src/worker.ts',
@@ -47,6 +47,7 @@ module.exports = {
     filename: '[name].js',
     library: 'Cachemap',
     libraryTarget: 'umd',
+    path: resolve(__dirname, 'lib/umd'),
   },
   ...webpackConfig,
 };

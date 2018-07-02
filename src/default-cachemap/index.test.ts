@@ -2,20 +2,20 @@ import Cacheability from "cacheability";
 import { expect } from "chai";
 import { get } from "lodash";
 import * as sinon from "sinon";
-import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "~/__test__";
-import { Cachemap } from "~/cachemap";
-import { DefaultCachemap } from "~/default-cachemap";
+import { clientArgs, mapArgs, serverArgs, testData, workerArgs } from "../__test__";
+import { Cachemap } from "../cachemap";
+import { DefaultCachemap } from "../default-cachemap";
 import {
   CacheHeaders,
-  ConstructorArgs,
+  CachemapArgs,
   ExportResult,
   Metadata,
   ObjectMap,
   StoreProxyTypes,
-} from "~/types";
-import { WorkerCachemap } from "~/worker-cachemap";
+} from "../types";
+import { WorkerCachemap } from "../worker-cachemap";
 
-function testCachemapClass(args: ConstructorArgs): void {
+function testCachemapClass(args: CachemapArgs): void {
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const key: string = testData["136-7317"].url;
   const value: ObjectMap = testData["136-7317"].body;

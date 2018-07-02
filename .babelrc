@@ -52,11 +52,6 @@
     "**/*.d.ts"
   ],
   "plugins": [
-    ["module-resolver", {
-      "alias": {
-        "~": "./src"
-      }
-    }],
     "lodash",
     "@babel/plugin-proposal-decorators"
   ]
