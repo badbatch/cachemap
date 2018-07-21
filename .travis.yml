@@ -29,7 +29,7 @@ before_deploy:
 deploy:
   provider: script
   script:
-    - yarn run publish-cutoff
+    - yarn run publish-lerna-cutoff
   skip_cleanup: true
   on:
     tags: true

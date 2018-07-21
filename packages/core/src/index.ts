@@ -1,0 +1,553 @@
+import { core, reaper } from "@cachemap/types";
+import Cacheability from "cacheability";
+import { isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined } from "lodash";
+import * as md5 from "md5";
+import * as sizeof from "object-sizeof";
+import { rehydrateMetadata } from "./helpers/rehydrate-metadata";
+
+export default class Core {
+  public static async init(options: core.InitOptions): Promise<Core> {
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("Core expected options to ba a plain object."));
+    }
+
+    if (!isFunction(options.store)) {
+      errors.push(new TypeError("Core expected options.store to be a function."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      const store = await options.store();
+      const instance = new Core({ ...options, store });
+      await instance._retreiveMetadata();
+      return instance;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private static _sortComparator(a: core.Metadata, b: core.Metadata): number {
+    let i;
+
+    if (a.accessedCount > b.accessedCount) {
+      i = -1;
+    } else if (a.accessedCount < b.accessedCount) {
+      i = 1;
+    } else if (a.lastAccessed > b.lastAccessed) {
+      i = -1;
+    } else if (a.lastAccessed < b.lastAccessed) {
+      i = 1;
+    } else if (a.lastUpdated > b.lastUpdated) {
+      i = -1;
+    } else if (a.lastUpdated < b.lastUpdated) {
+      i = 1;
+    } else if (a.added > b.added) {
+      i = -1;
+    } else if (a.added < b.added) {
+      i = 1;
+    } else if (a.size < b.size) {
+      i = -1;
+    } else if (a.size > b.size) {
+      i = 1;
+    } else {
+      i = 0;
+    }
+
+    return i;
+  }
+
+  private _disableCacheInvalidation: boolean = false;
+  private _metadata: core.Metadata[] = [];
+  private _name: string;
+  private _processing: string[] = [];
+  private _reaper?: reaper.Reaper;
+  private _sharedCache: boolean = false;
+  private _store: core.Store;
+  private _usedHeapSize: number = 0;
+
+  constructor(options: core.ConstructorOptions) {
+    this._delete.bind(this);
+
+    if (isBoolean(options.disableCacheInvalidation)) {
+      this._disableCacheInvalidation = options.disableCacheInvalidation;
+    }
+
+    this._name = options.name;
+
+    if (isFunction(options.reaper)) {
+      this._reaper = this._initializeReaper(options.reaper);
+    }
+
+    if (isBoolean(options.sharedCache)) {
+      this._sharedCache = options.sharedCache;
+    }
+
+    if (isFunction(options.sortComparator)) {
+      Core._sortComparator = options.sortComparator;
+    }
+
+    this._store = options.store;
+  }
+
+  get metadata(): core.Metadata[] {
+    return this._metadata;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  public async clear(): Promise<void> {
+    try {
+      this._store.clear();
+      this._metadata = [];
+      this._processing = [];
+      this._backupMetadata();
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
+  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+    const errors: TypeError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new TypeError("The delete method expected key to be a string."));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("The delete method expected options to be a plain object."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      return this._delete(key, options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+    if (!keys || !isArray(keys)) {
+      return Promise.reject(new TypeError("The entries method expected keys to be an array."));
+    }
+
+    try {
+      return this._entries(keys);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async export(options: { keys?: string[], tag?: any } = {}): Promise<core.ExportResult> {
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("The export function expected options to be an plain object."));
+    }
+
+    if (options.keys && !isArray(options.keys)) {
+      errors.push(new TypeError("The export function expected options.keys to be an array."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      return this._export(options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async get(key: string, options: { hash?: boolean } = {}): Promise<void> {
+    const errors: TypeError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new TypeError("The get method expected key to be a string."));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("The get method expected options to be a plain object."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      return this._get(key, options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async has(
+    key: string,
+    options: { deleteExpired?: boolean, hash?: boolean } = {},
+  ): Promise<false | Cacheability> {
+    const errors: TypeError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new TypeError("The has method expected key to be a string."));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("The has method expected opts to be a plain object."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      return this._has(key, options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async import(options: core.ImportOptions): Promise<void> {
+    if (!isPlainObject(options)) {
+      return Promise.reject("The import function expected options to be a plain object.");
+    }
+
+    const { entries, metadata } = options;
+    const errors: TypeError[] = [];
+
+    if (!isArray(entries)) {
+      errors.push(new TypeError("The import function expected entries to be an array."));
+    }
+
+    if (!isArray(metadata)) {
+      errors.push(new TypeError("The import function expected metadata to be an array."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      await this._import(options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async set(
+    key: string,
+    value: any,
+    options: { cacheHeaders?: core.CacheHeaders, hash?: boolean, tag?: any } = {},
+  ): Promise<void> {
+    const errors: TypeError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new TypeError("The set expected key to be a string."));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("The set expected opts to be a plain object."));
+    }
+
+    if (errors.length) return Promise.reject(errors);
+
+    try {
+      return this._set(key, value, options);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  public async size(): Promise<number> {
+    try {
+      return this._size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: any): Promise<void> {
+    this._metadata.push({
+      accessedCount: 0,
+      added: Date.now(),
+      cacheability,
+      key,
+      lastAccessed: Date.now(),
+      lastUpdated: Date.now(),
+      size,
+      tags: !isUndefined(tag) ? [tag] : [],
+      updatedCount: 0,
+    });
+
+    this._sortMetadata();
+    this._updateHeapSize();
+
+    try {
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _backupMetadata(): Promise<void> {
+    try {
+      await this._store.set("metadata", this._metadata);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private _calcReductionChunk(): number | undefined {
+    const reductionSize = Math.round(this._store.maxHeapSize * 0.2);
+    let chunkSize = 0;
+    let index: number | undefined;
+
+    for (let i = this._metadata.length - 1; i >= 0; i -= 1) {
+      chunkSize += this._metadata[i].size;
+
+      if (chunkSize > reductionSize) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
+
+  private async _delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+    const _key = options.hash ? md5(key) : key;
+
+    try {
+      const deleted = await this._store.delete(_key);
+      if (!deleted) return false;
+
+      await this._deleteMetadata(_key);
+      return true;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _deleteMetadata(key: string): Promise<void> {
+    const index = this._metadata.findIndex((metadata) => metadata.key === key);
+    if (index === -1) return;
+
+    this._metadata.splice(index, 1);
+    this._sortMetadata();
+    this._updateHeapSize();
+
+    try {
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
+    try {
+      const _keys = keys || this._metadata.map((metadata) => metadata.key);
+      return this._store.entries(_keys);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _export(options: { keys?: string[], tag?: any }): Promise<core.ExportResult> {
+    let keys: string[] | undefined;
+    let metadata = this._metadata;
+
+    if (options.tag) {
+      metadata = this._metadata.filter((meta) => meta.tags.includes(options.tag));
+      keys = metadata.map((meta) => meta.key);
+    } else if (options.keys) {
+      metadata = this._metadata.filter((meta) => (options.keys as string[]).includes(meta.key));
+      keys = options.keys;
+    }
+
+    try {
+      return { entries: await this._entries(keys), metadata };
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _get(key: string, options: { hash?: boolean }): Promise<any> {
+    const _key = options.hash ? md5(key) : key;
+
+    try {
+      const value = await this._store.get(_key);
+      if (!value) return undefined;
+
+      await this._updateMetadata(_key);
+      return value;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private _getCacheability(key: string): Cacheability | undefined {
+    const metadata = this._getMetadataEntry(key);
+    return metadata ? metadata.cacheability : undefined;
+  }
+
+  private _getMetadataEntry(key: string): core.Metadata | undefined {
+    return this._metadata.find((metadata) => metadata.key === key);
+  }
+
+  private async _has(
+    key: string,
+    options: { deleteExpired?: boolean, hash?: boolean },
+  ): Promise<false | Cacheability> {
+    const _key = options.hash ? md5(key) : key;
+
+    try {
+      const exists = await this._store.has(_key);
+      if (!exists) return false;
+
+      if (options.deleteExpired && this._hasCacheEntryExpired(_key)) {
+        await this.delete(_key);
+        return false;
+      }
+
+      return this._getCacheability(_key) || false;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private _hasCacheEntryExpired(key: string): boolean {
+    if (this._disableCacheInvalidation) return false;
+
+    const cacheability = this._getCacheability(key);
+    return cacheability ? !cacheability.checkTTL() : false;
+  }
+
+  private async _import(options: core.ImportOptions): Promise<void> {
+    let filterd: core.Metadata[] = [];
+
+    if (this._metadata.length) {
+      filterd = this._metadata.filter((metaOne) =>
+        !options.metadata.find((metaTwo) => metaOne.key === metaTwo.key));
+    }
+
+    try {
+      await this._store.import(options.entries);
+      this._metadata = rehydrateMetadata([...filterd, ...options.metadata]);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    this._sortMetadata();
+
+    try {
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    this._updateHeapSize();
+  }
+
+  private _initializeReaper(reaperWrapper: reaper.ReaperWrapper): reaper.Reaper {
+    return reaperWrapper({
+      deleteCallback: this._delete,
+      metadataCallback: () => this._metadata,
+    });
+  }
+
+  private _processed(key: string): void {
+    this._processing = this._processing.filter((value) => value !== key);
+  }
+
+  private async _reduceHeapSize(): Promise<void> {
+    const index = this._calcReductionChunk();
+    if (!index || !this._reaper) return;
+
+    this._reaper.cull(this._metadata.slice(index, this._metadata.length));
+  }
+
+  private async _retreiveMetadata(): Promise<void> {
+    try {
+      const metadata: core.Metadata[] = await this._store.get("metadata");
+
+      if (isArray(metadata)) {
+        this._metadata = rehydrateMetadata(metadata);
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private async _set(
+    key: string,
+    value: any,
+    options: { cacheHeaders?: core.CacheHeaders, hash?: boolean, tag?: any },
+  ): Promise<void> {
+    const cacheability = new Cacheability({ headers: options.cacheHeaders });
+    const cacheControl = cacheability.metadata.cacheControl;
+    if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) return;
+
+    const _key = options.hash ? md5(key) : key;
+    const processing = this._processing.includes(_key);
+    if (!processing) this._processing.push(_key);
+
+    try {
+      const exists = await this._store.has(_key) || processing;
+      await this._store.set(_key, value);
+
+      if (exists) {
+        await this._updateMetadata(_key, sizeof(value), cacheability, options.tag);
+      } else {
+        await this._addMetadata(_key, sizeof(value), cacheability, options.tag);
+      }
+
+      this._processed(_key);
+    } catch (error) {
+      this._processed(_key);
+      return Promise.reject(error);
+    }
+  }
+
+  private async _size(): Promise<number> {
+    try {
+      return this._store.size();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  private _sortMetadata(): void {
+    this._metadata.sort(Core._sortComparator);
+  }
+
+  private _updateHeapSize(): void {
+    this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
+
+    if (!this._disableCacheInvalidation && this._usedHeapSize > this._store.maxHeapSize) {
+      this._reduceHeapSize();
+    }
+  }
+
+  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: any): Promise<void> {
+    const entry = this._getMetadataEntry(key);
+    if (!entry) return;
+
+    if (size) {
+      entry.size = size;
+      entry.lastUpdated = Date.now();
+      entry.updatedCount += 1;
+    } else {
+      entry.accessedCount += 1;
+      entry.lastAccessed = Date.now();
+    }
+
+    if (cacheability) entry.cacheability = cacheability;
+    if (!isUndefined(tag)) entry.tags.push(tag);
+
+    this._sortMetadata();
+    this._updateHeapSize();
+
+    try {
+      await this._backupMetadata();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+}
