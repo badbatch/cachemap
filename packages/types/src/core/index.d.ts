@@ -29,7 +29,7 @@ export interface InitOptions {
   name: string;
   reaper?: ReaperWrapper;
   sharedCache?: boolean;
-  store: StoreWrapper;
+  store: StoreInit;
   sortComparator?(a: any, b: any): number;
 }
 
@@ -96,7 +96,9 @@ export interface PlainObject {
 }
 
 export interface Store {
-  readonly maxHeapSize: number;
+  public readonly maxHeapSize: number;
+  public readonly name: string;
+  public readonly type: string;
   public async clear(): Promise<void>;
   public async delete(key: string): Promise<boolean>;
   public async entries(keys?: string[]): Promise<Array<[string, any]>>;
@@ -107,4 +109,8 @@ export interface Store {
   public async size(): Promise<number>;
 }
 
-export type StoreWrapper = (...args: any[]) => Promise<Store>;
+export interface StoreOptions {
+  name: string;
+}
+
+export type StoreInit = (options: StoreOptions) => Promise<Store>;

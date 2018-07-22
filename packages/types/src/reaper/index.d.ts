@@ -13,6 +13,9 @@ export interface ConstructorOptions {
 }
 
 export type DeleteCallback = (key: string, options?: { hash?: boolean }) => Promise<boolean>;
+
+export type Init = (callbacks: Callbacks) => Reaper;
+
 export type MetadataCallback = () => Metadata[];
 
 export interface Options {
@@ -26,5 +29,3 @@ export class Reaper {
   public start(): void;
   public stop(): void;
 }
-
-export type ReaperWrapper = (callbacks: Callbacks) => Reaper;

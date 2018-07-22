@@ -12,15 +12,19 @@ export class IndexedDBStore implements core.Store {
         upgradeDB.createObjectStore(objectStoreName);
       });
 
-      return new IndexedDBStore({ indexedDB: db, objectStoreName });
+      return new IndexedDBStore({
+        indexedDB: db,
+        ...options,
+      });
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
+  public readonly type = "indexedDB";
   private _indexedDB: DB;
   private _maxHeapSize: number = 4194304;
-  private _objectStoreName: string;
+  private _name: string;
 
   constructor(options: indexedDB.ConstructorOptions) {
     this._indexedDB = options.indexedDB;
@@ -29,17 +33,21 @@ export class IndexedDBStore implements core.Store {
       this._maxHeapSize = options.maxHeapSize;
     }
 
-    this._objectStoreName = options.objectStoreName;
+    this._name = options.name;
   }
 
   get maxHeapSize() {
     return this._maxHeapSize;
   }
 
+  get name() {
+    return this._name;
+  }
+
   public async clear(): Promise<void> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-      await tx.objectStore(this._objectStoreName).clear();
+      const tx = this._indexedDB.transaction(this._name, "readwrite");
+      await tx.objectStore(this._name).clear();
       await tx.complete;
     } catch (error) {
       return Promise.reject(error);
@@ -48,8 +56,8 @@ export class IndexedDBStore implements core.Store {
 
   public async delete(key: string): Promise<boolean> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-      await tx.objectStore(this._objectStoreName).delete(key);
+      const tx = this._indexedDB.transaction(this._name, "readwrite");
+      await tx.objectStore(this._name).delete(key);
       await tx.complete;
       return await this.get(key) === undefined;
     } catch (error) {
@@ -59,8 +67,8 @@ export class IndexedDBStore implements core.Store {
 
   public async entries(keys?: string[]): Promise<Array<[string, any]>> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName);
-      const objectStore = tx.objectStore(this._objectStoreName);
+      const tx = this._indexedDB.transaction(this._name);
+      const objectStore = tx.objectStore(this._name);
       const entries: Array<[string, any]> = [];
 
       objectStore.iterateCursor((cursor: Cursor<any, string>) => {
@@ -86,8 +94,8 @@ export class IndexedDBStore implements core.Store {
 
   public async get(key: string): Promise<any> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName);
-      return tx.objectStore(this._objectStoreName).get(key);
+      const tx = this._indexedDB.transaction(this._name);
+      return tx.objectStore(this._name).get(key);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -104,8 +112,8 @@ export class IndexedDBStore implements core.Store {
 
   public async import(entries: Array<[string, any]>): Promise<void> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-      await Promise.all(entries.map(([key, value]) => tx.objectStore(this._objectStoreName).put(value, key)));
+      const tx = this._indexedDB.transaction(this._name, "readwrite");
+      await Promise.all(entries.map(([key, value]) => tx.objectStore(this._name).put(value, key)));
       await tx.complete;
     } catch (error) {
       return Promise.reject(error);
@@ -114,8 +122,8 @@ export class IndexedDBStore implements core.Store {
 
   public async set(key: string, value: any): Promise<void> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName, "readwrite");
-      await tx.objectStore(this._objectStoreName).put(value, key);
+      const tx = this._indexedDB.transaction(this._name, "readwrite");
+      await tx.objectStore(this._name).put(value, key);
       await tx.complete;
     } catch (error) {
       return Promise.reject(error);
@@ -124,8 +132,8 @@ export class IndexedDBStore implements core.Store {
 
   public async size(): Promise<number> {
     try {
-      const tx = this._indexedDB.transaction(this._objectStoreName);
-      const objectStore = tx.objectStore(this._objectStoreName);
+      const tx = this._indexedDB.transaction(this._name);
+      const objectStore = tx.objectStore(this._name);
       const keys: Array<IDBKeyRange | IDBValidKey> = [];
 
       objectStore.iterateCursor((cursor: Cursor<any, IDBKeyRange | IDBValidKey>) => {
@@ -143,10 +151,10 @@ export class IndexedDBStore implements core.Store {
   }
 }
 
-export default function indexedDBWrapper(options: indexedDB.Options): core.StoreWrapper {
+export default function init(options: indexedDB.Options): core.StoreInit {
   if (!isPlainObject(options)) {
-    throw new TypeError("indexedDBWrapper expected options to be a plain object.");
+    throw new TypeError("@cachemap/indexedDB expected options to be a plain object.");
   }
 
-  return (inheritedOptions: indexedDB.InheritedOptions) => IndexedDBStore.init({ ...options, ...inheritedOptions });
+  return (storeOptions: core.StoreOptions) => IndexedDBStore.init({ ...options, ...storeOptions });
 }

@@ -10,17 +10,17 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("Core expected options to ba a plain object."));
+      errors.push(new TypeError("@cachemap/core expected options to ba a plain object."));
     }
 
     if (!isFunction(options.store)) {
-      errors.push(new TypeError("Core expected options.store to be a function."));
+      errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
     }
 
     if (errors.length) return Promise.reject(errors);
 
     try {
-      const store = await options.store();
+      const store = await options.store({ name: options.name });
       const instance = new Core({ ...options, store });
       await instance._retreiveMetadata();
       return instance;
@@ -62,6 +62,7 @@ export default class Core {
   private _disableCacheInvalidation: boolean = false;
   private _metadata: core.Metadata[] = [];
   private _name: string;
+  private _persistedStore: boolean = true;
   private _processing: string[] = [];
   private _reaper?: reaper.Reaper;
   private _sharedCache: boolean = false;
@@ -76,6 +77,7 @@ export default class Core {
     }
 
     this._name = options.name;
+    this._persistedStore = options.store.type !== "map";
 
     if (isFunction(options.reaper)) {
       this._reaper = this._initializeReaper(options.reaper);
@@ -115,11 +117,11 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("The delete method expected key to be a string."));
+      errors.push(new TypeError("@cachemap/core expected key to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("The delete method expected options to be a plain object."));
+      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -133,7 +135,7 @@ export default class Core {
 
   public async entries(keys?: string[]): Promise<Array<[string, any]>> {
     if (!keys || !isArray(keys)) {
-      return Promise.reject(new TypeError("The entries method expected keys to be an array."));
+      return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
     }
 
     try {
@@ -147,11 +149,11 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("The export function expected options to be an plain object."));
+      errors.push(new TypeError("@cachemap/core expected options to be an plain object."));
     }
 
     if (options.keys && !isArray(options.keys)) {
-      errors.push(new TypeError("The export function expected options.keys to be an array."));
+      errors.push(new TypeError("@cachemap/core expected options.keys to be an array."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -167,11 +169,11 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("The get method expected key to be a string."));
+      errors.push(new TypeError("@cachemap/core expected key to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("The get method expected options to be a plain object."));
+      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -190,11 +192,11 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("The has method expected key to be a string."));
+      errors.push(new TypeError("@cachemap/core expected key to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("The has method expected opts to be a plain object."));
+      errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -208,18 +210,18 @@ export default class Core {
 
   public async import(options: core.ImportOptions): Promise<void> {
     if (!isPlainObject(options)) {
-      return Promise.reject("The import function expected options to be a plain object.");
+      return Promise.reject("@cachemap/core expected options to be a plain object.");
     }
 
     const { entries, metadata } = options;
     const errors: TypeError[] = [];
 
     if (!isArray(entries)) {
-      errors.push(new TypeError("The import function expected entries to be an array."));
+      errors.push(new TypeError("@cachemap/core expected entries to be an array."));
     }
 
     if (!isArray(metadata)) {
-      errors.push(new TypeError("The import function expected metadata to be an array."));
+      errors.push(new TypeError("@cachemap/core expected metadata to be an array."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -239,11 +241,11 @@ export default class Core {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("The set expected key to be a string."));
+      errors.push(new TypeError("@cachemap/core expected key to be a string."));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("The set expected opts to be a plain object."));
+      errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -287,6 +289,8 @@ export default class Core {
   }
 
   private async _backupMetadata(): Promise<void> {
+    if (!this._persistedStore) return;
+
     try {
       await this._store.set("metadata", this._metadata);
     } catch (error) {
@@ -445,8 +449,8 @@ export default class Core {
     this._updateHeapSize();
   }
 
-  private _initializeReaper(reaperWrapper: reaper.ReaperWrapper): reaper.Reaper {
-    return reaperWrapper({
+  private _initializeReaper(reaperInit: reaper.Init): reaper.Reaper {
+    return reaperInit({
       deleteCallback: this._delete,
       metadataCallback: () => this._metadata,
     });
@@ -464,6 +468,8 @@ export default class Core {
   }
 
   private async _retreiveMetadata(): Promise<void> {
+    if (!this._persistedStore) return;
+
     try {
       const metadata: core.Metadata[] = await this._store.get("metadata");
 

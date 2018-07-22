@@ -59,9 +59,9 @@ export class Reaper {
   }
 }
 
-export default function reaperWrapper(options: reaper.Options = {}): reaper.ReaperWrapper {
+export default function init(options: reaper.Options = {}): reaper.Init {
   if (!isPlainObject(options)) {
-    throw new TypeError("reaperWrapper expected options to be a plain object.");
+    throw new TypeError("@cachemap/reaper expected options to be a plain object.");
   }
 
   return (callbacks: reaper.Callbacks) => new Reaper({ ...options, ...callbacks });

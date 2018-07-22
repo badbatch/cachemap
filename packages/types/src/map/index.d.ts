@@ -1,8 +1,4 @@
-import { DB } from "idb";
-
-export interface ConstructorOptions extends InitOptions {
-  indexedDB: DB;
-}
+export type ConstructorOptions = InitOptions;
 
 export interface InitOptions extends Options {
   name: string;
