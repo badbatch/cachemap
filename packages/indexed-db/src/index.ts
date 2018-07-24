@@ -151,7 +151,7 @@ export class IndexedDBStore implements core.Store {
   }
 }
 
-export default function init(options: indexedDB.Options): core.StoreInit {
+export default function init(options: indexedDB.Options = {}): core.StoreInit {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/indexedDB expected options to be a plain object.");
   }

@@ -18,7 +18,8 @@
   "types": "lib/types/index.d.ts",
   "keywords": [
     "cachemap",
-    "cache"
+    "cache",
+    "indexedDB"
   ],
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.44",

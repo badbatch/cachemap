@@ -1,7 +1,7 @@
 {
-  "name": "@cachemap/map",
+  "name": "@cachemap/worker",
   "version": "1.0.0",
-  "description": "The Cachemap Map module.",
+  "description": "The Cachemap Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/bad-batch/cachemap",
@@ -18,8 +18,7 @@
   "types": "lib/types/index.d.ts",
   "keywords": [
     "cachemap",
-    "cache",
-    "map"
+    "cache"
   ],
   "dependencies": {
     "@babel/polyfill": "7.0.0-beta.44"

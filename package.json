@@ -38,6 +38,7 @@
     "lint": "yarn run tslint && yarn run markdownLint",
     "markdownLint": "markdownlint README.md",
     "new-package": "new-package",
+    "new-package:post": "lerna bootstrap",
     "publish-cutoff": "publish-lerna-cutoff",
     "test": "yarn run lint && yarn run type-check && yarn run test:web && yarn run test:node",
     "test:node": "cross-env TS_NODE_TRANSPILE_ONLY=true TS_NODE_PROJECT=\"./tsconfig.test.json\" nyc mocha --opts \"./mocha.opts\"",
@@ -47,7 +48,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run test"
+      "pre-commit": "yarn run test"
     }
   },
   "dependencies": {
