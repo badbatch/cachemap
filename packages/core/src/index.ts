@@ -13,6 +13,10 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected options to ba a plain object."));
     }
 
+    if (!isString(options.name)) {
+      errors.push(new TypeError("@cachemap/core expected options.name to be a string."));
+    }
+
     if (!isFunction(options.store)) {
       errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
     }
@@ -102,6 +106,10 @@ export default class Core {
     return this._name;
   }
 
+  get usedHeapSize(): number {
+    return this._usedHeapSize;
+  }
+
   public async clear(): Promise<void> {
     try {
       this._store.clear();
@@ -145,7 +153,7 @@ export default class Core {
     }
   }
 
-  public async export(options: { keys?: string[], tag?: any } = {}): Promise<core.ExportResult> {
+  public async export(options: core.ExportOptions = {}): Promise<core.ExportResult> {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {

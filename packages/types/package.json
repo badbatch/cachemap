@@ -23,6 +23,7 @@
     "isomorphic"
   ],
   "dependencies": {
-    "cacheability": "^2.0.4"
+    "cacheability": "^2.0.4",
+    "promise-worker": "^1.1.1"
   }
 }

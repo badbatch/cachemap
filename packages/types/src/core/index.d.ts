@@ -1,5 +1,5 @@
-import Cacheability from "cacheability";
-import { ReaperWrapper } from "../reaper";
+import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
+import { reaper } from "../..";
 
 export interface CacheHeaders {
   cacheControl?: string;
@@ -12,6 +12,11 @@ export interface ConstructorOptions extends InitOptions {
 
 export interface DehydratedMetadata extends Metadata {
   cacheability: { metadata: CacheabilityMetadata };
+}
+
+export interface ExportOptions {
+  keys?: string[];
+  tag?: any;
 }
 
 export interface ExportResult {
@@ -27,7 +32,7 @@ export interface ImportOptions {
 export interface InitOptions {
   disableCacheInvalidation?: boolean;
   name: string;
-  reaper?: ReaperWrapper;
+  reaper?: reaper.Init;
   sharedCache?: boolean;
   store: StoreInit;
   sortComparator?(a: any, b: any): number;

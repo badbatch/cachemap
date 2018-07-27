@@ -1,4 +1,4 @@
-import { Metadata, PlainObject } from "../core";
+import { core } from "../..";
 
 export interface Callbacks {
   deleteCallback: DeleteCallback;
@@ -16,7 +16,7 @@ export type DeleteCallback = (key: string, options?: { hash?: boolean }) => Prom
 
 export type Init = (callbacks: Callbacks) => Reaper;
 
-export type MetadataCallback = () => Metadata[];
+export type MetadataCallback = () => core.Metadata[];
 
 export interface Options {
   interval?: number;
@@ -25,7 +25,7 @@ export interface Options {
 
 export class Reaper {
   constructor(options: ConstructorOptions)
-  public async cull(metadata: Metadata[]): Promise<void>;
+  public async cull(metadata: core.Metadata[]): Promise<void>;
   public start(): void;
   public stop(): void;
 }
