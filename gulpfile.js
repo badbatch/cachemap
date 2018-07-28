@@ -1,4 +1,3 @@
-const del = require('del');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
@@ -8,24 +7,19 @@ const ts = require('gulp-typescript');
 const merge = require('merge-stream');
 const { Linter } = require('tslint');
 
-gulp.task('clean', () => {
-  del('lib/*', { force: true });
-  del('bundle/*', { force: true });
-  del('coverage/*', { force: true });
-  del('docs/*', { force: true });
-});
-
-const sources = ['src/**/*.ts', '!**/*.test.*', '!**/__test__/**'];
+const sources = ['**/*.ts', '!**/*.test.*', '!**/__test__/**'];
 
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', { module: 'commonjs' });
+  const packagePath = `${process.env.LERNA_ROOT_PATH}/packages/${process.env.LERNA_PACKAGE_NAME}`;
+  process.chdir(packagePath);
 
   return gulp.src(sources)
     .pipe(sourcemaps.init())
     .pipe(tsProject())
     .pipe(babel())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('lib/main'))
+    .pipe(gulp.dest('./lib/main'))
     .on('error', () => process.exit(1));
 });
 

@@ -5,7 +5,7 @@
       "presets": [
         ["@babel/preset-env", {
           "modules": false,
-          "targets": { "browsers": "last 4 versions" },
+          "targets": { "browsers": "last 2 versions" },
           "useBuiltIns": "usage"
         }],
         "@babel/preset-stage-0"
@@ -24,7 +24,7 @@
     "main": {
       "presets": [
         ["@babel/preset-env", {
-          "targets": { "node": "6" },
+          "targets": { "node": "8" },
           "useBuiltIns": "usage"
         }],
         "@babel/preset-stage-0"
@@ -34,7 +34,7 @@
       "presets": [
         ["@babel/preset-env", {
           "modules": false,
-          "targets": { "node": "6" },
+          "targets": { "node": "8" },
           "useBuiltIns": "usage"
         }],
         "@babel/preset-stage-0"
@@ -42,17 +42,10 @@
     }
   },
   "ignore": [
-    ".nyc_output",
-    ".vscode",
-    "bundle",
-    "coverage",
-    "docs",
-    "lib",
-    "node_modules",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "**/*.test.*"
   ],
   "plugins": [
-    "lodash",
-    "@babel/plugin-proposal-decorators"
+    "lodash"
   ]
 }

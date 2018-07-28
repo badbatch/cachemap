@@ -3,7 +3,7 @@
   "cache": true,
   "exclude": ["**/*.d.ts", "**/*.test.*", "**/__test__/**"],
   "extension": [".ts"],
-  "include": ["src/**/*"],
+  "include": ["packages/**/*"],
   "instrument": true,
   "report-dir": "./coverage/node",
   "reporter": ["json", "lcov", "text-summary"],

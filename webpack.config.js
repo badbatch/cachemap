@@ -20,12 +20,6 @@ webpackConfig.plugins.push(
 );
 
 module.exports = {
-  entry: {
-    cachemap: './src/cachemap/index.ts',
-    'default-cachemap': './src/default-cachemap/index.ts',
-    'worker-cachemap': './src/worker-cachemap/index.ts',
-    'worker-cachemap.worker': './src/worker.ts',
-  },
   mode: 'production',
   module: {
     rules: [{

@@ -24,10 +24,14 @@
   "scripts": {
     "analyze:bundle": "webpack-bundle-analyzer \"bundle/stats.json\" \"lib/umd\" --mode static --report \"bundle/report.html\" --no-open",
     "build": "yarn run clean && yarn run test && yarn run compile && yarn run analyze:bundle && yarn run document",
-    "clean": "gulp clean",
+    "clean": "yarn run clean:modules && yarn run clean:libs && yarn run clean:repo",
+    "clean:modules": "lerna exec --parallel -- del node_modules",
+    "clean:libs": "lerna exec --parallel -- del lib",
+    "clean:packages": "lerna exec --parallel -- del lib node_modules",
+    "clean:repo": "del node_modules",
     "compile": "yarn run compile:main && yarn run compile:types && yarn run compile:module && yarn run compile:browser && yarn run compile:umd",
     "compile:browser": "cross-env BABEL_ENV=browser gulp browser",
-    "compile:main": "cross-env BABEL_ENV=main gulp main",
+    "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- tsc && babel --out-dir lib/main --source-maps",
     "compile:module": "cross-env BABEL_ENV=module gulp module",
     "compile:types": "gulp types",
     "compile:umd": "cross-env BABEL_ENV=browser webpack",
@@ -51,31 +55,14 @@
       "pre-commit": "yarn run test"
     }
   },
-  "dependencies": {
-    "@babel/polyfill": "7.0.0-beta.44",
-    "cacheability": "^2.0.1",
-    "fakeredis": "^2.0.0",
-    "idb": "^2.1.3",
-    "md5": "^2.2.1",
-    "object-sizeof": "^1.2.0",
-    "promise-worker": "^1.1.1",
-    "redis": "^2.8.0"
-  },
-  "peerDependencies": {
-    "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.17.5"
-  },
   "devDependencies": {
     "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-decorators": "7.0.0-beta.44",
     "@babel/preset-env": "7.0.0-beta.44",
     "@babel/preset-stage-0": "7.0.0-beta.44",
     "@types/chai": "^4.1.4",
     "@types/lodash": "^4.14.110",
-    "@types/md5": "^2.1.32",
     "@types/mocha": "^5.2.4",
     "@types/node": "^10.5.1",
-    "@types/redis": "^2.8.6",
     "@types/sinon": "^5.0.1",
     "@types/sinon-chai": "^3.2.0",
     "awesome-typescript-loader": "^5.2.0",
@@ -85,7 +72,7 @@
     "codecov": "^3.0.0",
     "cross-env": "^5.2.0",
     "cutoff": "^0.0.14",
-    "del": "^3.0.0",
+    "del-cli": "^1.1.0",
     "dotenv": "^6.0.0",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",

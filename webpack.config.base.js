@@ -6,7 +6,6 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       DEBUG: !!process.env.DEBUG,
       TEST_ENV: !!process.env.TEST_ENV,
-      WEB_ENV: true,
     }),
     new LodashModuleReplacementPlugin(),
   ],

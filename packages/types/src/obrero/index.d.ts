@@ -14,15 +14,16 @@ export interface ConstructorOptions {
 
 export interface CreateOptions {
   disableCacheInvalidation?: boolean;
+  maxHeapSize?: number;
   name: string;
-  reaper?: reaper.Options;
+  reaperOptions?: reaper.Options;
 }
 
 export interface InitOptions extends CreateOptions {
   workerFilename?: string;
 }
 
-export interface PostMessageOptions {
+export interface PostMessage {
   options?: CommonOptions | CreateOptions | core.ExportOptions | core.ImportOptions;
   key?: string;
   keys?: string[];

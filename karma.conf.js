@@ -17,8 +17,8 @@ module.exports = (config) => {
       reports: ['json', 'lcov', 'text-summary'],
     },
     files: [
-      'src/**/*.test.*',
-      'src/worker.ts',
+      'integration-tests/**/*.test.*',
+      'packages/obrero/worker.ts',
     ],
     frameworks: ['mocha', 'chai', 'sinon'],
     logLevel: config.LOG_INFO,
@@ -27,11 +27,11 @@ module.exports = (config) => {
     },
     port: 9876,
     preprocessors: {
-      'src/**/*.test.*': ['webpack', 'sourcemap'],
-      'src/worker.ts': ['webpack', 'sourcemap'],
+      'integration-tests/**/*.test.*': ['webpack', 'sourcemap'],
+      'packages/obrero/worker.ts': ['webpack', 'sourcemap'],
     },
     proxies: {
-      '/worker-cachemap.worker.js': '/base/src/worker.ts',
+      '/cachemap.worker.js': '/base/packages/obrero/worker.ts',
     },
     webpack: webpackConfig,
   });
