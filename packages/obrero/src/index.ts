@@ -5,7 +5,7 @@ import { isPlainObject, isString } from "lodash";
 import PromiseWorker from "promise-worker";
 import { CLEAR, CREATE, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, SET, SIZE } from "./constants";
 
-export class Obrero {
+export default class Obrero {
   public static async init(options: obrero.InitOptions): Promise<Obrero> {
     const errors: TypeError[] = [];
 

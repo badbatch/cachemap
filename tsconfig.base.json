@@ -4,8 +4,6 @@
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "lib": [
       "dom",
       "dom.iterable",

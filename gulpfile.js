@@ -11,8 +11,6 @@ const sources = ['**/*.ts', '!**/*.test.*', '!**/__test__/**'];
 
 gulp.task('main', () => {
   const tsProject = ts.createProject('tsconfig.json', { module: 'commonjs' });
-  const packagePath = `${process.env.LERNA_ROOT_PATH}/packages/${process.env.LERNA_PACKAGE_NAME}`;
-  process.chdir(packagePath);
 
   return gulp.src(sources)
     .pipe(sourcemaps.init())
