@@ -27,12 +27,13 @@
     "clean:libs": "lerna exec --parallel -- del-cli lib",
     "clean:packages": "lerna exec --parallel -- del-cli lib node_modules",
     "clean:repo": "del-cli node_modules",
-    "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- babel src --extensions \".ts\" --out-dir lib/main --source-maps",
+    "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- tsc --include **/*.ts --outDir lib/exnext",
     "cutoff": "lerna-cutoff",
-    "cutoff:post-version": "yarn run document",
+    "lint": "tslint --project tsconfig.json",
     "new-package": "new-package",
     "new-package:post": "lerna bootstrap",
-    "publish-cutoff": "publish-lerna-cutoff"
+    "publish-cutoff": "publish-lerna-cutoff",
+    "type-check": "tsc --noEmit"
   },
   "husky": {
     "hooks": {
