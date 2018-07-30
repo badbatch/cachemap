@@ -27,7 +27,7 @@
     "clean:libs": "lerna exec --parallel -- del-cli lib",
     "clean:packages": "lerna exec --parallel -- del-cli lib node_modules",
     "clean:repo": "del-cli node_modules",
-    "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- tsc --include **/*.ts --outDir lib/exnext",
+    "compile": "cross-env BABEL_ENV=main lerna exec --parallel -- babel src --out-dir lib --extensions \".ts,.tsx\"",
     "cutoff": "lerna-cutoff",
     "lint": "tslint --project tsconfig.json",
     "new-package": "new-package",
