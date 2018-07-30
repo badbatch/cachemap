@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "module": "esnext",
+  },
+  "exclude": [
+    "**/*.test.*",
+    "**/__test__/**",
+    "**/lib/**",
+    "**/node_modules/**"
+  ],
+  "include": [
+    "**/*"
+  ]
+}
