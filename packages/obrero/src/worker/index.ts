@@ -4,7 +4,7 @@ import reaper from "@cachemap/reaper";
 import { core, obrero } from "@cachemap/types";
 import { isString } from "lodash";
 import registerPromiseWorker from "promise-worker/register";
-import { CLEAR, CREATE, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, SET, SIZE } from "./constants";
+import { CLEAR, CREATE, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, SET, SIZE } from "../constants";
 
 let cachemap: Core;
 

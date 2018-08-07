@@ -1,1 +1,1 @@
-export { default } from "./src";
+export { default, MapStore } from "./src";

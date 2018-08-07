@@ -1,1 +1,1 @@
-export { default } from "./src";
+export { default, LocalStorageStore } from "./src";
