@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@babel/polyfill@7.0.0-beta.44":
-  version "7.0.0-beta.44"
-  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.0.0-beta.44.tgz#6bbcddebd8f28f1040b9a78fdac7dc515356e5dc"
+"@babel/polyfill@^7.0.0-beta.55":
+  version "7.0.0-beta.56"
+  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.0.0-beta.56.tgz#6942d474d0e9cee7124477df11e97ba192764919"
   dependencies:
-    core-js "^2.5.3"
+    core-js "^2.5.7"
     regenerator-runtime "^0.11.1"
 
-core-js@^2.5.3:
+core-js@^2.5.7:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 

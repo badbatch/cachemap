@@ -21,7 +21,7 @@
     "redis"
   ],
   "dependencies": {
-    "@babel/polyfill": "7.0.0-beta.44",
+    "@babel/polyfill": "^7.0.0-beta.55",
     "fakeredis": "^2.0.0",
     "redis": "^2.8.0"
   },

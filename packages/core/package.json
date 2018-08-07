@@ -22,7 +22,7 @@
     "core"
   ],
   "dependencies": {
-    "@babel/polyfill": "7.0.0-beta.44",
+    "@babel/polyfill": "^7.0.0-beta.55",
     "cacheability": "^2.0.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0"
