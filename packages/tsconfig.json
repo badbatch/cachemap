@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.settings.json",
+  "references": [
+      { "path": "./core" },
+      { "path": "./indexed-db" },
+      { "path": "./local-storage" },
+      { "path": "./map" },
+      { "path": "./reaper" },
+      { "path": "./redis" },
+      { "path": "./worker" }
+  ]
+}

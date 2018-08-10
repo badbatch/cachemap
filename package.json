@@ -34,7 +34,7 @@
     "compile:browser": "cross-env BABEL_ENV=browser lerna exec --parallel -- babel ./src --out-dir ./lib/browser --extensions \".ts\"",
     "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- babel ./src --out-dir ./lib/main --extensions \".ts\"",
     "compile:module": "cross-env BABEL_ENV=module lerna exec --parallel -- babel ./src --out-dir ./lib/module --extensions \".ts\"",
-    "compile:types": "tsc --build",
+    "compile:types": "tsc --build ./packages",
     "copy:defs": "lerna exec --parallel -- copyfiles --up 2 ./src/defs/* ./lib/types/defs",
     "cutoff": "lerna-cutoff",
     "init": "yarn && yarn run bootstrap",
