@@ -16,9 +16,15 @@ export type DeleteCallback = (key: string, options?: { hash?: boolean }) => Prom
 
 export type Init = (callbacks: Callbacks) => Reaper;
 
-export type MetadataCallback = () => core.Metadata[];
+export type MetadataCallback = () => coreDefs.Metadata[];
 
 export interface Options {
   interval?: number;
   start?: boolean;
+}
+
+export interface Reaper {
+  cull(metadata: coreDefs.Metadata[]): Promise<void>;
+  start(): void;
+  stop(): void;
 }
