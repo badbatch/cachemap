@@ -1,12 +1,11 @@
 {
-  "extends": "./tsconfig.base",
-  "compilerOptions": {
-    "module": "esnext",
-  },
-  "exclude": [
-    "**/*.test.*",
-    "**/__test__/**",
-    "**/lib/**",
-    "**/node_modules/**"
+  "references": [
+      { "path": "./packages/core" },
+      { "path": "./packages/indexed-db" },
+      { "path": "./packages/local-storage" },
+      { "path": "./packages/map" },
+      { "path": "./packages/reaper" },
+      { "path": "./packages/redis" },
+      { "path": "./packages/worker" }
   ]
 }

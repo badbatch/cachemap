@@ -20,8 +20,11 @@
     "cache",
     "redis"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.55",
+    "@babel/polyfill": "^7.0.0-beta.56",
     "fakeredis": "^2.0.0",
     "redis": "^2.8.0"
   },
@@ -29,7 +32,7 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@cachemap/types": "1.0.0",
+    "@cachemap/core": "1.0.0",
     "@types/redis": "^2.8.6"
   }
 }

@@ -21,8 +21,11 @@
     "cache",
     "core"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.55",
+    "@babel/polyfill": "^7.0.0-beta.56",
     "cacheability": "^2.0.4",
     "md5": "^2.2.1",
     "object-sizeof": "^1.2.0"
@@ -32,7 +35,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@cachemap/types": "1.0.0",
     "@types/md5": "^2.1.32"
   }
 }
