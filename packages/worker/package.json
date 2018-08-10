@@ -1,5 +1,5 @@
 {
-  "name": "@cachemap/obrero",
+  "name": "@cachemap/worker",
   "version": "1.0.0",
   "description": "The Cachemap Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
