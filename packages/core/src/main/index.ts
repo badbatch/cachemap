@@ -124,6 +124,10 @@ export default class Core {
     return this._name;
   }
 
+  get storeType(): string {
+    return this._store.type;
+  }
+
   get usedHeapSize(): number {
     return this._usedHeapSize;
   }

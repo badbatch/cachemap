@@ -26,7 +26,7 @@ registerPromiseWorker(async (message: PostMessage): Promise<PostMessageResult> =
       cachemap = await Core.init({
         ...otherOptions,
         reaper: reaper(reaperOptions),
-        store:  indexedDB({ maxHeapSize }),
+        store: indexedDB({ maxHeapSize }),
       });
       return filterProps(cachemap);
     } catch (error) {
