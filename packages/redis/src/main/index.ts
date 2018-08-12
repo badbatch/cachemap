@@ -9,7 +9,7 @@ export class RedisStore implements coreDefs.Store {
     const { fast, maxHeapSize, mock, name, ...otherProps } = options;
 
     try {
-      const client = mock ? createClient(otherProps) : fakeRedis.createClient({ ...otherProps, fast });
+      const client = mock ? fakeRedis.createClient({ ...otherProps, fast }) : createClient(otherProps);
       return new RedisStore({ client, maxHeapSize, name });
     } catch (error) {
       return Promise.reject(error);
