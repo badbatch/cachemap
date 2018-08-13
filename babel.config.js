@@ -11,15 +11,21 @@ module.exports = (api) => {
     targets = { node: '8' };
   }
 
-  return {
-    comments: false,
-    ignore: [
+  let ignore = [];
+
+  if (env !== 'test') {
+    ignore = [
       '**/*.d.ts',
       '**/*.test.*',
       '**/__test__/**',
       '**/lib/**',
       '**/node_modules/**',
-    ],
+    ];
+  }
+
+  return {
+    comments: false,
+    ignore,
     plugins: [
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       '@babel/plugin-proposal-function-sent',
