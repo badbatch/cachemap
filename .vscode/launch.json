@@ -18,8 +18,7 @@
         "--opts", "./mocha.opts"
       ],
       "env": {
-        "NODE_ENV": "test",
-        "TS_NODE_PROJECT": "./tsconfig.json"
+        "BABEL_ENV": "test"
       },
       "stopOnEntry": false,
       "protocol": "inspector",

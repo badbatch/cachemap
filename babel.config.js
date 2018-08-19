@@ -1,6 +1,6 @@
 module.exports = (api) => {
   const env = api.env();
-  const modules = env === 'main' ? 'commonjs' : false;
+  const modules = env === 'main' || env === 'test' ? 'commonjs' : false;
   let targets;
 
   if (env === 'browser') {
