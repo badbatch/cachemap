@@ -9,6 +9,7 @@
     "interface-name": [true, "never-prefix"],
     "no-implicit-dependencies": false,
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "no-namespace": true,
     "no-submodule-imports": [true, "promise-worker/register"],
     "no-this-assignment": [true, { "allowed-names": ["_this"] }],
     "no-var-requires": false,

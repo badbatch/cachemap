@@ -7,8 +7,8 @@ import {
   isString,
   isUndefined,
 } from "lodash";
-import * as md5 from "md5";
-import * as sizeof from "object-sizeof";
+import md5 from "md5";
+import sizeof from "object-sizeof";
 import {
   CacheHeaders,
   ConstructorOptions,

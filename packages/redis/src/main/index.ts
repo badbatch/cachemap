@@ -1,5 +1,5 @@
 import { coreDefs } from "@cachemap/core";
-import * as fakeRedis from "fakeredis";
+import fakeRedis from "fakeredis";
 import { isNumber, isPlainObject } from "lodash";
 import { createClient, RedisClient } from "redis";
 import { ConstructorOptions, InitOptions, Options } from "../defs";
