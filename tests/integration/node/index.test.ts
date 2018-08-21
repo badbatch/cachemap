@@ -1,4 +1,4 @@
-import Core from "@cachemap/core";
+import Core, { coreDefs } from "@cachemap/core";
 import redis, { RedisStore } from "@cachemap/redis";
 import Cacheability from "cacheability";
 import { expect } from "chai";
@@ -60,6 +60,7 @@ describe("Adding an entry into the cachemap", () => {
       expect(metadata.lastAccessed).to.be.a("number");
       expect(metadata.lastUpdated).to.be.a("number");
       expect(metadata.size).to.be.a("number");
+      expect(metadata.updatedCount).to.equal(0);
     });
 
     it("The set method should store the key/value pair", async () => {
@@ -69,8 +70,11 @@ describe("Adding an entry into the cachemap", () => {
   });
 
   context("When a matching entry does exist", () => {
+    let metadata: coreDefs.Metadata;
+
     before(async () => {
       await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true });
+      metadata = { ...cachemap.metadata[0] };
       await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hash: true });
     });
 
@@ -80,15 +84,15 @@ describe("Adding an entry into the cachemap", () => {
 
     it("The set method should update the existing entry's metadata", async () => {
       expect(cachemap.metadata).lengthOf(1);
-      const metadata = cachemap.metadata[0];
-      expect(metadata.accessedCount).to.equal(0);
-      expect(metadata.added).to.be.a("number");
-      expect(metadata.cacheability).to.be.instanceOf(Cacheability);
-      expect(metadata.key).to.equal(md5(key));
-      expect(metadata.lastAccessed).to.be.a("number");
-      expect(metadata.lastUpdated).to.be.a("number");
-      expect(metadata.size).to.be.a("number");
-      expect(metadata.updatedCount).to.equal(1);
+      const updatedMetadata = cachemap.metadata[0];
+      expect(updatedMetadata.accessedCount).to.equal(0);
+      expect(updatedMetadata.added).to.equal(metadata.added);
+      expect(updatedMetadata.cacheability.metadata.ttl >= metadata.cacheability.metadata.ttl).to.equal(true);
+      expect(updatedMetadata.key).to.equal(metadata.key);
+      expect(updatedMetadata.lastAccessed).to.equal(metadata.lastAccessed);
+      expect(updatedMetadata.lastUpdated >= metadata.lastUpdated).to.equal(true);
+      expect(updatedMetadata.size).to.equal(metadata.size);
+      expect(updatedMetadata.updatedCount).to.equal(1);
     });
 
     it("The set method should overwrite the existing entry's key/value pair", async () => {
@@ -228,6 +232,93 @@ describe("Removing an entry from the cachemap", () => {
     it("The delete method should return a rejected promise with the reason", async () => {
       try {
         await cachemap.delete(key, { hash: true });
+      } catch (error) {
+        expect(error.message).to.equal(message);
+      }
+    });
+  });
+});
+
+describe("Retrieving an entry from the cachemap", () => {
+  const ID = "136-7317";
+  const key: string = testData[ID].url;
+  const value: PlainObject = testData[ID].body;
+  const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+  let cachemap: Core;
+
+  before(async () => {
+    cachemap = await Core.init({
+      name: "node-integration-tests",
+      store: redis({ mock: true }),
+    });
+  });
+
+  context("When a matching entry does not exist", () => {
+    let entry;
+
+    before(async () => {
+      entry = await cachemap.get(key, { hash: true });
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The get method should return undefined", async () => {
+      expect(entry).to.equal(undefined);
+    });
+  });
+
+  context("When a matching entry exists", () => {
+    let metadata: coreDefs.Metadata;
+    let entry;
+
+    before(async () => {
+      await cachemap.set(key, value, { cacheHeaders, hash: true });
+      metadata = { ...cachemap.metadata[0] };
+      entry = await cachemap.get(key, { hash: true });
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The get method should return the entry value", async () => {
+      expect(entry).to.deep.equal(value);
+    });
+
+    it("The get method should update the existing entry's metadata", async () => {
+      expect(cachemap.metadata).lengthOf(1);
+      const updatedMetadata = cachemap.metadata[0];
+      expect(updatedMetadata.accessedCount).to.equal(1);
+      expect(updatedMetadata.added).to.equal(metadata.added);
+      expect(updatedMetadata.cacheability).to.be.instanceOf(Cacheability);
+      expect(updatedMetadata.key).to.equal(md5(key));
+      expect(updatedMetadata.lastAccessed >= metadata.lastAccessed).to.equal(true);
+      expect(updatedMetadata.lastUpdated).to.equal(metadata.lastUpdated);
+      expect(updatedMetadata.size).to.equal(metadata.size);
+      expect(updatedMetadata.updatedCount).to.equal(0);
+    });
+  });
+
+  context("When the store throws an exception", () => {
+    const message = "Oops, there seems to be a problem";
+    let stub: sinon.SinonStub;
+
+    before(async () => {
+      const redisStore: RedisStore = get(cachemap, ["_store"]);
+      const error = new Error(message);
+      stub = sinon.stub(redisStore, "get").rejects(error);
+    });
+
+    after(async () => {
+      stub.restore();
+      await cachemap.clear();
+    });
+
+    it("The get method should return a rejected promise with the reason", async () => {
+      try {
+        await cachemap.get(key, { hash: true });
       } catch (error) {
         expect(error.message).to.equal(message);
       }

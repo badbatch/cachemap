@@ -195,7 +195,7 @@ export default class Core {
     }
   }
 
-  public async get(key: string, options: { hash?: boolean } = {}): Promise<void> {
+  public async get(key: string, options: { hash?: boolean } = {}): Promise<any> {
     const errors: TypeError[] = [];
 
     if (!isString(key)) {

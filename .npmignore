@@ -18,6 +18,7 @@ lerna.json
 mocha.opts
 package-lock.json
 sonar-project.properties
+test-setup.*
 tsconfig.*
 tslint.*
 webpack.*

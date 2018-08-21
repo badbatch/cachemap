@@ -127,7 +127,7 @@ export default class CoreWorker {
     key: string,
     value: any,
     options: { cacheHeaders?: coreDefs.CacheHeaders, hash?: boolean, tag?: any } = {},
-  ): Promise<void> {
+  ): Promise<any> {
     try {
       const { metadata, usedHeapSize } = await this._postMessage({ key, options, type: SET, value });
       this._setProps({ metadata, usedHeapSize });
