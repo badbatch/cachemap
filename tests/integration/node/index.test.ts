@@ -325,3 +325,135 @@ describe("Retrieving an entry from the cachemap", () => {
     });
   });
 });
+
+describe("Checking if the cachemap has an entry", () => {
+  const ID = "136-7317";
+  const key: string = testData[ID].url;
+  const value: PlainObject = testData[ID].body;
+  const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+  let cachemap: Core;
+
+  before(async () => {
+    cachemap = await Core.init({
+      name: "node-integration-tests",
+      store: redis({ mock: true }),
+    });
+  });
+
+  context("When a matching entry does not exist", () => {
+    let exists: boolean | Cacheability;
+
+    before(async () => {
+      exists = await cachemap.has(key, { hash: true });
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The has method should return false", async () => {
+      expect(exists).to.equal(false);
+    });
+  });
+
+  context("When a matching entry exists", () => {
+    context("When the extry's cacheability is valid", () => {
+      let exists: boolean | Cacheability;
+
+      before(async () => {
+        await cachemap.set(key, value, { cacheHeaders, hash: true });
+        exists = await cachemap.has(key, { hash: true });
+      });
+
+      after(async () => {
+        await cachemap.clear();
+      });
+
+      it("The has method should return the entry's Cacheability instance", async () => {
+        expect(exists).to.be.instanceOf(Cacheability);
+      });
+    });
+
+    context("When the entry's cacheability is expired", () => {
+      const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      context("When deleteExpired is not passed in as an option", () => {
+        let exists: boolean | Cacheability;
+
+        before(async () => {
+          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          await delay(1000);
+          exists = await cachemap.has(key, { hash: true });
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("The has method should return the entry's Cacheability instance", async () => {
+          expect(exists).to.be.instanceOf(Cacheability);
+        });
+
+        it("The has method should not remove the entry metadata", async () => {
+          expect(cachemap.metadata).lengthOf(1);
+        });
+
+        it("The has method should not remove the key/value pair", async () => {
+          expect(await cachemap.size()).to.equal(2);
+          expect(await cachemap.get(key, { hash: true })).to.deep.equal(value);
+        });
+      });
+
+      context("When deleteExpired is passed in as an option", () => {
+        let exists: boolean | Cacheability;
+
+        before(async () => {
+          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          await delay(1000);
+          exists = await cachemap.has(key, { deleteExpired: true, hash: true });
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("The has method should return false", async () => {
+          expect(exists).to.equal(false);
+        });
+
+        it("The has method should remove the entry metadata", async () => {
+          expect(cachemap.metadata).lengthOf(0);
+        });
+
+        it("The has method should remove the key/value pair", async () => {
+          expect(await cachemap.size()).to.equal(1);
+          expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
+        });
+      });
+    });
+  });
+
+  context("When the store throws an exception", () => {
+    const message = "Oops, there seems to be a problem";
+    let stub: sinon.SinonStub;
+
+    before(async () => {
+      const redisStore: RedisStore = get(cachemap, ["_store"]);
+      const error = new Error(message);
+      stub = sinon.stub(redisStore, "has").rejects(error);
+    });
+
+    after(async () => {
+      stub.restore();
+      await cachemap.clear();
+    });
+
+    it("The has method should return a rejected promise with the reason", async () => {
+      try {
+        await cachemap.has(key, { hash: true });
+      } catch (error) {
+        expect(error.message).to.equal(message);
+      }
+    });
+  });
+});
