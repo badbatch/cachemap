@@ -457,3 +457,148 @@ describe("Checking if the cachemap has an entry", () => {
     });
   });
 });
+
+describe("Retrieving multiple entries from the cachemap", () => {
+  const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+  let cachemap: Core;
+
+  before(async () => {
+    cachemap = await Core.init({
+      name: "node-integration-tests",
+      store: redis({ mock: true }),
+    });
+  });
+
+  context("When no keys are passed in", () => {
+    let result: Array<[string, any]>;
+
+    before(async () => {
+      const keys = Object.keys(testData);
+
+      await Promise.all(keys.map((id) => {
+        return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      result = await cachemap.entries();
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The entries method should return all the key/value pair entries", () => {
+      expect(result).to.be.lengthOf(3);
+    });
+  });
+
+  context("When keys are passed in", () => {
+    let result: Array<[string, any]>;
+
+    before(async () => {
+      const ids = Object.keys(testData);
+      const hashedKeys: string[] = [];
+
+      await Promise.all(ids.map((id) => {
+        const url = testData[id].url;
+        hashedKeys.push(md5(url));
+        return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      result = await cachemap.entries(hashedKeys.slice(0, 2));
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The entries method should return the matching key/value pair entries", async () => {
+      expect(result).to.be.lengthOf(2);
+    });
+  });
+});
+
+describe("Retrieving multiple entries and their metadata from the cachemap", () => {
+  const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+  let cachemap: Core;
+
+  before(async () => {
+    cachemap = await Core.init({
+      name: "node-integration-tests",
+      store: redis({ mock: true }),
+    });
+  });
+
+  context("When no keys are passed in", () => {
+    let result: coreDefs.ExportResult;
+
+    before(async () => {
+      const keys = Object.keys(testData);
+
+      await Promise.all(keys.map((id) => {
+        return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      result = await cachemap.export();
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The export method should return all the key/value pair entries and their metadata", () => {
+      expect(result.entries).to.be.lengthOf(3);
+      expect(result.metadata).to.be.lengthOf(3);
+    });
+  });
+
+  context("When keys are passed in", () => {
+    let result: coreDefs.ExportResult;
+
+    before(async () => {
+      const ids = Object.keys(testData);
+      const hashedKeys: string[] = [];
+
+      await Promise.all(ids.map((id) => {
+        const url = testData[id].url;
+        hashedKeys.push(md5(url));
+        return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The export method should return the matching key/value pair entries and their metadata", async () => {
+      expect(result.entries).to.be.lengthOf(2);
+      expect(result.metadata).to.be.lengthOf(2);
+    });
+  });
+
+  context("When a tag is passed in", () => {
+    let result: coreDefs.ExportResult;
+
+    before(async () => {
+      const keys = Object.keys(testData);
+      const tags = ["alfa", "bravo", "charlie"];
+
+      await Promise.all(keys.map((id) => {
+        const tag = tags.pop();
+        return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true, tag });
+      }));
+
+      result = await cachemap.export({ tag: "alfa" });
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The export method should return the matching key/value pair entries and their metadata", async () => {
+      expect(result.entries).to.be.lengthOf(1);
+      expect(result.metadata).to.be.lengthOf(1);
+    });
+  });
+});

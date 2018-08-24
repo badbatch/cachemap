@@ -164,7 +164,7 @@ export default class Core {
   }
 
   public async entries(keys?: string[]): Promise<Array<[string, any]>> {
-    if (!keys || !isArray(keys)) {
+    if (keys && !isArray(keys)) {
       return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
     }
 
