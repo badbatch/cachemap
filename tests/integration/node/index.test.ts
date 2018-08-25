@@ -602,3 +602,60 @@ describe("Retrieving multiple entries and their metadata from the cachemap", () 
     });
   });
 });
+
+describe("Adding multiple entries and their metadata to the cachemap", () => {
+  const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+  let cachemap: Core;
+
+  before(async () => {
+    cachemap = await Core.init({
+      name: "node-integration-tests",
+      store: redis({ mock: true }),
+    });
+  });
+
+  context("When no matching entries exist", () => {
+    before(async () => {
+      const keys = Object.keys(testData);
+
+      await Promise.all(keys.map((id) => {
+        return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      const exported = await cachemap.export();
+      await cachemap.clear();
+      await cachemap.import(exported);
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The import method should add the key/value pair entries and their metadata", async () => {
+      expect(await cachemap.size()).to.equal(4);
+      expect(cachemap.metadata).to.be.lengthOf(3);
+    });
+  });
+
+  context("When matching entries exist", () => {
+    before(async () => {
+      const keys = Object.keys(testData);
+
+      await Promise.all(keys.map((id) => {
+        return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+      }));
+
+      const exported = await cachemap.export();
+      await cachemap.import(exported);
+    });
+
+    after(async () => {
+      await cachemap.clear();
+    });
+
+    it("The import method should add the key/value pair entries and their metadata", async () => {
+      expect(await cachemap.size()).to.equal(4);
+      expect(cachemap.metadata).to.be.lengthOf(3);
+    });
+  });
+});

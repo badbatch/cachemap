@@ -42,7 +42,7 @@
     "new-package": "new-package",
     "new-package:post": "yarn run bootstrap",
     "publish-cutoff": "publish-lerna-cutoff",
-    "test:integration:node": "cross-env BABEL_ENV=test nyc mocha --opts ./mocha.opts",
+    "test:integration:node": "cross-env BABEL_ENV=test mocha --opts ./mocha.opts",
     "type-check": "tsc --noEmit",
     "wipe": "yarn run wipe:packages && yarn run wipe:repo",
     "wipe:packages": "lerna exec --parallel -- del-cli ./yarn.lock ./node_modules",

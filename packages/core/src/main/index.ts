@@ -134,10 +134,10 @@ export default class Core {
 
   public async clear(): Promise<void> {
     try {
-      this._store.clear();
+      await this._store.clear();
       this._metadata = [];
       this._processing = [];
-      this._backupMetadata();
+      await this._backupMetadata();
     } catch (error) {
       Promise.reject(error);
     }
@@ -457,8 +457,9 @@ export default class Core {
     let filterd: Metadata[] = [];
 
     if (this._metadata.length) {
-      filterd = this._metadata.filter((metaOne) =>
-        !options.metadata.find((metaTwo) => metaOne.key === metaTwo.key));
+      filterd = this._metadata.filter((metadata) => {
+        return !options.metadata.find((optionsMetadata) => metadata.key === optionsMetadata.key);
+      });
     }
 
     try {
