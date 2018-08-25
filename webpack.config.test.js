@@ -1,14 +1,5 @@
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
-const webpackConfig = require('./webpack.config.base');
-
-webpackConfig.plugins.push(
-  new webpack.LoaderOptionsPlugin({
-    debug: true,
-  }),
-  new webpack.SourceMapDevToolPlugin({
-    test: /\.(tsx?|jsx?)$/,
-  }),
-);
 
 module.exports = {
   mode: 'development',
@@ -26,5 +17,16 @@ module.exports = {
       },
     }],
   },
-  ...webpackConfig,
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+    }),
+    new webpack.SourceMapDevToolPlugin({
+      test: /\.(tsx?|jsx?)$/,
+    }),
+    new LodashModuleReplacementPlugin(),
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+  },
 };

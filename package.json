@@ -117,9 +117,7 @@
     "ts-node": "^7.0.0",
     "tslint": "^5.9.1",
     "typescript": "^3.0.1",
-    "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "4.16.5",
-    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-cli": "^3.0.8"
   }
 }
