@@ -3,7 +3,7 @@ module.exports = (api) => {
   const modules = env === 'main' || env === 'test' ? 'commonjs' : false;
   let targets;
 
-  if (env === 'browser') {
+  if (env === 'web') {
     targets = { browsers: 'last 2 versions' };
   } else if (env === 'debug') {
     targets = { browsers: 'chrome >= 60' };

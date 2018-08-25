@@ -1,4 +1,3 @@
-const { resolve } = require('path');
 const webpackConfig = require('./webpack.config.test');
 
 module.exports = (config) => {
@@ -11,14 +10,8 @@ module.exports = (config) => {
     },
     colors: true,
     concurrency: Infinity,
-    coverageIstanbulReporter: {
-      dir: resolve(__dirname, 'coverage', 'web'),
-      fixWebpackSourcePaths: true,
-      reports: ['json', 'lcov', 'text-summary'],
-    },
     files: [
-      'integration-tests/**/*.test.*',
-      'packages/obrero/worker.ts',
+      'tests/integration/web/**/*.test.*',
     ],
     frameworks: ['mocha', 'chai', 'sinon'],
     logLevel: config.LOG_INFO,
@@ -27,11 +20,7 @@ module.exports = (config) => {
     },
     port: 9876,
     preprocessors: {
-      'integration-tests/**/*.test.*': ['webpack', 'sourcemap'],
-      'packages/obrero/worker.ts': ['webpack', 'sourcemap'],
-    },
-    proxies: {
-      '/cachemap.worker.js': '/base/packages/obrero/worker.ts',
+      'tests/integration/web/**/*.test.*': ['webpack', 'sourcemap'],
     },
     webpack: webpackConfig,
   });
