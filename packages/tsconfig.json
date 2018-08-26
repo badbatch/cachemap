@@ -3,11 +3,11 @@
   "files": [],
   "references": [
       { "path": "./core" },
+      { "path": "./core-worker" },
       { "path": "./indexed-db" },
       { "path": "./local-storage" },
       { "path": "./map" },
       { "path": "./reaper" },
-      { "path": "./redis" },
-      { "path": "./worker" }
+      { "path": "./redis" }
   ]
 }

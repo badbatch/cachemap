@@ -24,7 +24,7 @@ export default class CoreWorker {
       const filename = workerFilename || "cachemap.worker";
       const worker = new Worker(`${filename}.js`);
       const promiseWorker = new PromiseWorker(worker);
-      const instance = new CoreWorker({ promiseWorker, worker });
+      const instance = new CoreWorker({ name: otherOptions.name, promiseWorker, worker });
       const { metadata, usedHeapSize } = await instance._postMessage({ options: otherOptions, type: CREATE });
       instance._setProps({ metadata, usedHeapSize });
       return instance;
@@ -33,18 +33,25 @@ export default class CoreWorker {
     }
   }
 
+  public storeType = "indexedDB";
   private _metadata: coreDefs.Metadata[] = [];
+  private _name: string;
   private _promiseWorker: PromiseWorker;
   private _usedHeapSize: number = 0;
   private _worker: Worker;
 
   constructor(options: ConstructorOptions) {
+    this._name = options.name;
     this._promiseWorker = options.promiseWorker;
     this._worker = options.worker;
   }
 
   get metadata(): coreDefs.Metadata[] {
     return this._metadata;
+  }
+
+  get name(): string {
+    return this._name;
   }
 
   get usedHeapSize(): number {

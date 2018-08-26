@@ -9,6 +9,7 @@ export interface CommonOptions {
 }
 
 export interface ConstructorOptions {
+  name: string;
   promiseWorker: PromiseWorker;
   worker: Worker;
 }

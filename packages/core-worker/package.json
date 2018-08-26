@@ -1,7 +1,7 @@
 {
-  "name": "@cachemap/worker",
+  "name": "@cachemap/core-worker",
   "version": "1.0.0",
-  "description": "The Cachemap Worker module.",
+  "description": "The Cachemap Core Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/bad-batch/cachemap",
