@@ -13,7 +13,7 @@ module.exports = (api) => {
 
   let ignore = [];
 
-  if (env !== 'test') {
+  if (env !== 'test' && env !== 'debug') {
     ignore = [
       '**/*.d.ts',
       '**/*.test.*',

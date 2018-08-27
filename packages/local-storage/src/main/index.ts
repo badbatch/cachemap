@@ -42,8 +42,9 @@ export class LocalStorageStore implements coreDefs.Store {
   public async delete(key: string): Promise<boolean> {
     try {
       const builtKey = this._buildKey(key);
+      if (this._storage.getItem(builtKey) === null) return false;
       this._storage.removeItem(builtKey);
-      return this._storage.getItem(builtKey) === null;
+      return true;
     } catch (error) {
       return Promise.reject(error);
     }

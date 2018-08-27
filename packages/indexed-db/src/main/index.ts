@@ -57,10 +57,11 @@ export class IndexedDBStore implements coreDefs.Store {
 
   public async delete(key: string): Promise<boolean> {
     try {
+      if (await this.get(key) === undefined) return false;
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await tx.objectStore(this._name).delete(key);
       await tx.complete;
-      return await this.get(key) === undefined;
+      return true;
     } catch (error) {
       return Promise.reject(error);
     }
