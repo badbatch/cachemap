@@ -2,9 +2,7 @@ import Core, { coreDefs } from "@cachemap/core";
 import CoreWorker from "@cachemap/core-worker";
 import Cacheability from "cacheability";
 import { expect } from "chai";
-import { get } from "lodash";
 import md5 from "md5";
-import sinon from "sinon";
 import { testData } from "../../data";
 import { PlainObject, RunOptions } from "../../defs";
 
@@ -40,7 +38,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -134,30 +132,6 @@ export function run(
           expect(await cachemap.get(key, { hash: true })).to.deep.equal({ ...value, index: 1 });
         });
       });
-
-      context("When the store throws an exception", () => {
-        const message = "Oops, there seems to be a problem";
-        let stub: sinon.SinonStub;
-
-        before(async () => {
-          const cachemapStore: coreDefs.Store = get(cachemap, ["_store"]);
-          const error = new Error(message);
-          stub = sinon.stub(cachemapStore, "set").rejects(error);
-        });
-
-        after(async () => {
-          stub.restore();
-          await cachemap.clear();
-        });
-
-        it("The set method should return a rejected promise with the reason", async () => {
-          try {
-            await cachemap.set(key, value, { cacheHeaders, hash: true });
-          } catch (error) {
-            expect(error.message).to.equal(message);
-          }
-        });
-      });
     });
 
     describe("Removing an entry from the cachemap", () => {
@@ -170,7 +144,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -215,31 +189,6 @@ export function run(
           expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
         });
       });
-
-      context("When the store throws an exception", () => {
-        const message = "Oops, there seems to be a problem";
-        let stub: sinon.SinonStub;
-
-        before(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
-          const cachemapStore: coreDefs.Store = get(cachemap, ["_store"]);
-          const error = new Error(message);
-          stub = sinon.stub(cachemapStore, "delete").rejects(error);
-        });
-
-        after(async () => {
-          stub.restore();
-          await cachemap.clear();
-        });
-
-        it("The delete method should return a rejected promise with the reason", async () => {
-          try {
-            await cachemap.delete(key, { hash: true });
-          } catch (error) {
-            expect(error.message).to.equal(message);
-          }
-        });
-      });
     });
 
     describe("Retrieving an entry from the cachemap", () => {
@@ -252,7 +201,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -303,30 +252,6 @@ export function run(
           expect(updatedMetadata.updatedCount).to.equal(0);
         });
       });
-
-      context("When the store throws an exception", () => {
-        const message = "Oops, there seems to be a problem";
-        let stub: sinon.SinonStub;
-
-        before(async () => {
-          const cachemapStore: coreDefs.Store = get(cachemap, ["_store"]);
-          const error = new Error(message);
-          stub = sinon.stub(cachemapStore, "get").rejects(error);
-        });
-
-        after(async () => {
-          stub.restore();
-          await cachemap.clear();
-        });
-
-        it("The get method should return a rejected promise with the reason", async () => {
-          try {
-            await cachemap.get(key, { hash: true });
-          } catch (error) {
-            expect(error.message).to.equal(message);
-          }
-        });
-      });
     });
 
     describe("Checking if the cachemap has an entry", () => {
@@ -339,7 +264,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -435,30 +360,6 @@ export function run(
           });
         });
       });
-
-      context("When the store throws an exception", () => {
-        const message = "Oops, there seems to be a problem";
-        let stub: sinon.SinonStub;
-
-        before(async () => {
-          const cachemapStore: coreDefs.Store = get(cachemap, ["_store"]);
-          const error = new Error(message);
-          stub = sinon.stub(cachemapStore, "has").rejects(error);
-        });
-
-        after(async () => {
-          stub.restore();
-          await cachemap.clear();
-        });
-
-        it("The has method should return a rejected promise with the reason", async () => {
-          try {
-            await cachemap.has(key, { hash: true });
-          } catch (error) {
-            expect(error.message).to.equal(message);
-          }
-        });
-      });
     });
 
     describe("Retrieving multiple entries from the cachemap", () => {
@@ -468,7 +369,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -527,7 +428,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -613,7 +514,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
@@ -656,7 +557,7 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The import method should add the key/value pair entries and their metadata", async () => {
+        it("The import method should overwrite the matching key/value pair entries and their metadata", async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(4));
           expect(cachemap.metadata).to.be.lengthOf(3);
         });
