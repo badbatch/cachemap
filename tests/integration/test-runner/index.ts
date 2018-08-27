@@ -1,4 +1,5 @@
 import Core, { coreDefs } from "@cachemap/core";
+import CoreWorker from "@cachemap/core-worker";
 import Cacheability from "cacheability";
 import { expect } from "chai";
 import { get } from "lodash";
@@ -11,21 +12,17 @@ export function run(
   store: (options: any) => coreDefs.StoreInit,
   storeType: string,
   storeOptions: PlainObject = {},
-  { cachemapSize = (value) => value }: RunOptions = {},
+  { cachemapSize, init }: RunOptions,
 ): void {
   describe(`When store type is ${storeType}`, () => {
     describe("Creating an instance of the cachemap", () => {
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
-      });
-
-      it("The init method should return an instance of the Cachemap class", async () => {
-        expect(cachemap).to.be.instanceof(Core);
       });
 
       it(`The Cachemap instance store type should be '${storeType}'`, async () => {
@@ -38,10 +35,10 @@ export function run(
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -168,10 +165,10 @@ export function run(
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -250,10 +247,10 @@ export function run(
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -337,10 +334,10 @@ export function run(
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -466,10 +463,10 @@ export function run(
 
     describe("Retrieving multiple entries from the cachemap", () => {
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -525,10 +522,10 @@ export function run(
 
     describe("Retrieving multiple entries and their metadata from the cachemap", () => {
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
@@ -611,10 +608,10 @@ export function run(
 
     describe("Adding multiple entries and their metadata to the cachemap", () => {
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
-      let cachemap: Core;
+      let cachemap: Core | CoreWorker;
 
       before(async () => {
-        cachemap = await Core.init({
+        cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
         });
