@@ -3,12 +3,14 @@ import indexedDB from "@cachemap/indexed-db";
 import localStorage from "@cachemap/local-storage";
 import { run } from "../test-runner";
 
-run(indexedDB, "indexedDB", undefined, {
-  cachemapSize: (value) => value,
-  init: async (options: any) => Core.init(options),
-});
+run(
+  { cachemapSize: (value) => value, init: async (options: any) => Core.init(options) },
+  "indexedDB",
+  indexedDB,
+);
 
-run(localStorage, "localStorage", undefined, {
-  cachemapSize: (value) => value,
-  init: async (options: any) => Core.init(options),
-});
+run(
+  { cachemapSize: (value) => value, init: async (options: any) => Core.init(options) },
+  "localStorage",
+  localStorage,
+);

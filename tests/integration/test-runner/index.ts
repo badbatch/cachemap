@@ -9,10 +9,10 @@ import { testData } from "../../data";
 import { PlainObject, RunOptions } from "../../defs";
 
 export function run(
-  store: (options: any) => coreDefs.StoreInit,
-  storeType: string,
-  storeOptions: PlainObject = {},
   { cachemapSize, init }: RunOptions,
+  storeType: string,
+  store?: (options: any) => coreDefs.StoreInit,
+  storeOptions: PlainObject = {},
 ): void {
   describe(`When store type is ${storeType}`, () => {
     describe("Creating an instance of the cachemap", () => {
@@ -21,7 +21,7 @@ export function run(
       before(async () => {
         cachemap = await init({
           name: `${storeType}-integration-tests`,
-          store: store(storeOptions),
+          store: store && store(storeOptions),
         });
       });
 
