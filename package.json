@@ -55,7 +55,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run test"
+      "pre-commit": "yarn run lint && yarn run type-check && yarn run test:integration"
     }
   },
   "devDependencies": {
