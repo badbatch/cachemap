@@ -3,8 +3,6 @@
 An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.
 
 [![Build Status](https://travis-ci.org/bad-batch/cachemap.svg?branch=master)](https://travis-ci.org/bad-batch/cachemap)
-[![codecov](https://codecov.io/gh/bad-batch/cachemap/branch/master/graph/badge.svg)](https://codecov.io/gh/bad-batch/cachemap)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=sonarqube%3Acachemap&metric=alert_status)](https://sonarcloud.io/dashboard?id=sonarqube%3Acachemap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![npm version](https://badge.fury.io/js/cachemap.svg)](https://badge.fury.io/js/cachemap)
 [![dependencies Status](https://david-dm.org/bad-batch/cachemap/status.svg)](https://david-dm.org/bad-batch/cachemap)
