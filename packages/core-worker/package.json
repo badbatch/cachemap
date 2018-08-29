@@ -24,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.56",
+    "@babel/polyfill": "^7.0.0",
     "@cachemap/core": "^1.0.0",
     "@cachemap/indexed-db": "^1.0.0",
     "@cachemap/reaper": "^1.0.0",

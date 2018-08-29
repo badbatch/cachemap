@@ -21,7 +21,7 @@
     "cache"
   ],
   "dependencies": {
-    "@babel/polyfill": "^7.0.0-beta.56"
+    "@babel/polyfill": "^7.0.0"
   },
   "peerDependencies": {
     "lodash": "^4.17.5"
