@@ -92,8 +92,6 @@ export default class Core {
   private _usedHeapSize: number = 0;
 
   constructor(options: ConstructorOptions) {
-    this._delete.bind(this);
-
     if (isBoolean(options.disableCacheInvalidation)) {
       this._disableCacheInvalidation = options.disableCacheInvalidation;
     }
@@ -482,7 +480,7 @@ export default class Core {
 
   private _initializeReaper(reaperInit: ReaperInit): Reaper {
     return reaperInit({
-      deleteCallback: this._delete,
+      deleteCallback: (key: string, options: { hash?: boolean } = {}): Promise<boolean> => this._delete(key, options),
       metadataCallback: () => this._metadata,
     });
   }

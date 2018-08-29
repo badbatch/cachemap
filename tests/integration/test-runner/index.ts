@@ -1,10 +1,13 @@
 import Core, { coreDefs } from "@cachemap/core";
 import CoreWorker from "@cachemap/core-worker";
+import reaper from "@cachemap/reaper";
 import Cacheability from "cacheability";
 import { expect } from "chai";
 import md5 from "md5";
 import { testData } from "../../data";
 import { PlainObject, RunOptions } from "../../defs";
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function run(
   { cachemapSize, init }: RunOptions,
@@ -303,8 +306,6 @@ export function run(
         });
 
         context("When the entry's cacheability is expired", () => {
-          const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
           context("When deleteExpired is not passed in as an option", () => {
             let exists: boolean | Cacheability;
 
@@ -560,6 +561,72 @@ export function run(
         it("The import method should overwrite the matching key/value pair entries and their metadata", async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(4));
           expect(cachemap.metadata).to.be.lengthOf(3);
+        });
+      });
+    });
+
+    describe("When the reaper module is passed into the cachemap", () => {
+      const ID = "136-7317";
+      const key: string = testData[ID].url;
+      const value: PlainObject = testData[ID].body;
+      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=0" };
+      let cachemap: Core | CoreWorker;
+
+      context("When an entry's cacheability expires", () => {
+        before(async () => {
+          cachemap = await init({
+            name: `${storeType}-integration-tests`,
+            reaper: reaper({ interval: 500 }),
+            reaperOptions: { interval: 500 },
+            store: store && store({ ...storeOptions, maxHeapSize: 50 }),
+          });
+
+          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          await delay(1000);
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("The reaper should remove the key/value pair", async () => {
+          expect(await cachemap.size()).to.equal(cachemapSize(1));
+          expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
+        });
+
+        it("The reaper should remove the entry metadata", async () => {
+          expect(cachemap.metadata).lengthOf(0);
+        });
+      });
+
+      context("When the entries exceed the max heap size", () => {
+        let keys: string[];
+
+        before(async () => {
+          cachemap = await init({
+            name: `${storeType}-integration-tests`,
+            reaper: reaper(),
+            store: store && store({ ...storeOptions, maxHeapSize: 50 }),
+          });
+
+          keys = Object.keys(testData);
+
+          await Promise.all(keys.map((id) => {
+            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+          }));
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("The reaper should remove the necessary key/value pair", async () => {
+          expect(await cachemap.size()).to.equal(cachemapSize(3));
+          expect(await cachemap.get(key[2], { hash: true })).to.equal(undefined);
+        });
+
+        it("The reaper should remove the entry metadata", async () => {
+          expect(cachemap.metadata).lengthOf(2);
         });
       });
     });
