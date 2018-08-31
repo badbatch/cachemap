@@ -578,7 +578,7 @@ export function run(
             name: `${storeType}-integration-tests`,
             reaper: reaper({ interval: 500 }),
             reaperOptions: { interval: 500 },
-            store: store && store({ ...storeOptions, maxHeapSize: 50 }),
+            store: store && store(storeOptions),
           });
 
           await cachemap.set(key, value, { cacheHeaders, hash: true });
@@ -604,6 +604,7 @@ export function run(
 
         before(async () => {
           cachemap = await init({
+            maxHeapSize: 50,
             name: `${storeType}-integration-tests`,
             reaper: reaper(),
             store: store && store({ ...storeOptions, maxHeapSize: 50 }),
