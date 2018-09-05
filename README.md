@@ -90,7 +90,7 @@ import reaper from "@cachemap/reaper";
 
 The example above initializes a persisted cache for the browser that uses IndexedDB as its database and checks for
 stale entries every five minutes. No other configuration is required, as long as the browser supports IndexedDB you are
-good to go. For a full list of Cachemap configuration options, see the `@cachemap/core` [documentaiton](packages/core).
+good to go. For a full list of configuration options, see the `@cachemap/core` [documentation](packages/core).
 
 ### Checking, getting, setting, deleting
 
@@ -100,10 +100,10 @@ second. The `set` method, meanwhile, excepts a key as the first argument, a valu
 options.
 
 An important `set` option is `cacheHeaders`. This takes a Headers instance or a plain object of HTTP headers. The etag
-and cache-control directives are filtered out and stored against the entry. The directives are used to generate a
+and cache-control directives are filtered out and stored against an entry. The directives are used to generate a
 TTL (time to live) that the Cachemap checks whenever accessing the entry.
 
-Another important `set` option is `tag`. This allows you to store an arbitrary identifier against the entry, like a
+Another important `set` option is `tag`. This allows you to store an arbitrary identifier against an entry, like a
 request or session ID. These identifiers can come in handy, for example, if you want to export all entries added during
 a particular request.
 
@@ -131,7 +131,7 @@ useful if the original keys are long strings such as URLs or GraphQL queries.
 })();
 ```
 
-For full details of each method's signature, see the `@cachemap/core` [documentaiton](packages/core).
+For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core).
 
 ### Bulk operations
 
@@ -141,21 +141,52 @@ all entries or a subset based on specific keys or a particular tag.
 
 This could be used to pass entries between a Cachemap on the server and one on the browser. The server Cachemap could,
 for example, export all entries and metadata added during a request to the server, then this could be serialised and
-embedded in the response body where it could be imported into the browser Cachemap.
+embedded in the response body, from where it could be imported into the browser Cachemap.
 
 ```typescript
 (async () => {
+  const requestID = "6d91e84e-b14c-11e8-96f8-529269fb1459";
 
+  const entries = await cachemapOne.export({ tag: requestID });
+  // returns { entries: Array<[string, any]>, metadata: Array<{ [key: string]: any }> }
+
+  await cachemapTwo.import(entries);
+  // returns undefined
 })();
 ```
 
-## Custom interfaces
+For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core).
 
-The Cachemap has 'stores' to work with Redis, IndexedDB, LocalStorage and a in-memory Map, but you can create
-custom ones to work with key/value databases of your choosing, as long as the 'stores' you create adhere to the
-structure below.
+### Web worker
+
+To free up the browser's main thread you can run the Cachemap in a web worker, all you need is the
+`@cachemap/core-worker` package. This includes the `@cachemap/core`, `@cachemap/indexed-db` and `@cachemap/reaper`
+packages. Apart from the static `init` method, the `@cachemap/core-worker` class method signatures are identical to
+those of the `@cachemap/core` class.
 
 ```typescript
+import CoreWorker from "@cachemap/core-worker";
+
+(async () => {
+  const cachemap = await CoreWorker.init({
+    name: `foobar`,
+    reaper: { interval: 300000 },
+  });
+})();
+```
+
+The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
+reaper modules. For a full list of configuration options, see the `@cachemap/core-worker`
+[documentation](packages/core-worker).
+
+### Custom modules
+
+The Cachemap comes with four store modules, but you can create additional stores to work with key/value databases of
+your choosing. A store just has to adhere to the structure below. If you are writing in Typescript, you can even
+import the `Store` interface from `@cachemap/core` and have your store class implement that.
+
+```typescript
+// store class must implement this interface
 interface Store {
   readonly maxHeapSize: number;
   readonly name: string;
@@ -170,6 +201,7 @@ interface Store {
   size(): Promise<number>;
 }
 
+// async function must return store instance
 type StoreInit = (options: { name: string }) => Promise<Store>;
 ```
 
