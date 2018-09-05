@@ -67,7 +67,7 @@ key/value databases.
 
 The Cachemap is initialized using the async static `init` method on the `@cachemap/core` class, don't initialize
 it using the traditional class constructor. The reason for this is so the Cachemap can wait for asynchronous tasks,
-like establishing dataabase connections, to complete before returning an instance of the Cachemap.
+like establishing database connections, to complete before returning an instance of the Cachemap.
 
 Any modules you want to add to the Cachemap, like the store to work with your database or the reaper to
 prune stale entries, are passed as properties into the `init` method. The default export of each module is a
