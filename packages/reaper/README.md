@@ -1,1 +1,7 @@
-# work in progress
+# @cachemap/reaper
+
+## Installation
+
+```bash
+yarn add @cachemap/reaper
+```

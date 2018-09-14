@@ -1,1 +1,7 @@
-# work in progress
+# @cachemap/redis
+
+## Installation
+
+```bash
+yarn add @cachemap/redis
+```
