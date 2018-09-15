@@ -40,7 +40,7 @@
     "cutoff": "lerna-cutoff",
     "debug:integration:web": "cross-env BABEL_ENV=debug TEST_ENV=web karma start --no-single-run --reporters progress --browsers",
     "debug:integration:worker": "cross-env BABEL_ENV=debug TEST_ENV=worker karma start --no-single-run --reporters progress --browsers",
-    "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --mode file --excludePrivate --excludeExternals --hideGenerator --theme markdown --tsconfig ./tsconfig.docs.json",
+    "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
     "init": "yarn && yarn run bootstrap && yarn run compile",
     "lint": "tslint --project ./tsconfig.json",
     "new-package": "new-package",
