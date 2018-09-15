@@ -1,0 +1,36 @@
+{
+  "name": "@cachemap/reaper",
+  "version": "1.0.0",
+  "description": "The Cachemap reaper module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/bad-batch/cachemap",
+  "bugs": {
+    "url": "https://github.com/bad-batch/cachemap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bad-batch/cachemap"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "cachemap",
+    "cache",
+    "reaper"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  },
+  "peerDependencies": {
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@cachemap/core": "^1.0.0"
+  }
+}

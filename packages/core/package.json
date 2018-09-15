@@ -1,0 +1,40 @@
+{
+  "name": "@cachemap/core",
+  "version": "1.0.0",
+  "description": "The Cachemap core module.",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/bad-batch/cachemap",
+  "bugs": {
+    "url": "https://github.com/bad-batch/cachemap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bad-batch/cachemap"
+  },
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.js",
+  "browser": "lib/browser/index.js",
+  "types": "lib/types/index.d.ts",
+  "keywords": [
+    "cachemap",
+    "cache",
+    "core"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "cacheability": "^2.0.4",
+    "md5": "^2.2.1",
+    "object-sizeof": "^1.2.0"
+  },
+  "peerDependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.1.32"
+  }
+}

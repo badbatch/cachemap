@@ -1,5 +1,15 @@
-const { resolve } = require('path');
 const webpackConfig = require('./webpack.config.test');
+
+const WORKER_PATH = 'packages/core-worker/src/worker/index.ts';
+const files = [`tests/integration/${process.env.TEST_ENV}/**/*.test.*`];
+const preprocessors = { [`tests/integration/${process.env.TEST_ENV}/**/*.test.*`]: ['webpack', 'sourcemap'] };
+const proxies = {};
+
+if (process.env.TEST_ENV === 'worker') {
+  files.push(WORKER_PATH);
+  preprocessors[WORKER_PATH] = ['webpack', 'sourcemap'];
+  proxies['/cachemap.worker.js'] = `/base/${WORKER_PATH}`;
+}
 
 module.exports = (config) => {
   config.set({
@@ -11,28 +21,15 @@ module.exports = (config) => {
     },
     colors: true,
     concurrency: Infinity,
-    coverageIstanbulReporter: {
-      dir: resolve(__dirname, 'coverage', 'web'),
-      fixWebpackSourcePaths: true,
-      reports: ['json', 'lcov', 'text-summary'],
-    },
-    files: [
-      'src/**/*.test.*',
-      'src/worker.ts',
-    ],
+    files,
     frameworks: ['mocha', 'chai', 'sinon'],
     logLevel: config.LOG_INFO,
     mime: {
       'text/x-typescript': ['ts', 'tsx'],
     },
     port: 9876,
-    preprocessors: {
-      'src/**/*.test.*': ['webpack', 'sourcemap'],
-      'src/worker.ts': ['webpack', 'sourcemap'],
-    },
-    proxies: {
-      '/worker-cachemap.worker.js': '/base/src/worker.ts',
-    },
+    preprocessors,
+    proxies,
     webpack: webpackConfig,
   });
 };
