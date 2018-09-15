@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Cachemap core module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

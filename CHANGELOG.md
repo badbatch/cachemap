@@ -1,3 +1,9 @@
+#### 1.0.1 (2018-09-15)
+
+##### Bug Fixes
+
+* **docs:**  Removing docs folder from npm ignore as readme is now in that folder. ([89d29b6e](https://github.com/bad-batch/cachemap/commit/89d29b6e489c64fdd43d6891660641a9374ae331))
+
 ## 1.0.0 (2018-09-15)
 
 ##### Breaking Changes
