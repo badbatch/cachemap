@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@cachemap/core": "^1.0.0",
-    "@cachemap/indexed-db": "^1.0.0",
-    "@cachemap/reaper": "^1.0.0",
+    "@cachemap/core": "1.0.0",
+    "@cachemap/indexed-db": "1.0.0",
+    "@cachemap/reaper": "1.0.0",
     "cacheability": "^2.0.4",
     "promise-worker": "^1.0.0"
   },

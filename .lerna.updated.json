@@ -1,0 +1,44 @@
+[
+  {
+    "name": "@cachemap/core-worker",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\core-worker"
+  },
+  {
+    "name": "@cachemap/core",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\core"
+  },
+  {
+    "name": "@cachemap/indexed-db",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\indexed-db"
+  },
+  {
+    "name": "@cachemap/local-storage",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\local-storage"
+  },
+  {
+    "name": "@cachemap/map",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\map"
+  },
+  {
+    "name": "@cachemap/reaper",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\reaper"
+  },
+  {
+    "name": "@cachemap/redis",
+    "version": "1.0.0",
+    "private": false,
+    "location": "C:\\Users\\dylan\\Documents\\workspaces\\cachemap\\packages\\redis"
+  }
+]

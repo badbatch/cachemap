@@ -37,7 +37,7 @@
     "compile:main": "cross-env BABEL_ENV=main lerna exec --parallel -- babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module lerna exec --parallel -- babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:types": "tsc --build ./packages",
-    "cutoff": "lerna-cutoff",
+    "cutoff": "cutoff-lerna",
     "debug:integration:web": "cross-env BABEL_ENV=debug TEST_ENV=web karma start --no-single-run --reporters progress --browsers",
     "debug:integration:worker": "cross-env BABEL_ENV=debug TEST_ENV=worker karma start --no-single-run --reporters progress --browsers",
     "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",

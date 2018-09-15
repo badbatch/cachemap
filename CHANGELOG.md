@@ -1,3 +1,9 @@
+## 1.0.0 (2018-09-15)
+
+##### Breaking Changes
+
+* **repository:**  Split modules into separate packages in monorepo ([#21](https://github.com/bad-batch/cachemap/pull/21)) ([88530d7d](https://github.com/bad-batch/cachemap/commit/88530d7db14fee7e18eec5361c8f590554ff6d62))
+
 ### 0.3.0 (2018-07-02)
 
 ##### Chores
