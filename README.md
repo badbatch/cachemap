@@ -4,7 +4,6 @@ An extensible, isomorphic cache with modules to interface with Redis, LocalStora
 
 [![Build Status](https://travis-ci.org/bad-batch/cachemap.svg?branch=master)](https://travis-ci.org/bad-batch/cachemap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![npm version](https://badge.fury.io/js/cachemap.svg)](https://badge.fury.io/js/cachemap)
 [![dependencies Status](https://david-dm.org/bad-batch/cachemap/status.svg)](https://david-dm.org/bad-batch/cachemap)
 [![devDependencies Status](https://david-dm.org/bad-batch/cachemap/dev-status.svg)](https://david-dm.org/bad-batch/cachemap?type=dev)
 
