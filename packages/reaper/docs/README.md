@@ -1,5 +1,5 @@
 
-#  @cachemap/reaper
+#  Documentation
 
 ## Index
 
@@ -33,7 +33,7 @@
 
 **Ƭ DeleteCallback**: *`function`*
 
-*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L15)*
 
 #### Type declaration
 ▸(key: *`string`*, options?: * `undefined` &#124; `object`*): `Promise`<`boolean`>
@@ -54,7 +54,7 @@ ___
 
 **Ƭ Init**: *`function`*
 
-*Defined in [defs/index.ts:17](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L17)*
 
 #### Type declaration
 ▸(callbacks: *[Callbacks](interfaces/callbacks.md)*): [Reaper](classes/reaper.md)
@@ -74,7 +74,7 @@ ___
 
 **Ƭ MetadataCallback**: *`function`*
 
-*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L19)*
 
 #### Type declaration
 ▸(): `Metadata`[]
@@ -91,7 +91,7 @@ ___
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): [Init](#init)
 
-*Defined in [main/index.ts:70](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/main/index.ts#L70)*
 
 **Parameters:**
 

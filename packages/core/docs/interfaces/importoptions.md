@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [ImportOptions](../interfaces/importoptions.md)
+[Documentation](../README.md) > [ImportOptions](../interfaces/importoptions.md)
 
 # Interface: ImportOptions
 
@@ -23,7 +23,7 @@
 
 **● entries**: *`Array`<[`string`, `any`]>*
 
-*Defined in [defs/index.ts:83](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L83)*
+*Defined in [defs/index.ts:83](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L83)*
 
 ___
 <a id="metadata"></a>
@@ -32,7 +32,7 @@ ___
 
 **● metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:84](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L84)*
+*Defined in [defs/index.ts:84](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L84)*
 
 ___
 

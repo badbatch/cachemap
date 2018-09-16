@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [ExportOptions](../interfaces/exportoptions.md)
+[Documentation](../README.md) > [ExportOptions](../interfaces/exportoptions.md)
 
 # Interface: ExportOptions
 
@@ -23,7 +23,7 @@
 
 **● keys**: *`string`[]*
 
-*Defined in [defs/index.ts:73](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L73)*
 
 ___
 <a id="tag"></a>
@@ -32,7 +32,7 @@ ___
 
 **● tag**: *`any`*
 
-*Defined in [defs/index.ts:74](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L74)*
 
 ___
 

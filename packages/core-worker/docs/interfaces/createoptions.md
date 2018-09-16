@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [CreateOptions](../interfaces/createoptions.md)
+[Documentation](../README.md) > [CreateOptions](../interfaces/createoptions.md)
 
 # Interface: CreateOptions
 
@@ -28,7 +28,7 @@
 **● disableCacheInvalidation**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:18](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L18)*
 
 ___
 <a id="maxheapsize"></a>
@@ -38,7 +38,7 @@ ___
 **● maxHeapSize**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L19)*
 
 ___
 <a id="name"></a>
@@ -47,7 +47,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:20](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L20)*
+*Defined in [defs/index.ts:20](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L20)*
 
 ___
 <a id="reaperoptions"></a>
@@ -56,7 +56,7 @@ ___
 
 **● reaperOptions**: *`reaperDefs.Options`*
 
-*Defined in [defs/index.ts:21](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L21)*
 
 ___
 

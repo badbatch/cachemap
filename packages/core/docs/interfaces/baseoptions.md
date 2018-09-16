@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [BaseOptions](../interfaces/baseoptions.md)
+[Documentation](../README.md) > [BaseOptions](../interfaces/baseoptions.md)
 
 # Interface: BaseOptions
 
@@ -34,7 +34,7 @@
 **● disableCacheInvalidation**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:55](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L55)*
 
 ___
 <a id="name"></a>
@@ -43,7 +43,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:56](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L56)*
 
 ___
 <a id="reaper"></a>
@@ -52,7 +52,7 @@ ___
 
 **● reaper**: *[ReaperInit](../#reaperinit)*
 
-*Defined in [defs/index.ts:57](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L57)*
 
 ___
 <a id="sharedcache"></a>
@@ -62,7 +62,7 @@ ___
 **● sharedCache**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:58](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L58)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 ▸ **sortComparator**(a: *`any`*, b: *`any`*): `number`
 
-*Defined in [defs/index.ts:59](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L59)*
 
 **Parameters:**
 

@@ -1,4 +1,4 @@
-[@cachemap/indexed-db](../README.md) > [Options](../interfaces/options.md)
+[Documentation](../README.md) > [Options](../interfaces/options.md)
 
 # Interface: Options
 
@@ -25,7 +25,7 @@
 **● maxHeapSize**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/indexed-db/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/defs/index.ts#L12)*
 
 ___
 

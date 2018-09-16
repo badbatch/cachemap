@@ -1,5 +1,5 @@
 
-#  @cachemap/indexed-db
+#  Documentation
 
 ## Index
 
@@ -27,7 +27,7 @@
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:156](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/indexed-db/src/main/index.ts#L156)*
+*Defined in [main/index.ts:156](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/main/index.ts#L156)*
 
 **Parameters:**
 

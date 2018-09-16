@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [CoreWorker](../classes/coreworker.md)
+[Documentation](../README.md) > [CoreWorker](../classes/coreworker.md)
 
 # Class: CoreWorker
 
@@ -46,7 +46,7 @@
 
 ⊕ **new CoreWorker**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [CoreWorker](coreworker.md)
 
-*Defined in [main/index.ts:41](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L41)*
+*Defined in [main/index.ts:41](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L41)*
 
 **Parameters:**
 
@@ -66,7 +66,7 @@ ___
 
 **● storeType**: *`string`* = "indexedDB"
 
-*Defined in [main/index.ts:36](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L36)*
+*Defined in [main/index.ts:36](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L36)*
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 getmetadata(): `Metadata`[]
 
-*Defined in [main/index.ts:49](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L49)*
+*Defined in [main/index.ts:49](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L49)*
 
 **Returns:** `Metadata`[]
 
@@ -89,7 +89,7 @@ ___
 
 getname(): `string`
 
-*Defined in [main/index.ts:53](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L53)*
+*Defined in [main/index.ts:53](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L53)*
 
 **Returns:** `string`
 
@@ -100,7 +100,7 @@ ___
 
 getusedHeapSize(): `number`
 
-*Defined in [main/index.ts:57](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L57)*
+*Defined in [main/index.ts:57](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L57)*
 
 **Returns:** `number`
 
@@ -114,7 +114,7 @@ ___
 
 ▸ **clear**(): `Promise`<`void`>
 
-*Defined in [main/index.ts:61](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L61)*
+*Defined in [main/index.ts:61](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L61)*
 
 **Returns:** `Promise`<`void`>
 
@@ -125,7 +125,7 @@ ___
 
 ▸ **delete**(key: *`string`*, options?: *`object`*): `Promise`<`boolean`>
 
-*Defined in [main/index.ts:70](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L70)*
 
 **Parameters:**
 
@@ -143,7 +143,7 @@ ___
 
 ▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
 
-*Defined in [main/index.ts:80](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L80)*
+*Defined in [main/index.ts:80](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L80)*
 
 **Parameters:**
 
@@ -160,7 +160,7 @@ ___
 
 ▸ **export**(options?: *`ExportOptions`*): `Promise`<`ExportResult`>
 
-*Defined in [main/index.ts:90](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L90)*
+*Defined in [main/index.ts:90](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L90)*
 
 **Parameters:**
 
@@ -177,7 +177,7 @@ ___
 
 ▸ **get**(key: *`string`*, options?: *`object`*): `Promise`<`any`>
 
-*Defined in [main/index.ts:100](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L100)*
+*Defined in [main/index.ts:100](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L100)*
 
 **Parameters:**
 
@@ -195,7 +195,7 @@ ___
 
 ▸ **has**(key: *`string`*, options?: *`object`*): `Promise`< `false` &#124; `Cacheability`>
 
-*Defined in [main/index.ts:110](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L110)*
+*Defined in [main/index.ts:110](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L110)*
 
 **Parameters:**
 
@@ -213,7 +213,7 @@ ___
 
 ▸ **import**(options: *`ImportOptions`*): `Promise`<`void`>
 
-*Defined in [main/index.ts:124](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L124)*
+*Defined in [main/index.ts:124](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L124)*
 
 **Parameters:**
 
@@ -230,7 +230,7 @@ ___
 
 ▸ **set**(key: *`string`*, value: *`any`*, options?: *`object`*): `Promise`<`any`>
 
-*Defined in [main/index.ts:133](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L133)*
+*Defined in [main/index.ts:133](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L133)*
 
 **Parameters:**
 
@@ -249,7 +249,7 @@ ___
 
 ▸ **size**(): `Promise`<`number`>
 
-*Defined in [main/index.ts:146](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L146)*
+*Defined in [main/index.ts:146](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L146)*
 
 **Returns:** `Promise`<`number`>
 
@@ -260,7 +260,7 @@ ___
 
 ▸ **terminate**(): `void`
 
-*Defined in [main/index.ts:156](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L156)*
+*Defined in [main/index.ts:156](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L156)*
 
 **Returns:** `void`
 
@@ -271,7 +271,7 @@ ___
 
 ▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[CoreWorker](coreworker.md)>
 
-*Defined in [main/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/main/index.ts#L9)*
+*Defined in [main/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/main/index.ts#L9)*
 
 **Parameters:**
 

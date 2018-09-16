@@ -1,4 +1,4 @@
-[@cachemap/redis](../README.md) > [Options](../interfaces/options.md)
+[Documentation](../README.md) > [Options](../interfaces/options.md)
 
 # Interface: Options
 
@@ -124,7 +124,7 @@ ___
 **● fast**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:14](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L14)*
 
 ___
 <a id="host"></a>
@@ -146,7 +146,7 @@ ___
 **● maxHeapSize**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L15)*
 
 ___
 <a id="max_attempts"></a>
@@ -168,7 +168,7 @@ ___
 **● mock**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:16](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L16)*
 
 ___
 <a id="no_ready_check"></a>
