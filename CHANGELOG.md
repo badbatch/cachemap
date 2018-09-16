@@ -1,3 +1,13 @@
+#### 1.0.2 (2018-09-16)
+
+##### Documentation Changes
+
+* **readme:**  Remove repo npm package link ([f51be43a](https://github.com/bad-batch/cachemap/commit/f51be43ae2cc589dc3356514d514df0dfeea8ec1))
+
+##### Bug Fixes
+
+* **packages:**  update readme structure ([#22](https://github.com/bad-batch/cachemap/pull/22)) ([a29d46fe](https://github.com/bad-batch/cachemap/commit/a29d46fef8da017c043f087e331cd655648d02b5))
+
 #### 1.0.1 (2018-09-15)
 
 ##### Bug Fixes

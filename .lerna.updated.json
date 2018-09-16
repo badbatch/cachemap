@@ -2,36 +2,36 @@
   {
     "name": "@cachemap/core",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/core-worker",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/indexed-db",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/local-storage",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/map",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/reaper",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   {
     "name": "@cachemap/redis",
     "private": false,
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 ]
