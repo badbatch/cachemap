@@ -1,3 +1,9 @@
+#### 1.0.3 (2018-09-16)
+
+##### Documentation Changes
+
+* **readme:**  updating link to parent repo readme. ([7f050c09](https://github.com/bad-batch/cachemap/commit/7f050c094ae67790106e9ae47c2b6a2a22222198))
+
 #### 1.0.2 (2018-09-16)
 
 ##### Documentation Changes

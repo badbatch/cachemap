@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/core-worker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The Cachemap Core Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "@cachemap/core": "1.0.2",
-    "@cachemap/indexed-db": "1.0.2",
-    "@cachemap/reaper": "1.0.2",
+    "@cachemap/core": "1.0.3",
+    "@cachemap/indexed-db": "1.0.3",
+    "@cachemap/reaper": "1.0.3",
     "cacheability": "^2.0.4",
     "promise-worker": "^1.0.0"
   },
