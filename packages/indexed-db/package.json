@@ -19,7 +19,7 @@
   "keywords": [
     "cachemap",
     "cache",
-    "indexedDB"
+    "IndexedDB"
   ],
   "publishConfig": {
     "access": "public"

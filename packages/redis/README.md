@@ -13,7 +13,7 @@ yarn add @cachemap/redis
 
 ## Usage
 
-Read the Cachemap [usage guide](../../README.md).
+Read the Cachemap [usage guide](../../README.md#usage).
 
 ## Documentation
 

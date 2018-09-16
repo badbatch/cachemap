@@ -18,7 +18,8 @@
   "types": "lib/types/index.d.ts",
   "keywords": [
     "cachemap",
-    "cache"
+    "cache",
+    "LocalStorage"
   ],
   "publishConfig": {
     "access": "public"
