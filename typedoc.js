@@ -6,6 +6,7 @@ module.exports = {
   ignoreCompilerErrors: true,
   includeDeclarations: false,
   mode: 'file',
+  name: 'Documentation',
   readme: 'none',
   theme: 'markdown',
 };

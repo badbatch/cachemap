@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [Core](../classes/core.md)
+[Documentation](../README.md) > [Core](../classes/core.md)
 
 # Class: Core
 
@@ -42,7 +42,7 @@
 
 ⊕ **new Core**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [Core](core.md)
 
-*Defined in [main/index.ts:92](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L92)*
+*Defined in [main/index.ts:92](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L92)*
 
 **Parameters:**
 
@@ -62,7 +62,7 @@ ___
 
 getmetadata(): [Metadata](../interfaces/metadata.md)[]
 
-*Defined in [main/index.ts:117](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L117)*
+*Defined in [main/index.ts:117](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L117)*
 
 **Returns:** [Metadata](../interfaces/metadata.md)[]
 
@@ -73,7 +73,7 @@ ___
 
 getname(): `string`
 
-*Defined in [main/index.ts:121](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L121)*
+*Defined in [main/index.ts:121](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L121)*
 
 **Returns:** `string`
 
@@ -84,7 +84,7 @@ ___
 
 getstoreType(): `string`
 
-*Defined in [main/index.ts:125](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L125)*
+*Defined in [main/index.ts:125](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L125)*
 
 **Returns:** `string`
 
@@ -95,7 +95,7 @@ ___
 
 getusedHeapSize(): `number`
 
-*Defined in [main/index.ts:129](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L129)*
+*Defined in [main/index.ts:129](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L129)*
 
 **Returns:** `number`
 
@@ -109,7 +109,7 @@ ___
 
 ▸ **clear**(): `Promise`<`void`>
 
-*Defined in [main/index.ts:133](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L133)*
+*Defined in [main/index.ts:133](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L133)*
 
 **Returns:** `Promise`<`void`>
 
@@ -120,7 +120,7 @@ ___
 
 ▸ **delete**(key: *`string`*, options?: *`object`*): `Promise`<`boolean`>
 
-*Defined in [main/index.ts:144](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L144)*
+*Defined in [main/index.ts:144](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L144)*
 
 **Parameters:**
 
@@ -138,7 +138,7 @@ ___
 
 ▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
 
-*Defined in [main/index.ts:164](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L164)*
+*Defined in [main/index.ts:164](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L164)*
 
 **Parameters:**
 
@@ -155,7 +155,7 @@ ___
 
 ▸ **export**(options?: *[ExportOptions](../interfaces/exportoptions.md)*): `Promise`<[ExportResult](../interfaces/exportresult.md)>
 
-*Defined in [main/index.ts:176](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L176)*
+*Defined in [main/index.ts:176](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L176)*
 
 **Parameters:**
 
@@ -172,7 +172,7 @@ ___
 
 ▸ **get**(key: *`string`*, options?: *`object`*): `Promise`<`any`>
 
-*Defined in [main/index.ts:196](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L196)*
+*Defined in [main/index.ts:196](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L196)*
 
 **Parameters:**
 
@@ -190,7 +190,7 @@ ___
 
 ▸ **has**(key: *`string`*, options?: *`object`*): `Promise`< `false` &#124; `Cacheability`>
 
-*Defined in [main/index.ts:216](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L216)*
+*Defined in [main/index.ts:216](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L216)*
 
 **Parameters:**
 
@@ -208,7 +208,7 @@ ___
 
 ▸ **import**(options: *[ImportOptions](../interfaces/importoptions.md)*): `Promise`<`void`>
 
-*Defined in [main/index.ts:239](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L239)*
+*Defined in [main/index.ts:239](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L239)*
 
 **Parameters:**
 
@@ -225,7 +225,7 @@ ___
 
 ▸ **set**(key: *`string`*, value: *`any`*, options?: *`object`*): `Promise`<`void`>
 
-*Defined in [main/index.ts:264](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L264)*
+*Defined in [main/index.ts:264](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L264)*
 
 **Parameters:**
 
@@ -244,7 +244,7 @@ ___
 
 ▸ **size**(): `Promise`<`number`>
 
-*Defined in [main/index.ts:288](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L288)*
+*Defined in [main/index.ts:288](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L288)*
 
 **Returns:** `Promise`<`number`>
 
@@ -255,7 +255,7 @@ ___
 
 ▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[Core](core.md)>
 
-*Defined in [main/index.ts:27](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/main/index.ts#L27)*
 
 **Parameters:**
 

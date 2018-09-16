@@ -1,5 +1,5 @@
 
-#  @cachemap/redis
+#  Documentation
 
 ## Index
 
@@ -27,7 +27,7 @@
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:153](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/main/index.ts#L153)*
+*Defined in [main/index.ts:153](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 

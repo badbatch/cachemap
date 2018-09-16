@@ -1,4 +1,4 @@
-[@cachemap/redis](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
+[Documentation](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -24,7 +24,7 @@
 
 **● client**: *`RedisClient`*
 
-*Defined in [defs/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L4)*
 
 ___
 <a id="maxheapsize"></a>
@@ -34,7 +34,7 @@ ___
 **● maxHeapSize**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:5](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L5)*
 
 ___
 <a id="name"></a>
@@ -43,7 +43,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:6](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/redis/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L6)*
 
 ___
 

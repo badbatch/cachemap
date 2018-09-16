@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [PostMessageResult](../interfaces/postmessageresult.md)
+[Documentation](../README.md) > [PostMessageResult](../interfaces/postmessageresult.md)
 
 # Interface: PostMessageResult
 
@@ -24,7 +24,7 @@
 
 **● metadata**: *`Metadata`[]*
 
-*Defined in [defs/index.ts:37](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
 <a id="result"></a>
@@ -33,7 +33,7 @@ ___
 
 **● result**: *`any`*
 
-*Defined in [defs/index.ts:38](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L38)*
 
 ___
 <a id="usedheapsize"></a>
@@ -42,7 +42,7 @@ ___
 
 **● usedHeapSize**: *`number`*
 
-*Defined in [defs/index.ts:39](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
 

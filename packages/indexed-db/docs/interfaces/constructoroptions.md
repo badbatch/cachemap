@@ -1,4 +1,4 @@
-[@cachemap/indexed-db](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
+[Documentation](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -26,7 +26,7 @@
 
 **● indexedDB**: *`DB`*
 
-*Defined in [defs/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/indexed-db/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/defs/index.ts#L4)*
 
 ___
 <a id="maxheapsize"></a>
@@ -38,7 +38,7 @@ ___
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/indexed-db/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/defs/index.ts#L12)*
 
 ___
 <a id="name"></a>
@@ -49,7 +49,7 @@ ___
 
 *Inherited from [InitOptions](initoptions.md).[name](initoptions.md#name)*
 
-*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/indexed-db/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/defs/index.ts#L8)*
 
 ___
 

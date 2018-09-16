@@ -1,5 +1,5 @@
 
-#  @cachemap/core-worker
+#  Documentation
 
 ## Index
 
@@ -45,7 +45,7 @@
 
 **● CLEAR**: *"clear"* = "clear"
 
-*Defined in [constants/index.ts:2](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L2)*
+*Defined in [constants/index.ts:2](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L2)*
 
 ___
 <a id="create"></a>
@@ -54,7 +54,7 @@ ___
 
 **● CREATE**: *"create"* = "create"
 
-*Defined in [constants/index.ts:1](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L1)*
+*Defined in [constants/index.ts:1](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L1)*
 
 ___
 <a id="delete"></a>
@@ -63,7 +63,7 @@ ___
 
 **● DELETE**: *"delete"* = "delete"
 
-*Defined in [constants/index.ts:3](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L3)*
+*Defined in [constants/index.ts:3](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L3)*
 
 ___
 <a id="entries"></a>
@@ -72,7 +72,7 @@ ___
 
 **● ENTRIES**: *"entries"* = "entries"
 
-*Defined in [constants/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L4)*
+*Defined in [constants/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L4)*
 
 ___
 <a id="export"></a>
@@ -81,7 +81,7 @@ ___
 
 **● EXPORT**: *"export"* = "export"
 
-*Defined in [constants/index.ts:5](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L5)*
+*Defined in [constants/index.ts:5](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L5)*
 
 ___
 <a id="get"></a>
@@ -90,7 +90,7 @@ ___
 
 **● GET**: *"get"* = "get"
 
-*Defined in [constants/index.ts:6](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L6)*
+*Defined in [constants/index.ts:6](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L6)*
 
 ___
 <a id="has"></a>
@@ -99,7 +99,7 @@ ___
 
 **● HAS**: *"has"* = "has"
 
-*Defined in [constants/index.ts:7](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L7)*
+*Defined in [constants/index.ts:7](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L7)*
 
 ___
 <a id="import"></a>
@@ -108,7 +108,7 @@ ___
 
 **● IMPORT**: *"import"* = "import"
 
-*Defined in [constants/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L8)*
+*Defined in [constants/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L8)*
 
 ___
 <a id="set"></a>
@@ -117,7 +117,7 @@ ___
 
 **● SET**: *"set"* = "set"
 
-*Defined in [constants/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L9)*
+*Defined in [constants/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L9)*
 
 ___
 <a id="size"></a>
@@ -126,7 +126,7 @@ ___
 
 **● SIZE**: *"size"* = "size"
 
-*Defined in [constants/index.ts:10](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/constants/index.ts#L10)*
+*Defined in [constants/index.ts:10](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/constants/index.ts#L10)*
 
 ___
 <a id="cachemap"></a>
@@ -135,7 +135,7 @@ ___
 
 **● cachemap**: *`Core`*
 
-*Defined in [worker/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/worker/index.ts#L9)*
+*Defined in [worker/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/worker/index.ts#L9)*
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 ▸ **filterProps**(__namedParameters: *`object`*): `object`
 
-*Defined in [worker/index.ts:11](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/worker/index.ts#L11)*
+*Defined in [worker/index.ts:11](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/worker/index.ts#L11)*
 
 **Parameters:**
 
@@ -164,7 +164,7 @@ ___
 
 ▸ **requiresKey**(type: *`string`*): `boolean`
 
-*Defined in [worker/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/worker/index.ts#L15)*
+*Defined in [worker/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/worker/index.ts#L15)*
 
 **Parameters:**
 

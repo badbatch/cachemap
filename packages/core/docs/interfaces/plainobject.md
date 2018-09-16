@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [PlainObject](../interfaces/plainobject.md)
+[Documentation](../README.md) > [PlainObject](../interfaces/plainobject.md)
 
 # Interface: PlainObject
 

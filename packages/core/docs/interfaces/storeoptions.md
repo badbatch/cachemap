@@ -1,4 +1,4 @@
-[@cachemap/core](../README.md) > [StoreOptions](../interfaces/storeoptions.md)
+[Documentation](../README.md) > [StoreOptions](../interfaces/storeoptions.md)
 
 # Interface: StoreOptions
 
@@ -22,7 +22,7 @@
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:132](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core/src/defs/index.ts#L132)*
+*Defined in [defs/index.ts:132](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L132)*
 
 ___
 

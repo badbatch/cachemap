@@ -1,4 +1,4 @@
-[@cachemap/reaper](../README.md) > [Options](../interfaces/options.md)
+[Documentation](../README.md) > [Options](../interfaces/options.md)
 
 # Interface: Options
 
@@ -24,7 +24,7 @@
 **● interval**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:22](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/defs/index.ts#L22)*
+*Defined in [defs/index.ts:22](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L22)*
 
 ___
 <a id="start"></a>
@@ -34,7 +34,7 @@ ___
 **● start**: * `undefined` &#124; `false` &#124; `true`
 *
 
-*Defined in [defs/index.ts:23](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/reaper/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L23)*
 
 ___
 

@@ -89,7 +89,8 @@ import reaper from "@cachemap/reaper";
 
 The example above initializes a persisted cache for the browser that uses IndexedDB as its database and checks for
 stale entries every five minutes. No other configuration is required, as long as the browser supports IndexedDB you are
-good to go. For a full list of configuration options, see the `@cachemap/core` [documentation](packages/core).
+good to go. For a full list of configuration options, see the `@cachemap/core`
+[documentation](packages/core/docs/README.md).
 
 ### Checking, getting, setting, deleting
 
@@ -130,7 +131,7 @@ useful if the original keys are long strings such as URLs or GraphQL queries.
 })();
 ```
 
-For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core).
+For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core/docs/README.md).
 
 ### Bulk operations
 
@@ -154,7 +155,7 @@ embedded in the response body, from where it could be imported into the browser 
 })();
 ```
 
-For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core).
+For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core/docs/README.md).
 
 ### Web worker
 
@@ -176,7 +177,7 @@ import CoreWorker from "@cachemap/core-worker";
 
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
 reaper modules. For a full list of configuration options, see the `@cachemap/core-worker`
-[documentation](packages/core-worker).
+[documentation](packages/core-worker/docs/README.md).
 
 ### Custom modules
 

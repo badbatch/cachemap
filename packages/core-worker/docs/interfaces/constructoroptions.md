@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
+[Documentation](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
 
 # Interface: ConstructorOptions
 
@@ -24,7 +24,7 @@
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L12)*
 
 ___
 <a id="promiseworker"></a>
@@ -33,7 +33,7 @@ ___
 
 **● promiseWorker**: *`PromiseWorker`*
 
-*Defined in [defs/index.ts:13](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L13)*
+*Defined in [defs/index.ts:13](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L13)*
 
 ___
 <a id="worker"></a>
@@ -42,7 +42,7 @@ ___
 
 **● worker**: *`Worker`*
 
-*Defined in [defs/index.ts:14](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L14)*
 
 ___
 

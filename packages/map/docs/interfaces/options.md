@@ -1,4 +1,4 @@
-[@cachemap/map](../README.md) > [Options](../interfaces/options.md)
+[Documentation](../README.md) > [Options](../interfaces/options.md)
 
 # Interface: Options
 
@@ -25,7 +25,7 @@
 **● maxHeapSize**: * `undefined` &#124; `number`
 *
 
-*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/map/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/map/src/defs/index.ts#L8)*
 
 ___
 

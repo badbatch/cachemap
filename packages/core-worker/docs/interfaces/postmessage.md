@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [PostMessage](../interfaces/postmessage.md)
+[Documentation](../README.md) > [PostMessage](../interfaces/postmessage.md)
 
 # Interface: PostMessage
 
@@ -27,7 +27,7 @@
 **● key**: * `undefined` &#124; `string`
 *
 
-*Defined in [defs/index.ts:30](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L30)*
+*Defined in [defs/index.ts:30](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L30)*
 
 ___
 <a id="keys"></a>
@@ -36,7 +36,7 @@ ___
 
 **● keys**: *`string`[]*
 
-*Defined in [defs/index.ts:31](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L31)*
+*Defined in [defs/index.ts:31](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L31)*
 
 ___
 <a id="options"></a>
@@ -46,7 +46,7 @@ ___
 **● options**: * [CommonOptions](commonoptions.md) &#124; [CreateOptions](createoptions.md) &#124; `ExportOptions` &#124; `ImportOptions`
 *
 
-*Defined in [defs/index.ts:29](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L29)*
 
 ___
 <a id="type"></a>
@@ -55,7 +55,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [defs/index.ts:32](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:32](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L32)*
 
 ___
 <a id="value"></a>
@@ -64,7 +64,7 @@ ___
 
 **● value**: *`any`*
 
-*Defined in [defs/index.ts:33](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L33)*
+*Defined in [defs/index.ts:33](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L33)*
 
 ___
 

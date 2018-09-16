@@ -1,4 +1,4 @@
-[@cachemap/core-worker](../README.md) > [InitOptions](../interfaces/initoptions.md)
+[Documentation](../README.md) > [InitOptions](../interfaces/initoptions.md)
 
 # Interface: InitOptions
 
@@ -31,7 +31,7 @@
 
 *Inherited from [CreateOptions](createoptions.md).[disableCacheInvalidation](createoptions.md#disablecacheinvalidation)*
 
-*Defined in [defs/index.ts:18](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L18)*
 
 ___
 <a id="maxheapsize"></a>
@@ -43,7 +43,7 @@ ___
 
 *Inherited from [CreateOptions](createoptions.md).[maxHeapSize](createoptions.md#maxheapsize)*
 
-*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L19)*
 
 ___
 <a id="name"></a>
@@ -54,7 +54,7 @@ ___
 
 *Inherited from [CreateOptions](createoptions.md).[name](createoptions.md#name)*
 
-*Defined in [defs/index.ts:20](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L20)*
+*Defined in [defs/index.ts:20](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L20)*
 
 ___
 <a id="reaperoptions"></a>
@@ -65,7 +65,7 @@ ___
 
 *Inherited from [CreateOptions](createoptions.md).[reaperOptions](createoptions.md#reaperoptions)*
 
-*Defined in [defs/index.ts:21](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L21)*
 
 ___
 <a id="workerfilename"></a>
@@ -75,7 +75,7 @@ ___
 **● workerFilename**: * `undefined` &#124; `string`
 *
 
-*Defined in [defs/index.ts:25](https://github.com/dylanaubrey/cachemap/blob/58bca6e/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
 
