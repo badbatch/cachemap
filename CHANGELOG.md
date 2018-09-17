@@ -1,3 +1,9 @@
+#### 1.0.4 (2018-09-17)
+
+##### Chores
+
+* **repository:**  Updating organisation name. ([8594d339](https://github.com/badbatch/cachemap/commit/8594d3391903839207c19635b32c8333f2cd8d08))
+
 #### 1.0.3 (2018-09-16)
 
 ##### Documentation Changes
