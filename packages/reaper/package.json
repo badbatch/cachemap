@@ -4,13 +4,13 @@
   "description": "The Cachemap reaper module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/bad-batch/cachemap",
+  "homepage": "https://github.com/badbatch/cachemap",
   "bugs": {
-    "url": "https://github.com/bad-batch/cachemap/issues"
+    "url": "https://github.com/badbatch/cachemap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bad-batch/cachemap"
+    "url": "https://github.com/badbatch/cachemap"
   },
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",

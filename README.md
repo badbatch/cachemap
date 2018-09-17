@@ -2,10 +2,10 @@
 
 An extensible, isomorphic cache with modules to interface with Redis, LocalStorage, IndexedDB and an in-memory Map.
 
-[![Build Status](https://travis-ci.org/bad-batch/cachemap.svg?branch=master)](https://travis-ci.org/bad-batch/cachemap)
+[![Build Status](https://travis-ci.org/badbatch/cachemap.svg?branch=master)](https://travis-ci.org/badbatch/cachemap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![dependencies Status](https://david-dm.org/bad-batch/cachemap/status.svg)](https://david-dm.org/bad-batch/cachemap)
-[![devDependencies Status](https://david-dm.org/bad-batch/cachemap/dev-status.svg)](https://david-dm.org/bad-batch/cachemap?type=dev)
+[![dependencies Status](https://david-dm.org/badbatch/cachemap/status.svg)](https://david-dm.org/badbatch/cachemap)
+[![devDependencies Status](https://david-dm.org/badbatch/cachemap/dev-status.svg)](https://david-dm.org/badbatch/cachemap?type=dev)
 
 ## Summary
 
