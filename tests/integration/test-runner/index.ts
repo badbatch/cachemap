@@ -10,27 +10,12 @@ import { PlainObject, RunOptions } from "../../defs";
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function run(
-  { cachemapSize, init }: RunOptions,
+  { cachemapSize, init, worker }: RunOptions,
   storeType: string,
   store?: (options: any) => coreDefs.StoreInit,
   storeOptions: PlainObject = {},
 ): void {
   describe(`When store type is ${storeType}`, () => {
-    describe("Creating an instance of the cachemap", () => {
-      let cachemap: Core | CoreWorker;
-
-      before(async () => {
-        cachemap = await init({
-          name: `${storeType}-integration-tests`,
-          store: store && store(storeOptions),
-        });
-      });
-
-      it(`The Cachemap instance store type should be '${storeType}'`, async () => {
-        expect(cachemap.storeType).to.equal(storeType);
-      });
-    });
-
     describe("Adding an entry into the cachemap", () => {
       const ID = "136-7317";
       const key: string = testData[ID].url;
@@ -42,6 +27,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -148,6 +134,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -205,6 +192,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -268,6 +256,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -371,6 +360,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -430,6 +420,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -516,6 +507,7 @@ export function run(
         cachemap = await init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          worker,
         });
       });
 
@@ -565,6 +557,8 @@ export function run(
       });
     });
 
+    if (worker) return;
+
     describe("When the reaper module is passed into the cachemap", () => {
       const ID = "136-7317";
       const key: string = testData[ID].url;
@@ -577,7 +571,6 @@ export function run(
           cachemap = await init({
             name: `${storeType}-integration-tests`,
             reaper: reaper({ interval: 500 }),
-            reaperOptions: { interval: 500 },
             store: store && store(storeOptions),
           });
 

@@ -1,7 +1,7 @@
-import { DB } from "idb";
+import { IDBPDatabase } from "idb";
 
 export interface ConstructorOptions extends InitOptions {
-  indexedDB: DB;
+  indexedDB: IDBPDatabase;
 }
 
 export interface InitOptions extends Options {

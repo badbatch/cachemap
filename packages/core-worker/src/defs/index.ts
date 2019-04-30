@@ -1,6 +1,4 @@
-import { coreDefs } from "@cachemap/core";
-import { reaperDefs } from "@cachemap/reaper";
-import PromiseWorker from "promise-worker";
+import Core, { coreDefs } from "@cachemap/core";
 
 export interface CommonOptions {
   cacheHeaders?: coreDefs.CacheHeaders;
@@ -8,33 +6,52 @@ export interface CommonOptions {
   hash?: boolean;
 }
 
-export interface ConstructorOptions {
+export interface InitOptions {
   name: string;
-  promiseWorker: PromiseWorker;
   worker: Worker;
 }
 
-export interface CreateOptions {
-  disableCacheInvalidation?: boolean;
-  maxHeapSize?: number;
-  name: string;
-  reaperOptions?: reaperDefs.Options;
+export type ConstructorOptions = InitOptions;
+
+export type PendingResolver = (value: PostMessageResultWithoutMeta) => void;
+
+export interface PendingData {
+  resolve: PendingResolver;
 }
 
-export interface InitOptions extends CreateOptions {
-  workerFilename?: string;
-}
+export type PendingTracker = Map<string, PendingData>;
 
-export interface PostMessage {
-  options?: CommonOptions | CreateOptions | coreDefs.ExportOptions | coreDefs.ImportOptions;
+export interface PostMessageWithoutMeta {
   key?: string;
   keys?: string[];
-  type: string;
+  method: string;
+  options?: CommonOptions | coreDefs.ExportOptions | coreDefs.ImportOptions;
   value?: any;
 }
 
-export interface PostMessageResult {
+export interface PostMessage extends PostMessageWithoutMeta {
+  messageID: string;
+  type: string;
+}
+
+export interface PostMessageResultWithoutMeta {
   metadata: coreDefs.Metadata[];
   result?: any;
+  storeType: string;
+  usedHeapSize: number;
+}
+
+export interface PostMessageResult extends PostMessageResultWithoutMeta {
+  messageID: string;
+  type: string;
+}
+
+export interface RegisterWorkerOptions {
+  cachemap: Core;
+}
+
+export interface FilterPropsResult {
+  metadata: coreDefs.Metadata[];
+  storeType: string;
   usedHeapSize: number;
 }
