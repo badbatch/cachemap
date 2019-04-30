@@ -33,17 +33,17 @@
 
 **Ƭ DeleteCallback**: *`function`*
 
-*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L15)*
 
 #### Type declaration
-▸(key: *`string`*, options?: * `undefined` &#124; `object`*): `Promise`<`boolean`>
+▸(key: *`string`*, options?: *`undefined` \| `object`*): `Promise`<`boolean`>
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | key | `string` |
-| `Optional` options |  `undefined` &#124; `object`|
+| `Optional` options | `undefined` \| `object` |
 
 **Returns:** `Promise`<`boolean`>
 
@@ -54,14 +54,14 @@ ___
 
 **Ƭ Init**: *`function`*
 
-*Defined in [defs/index.ts:17](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L17)*
 
 #### Type declaration
 ▸(callbacks: *[Callbacks](interfaces/callbacks.md)*): [Reaper](classes/reaper.md)
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | callbacks | [Callbacks](interfaces/callbacks.md) |
 
@@ -74,7 +74,7 @@ ___
 
 **Ƭ MetadataCallback**: *`function`*
 
-*Defined in [defs/index.ts:19](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L19)*
 
 #### Type declaration
 ▸(): `Metadata`[]
@@ -91,11 +91,11 @@ ___
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): [Init](#init)
 
-*Defined in [main/index.ts:70](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/main/index.ts#L70)*
 
 **Parameters:**
 
-| Param | Type | Default value |
+| Name | Type | Default value |
 | ------ | ------ | ------ |
 | `Default value` options | [Options](interfaces/options.md) |  {} |
 

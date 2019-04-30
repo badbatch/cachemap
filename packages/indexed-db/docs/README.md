@@ -27,11 +27,11 @@
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:156](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/indexed-db/src/main/index.ts#L156)*
+*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/indexed-db/src/main/index.ts#L154)*
 
 **Parameters:**
 
-| Param | Type | Default value |
+| Name | Type | Default value |
 | ------ | ------ | ------ |
 | `Default value` options | [Options](interfaces/options.md) |  {} |
 

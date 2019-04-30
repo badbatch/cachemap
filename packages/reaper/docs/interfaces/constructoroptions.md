@@ -25,17 +25,16 @@
 
 **● deleteCallback**: *[DeleteCallback](../#deletecallback)*
 
-*Defined in [defs/index.ts:9](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L9)*
 
 ___
 <a id="interval"></a>
 
 ### `<Optional>` interval
 
-**● interval**: * `undefined` &#124; `number`
-*
+**● interval**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:10](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L10)*
 
 ___
 <a id="metadatacallback"></a>
@@ -44,17 +43,16 @@ ___
 
 **● metadataCallback**: *[MetadataCallback](../#metadatacallback)*
 
-*Defined in [defs/index.ts:11](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L11)*
+*Defined in [defs/index.ts:11](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L11)*
 
 ___
 <a id="start"></a>
 
 ### `<Optional>` start
 
-**● start**: * `undefined` &#124; `false` &#124; `true`
-*
+**● start**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:12](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L12)*
 
 ___
 

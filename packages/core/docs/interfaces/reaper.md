@@ -24,11 +24,11 @@
 
 ▸ **cull**(metadata: *[Metadata](metadata.md)[]*): `Promise`<`void`>
 
-*Defined in [defs/index.ts:105](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L105)*
+*Defined in [defs/index.ts:105](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L105)*
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | metadata | [Metadata](metadata.md)[] |
 
@@ -41,7 +41,7 @@ ___
 
 ▸ **start**(): `void`
 
-*Defined in [defs/index.ts:106](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L106)*
+*Defined in [defs/index.ts:106](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L106)*
 
 **Returns:** `void`
 
@@ -52,7 +52,7 @@ ___
 
 ▸ **stop**(): `void`
 
-*Defined in [defs/index.ts:107](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L107)*
+*Defined in [defs/index.ts:107](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L107)*
 
 **Returns:** `void`
 

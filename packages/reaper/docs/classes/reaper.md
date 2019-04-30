@@ -28,11 +28,11 @@
 
 ⊕ **new Reaper**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [Reaper](reaper.md)
 
-*Defined in [main/index.ts:16](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/main/index.ts#L16)*
+*Defined in [main/index.ts:16](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/main/index.ts#L16)*
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | options | [ConstructorOptions](../interfaces/constructoroptions.md) |
 
@@ -48,11 +48,11 @@ ___
 
 ▸ **cull**(metadata: *`Metadata`[]*): `Promise`<`void`>
 
-*Defined in [defs/index.ts:27](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L27)*
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | metadata | `Metadata`[] |
 
@@ -65,7 +65,7 @@ ___
 
 ▸ **start**(): `void`
 
-*Defined in [defs/index.ts:28](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L28)*
 
 **Returns:** `void`
 
@@ -76,7 +76,7 @@ ___
 
 ▸ **stop**(): `void`
 
-*Defined in [defs/index.ts:29](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L29)*
 
 **Returns:** `void`
 

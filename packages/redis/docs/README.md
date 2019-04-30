@@ -27,11 +27,11 @@
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:153](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/main/index.ts#L153)*
+*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 
-| Param | Type | Default value |
+| Name | Type | Default value |
 | ------ | ------ | ------ |
 | `Default value` options | [Options](interfaces/options.md) |  {} |
 

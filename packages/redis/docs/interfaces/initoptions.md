@@ -35,6 +35,7 @@
 * [retry_strategy](initoptions.md#retry_strategy)
 * [retry_unfulfilled_commands](initoptions.md#retry_unfulfilled_commands)
 * [return_buffers](initoptions.md#return_buffers)
+* [socket_initialdelay](initoptions.md#socket_initialdelay)
 * [socket_keepalive](initoptions.md#socket_keepalive)
 * [string_numbers](initoptions.md#string_numbers)
 * [tls](initoptions.md#tls)
@@ -48,132 +49,121 @@
 
 ### `<Optional>` auth_pass
 
-**● auth_pass**: * `undefined` &#124; `string`
-*
+**● auth_pass**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.auth_pass*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:44*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:32*
 
 ___
 <a id="connect_timeout"></a>
 
 ### `<Optional>` connect_timeout
 
-**● connect_timeout**: * `undefined` &#124; `number`
-*
+**● connect_timeout**: *`undefined` \| `number`*
 
 *Inherited from ClientOpts.connect_timeout*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:41*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:29*
 
 ___
 <a id="db"></a>
 
 ### `<Optional>` db
 
-**● db**: * `string` &#124; `number`
-*
+**● db**: *`string` \| `number`*
 
 *Inherited from ClientOpts.db*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:46*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:34*
 
 ___
 <a id="detect_buffers"></a>
 
 ### `<Optional>` detect_buffers
 
-**● detect_buffers**: * `undefined` &#124; `false` &#124; `true`
-*
+**● detect_buffers**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.detect_buffers*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:36*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:23*
 
 ___
 <a id="enable_offline_queue"></a>
 
 ### `<Optional>` enable_offline_queue
 
-**● enable_offline_queue**: * `undefined` &#124; `false` &#124; `true`
-*
+**● enable_offline_queue**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.enable_offline_queue*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:39*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:27*
 
 ___
 <a id="family"></a>
 
 ### `<Optional>` family
 
-**● family**: * `undefined` &#124; `string`
-*
+**● family**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.family*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:47*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:35*
 
 ___
 <a id="fast"></a>
 
 ### `<Optional>` fast
 
-**● fast**: * `undefined` &#124; `false` &#124; `true`
-*
+**● fast**: *`undefined` \| `false` \| `true`*
 
 *Inherited from [Options](options.md).[fast](options.md#fast)*
 
-*Defined in [defs/index.ts:14](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/redis/src/defs/index.ts#L14)*
 
 ___
 <a id="host"></a>
 
 ### `<Optional>` host
 
-**● host**: * `undefined` &#124; `string`
-*
+**● host**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.host*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:29*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:16*
 
 ___
 <a id="maxheapsize"></a>
 
 ### `<Optional>` maxHeapSize
 
-**● maxHeapSize**: * `undefined` &#124; `number`
-*
+**● maxHeapSize**: *`undefined` \| `number`*
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:15](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/redis/src/defs/index.ts#L15)*
 
 ___
 <a id="max_attempts"></a>
 
 ### `<Optional>` max_attempts
 
-**● max_attempts**: * `undefined` &#124; `number`
-*
+**● max_attempts**: *`undefined` \| `number`*
 
 *Inherited from ClientOpts.max_attempts*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:42*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:30*
 
 ___
 <a id="mock"></a>
 
 ### `<Optional>` mock
 
-**● mock**: * `undefined` &#124; `false` &#124; `true`
-*
+**● mock**: *`undefined` \| `false` \| `true`*
 
 *Inherited from [Options](options.md).[mock](options.md#mock)*
 
-*Defined in [defs/index.ts:16](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/redis/src/defs/index.ts#L16)*
 
 ___
 <a id="name"></a>
@@ -182,103 +172,95 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:10](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/redis/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/redis/src/defs/index.ts#L10)*
 
 ___
 <a id="no_ready_check"></a>
 
 ### `<Optional>` no_ready_check
 
-**● no_ready_check**: * `undefined` &#124; `false` &#124; `true`
-*
+**● no_ready_check**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.no_ready_check*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:38*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:26*
 
 ___
 <a id="parser"></a>
 
 ### `<Optional>` parser
 
-**● parser**: * `undefined` &#124; `string`
-*
+**● parser**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.parser*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:33*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:20*
 
 ___
 <a id="password"></a>
 
 ### `<Optional>` password
 
-**● password**: * `undefined` &#124; `string`
-*
+**● password**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.password*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:45*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:33*
 
 ___
 <a id="path"></a>
 
 ### `<Optional>` path
 
-**● path**: * `undefined` &#124; `string`
-*
+**● path**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.path*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:31*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:18*
 
 ___
 <a id="port"></a>
 
 ### `<Optional>` port
 
-**● port**: * `undefined` &#124; `number`
-*
+**● port**: *`undefined` \| `number`*
 
 *Inherited from ClientOpts.port*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:30*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:17*
 
 ___
 <a id="prefix"></a>
 
 ### `<Optional>` prefix
 
-**● prefix**: * `undefined` &#124; `string`
-*
+**● prefix**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.prefix*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:50*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:38*
 
 ___
 <a id="rename_commands"></a>
 
 ### `<Optional>` rename_commands
 
-**● rename_commands**: * `object` &#124; `null`
-*
+**● rename_commands**: *`object` \| `null`*
 
 *Inherited from ClientOpts.rename_commands*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:48*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:36*
 
 ___
 <a id="retry_max_delay"></a>
 
 ### `<Optional>` retry_max_delay
 
-**● retry_max_delay**: * `undefined` &#124; `number`
-*
+**● retry_max_delay**: *`undefined` \| `number`*
 
 *Inherited from ClientOpts.retry_max_delay*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:40*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:28*
 
 ___
 <a id="retry_strategy"></a>
@@ -289,55 +271,62 @@ ___
 
 *Inherited from ClientOpts.retry_strategy*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:51*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:39*
 
 ___
 <a id="retry_unfulfilled_commands"></a>
 
 ### `<Optional>` retry_unfulfilled_commands
 
-**● retry_unfulfilled_commands**: * `undefined` &#124; `false` &#124; `true`
-*
+**● retry_unfulfilled_commands**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.retry_unfulfilled_commands*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:43*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:31*
 
 ___
 <a id="return_buffers"></a>
 
 ### `<Optional>` return_buffers
 
-**● return_buffers**: * `undefined` &#124; `false` &#124; `true`
-*
+**● return_buffers**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.return_buffers*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:35*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:22*
+
+___
+<a id="socket_initialdelay"></a>
+
+### `<Optional>` socket_initialdelay
+
+**● socket_initialdelay**: *`undefined` \| `number`*
+
+*Inherited from ClientOpts.socket_initialdelay*
+
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:25*
 
 ___
 <a id="socket_keepalive"></a>
 
 ### `<Optional>` socket_keepalive
 
-**● socket_keepalive**: * `undefined` &#124; `false` &#124; `true`
-*
+**● socket_keepalive**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.socket_keepalive*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:37*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:24*
 
 ___
 <a id="string_numbers"></a>
 
 ### `<Optional>` string_numbers
 
-**● string_numbers**: * `undefined` &#124; `false` &#124; `true`
-*
+**● string_numbers**: *`undefined` \| `false` \| `true`*
 
 *Inherited from ClientOpts.string_numbers*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:34*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:21*
 
 ___
 <a id="tls"></a>
@@ -348,19 +337,18 @@ ___
 
 *Inherited from ClientOpts.tls*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:49*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:37*
 
 ___
 <a id="url"></a>
 
 ### `<Optional>` url
 
-**● url**: * `undefined` &#124; `string`
-*
+**● url**: *`undefined` \| `string`*
 
 *Inherited from ClientOpts.url*
 
-*Defined in C:/Users/dylan/Documents/workspaces/cachemap/node_modules/@types/redis/index.d.ts:32*
+*Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:19*
 
 ___
 

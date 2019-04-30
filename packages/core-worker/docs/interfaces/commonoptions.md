@@ -24,27 +24,25 @@
 
 **● cacheHeaders**: *`coreDefs.CacheHeaders`*
 
-*Defined in [defs/index.ts:6](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L4)*
 
 ___
 <a id="deleteexpired"></a>
 
 ### `<Optional>` deleteExpired
 
-**● deleteExpired**: * `undefined` &#124; `false` &#124; `true`
-*
+**● deleteExpired**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:7](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L7)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L5)*
 
 ___
 <a id="hash"></a>
 
 ### `<Optional>` hash
 
-**● hash**: * `undefined` &#124; `false` &#124; `true`
-*
+**● hash**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L6)*
 
 ___
 

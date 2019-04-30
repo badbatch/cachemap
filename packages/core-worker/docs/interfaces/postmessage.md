@@ -4,7 +4,9 @@
 
 ## Hierarchy
 
-**PostMessage**
+ [PostMessageWithoutMeta](postmessagewithoutmeta.md)
+
+**↳ PostMessage**
 
 ## Index
 
@@ -12,6 +14,8 @@
 
 * [key](postmessage.md#key)
 * [keys](postmessage.md#keys)
+* [messageID](postmessage.md#messageid)
+* [method](postmessage.md#method)
 * [options](postmessage.md#options)
 * [type](postmessage.md#type)
 * [value](postmessage.md#value)
@@ -24,10 +28,11 @@
 
 ### `<Optional>` key
 
-**● key**: * `undefined` &#124; `string`
-*
+**● key**: *`undefined` \| `string`*
 
-*Defined in [defs/index.ts:30](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L30)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#key)*
+
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
 <a id="keys"></a>
@@ -36,17 +41,40 @@ ___
 
 **● keys**: *`string`[]*
 
-*Defined in [defs/index.ts:31](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L31)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#keys)*
+
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L26)*
+
+___
+<a id="messageid"></a>
+
+###  messageID
+
+**● messageID**: *`string`*
+
+*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L33)*
+
+___
+<a id="method"></a>
+
+###  method
+
+**● method**: *`string`*
+
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[method](postmessagewithoutmeta.md#method)*
+
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L27)*
 
 ___
 <a id="options"></a>
 
 ### `<Optional>` options
 
-**● options**: * [CommonOptions](commonoptions.md) &#124; [CreateOptions](createoptions.md) &#124; `ExportOptions` &#124; `ImportOptions`
-*
+**● options**: *[CommonOptions](commonoptions.md) \| `ExportOptions` \| `ImportOptions`*
 
-*Defined in [defs/index.ts:29](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L29)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#options)*
+
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L28)*
 
 ___
 <a id="type"></a>
@@ -55,7 +83,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [defs/index.ts:32](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:34](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L34)*
 
 ___
 <a id="value"></a>
@@ -64,7 +92,9 @@ ___
 
 **● value**: *`any`*
 
-*Defined in [defs/index.ts:33](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core-worker/src/defs/index.ts#L33)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#value)*
+
+*Defined in [defs/index.ts:29](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L29)*
 
 ___
 

@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -38,6 +38,7 @@
     "compile:module": "lerna run compile:module --parallel",
     "compile:types": "lerna run compile:types --parallel",
     "cutoff": "cutoff-lerna",
+    "cutoff:post-version": "yarn run compile && yarn run docs",
     "debug:integration:web": "cross-env BABEL_ENV=debug TEST_ENV=web karma start --no-single-run --reporters progress --log-level debug --browsers",
     "debug:integration:worker": "cross-env BABEL_ENV=debug TEST_ENV=worker karma start --no-single-run --reporters progress --log-level debug --browsers",
     "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
@@ -78,6 +79,7 @@
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "7.4.4",
+    "@babel/runtime": "^7.4.4",
     "@babel/runtime-corejs3": "^7.4.4",
     "@types/chai": "^4.1.7",
     "@types/lodash": "^4.14.123",

@@ -22,10 +22,9 @@
 
 ### `<Optional>` maxHeapSize
 
-**● maxHeapSize**: * `undefined` &#124; `number`
-*
+**● maxHeapSize**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/local-storage/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/local-storage/src/defs/index.ts#L8)*
 
 ___
 

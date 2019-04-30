@@ -1,3 +1,9 @@
+### 1.1.0 (2019-04-30)
+
+##### Other Changes
+
+* **core worker:**  allow worker to be passed in and message handler to be reused by other libraries. ([#23](https://github.com/badbatch/cachemap/pull/23)) ([e3c87c42](https://github.com/badbatch/cachemap/commit/e3c87c42d77f0c462c1687d1ee06f06b63ca59e5))
+
 #### 1.0.4 (2018-09-17)
 
 ##### Chores

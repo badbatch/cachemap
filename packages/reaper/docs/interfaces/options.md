@@ -21,20 +21,18 @@
 
 ### `<Optional>` interval
 
-**● interval**: * `undefined` &#124; `number`
-*
+**● interval**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:22](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L22)*
+*Defined in [defs/index.ts:22](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L22)*
 
 ___
 <a id="start"></a>
 
 ### `<Optional>` start
 
-**● start**: * `undefined` &#124; `false` &#124; `true`
-*
+**● start**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:23](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/reaper/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/reaper/src/defs/index.ts#L23)*
 
 ___
 

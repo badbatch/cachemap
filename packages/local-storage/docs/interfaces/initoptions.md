@@ -23,12 +23,11 @@
 
 ### `<Optional>` maxHeapSize
 
-**● maxHeapSize**: * `undefined` &#124; `number`
-*
+**● maxHeapSize**: *`undefined` \| `number`*
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:8](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/local-storage/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/local-storage/src/defs/index.ts#L8)*
 
 ___
 <a id="name"></a>
@@ -37,7 +36,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/local-storage/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/local-storage/src/defs/index.ts#L4)*
 
 ___
 

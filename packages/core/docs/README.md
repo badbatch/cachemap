@@ -42,10 +42,9 @@
 
 ###  CacheHeaders
 
-**Ƭ CacheHeaders**: * `Headers` &#124; `object`
-*
+**Ƭ CacheHeaders**: *`Headers` \| `object`*
 
-*Defined in [defs/index.ts:62](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L62)*
 
 ___
 <a id="reaperinit"></a>
@@ -54,14 +53,14 @@ ___
 
 **Ƭ ReaperInit**: *`function`*
 
-*Defined in [defs/index.ts:115](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L115)*
+*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L115)*
 
 #### Type declaration
 ▸(callbacks: *[ReaperCallbacks](interfaces/reapercallbacks.md)*): [Reaper](interfaces/reaper.md)
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | callbacks | [ReaperCallbacks](interfaces/reapercallbacks.md) |
 
@@ -74,14 +73,14 @@ ___
 
 **Ƭ StoreInit**: *`function`*
 
-*Defined in [defs/index.ts:135](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/defs/index.ts#L135)*
+*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/defs/index.ts#L135)*
 
 #### Type declaration
 ▸(options: *[StoreOptions](interfaces/storeoptions.md)*): `Promise`<[Store](interfaces/store.md)>
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | options | [StoreOptions](interfaces/storeoptions.md) |
 
@@ -97,11 +96,11 @@ ___
 
 ▸ **rehydrateMetadata**(metadata: *[DehydratedMetadata](interfaces/dehydratedmetadata.md)[]*): [Metadata](interfaces/metadata.md)[]
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/dylanaubrey/cachemap/blob/0d04822/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 
-| Param | Type |
+| Name | Type |
 | ------ | ------ |
 | metadata | [DehydratedMetadata](interfaces/dehydratedmetadata.md)[] |
 
