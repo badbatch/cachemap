@@ -1,5 +1,5 @@
 import { coreDefs } from "@cachemap/core";
-import idb, { Cursor, DB } from "idb";
+import { IDBPDatabase, openDB } from "idb";
 import { isNumber, isPlainObject } from "lodash";
 import { ConstructorOptions, InitOptions, Options } from "../defs";
 
@@ -9,12 +9,14 @@ export class IndexedDBStore implements coreDefs.Store {
       const databaseName = `${options.name}-store`;
       const objectStoreName = options.name;
 
-      const db = await idb.open(databaseName, 1, (upgradeDB) => {
-        upgradeDB.createObjectStore(objectStoreName);
+      const indexedDB = await openDB(databaseName, 1, {
+        upgrade(db: IDBPDatabase) {
+          db.createObjectStore(objectStoreName);
+        },
       });
 
       return new IndexedDBStore({
-        indexedDB: db,
+        indexedDB,
         ...options,
       });
     } catch (error) {
@@ -23,7 +25,7 @@ export class IndexedDBStore implements coreDefs.Store {
   }
 
   public readonly type = "indexedDB";
-  private _indexedDB: DB;
+  private _indexedDB: IDBPDatabase;
   private _maxHeapSize: number = 4194304;
   private _name: string;
 
@@ -49,7 +51,7 @@ export class IndexedDBStore implements coreDefs.Store {
     try {
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await tx.objectStore(this._name).clear();
-      await tx.complete;
+      await tx.done;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -60,7 +62,7 @@ export class IndexedDBStore implements coreDefs.Store {
       if (await this.get(key) === undefined) return false;
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await tx.objectStore(this._name).delete(key);
-      await tx.complete;
+      await tx.done;
       return true;
     } catch (error) {
       return Promise.reject(error);
@@ -70,12 +72,10 @@ export class IndexedDBStore implements coreDefs.Store {
   public async entries(keys?: string[]): Promise<Array<[string, any]>> {
     try {
       const tx = this._indexedDB.transaction(this._name);
-      const objectStore = tx.objectStore(this._name);
       const entries: Array<[string, any]> = [];
+      let cursor = await tx.objectStore(this._name).openCursor();
 
-      objectStore.iterateCursor((cursor: Cursor<any, string>) => {
-        if (!cursor) return;
-
+      while (cursor) {
         const key = cursor.key as string;
 
         if (keys) {
@@ -84,10 +84,11 @@ export class IndexedDBStore implements coreDefs.Store {
           if (!key.endsWith("metadata")) entries.push([key, cursor.value]);
         }
 
-        cursor.continue();
-      });
 
-      await tx.complete;
+        cursor = await cursor.continue();
+      }
+
+      await tx.done;
       return entries;
     } catch (error) {
       return Promise.reject(error);
@@ -116,7 +117,7 @@ export class IndexedDBStore implements coreDefs.Store {
     try {
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await Promise.all(entries.map(([key, value]) => tx.objectStore(this._name).put(value, key)));
-      await tx.complete;
+      await tx.done;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -126,7 +127,7 @@ export class IndexedDBStore implements coreDefs.Store {
     try {
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await tx.objectStore(this._name).put(value, key);
-      await tx.complete;
+      await tx.done;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -135,17 +136,15 @@ export class IndexedDBStore implements coreDefs.Store {
   public async size(): Promise<number> {
     try {
       const tx = this._indexedDB.transaction(this._name);
-      const objectStore = tx.objectStore(this._name);
       const keys: Array<IDBKeyRange | IDBValidKey> = [];
+      let cursor = await tx.objectStore(this._name).openCursor();
 
-      objectStore.iterateCursor((cursor: Cursor<any, IDBKeyRange | IDBValidKey>) => {
-        if (!cursor) return;
-
+      while (cursor) {
         keys.push(cursor.key);
-        cursor.continue();
-      });
+        cursor = await cursor.continue();
+      }
 
-      await tx.complete;
+      await tx.done;
       return keys.length;
     } catch (error) {
       return Promise.reject(error);

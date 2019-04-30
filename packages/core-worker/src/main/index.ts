@@ -1,9 +1,18 @@
 import { coreDefs, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
 import { isPlainObject, isString } from "lodash";
-import PromiseWorker from "promise-worker";
-import { CLEAR, CREATE, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, SET, SIZE } from "../constants";
-import { ConstructorOptions, InitOptions, PostMessage, PostMessageResult } from "../defs";
+import uuid from "uuid/v1";
+import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
+import {
+  ConstructorOptions,
+  FilterPropsResult,
+  InitOptions,
+  PendingResolver,
+  PendingTracker,
+  PostMessageResult,
+  PostMessageResultWithoutMeta,
+  PostMessageWithoutMeta,
+} from "../defs";
 
 export default class CoreWorker {
   public static async init(options: InitOptions): Promise<CoreWorker> {
@@ -19,31 +28,20 @@ export default class CoreWorker {
 
     if (errors.length) return Promise.reject(errors);
 
-    try {
-      const { workerFilename, ...otherOptions } = options;
-      const filename = workerFilename || "cachemap.worker";
-      const worker = new Worker(`${filename}.js`);
-      const promiseWorker = new PromiseWorker(worker);
-      const instance = new CoreWorker({ name: otherOptions.name, promiseWorker, worker });
-      const { metadata, usedHeapSize } = await instance._postMessage({ options: otherOptions, type: CREATE });
-      instance._setProps({ metadata, usedHeapSize });
-      return instance;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return new CoreWorker(options);
   }
 
-  public storeType = "indexedDB";
   private _metadata: coreDefs.Metadata[] = [];
   private _name: string;
-  private _promiseWorker: PromiseWorker;
+  private _pending: PendingTracker = new Map();
+  private _storeType: string | undefined;
   private _usedHeapSize: number = 0;
   private _worker: Worker;
 
-  constructor(options: ConstructorOptions) {
-    this._name = options.name;
-    this._promiseWorker = options.promiseWorker;
-    this._worker = options.worker;
+  constructor({ name, worker }: ConstructorOptions) {
+    this._name = name;
+    this._worker = worker;
+    this._addEventListener();
   }
 
   get metadata(): coreDefs.Metadata[] {
@@ -54,14 +52,18 @@ export default class CoreWorker {
     return this._name;
   }
 
+  get storeType(): string | undefined {
+    return this._storeType;
+  }
+
   get usedHeapSize(): number {
     return this._usedHeapSize;
   }
 
   public async clear(): Promise<void> {
     try {
-      const { metadata, usedHeapSize } = await this._postMessage({ type: CLEAR });
-      this._setProps({ metadata, usedHeapSize });
+      const response = await this._postMessage({ method: CLEAR });
+      this._setProps(response);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -69,8 +71,8 @@ export default class CoreWorker {
 
   public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ key, options, type: DELETE });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ key, method: DELETE, options });
+      this._setProps(rest);
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -79,8 +81,8 @@ export default class CoreWorker {
 
   public async entries(keys?: string[]): Promise<Array<[string, any]>> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ keys, type: ENTRIES });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ keys, method: ENTRIES });
+      this._setProps(rest);
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -89,8 +91,8 @@ export default class CoreWorker {
 
   public async export(options: coreDefs.ExportOptions = {}): Promise<coreDefs.ExportResult> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ options, type: EXPORT });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ method: EXPORT, options });
+      this._setProps(rest);
       return { entries: result.entries, metadata: rehydrateMetadata(result.metadata) };
     } catch (error) {
       return Promise.reject(error);
@@ -99,8 +101,8 @@ export default class CoreWorker {
 
   public async get(key: string, options: { hash?: boolean } = {}): Promise<any> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ key, options, type: GET });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ key, method: GET, options });
+      this._setProps(rest);
       return result;
     } catch (error) {
       return Promise.reject(error);
@@ -112,8 +114,8 @@ export default class CoreWorker {
     options: { deleteExpired?: boolean, hash?: boolean } = {},
   ): Promise<false | Cacheability> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ key, options, type: HAS });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ key, method: HAS, options });
+      this._setProps(rest);
       if (!result) return false;
       return new Cacheability({ metadata: result.metadata });
     } catch (error) {
@@ -123,8 +125,8 @@ export default class CoreWorker {
 
   public async import(options: coreDefs.ImportOptions): Promise<void> {
     try {
-      const { metadata, usedHeapSize } = await this._postMessage({ options, type: IMPORT });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ method: IMPORT, options });
+      this._setProps(rest);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -136,8 +138,8 @@ export default class CoreWorker {
     options: { cacheHeaders?: coreDefs.CacheHeaders, hash?: boolean, tag?: any } = {},
   ): Promise<any> {
     try {
-      const { metadata, usedHeapSize } = await this._postMessage({ key, options, type: SET, value });
-      this._setProps({ metadata, usedHeapSize });
+      const response = await this._postMessage({ key, method: SET, options, value });
+      this._setProps(response);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -145,28 +147,51 @@ export default class CoreWorker {
 
   public async size(): Promise<number> {
     try {
-      const { metadata, result, usedHeapSize } = await this._postMessage({ type: SIZE });
-      this._setProps({ metadata, usedHeapSize });
+      const { result, ...rest } = await this._postMessage({ method: SIZE });
+      this._setProps(rest);
       return result;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  public terminate(): void {
-    this._worker.terminate();
+  private _addEventListener(): void {
+    this._worker.addEventListener(MESSAGE, this._onMessage);
   }
 
-  private async _postMessage(message: PostMessage): Promise<PostMessageResult> {
+  private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
+    if (!isPlainObject(data)) return;
+
+    const { messageID, result, type, ...rest } = data as PostMessageResult;
+    if (type !== CACHEMAP) return;
+
+    const pending = this._pending.get(messageID);
+    if (!pending) return;
+
+    pending.resolve({ result, ...rest });
+  }
+
+  private async _postMessage(message: PostMessageWithoutMeta): Promise<PostMessageResultWithoutMeta> {
+    const messageID = uuid();
+
     try {
-      return this._promiseWorker.postMessage(message);
+      return new Promise((resolve: PendingResolver) => {
+        this._worker.postMessage({
+          ...message,
+          messageID,
+          type: CACHEMAP,
+        });
+
+        this._pending.set(messageID, { resolve });
+      });
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private _setProps({ metadata, usedHeapSize }: { metadata: coreDefs.Metadata[], usedHeapSize: number }): void {
+  private _setProps({ metadata, storeType, usedHeapSize }: FilterPropsResult): void {
     this._metadata = rehydrateMetadata(metadata);
+    if (!this._storeType) this._storeType = storeType;
     this._usedHeapSize = usedHeapSize;
   }
 }

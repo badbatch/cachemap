@@ -1,4 +1,3 @@
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -8,6 +7,9 @@ module.exports = {
       test: /\.tsx?$/,
       use: {
         loader: 'babel-loader',
+        options: {
+          configFile: './babel.config.js',
+        },
       },
     }, {
       enforce: 'pre',
@@ -22,11 +24,13 @@ module.exports = {
       debug: true,
     }),
     new webpack.SourceMapDevToolPlugin({
+      moduleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
       test: /\.(tsx?|jsx?)$/,
     }),
-    new LodashModuleReplacementPlugin(),
   ],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: ['.ts', '.tsx', '.mjs', '.js', '.jsx', '.json'],
+    mainFields: ['browser', 'module', 'main'],
+    symlinks: false,
   },
 };

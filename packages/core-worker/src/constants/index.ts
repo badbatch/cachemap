@@ -1,4 +1,4 @@
-export const CREATE = "create";
+export const CACHEMAP = "cachemap";
 export const CLEAR = "clear";
 export const DELETE = "delete";
 export const ENTRIES = "entries";
@@ -6,5 +6,6 @@ export const EXPORT = "export";
 export const GET = "get";
 export const HAS = "has";
 export const IMPORT = "import";
+export const MESSAGE = "message";
 export const SET = "set";
 export const SIZE = "size";
