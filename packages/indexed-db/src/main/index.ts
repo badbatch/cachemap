@@ -84,7 +84,6 @@ export class IndexedDBStore implements coreDefs.Store {
           if (!key.endsWith("metadata")) entries.push([key, cursor.value]);
         }
 
-
         cursor = await cursor.continue();
       }
 

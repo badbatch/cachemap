@@ -12,7 +12,7 @@
     "no-namespace": true,
     "no-submodule-imports": [
       true,
-      "uuid/v1",
+      "uuid/v1"
     ],
     "no-this-assignment": [true, { "allowed-names": ["_this"] }],
     "no-var-requires": false,
