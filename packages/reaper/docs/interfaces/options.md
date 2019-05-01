@@ -23,7 +23,7 @@
 
 **● interval**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:22](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/reaper/src/defs/index.ts#L22)*
+*Defined in [defs/index.ts:22](https://github.com/badbatch/cachemap/blob/4e23125/packages/reaper/src/defs/index.ts#L22)*
 
 ___
 <a id="start"></a>
@@ -32,7 +32,7 @@ ___
 
 **● start**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:23](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/reaper/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/badbatch/cachemap/blob/4e23125/packages/reaper/src/defs/index.ts#L23)*
 
 ___
 

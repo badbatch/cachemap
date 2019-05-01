@@ -29,7 +29,7 @@
 
 **● messageID**: *`string`*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L44)*
 
 ___
 <a id="metadata"></a>
@@ -40,7 +40,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[metadata](postmessageresultwithoutmeta.md#metadata)*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
 <a id="result"></a>
@@ -51,7 +51,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[result](postmessageresultwithoutmeta.md#result)*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L38)*
 
 ___
 <a id="storetype"></a>
@@ -62,7 +62,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[storeType](postmessageresultwithoutmeta.md#storetype)*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
 <a id="type"></a>
@@ -71,7 +71,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L45)*
 
 ___
 <a id="usedheapsize"></a>
@@ -82,7 +82,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[usedHeapSize](postmessageresultwithoutmeta.md#usedheapsize)*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L40)*
+*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L40)*
 
 ___
 

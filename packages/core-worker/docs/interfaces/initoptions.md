@@ -22,7 +22,7 @@
 
 **● worker**: *`Worker`*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/4e23125/packages/core-worker/src/defs/index.ts#L10)*
 
 ___
 

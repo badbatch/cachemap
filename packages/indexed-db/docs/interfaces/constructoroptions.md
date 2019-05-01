@@ -26,7 +26,7 @@
 
 **● indexedDB**: *`IDBPDatabase`*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/indexed-db/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/defs/index.ts#L4)*
 
 ___
 <a id="maxheapsize"></a>
@@ -37,7 +37,7 @@ ___
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/indexed-db/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/defs/index.ts#L12)*
 
 ___
 <a id="name"></a>
@@ -48,7 +48,7 @@ ___
 
 *Inherited from [InitOptions](initoptions.md).[name](initoptions.md#name)*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/indexed-db/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/defs/index.ts#L8)*
 
 ___
 

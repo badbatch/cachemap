@@ -1,3 +1,9 @@
+#### 1.1.2 (2019-05-01)
+
+##### Bug Fixes
+
+* **build process:**  Adding npmignore to packages. ([4e23125e](https://github.com/badbatch/cachemap/commit/4e23125e515198ba00475045f00feed0d79e9ea7))
+
 #### 1.1.1 (2019-05-01)
 
 ##### Documentation Changes

@@ -23,7 +23,7 @@
 
 **● keys**: *`string`[]*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/4e23125/packages/core/src/defs/index.ts#L73)*
 
 ___
 <a id="tag"></a>
@@ -32,7 +32,7 @@ ___
 
 **● tag**: *`any`*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/4e23125/packages/core/src/defs/index.ts#L74)*
 
 ___
 
