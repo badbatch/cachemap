@@ -37,6 +37,6 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@cachemap/core": "^1.1.0"
+    "@cachemap/core": "^1.1.2"
   }
 }
