@@ -15,7 +15,7 @@ An extensible, isomorphic cache with modules to interface with Redis, LocalStora
 * Transfer entries from one Cachemap to another.
 * Store entries alongside cache-control directives, etags and uuids.
 * Cache-control directives used to derive whether entries are fresh or stale.
-* Prioritise entries based on metadata stored against each entry.
+* Prioritize entries based on metadata stored against each entry.
 * Use a reaper to cull stale entries at specified intervals.
 * Set maximum memory size for total entries.
 * Use on browser's main or worker thread.
@@ -70,7 +70,7 @@ like establishing database connections, to complete before returning an instance
 
 Any modules you want to add to the Cachemap, like the store to work with your database or the reaper to
 prune stale entries, are passed as properties into the `init` method. The default export of each module is a
-curried function that returns an async function that intializes the module. This allows you and the Cachemap to pass
+curried function that returns an async function that initializes the module. This allows you and the Cachemap to pass
 configuration options into the module.
 
 ```typescript
@@ -140,7 +140,7 @@ methods come in. They allow you to bulk transfer entries and their metadata betw
 all entries or a subset based on specific keys or a particular tag.
 
 This could be used to pass entries between a Cachemap on the server and one on the browser. The server Cachemap could,
-for example, export all entries and metadata added during a request to the server, then this could be serialised and
+for example, export all entries and metadata added during a request to the server, then this could be serialized and
 embedded in the response body, from where it could be imported into the browser Cachemap.
 
 ```typescript
@@ -159,19 +159,40 @@ For full details of each method's signature, see the `@cachemap/core` [documenta
 
 ### Web worker
 
-To free up the browser's main thread you can run the Cachemap in a web worker, all you need is the
-`@cachemap/core-worker` package. This includes the `@cachemap/core`, `@cachemap/indexed-db` and `@cachemap/reaper`
-packages. Apart from the static `init` method, the `@cachemap/core-worker` class method signatures are identical to
-those of the `@cachemap/core` class.
+To free up the browser's main thread you can run the Cachemap in a web worker. For this you need the
+`@cachemap/core-worker` package in addition to `@cachemap/core`, a store and reaper package.
+
+The package exports the `CoreWorker` class that you initialize on the main thread and the `registerWorker` method to
+use in your `worker.js` file.
 
 ```typescript
+// main.js
+
 import CoreWorker from "@cachemap/core-worker";
 
 (async () => {
   const cachemap = await CoreWorker.init({
-    name: `foobar`,
-    reaper: { interval: 300000 },
+    worker: new Worker('worker.js'),
   });
+})();
+```
+
+```typescript
+// worker.js
+
+import Core from "@cachemap/core";
+import { registerWorker } from "@cachemap/core-worker";
+import indexedDB from "@cachemap/indexed-db";
+import reaper from "@cachemap/reaper";
+
+(async () => {
+  const cachemap = await Core.init({
+    name: "worker-integration-tests",
+    reaper: reaper({ interval: 300000 }),
+    store: indexedDB(),
+  });
+
+  registerWorker({ cachemap });
 })();
 ```
 

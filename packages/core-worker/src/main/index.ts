@@ -1,6 +1,6 @@
 import { coreDefs, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
-import { isPlainObject, isString } from "lodash";
+import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
 import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
 import {
@@ -19,11 +19,11 @@ export default class CoreWorker {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to ba a plain object."));
+      errors.push(new TypeError("@cachemap/core-worker expected options to ba a plain object."));
     }
 
-    if (!isString(options.name)) {
-      errors.push(new TypeError("@cachemap/core expected options.name to be a string."));
+    if (!(options.worker instanceof Worker)) {
+      errors.push(new TypeError("@cachemap/core-worker expected options.worker to be an instance of a Worker."));
     }
 
     if (errors.length) return Promise.reject(errors);
@@ -32,24 +32,18 @@ export default class CoreWorker {
   }
 
   private _metadata: coreDefs.Metadata[] = [];
-  private _name: string;
   private _pending: PendingTracker = new Map();
   private _storeType: string | undefined;
   private _usedHeapSize: number = 0;
   private _worker: Worker;
 
-  constructor({ name, worker }: ConstructorOptions) {
-    this._name = name;
+  constructor({ worker }: ConstructorOptions) {
     this._worker = worker;
     this._addEventListener();
   }
 
   get metadata(): coreDefs.Metadata[] {
     return this._metadata;
-  }
-
-  get name(): string {
-    return this._name;
   }
 
   get storeType(): string | undefined {

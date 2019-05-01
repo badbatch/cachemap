@@ -7,7 +7,6 @@ export interface CommonOptions {
 }
 
 export interface InitOptions {
-  name: string;
   worker: Worker;
 }
 
