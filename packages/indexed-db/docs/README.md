@@ -27,7 +27,7 @@
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L154)*
+*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L154)*
 
 **Parameters:**
 

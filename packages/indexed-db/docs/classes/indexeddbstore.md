@@ -47,7 +47,7 @@
 
 ⊕ **new IndexedDBStore**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [IndexedDBStore](indexeddbstore.md)
 
-*Defined in [main/index.ts:30](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L30)*
+*Defined in [main/index.ts:30](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L30)*
 
 **Parameters:**
 
@@ -67,7 +67,7 @@ ___
 
 **● type**: *"indexedDB"* = "indexedDB"
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L27)*
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 **get maxHeapSize**(): `number`
 
-*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L42)*
+*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L42)*
 
 **Returns:** `number`
 
@@ -90,7 +90,7 @@ ___
 
 **get name**(): `string`
 
-*Defined in [main/index.ts:46](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L46)*
+*Defined in [main/index.ts:46](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L46)*
 
 **Returns:** `string`
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **clear**(): `Promise`<`void`>
 
-*Defined in [main/index.ts:50](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L50)*
+*Defined in [main/index.ts:50](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L50)*
 
 **Returns:** `Promise`<`void`>
 
@@ -115,7 +115,7 @@ ___
 
 ▸ **delete**(key: *`string`*): `Promise`<`boolean`>
 
-*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L60)*
+*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L60)*
 
 **Parameters:**
 
@@ -132,7 +132,7 @@ ___
 
 ▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
 
-*Defined in [main/index.ts:72](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L72)*
+*Defined in [main/index.ts:72](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L72)*
 
 **Parameters:**
 
@@ -149,7 +149,7 @@ ___
 
 ▸ **get**(key: *`string`*): `Promise`<`any`>
 
-*Defined in [main/index.ts:97](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L97)*
+*Defined in [main/index.ts:97](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L97)*
 
 **Parameters:**
 
@@ -166,7 +166,7 @@ ___
 
 ▸ **has**(key: *`string`*): `Promise`<`boolean`>
 
-*Defined in [main/index.ts:106](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L106)*
+*Defined in [main/index.ts:106](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L106)*
 
 **Parameters:**
 
@@ -183,7 +183,7 @@ ___
 
 ▸ **import**(entries: *`Array`<[`string`, `any`]>*): `Promise`<`void`>
 
-*Defined in [main/index.ts:115](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L115)*
+*Defined in [main/index.ts:115](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L115)*
 
 **Parameters:**
 
@@ -200,7 +200,7 @@ ___
 
 ▸ **set**(key: *`string`*, value: *`any`*): `Promise`<`void`>
 
-*Defined in [main/index.ts:125](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L125)*
+*Defined in [main/index.ts:125](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L125)*
 
 **Parameters:**
 
@@ -218,7 +218,7 @@ ___
 
 ▸ **size**(): `Promise`<`number`>
 
-*Defined in [main/index.ts:135](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L135)*
+*Defined in [main/index.ts:135](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L135)*
 
 **Returns:** `Promise`<`number`>
 
@@ -229,7 +229,7 @@ ___
 
 ▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[IndexedDBStore](indexeddbstore.md)>
 
-*Defined in [main/index.ts:7](https://github.com/badbatch/cachemap/blob/4e23125/packages/indexed-db/src/main/index.ts#L7)*
+*Defined in [main/index.ts:7](https://github.com/badbatch/cachemap/blob/2e6445d/packages/indexed-db/src/main/index.ts#L7)*
 
 **Parameters:**
 

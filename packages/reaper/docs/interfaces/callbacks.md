@@ -23,7 +23,7 @@
 
 **● deleteCallback**: *[DeleteCallback](../#deletecallback)*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/4e23125/packages/reaper/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/2e6445d/packages/reaper/src/defs/index.ts#L4)*
 
 ___
 <a id="metadatacallback"></a>
@@ -32,7 +32,7 @@ ___
 
 **● metadataCallback**: *[MetadataCallback](../#metadatacallback)*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/4e23125/packages/reaper/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/2e6445d/packages/reaper/src/defs/index.ts#L5)*
 
 ___
 

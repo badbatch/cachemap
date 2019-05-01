@@ -1,3 +1,9 @@
+#### 1.1.3 (2019-05-01)
+
+##### Bug Fixes
+
+* **build process:**  nested dependencies in third party apps. ([2e6445d0](https://github.com/badbatch/cachemap/commit/2e6445d07909d767dc1d6df1c9b494d5f03b379a))
+
 #### 1.1.2 (2019-05-01)
 
 ##### Bug Fixes
