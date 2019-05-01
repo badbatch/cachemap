@@ -27,7 +27,7 @@
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/2e6445d/packages/map/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/6985edf/packages/map/src/defs/index.ts#L8)*
 
 ___
 <a id="name"></a>
@@ -36,7 +36,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/2e6445d/packages/map/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/6985edf/packages/map/src/defs/index.ts#L4)*
 
 ___
 
