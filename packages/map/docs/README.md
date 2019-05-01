@@ -30,7 +30,7 @@
 
 **Ƭ ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/map/src/defs/index.ts#L1)*
+*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/412f22b/packages/map/src/defs/index.ts#L1)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
 
-*Defined in [main/index.ts:73](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/map/src/main/index.ts#L73)*
+*Defined in [main/index.ts:73](https://github.com/badbatch/cachemap/blob/412f22b/packages/map/src/main/index.ts#L73)*
 
 **Parameters:**
 

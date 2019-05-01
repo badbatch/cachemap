@@ -37,7 +37,7 @@
     "uuid": "^3.3.2"
   },
   "peerDependencies": {
-    "@babel/runtime-corejs3": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
     "core-js": "^3.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5"

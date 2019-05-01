@@ -34,7 +34,7 @@
     "redis": "^2.8.0"
   },
   "peerDependencies": {
-    "@babel/runtime-corejs3": "^7.0.0",
+    "@babel/runtime": "^7.0.0",
     "core-js": "^3.0",
     "lodash": "^4.17.5"
   },

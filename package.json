@@ -80,7 +80,6 @@
     "@babel/preset-typescript": "^7.3.3",
     "@babel/register": "7.4.4",
     "@babel/runtime": "^7.4.4",
-    "@babel/runtime-corejs3": "^7.4.4",
     "@types/chai": "^4.1.7",
     "@types/lodash": "^4.14.123",
     "@types/mocha": "^5.2.6",

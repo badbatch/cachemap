@@ -22,7 +22,7 @@
 
 **● cachemap**: *`Core`*
 
-*Defined in [defs/index.ts:50](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/core-worker/src/defs/index.ts#L50)*
+*Defined in [defs/index.ts:50](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L50)*
 
 ___
 

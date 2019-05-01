@@ -24,7 +24,7 @@
 
 **● maxHeapSize**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/e3c87c4/packages/indexed-db/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/412f22b/packages/indexed-db/src/defs/index.ts#L12)*
 
 ___
 
