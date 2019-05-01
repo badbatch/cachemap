@@ -1,3 +1,14 @@
+#### 1.1.1 (2019-05-01)
+
+##### Documentation Changes
+
+* **readme:**  update worker usage. ([64dbdb80](https://github.com/badbatch/cachemap/commit/64dbdb802bfe9d7bb5589fac69d989bf6bb7330c))
+
+##### Bug Fixes
+
+* **core worker:**  remove name prop as not necessary and update docs. ([9cf77b91](https://github.com/badbatch/cachemap/commit/9cf77b9126aee0a25c34a07085af438dd77d214b))
+* **build process:**  change the way core and babel runtime are used. ([1c3ca662](https://github.com/badbatch/cachemap/commit/1c3ca662741d3723acee34ffc1e0b804ef5986c2))
+
 ### 1.1.0 (2019-04-30)
 
 ##### Other Changes

@@ -32,7 +32,7 @@
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#key)*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L24)*
 
 ___
 <a id="keys"></a>
@@ -43,7 +43,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#keys)*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
 <a id="messageid"></a>
@@ -52,7 +52,7 @@ ___
 
 **● messageID**: *`string`*
 
-*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L33)*
+*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L32)*
 
 ___
 <a id="method"></a>
@@ -63,7 +63,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[method](postmessagewithoutmeta.md#method)*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L26)*
 
 ___
 <a id="options"></a>
@@ -74,7 +74,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#options)*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L27)*
 
 ___
 <a id="type"></a>
@@ -83,7 +83,7 @@ ___
 
 **● type**: *`string`*
 
-*Defined in [defs/index.ts:34](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L34)*
+*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L33)*
 
 ___
 <a id="value"></a>
@@ -94,7 +94,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#value)*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/cachemap/blob/412f22b/packages/core-worker/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core-worker/src/defs/index.ts#L28)*
 
 ___
 

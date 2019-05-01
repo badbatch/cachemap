@@ -34,7 +34,7 @@
 
 *Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#disablecacheinvalidation)*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L55)*
 
 ___
 <a id="name"></a>
@@ -45,7 +45,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[name](baseoptions.md#name)*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L56)*
 
 ___
 <a id="reaper"></a>
@@ -56,7 +56,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#reaper)*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L57)*
 
 ___
 <a id="sharedcache"></a>
@@ -67,7 +67,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#sharedcache)*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L58)*
 
 ___
 <a id="store"></a>
@@ -76,7 +76,7 @@ ___
 
 **● store**: *[StoreInit](../#storeinit)*
 
-*Defined in [defs/index.ts:88](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L88)*
+*Defined in [defs/index.ts:88](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L88)*
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#sortcomparator)*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L59)*
 
 **Parameters:**
 

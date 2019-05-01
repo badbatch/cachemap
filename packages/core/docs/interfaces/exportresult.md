@@ -23,7 +23,7 @@
 
 **● entries**: *`Array`<[`string`, `any`]>*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L78)*
 
 ___
 <a id="metadata"></a>
@@ -32,7 +32,7 @@ ___
 
 **● metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/412f22b/packages/core/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/core/src/defs/index.ts#L79)*
 
 ___
 

@@ -119,7 +119,7 @@ ___
 
 *Inherited from [Options](options.md).[fast](options.md#fast)*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/412f22b/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/redis/src/defs/index.ts#L14)*
 
 ___
 <a id="host"></a>
@@ -141,7 +141,7 @@ ___
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/412f22b/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/redis/src/defs/index.ts#L15)*
 
 ___
 <a id="max_attempts"></a>
@@ -163,7 +163,7 @@ ___
 
 *Inherited from [Options](options.md).[mock](options.md#mock)*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/412f22b/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/redis/src/defs/index.ts#L16)*
 
 ___
 <a id="name"></a>
@@ -172,7 +172,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/412f22b/packages/redis/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/64dbdb8/packages/redis/src/defs/index.ts#L10)*
 
 ___
 <a id="no_ready_check"></a>
