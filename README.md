@@ -160,10 +160,11 @@ For full details of each method's signature, see the `@cachemap/core` [documenta
 ### Web worker
 
 To free up the browser's main thread you can run the Cachemap in a web worker. For this you need the
-`@cachemap/core-worker` package in addition to `@cachemap/core`, a store and reaper package.
+`@cachemap/core-worker` package in addition to `@cachemap/core`, a store and optional reaper package.
 
 The package exports the `CoreWorker` class that you initialize on the main thread and the `registerWorker` method to
-use in your `worker.js` file.
+use in your `worker.js` file. Apart from the static `init` method, the `CoreWorker` class method signatures are
+identical to those of the `Core` class.
 
 ```typescript
 // main.js
