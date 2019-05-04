@@ -24,7 +24,7 @@
 
 **● client**: *`RedisClient`*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L4)*
 
 ___
 <a id="maxheapsize"></a>
@@ -33,7 +33,7 @@ ___
 
 **● maxHeapSize**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L5)*
 
 ___
 <a id="name"></a>
@@ -42,7 +42,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L6)*
 
 ___
 

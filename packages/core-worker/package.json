@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/core-worker",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "The Cachemap Core Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -32,7 +32,7 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "@cachemap/core": "^1.1.4",
+    "@cachemap/core": "^1.2.0",
     "cacheability": "^2.0.4",
     "uuid": "^3.3.2"
   },

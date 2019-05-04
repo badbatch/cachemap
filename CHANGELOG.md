@@ -1,3 +1,9 @@
+### 1.2.0 (2019-05-04)
+
+##### Chores
+
+* **corejs:**  downgrade back to v2. ([1fafbcaf](https://github.com/badbatch/cachemap/commit/1fafbcafc46e531eea4ffc3c79e3612f272a0e77))
+
 #### 1.1.4 (2019-05-01)
 
 #### 1.1.3 (2019-05-01)

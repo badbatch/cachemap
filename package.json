@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

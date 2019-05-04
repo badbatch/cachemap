@@ -118,7 +118,7 @@ ___
 
 **● fast**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L14)*
 
 ___
 <a id="host"></a>
@@ -138,7 +138,7 @@ ___
 
 **● maxHeapSize**: *`undefined` \| `number`*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L15)*
 
 ___
 <a id="max_attempts"></a>
@@ -158,7 +158,7 @@ ___
 
 **● mock**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/b7556b3/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L16)*
 
 ___
 <a id="no_ready_check"></a>
