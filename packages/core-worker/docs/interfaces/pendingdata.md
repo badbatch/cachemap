@@ -22,7 +22,7 @@
 
 **● resolve**: *[PendingResolver](../#pendingresolver)*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/6985edf/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core-worker/src/defs/index.ts#L18)*
 
 ___
 

@@ -22,7 +22,7 @@
 
 **● name**: *`string`*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/6985edf/packages/core/src/defs/index.ts#L132)*
+*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core/src/defs/index.ts#L132)*
 
 ___
 

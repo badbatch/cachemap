@@ -23,7 +23,7 @@
 
 **● deleteCallback**: *`function`*
 
-*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/6985edf/packages/core/src/defs/index.ts#L111)*
+*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core/src/defs/index.ts#L111)*
 
 #### Type declaration
 ▸(key: *`string`*, options?: *`undefined` \| `object`*): `Promise`<`boolean`>
@@ -44,7 +44,7 @@ ___
 
 **● metadataCallback**: *`function`*
 
-*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/6985edf/packages/core/src/defs/index.ts#L112)*
+*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core/src/defs/index.ts#L112)*
 
 #### Type declaration
 ▸(): [Metadata](metadata.md)[]

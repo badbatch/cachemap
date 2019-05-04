@@ -33,7 +33,7 @@
 
 **Ƭ DeleteCallback**: *`function`*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/6985edf/packages/reaper/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/b7556b3/packages/reaper/src/defs/index.ts#L15)*
 
 #### Type declaration
 ▸(key: *`string`*, options?: *`undefined` \| `object`*): `Promise`<`boolean`>
@@ -54,7 +54,7 @@ ___
 
 **Ƭ Init**: *`function`*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/6985edf/packages/reaper/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/b7556b3/packages/reaper/src/defs/index.ts#L17)*
 
 #### Type declaration
 ▸(callbacks: *[Callbacks](interfaces/callbacks.md)*): [Reaper](classes/reaper.md)
@@ -74,7 +74,7 @@ ___
 
 **Ƭ MetadataCallback**: *`function`*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/6985edf/packages/reaper/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/b7556b3/packages/reaper/src/defs/index.ts#L19)*
 
 #### Type declaration
 ▸(): `Metadata`[]
@@ -91,7 +91,7 @@ ___
 
 ▸ **init**(options?: *[Options](interfaces/options.md)*): [Init](#init)
 
-*Defined in [main/index.ts:70](https://github.com/badbatch/cachemap/blob/6985edf/packages/reaper/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/badbatch/cachemap/blob/b7556b3/packages/reaper/src/main/index.ts#L70)*
 
 **Parameters:**
 

@@ -34,7 +34,7 @@ module.exports = (api) => {
     ],
     presets: [
       ['@babel/preset-env', {
-        corejs: 3,
+        corejs: 2,
         modules,
         targets,
         useBuiltIns: 'usage',

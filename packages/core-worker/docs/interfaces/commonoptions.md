@@ -24,7 +24,7 @@
 
 **● cacheHeaders**: *`coreDefs.CacheHeaders`*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/6985edf/packages/core-worker/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core-worker/src/defs/index.ts#L4)*
 
 ___
 <a id="deleteexpired"></a>
@@ -33,7 +33,7 @@ ___
 
 **● deleteExpired**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/6985edf/packages/core-worker/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core-worker/src/defs/index.ts#L5)*
 
 ___
 <a id="hash"></a>
@@ -42,7 +42,7 @@ ___
 
 **● hash**: *`undefined` \| `false` \| `true`*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/6985edf/packages/core-worker/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/b7556b3/packages/core-worker/src/defs/index.ts#L6)*
 
 ___
 
