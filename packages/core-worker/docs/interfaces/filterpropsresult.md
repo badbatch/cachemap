@@ -1,48 +1,41 @@
-[Documentation](../README.md) > [FilterPropsResult](../interfaces/filterpropsresult.md)
+> **[Documentation](../README.md)**
+
+[FilterPropsResult](filterpropsresult.md) /
 
 # Interface: FilterPropsResult
 
 ## Hierarchy
 
-**FilterPropsResult**
+* **FilterPropsResult**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [metadata](filterpropsresult.md#metadata)
 * [storeType](filterpropsresult.md#storetype)
 * [usedHeapSize](filterpropsresult.md#usedheapsize)
 
----
-
 ## Properties
-
-<a id="metadata"></a>
 
 ###  metadata
 
-**● metadata**: *`Metadata`[]*
+• **metadata**: *`Metadata`[]*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L53)*
 
 ___
-<a id="storetype"></a>
 
 ###  storeType
 
-**● storeType**: *`string`*
+• **storeType**: *string*
 
-*Defined in [defs/index.ts:54](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L54)*
+*Defined in [defs/index.ts:54](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L54)*
 
 ___
-<a id="usedheapsize"></a>
 
 ###  usedHeapSize
 
-**● usedHeapSize**: *`number`*
+• **usedHeapSize**: *number*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L55)*
-
-___
-
+*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L55)*

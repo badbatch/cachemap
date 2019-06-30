@@ -1,60 +1,52 @@
-[Documentation](../README.md) > [PostMessageResultWithoutMeta](../interfaces/postmessageresultwithoutmeta.md)
+> **[Documentation](../README.md)**
+
+[PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md) /
 
 # Interface: PostMessageResultWithoutMeta
 
 ## Hierarchy
 
-**PostMessageResultWithoutMeta**
+* **PostMessageResultWithoutMeta**
 
-↳  [PostMessageResult](postmessageresult.md)
+  * [PostMessageResult](postmessageresult.md)
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [metadata](postmessageresultwithoutmeta.md#metadata)
-* [result](postmessageresultwithoutmeta.md#result)
+* [result](postmessageresultwithoutmeta.md#optional-result)
 * [storeType](postmessageresultwithoutmeta.md#storetype)
 * [usedHeapSize](postmessageresultwithoutmeta.md#usedheapsize)
 
----
-
 ## Properties
-
-<a id="metadata"></a>
 
 ###  metadata
 
-**● metadata**: *`Metadata`[]*
+• **metadata**: *`Metadata`[]*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L37)*
-
-___
-<a id="result"></a>
-
-### `<Optional>` result
-
-**● result**: *`any`*
-
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
-<a id="storetype"></a>
+
+### `Optional` result
+
+• **result**? : *any*
+
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L38)*
+
+___
 
 ###  storeType
 
-**● storeType**: *`string`*
+• **storeType**: *string*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
-<a id="usedheapsize"></a>
 
 ###  usedHeapSize
 
-**● usedHeapSize**: *`number`*
+• **usedHeapSize**: *number*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L40)*
-
-___
-
+*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L40)*

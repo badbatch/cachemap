@@ -1,20 +1,22 @@
-[Documentation](../README.md) > [Store](../interfaces/store.md)
+> **[Documentation](../README.md)**
+
+[Store](store.md) /
 
 # Interface: Store
 
 ## Hierarchy
 
-**Store**
+* **Store**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [maxHeapSize](store.md#maxheapsize)
 * [name](store.md#name)
 * [type](store.md#type)
 
-### Methods
+#### Methods
 
 * [clear](store.md#clear)
 * [delete](store.md#delete)
@@ -25,163 +27,143 @@
 * [set](store.md#set)
 * [size](store.md#size)
 
----
-
 ## Properties
-
-<a id="maxheapsize"></a>
 
 ###  maxHeapSize
 
-**● maxHeapSize**: *`number`*
+• **maxHeapSize**: *number*
 
-*Defined in [defs/index.ts:118](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L118)*
+*Defined in [defs/index.ts:118](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L118)*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
-*Defined in [defs/index.ts:119](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L119)*
+*Defined in [defs/index.ts:119](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L119)*
 
 ___
-<a id="type"></a>
 
 ###  type
 
-**● type**: *`string`*
+• **type**: *string*
 
-*Defined in [defs/index.ts:120](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L120)*
-
-___
+*Defined in [defs/index.ts:120](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L120)*
 
 ## Methods
 
-<a id="clear"></a>
-
 ###  clear
 
-▸ **clear**(): `Promise`<`void`>
+▸ **clear**(): *`Promise<void>`*
 
-*Defined in [defs/index.ts:121](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L121)*
+*Defined in [defs/index.ts:121](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L121)*
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="delete"></a>
 
 ###  delete
 
-▸ **delete**(key: *`string`*): `Promise`<`boolean`>
+▸ **delete**(`key`: *string*): *`Promise<boolean>`*
 
-*Defined in [defs/index.ts:122](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L122)*
+*Defined in [defs/index.ts:122](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L122)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="entries"></a>
 
 ###  entries
 
-▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
+▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
 
-*Defined in [defs/index.ts:123](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L123)*
+*Defined in [defs/index.ts:123](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L123)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` keys | `string`[] |
+Name | Type |
+------ | ------ |
+`keys?` | string[] |
 
-**Returns:** `Promise`<`Array`<[`string`, `any`]>>
+**Returns:** *`Promise<Array<[string, any]>>`*
 
 ___
-<a id="get"></a>
 
 ###  get
 
-▸ **get**(key: *`string`*): `Promise`<`any`>
+▸ **get**(`key`: *string*): *`Promise<any>`*
 
-*Defined in [defs/index.ts:124](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L124)*
+*Defined in [defs/index.ts:124](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L124)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`any`>
+**Returns:** *`Promise<any>`*
 
 ___
-<a id="has"></a>
 
 ###  has
 
-▸ **has**(key: *`string`*): `Promise`<`boolean`>
+▸ **has**(`key`: *string*): *`Promise<boolean>`*
 
-*Defined in [defs/index.ts:125](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L125)*
+*Defined in [defs/index.ts:125](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L125)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="import"></a>
 
 ###  import
 
-▸ **import**(entries: *`Array`<[`string`, `any`]>*): `Promise`<`void`>
+▸ **import**(`entries`: *`Array<[string, any]>`*): *`Promise<void>`*
 
-*Defined in [defs/index.ts:126](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L126)*
+*Defined in [defs/index.ts:126](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L126)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| entries | `Array`<[`string`, `any`]> |
+Name | Type |
+------ | ------ |
+`entries` | `Array<[string, any]>` |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="set"></a>
 
 ###  set
 
-▸ **set**(key: *`string`*, value: *`any`*): `Promise`<`void`>
+▸ **set**(`key`: *string*, `value`: *any*): *`Promise<void>`*
 
-*Defined in [defs/index.ts:127](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L127)*
+*Defined in [defs/index.ts:127](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L127)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
-| value | `any` |
+Name | Type |
+------ | ------ |
+`key` | string |
+`value` | any |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="size"></a>
 
 ###  size
 
-▸ **size**(): `Promise`<`number`>
+▸ **size**(): *`Promise<number>`*
 
-*Defined in [defs/index.ts:128](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L128)*
+*Defined in [defs/index.ts:128](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L128)*
 
-**Returns:** `Promise`<`number`>
-
-___
-
+**Returns:** *`Promise<number>`*

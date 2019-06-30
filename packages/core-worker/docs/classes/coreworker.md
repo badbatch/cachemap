@@ -1,24 +1,26 @@
-[Documentation](../README.md) > [CoreWorker](../classes/coreworker.md)
+> **[Documentation](../README.md)**
+
+[CoreWorker](coreworker.md) /
 
 # Class: CoreWorker
 
 ## Hierarchy
 
-**CoreWorker**
+* **CoreWorker**
 
-## Index
+### Index
 
-### Constructors
+#### Constructors
 
 * [constructor](coreworker.md#constructor)
 
-### Accessors
+#### Accessors
 
 * [metadata](coreworker.md#metadata)
 * [storeType](coreworker.md#storetype)
 * [usedHeapSize](coreworker.md#usedheapsize)
 
-### Methods
+#### Methods
 
 * [clear](coreworker.md#clear)
 * [delete](coreworker.md#delete)
@@ -29,247 +31,221 @@
 * [import](coreworker.md#import)
 * [set](coreworker.md#set)
 * [size](coreworker.md#size)
-* [init](coreworker.md#init)
-
----
+* [init](coreworker.md#static-init)
 
 ## Constructors
 
-<a id="constructor"></a>
-
 ###  constructor
 
-⊕ **new CoreWorker**(__namedParameters: *`object`*): [CoreWorker](coreworker.md)
+\+ **new CoreWorker**(`__namedParameters`: *object*): *[CoreWorker](coreworker.md)*
 
-*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L38)*
+*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L38)*
 
 **Parameters:**
 
-**__namedParameters: `object`**
+▪ **__namedParameters**: *object*
 
-| Name | Type |
-| ------ | ------ |
-| worker | `Worker` |
+Name | Type |
+------ | ------ |
+`worker` | `Worker` |
 
-**Returns:** [CoreWorker](coreworker.md)
-
-___
+**Returns:** *[CoreWorker](coreworker.md)*
 
 ## Accessors
 
-<a id="metadata"></a>
-
 ###  metadata
 
-**get metadata**(): `Metadata`[]
+• **get metadata**(): *`Metadata`[]*
 
-*Defined in [main/index.ts:45](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L45)*
+*Defined in [main/index.ts:45](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L45)*
 
-**Returns:** `Metadata`[]
+**Returns:** *`Metadata`[]*
 
 ___
-<a id="storetype"></a>
 
 ###  storeType
 
-**get storeType**(): `string` \| `undefined`
+• **get storeType**(): *string | undefined*
 
-*Defined in [main/index.ts:49](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L49)*
+*Defined in [main/index.ts:49](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L49)*
 
-**Returns:** `string` \| `undefined`
+**Returns:** *string | undefined*
 
 ___
-<a id="usedheapsize"></a>
 
 ###  usedHeapSize
 
-**get usedHeapSize**(): `number`
+• **get usedHeapSize**(): *number*
 
-*Defined in [main/index.ts:53](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L53)*
+*Defined in [main/index.ts:53](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L53)*
 
-**Returns:** `number`
-
-___
+**Returns:** *number*
 
 ## Methods
 
-<a id="clear"></a>
-
 ###  clear
 
-▸ **clear**(): `Promise`<`void`>
+▸ **clear**(): *`Promise<void>`*
 
-*Defined in [main/index.ts:57](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L57)*
+*Defined in [main/index.ts:57](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L57)*
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="delete"></a>
 
 ###  delete
 
-▸ **delete**(key: *`string`*, options?: *`object`*): `Promise`<`boolean`>
+▸ **delete**(`key`: *string*, `options`: *object*): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:66](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L66)*
+*Defined in [main/index.ts:66](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L66)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="entries"></a>
 
 ###  entries
 
-▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
+▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
 
-*Defined in [main/index.ts:76](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L76)*
+*Defined in [main/index.ts:76](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L76)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` keys | `string`[] |
+Name | Type |
+------ | ------ |
+`keys?` | string[] |
 
-**Returns:** `Promise`<`Array`<[`string`, `any`]>>
+**Returns:** *`Promise<Array<[string, any]>>`*
 
 ___
-<a id="export"></a>
 
 ###  export
 
-▸ **export**(options?: *`ExportOptions`*): `Promise`<`ExportResult`>
+▸ **export**(`options`: *`ExportOptions`*): *`Promise<ExportResult>`*
 
-*Defined in [main/index.ts:86](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L86)*
+*Defined in [main/index.ts:86](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L86)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` options | `ExportOptions` |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`options` | `ExportOptions` |  {} |
 
-**Returns:** `Promise`<`ExportResult`>
+**Returns:** *`Promise<ExportResult>`*
 
 ___
-<a id="get"></a>
 
 ###  get
 
-▸ **get**(key: *`string`*, options?: *`object`*): `Promise`<`any`>
+▸ **get**(`key`: *string*, `options`: *object*): *`Promise<any>`*
 
-*Defined in [main/index.ts:96](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L96)*
+*Defined in [main/index.ts:96](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L96)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`any`>
+**Returns:** *`Promise<any>`*
 
 ___
-<a id="has"></a>
 
 ###  has
 
-▸ **has**(key: *`string`*, options?: *`object`*): `Promise`<`false` \| `Cacheability`>
+▸ **has**(`key`: *string*, `options`: *object*): *`Promise<false | Cacheability>`*
 
-*Defined in [main/index.ts:106](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L106)*
+*Defined in [main/index.ts:106](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L106)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` deleteExpired | `undefined` \| `false` \| `true` |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`deleteExpired?` | undefined \| false \| true |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`false` \| `Cacheability`>
+**Returns:** *`Promise<false | Cacheability>`*
 
 ___
-<a id="import"></a>
 
 ###  import
 
-▸ **import**(options: *`ImportOptions`*): `Promise`<`void`>
+▸ **import**(`options`: *`ImportOptions`*): *`Promise<void>`*
 
-*Defined in [main/index.ts:120](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L120)*
+*Defined in [main/index.ts:120](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L120)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | `ImportOptions` |
+Name | Type |
+------ | ------ |
+`options` | `ImportOptions` |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="set"></a>
 
 ###  set
 
-▸ **set**(key: *`string`*, value: *`any`*, options?: *`object`*): `Promise`<`any`>
+▸ **set**(`key`: *string*, `value`: *any*, `options`: *object*): *`Promise<any>`*
 
-*Defined in [main/index.ts:129](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L129)*
+*Defined in [main/index.ts:129](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L129)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**value: `any`**
+▪ **value**: *any*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` cacheHeaders | `coreDefs.CacheHeaders` |
-| `Optional` hash | `undefined` \| `false` \| `true` |
-| `Optional` tag | `any` |
+Name | Type |
+------ | ------ |
+`cacheHeaders?` | `coreDefs.CacheHeaders` |
+`hash?` | undefined \| false \| true |
+`tag?` | any |
 
-**Returns:** `Promise`<`any`>
+**Returns:** *`Promise<any>`*
 
 ___
-<a id="size"></a>
 
 ###  size
 
-▸ **size**(): `Promise`<`number`>
+▸ **size**(): *`Promise<number>`*
 
-*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L142)*
+*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L142)*
 
-**Returns:** `Promise`<`number`>
+**Returns:** *`Promise<number>`*
 
 ___
-<a id="init"></a>
 
-### `<Static>` init
+### `Static` init
 
-▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[CoreWorker](coreworker.md)>
+▸ **init**(`options`: *[InitOptions](../interfaces/initoptions.md)*): *`Promise<CoreWorker>`*
 
-*Defined in [main/index.ts:18](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/main/index.ts#L18)*
+*Defined in [main/index.ts:18](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/main/index.ts#L18)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [InitOptions](../interfaces/initoptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** `Promise`<[CoreWorker](coreworker.md)>
-
-___
-
+**Returns:** *`Promise<CoreWorker>`*

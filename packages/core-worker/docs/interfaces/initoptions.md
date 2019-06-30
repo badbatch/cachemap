@@ -1,28 +1,23 @@
-[Documentation](../README.md) > [InitOptions](../interfaces/initoptions.md)
+> **[Documentation](../README.md)**
+
+[InitOptions](initoptions.md) /
 
 # Interface: InitOptions
 
 ## Hierarchy
 
-**InitOptions**
+* **InitOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [worker](initoptions.md#worker)
 
----
-
 ## Properties
-
-<a id="worker"></a>
 
 ###  worker
 
-**● worker**: *`Worker`*
+• **worker**: *`Worker`*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L10)*
-
-___
-
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L10)*

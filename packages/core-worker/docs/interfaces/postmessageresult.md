@@ -1,88 +1,78 @@
-[Documentation](../README.md) > [PostMessageResult](../interfaces/postmessageresult.md)
+> **[Documentation](../README.md)**
+
+[PostMessageResult](postmessageresult.md) /
 
 # Interface: PostMessageResult
 
 ## Hierarchy
 
- [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md)
+* [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md)
 
-**↳ PostMessageResult**
+  * **PostMessageResult**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [messageID](postmessageresult.md#messageid)
 * [metadata](postmessageresult.md#metadata)
-* [result](postmessageresult.md#result)
+* [result](postmessageresult.md#optional-result)
 * [storeType](postmessageresult.md#storetype)
 * [type](postmessageresult.md#type)
 * [usedHeapSize](postmessageresult.md#usedheapsize)
 
----
-
 ## Properties
-
-<a id="messageid"></a>
 
 ###  messageID
 
-**● messageID**: *`string`*
+• **messageID**: *string*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L44)*
 
 ___
-<a id="metadata"></a>
 
 ###  metadata
 
-**● metadata**: *`Metadata`[]*
+• **metadata**: *`Metadata`[]*
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[metadata](postmessageresultwithoutmeta.md#metadata)*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
-<a id="result"></a>
 
-### `<Optional>` result
+### `Optional` result
 
-**● result**: *`any`*
+• **result**? : *any*
 
-*Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[result](postmessageresultwithoutmeta.md#result)*
+*Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[result](postmessageresultwithoutmeta.md#optional-result)*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L38)*
 
 ___
-<a id="storetype"></a>
 
 ###  storeType
 
-**● storeType**: *`string`*
+• **storeType**: *string*
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[storeType](postmessageresultwithoutmeta.md#storetype)*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
-<a id="type"></a>
 
 ###  type
 
-**● type**: *`string`*
+• **type**: *string*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L45)*
 
 ___
-<a id="usedheapsize"></a>
 
 ###  usedHeapSize
 
-**● usedHeapSize**: *`number`*
+• **usedHeapSize**: *number*
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[usedHeapSize](postmessageresultwithoutmeta.md#usedheapsize)*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L40)*
-
-___
-
+*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L40)*

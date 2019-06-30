@@ -1,100 +1,89 @@
-[Documentation](../README.md) > [PostMessage](../interfaces/postmessage.md)
+> **[Documentation](../README.md)**
+
+[PostMessage](postmessage.md) /
 
 # Interface: PostMessage
 
 ## Hierarchy
 
- [PostMessageWithoutMeta](postmessagewithoutmeta.md)
+* [PostMessageWithoutMeta](postmessagewithoutmeta.md)
 
-**↳ PostMessage**
+  * **PostMessage**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [key](postmessage.md#key)
-* [keys](postmessage.md#keys)
+* [key](postmessage.md#optional-key)
+* [keys](postmessage.md#optional-keys)
 * [messageID](postmessage.md#messageid)
 * [method](postmessage.md#method)
-* [options](postmessage.md#options)
+* [options](postmessage.md#optional-options)
 * [type](postmessage.md#type)
-* [value](postmessage.md#value)
-
----
+* [value](postmessage.md#optional-value)
 
 ## Properties
 
-<a id="key"></a>
+### `Optional` key
 
-### `<Optional>` key
+• **key**? : *undefined | string*
 
-**● key**: *`undefined` \| `string`*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#optional-key)*
 
-*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#key)*
-
-*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L24)*
 
 ___
-<a id="keys"></a>
 
-### `<Optional>` keys
+### `Optional` keys
 
-**● keys**: *`string`[]*
+• **keys**? : *string[]*
 
-*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#keys)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#optional-keys)*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
-<a id="messageid"></a>
 
 ###  messageID
 
-**● messageID**: *`string`*
+• **messageID**: *string*
 
-*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L32)*
 
 ___
-<a id="method"></a>
 
 ###  method
 
-**● method**: *`string`*
+• **method**: *string*
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[method](postmessagewithoutmeta.md#method)*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L26)*
 
 ___
-<a id="options"></a>
 
-### `<Optional>` options
+### `Optional` options
 
-**● options**: *[CommonOptions](commonoptions.md) \| `ExportOptions` \| `ImportOptions`*
+• **options**? : *[CommonOptions](commonoptions.md) | `ExportOptions` | `ImportOptions`*
 
-*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#options)*
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#optional-options)*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L27)*
 
 ___
-<a id="type"></a>
 
 ###  type
 
-**● type**: *`string`*
+• **type**: *string*
 
-*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L33)*
-
-___
-<a id="value"></a>
-
-### `<Optional>` value
-
-**● value**: *`any`*
-
-*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#value)*
-
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L33)*
 
 ___
 
+### `Optional` value
+
+• **value**? : *any*
+
+*Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#optional-value)*
+
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L28)*

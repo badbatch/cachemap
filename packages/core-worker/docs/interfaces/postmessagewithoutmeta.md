@@ -1,70 +1,61 @@
-[Documentation](../README.md) > [PostMessageWithoutMeta](../interfaces/postmessagewithoutmeta.md)
+> **[Documentation](../README.md)**
+
+[PostMessageWithoutMeta](postmessagewithoutmeta.md) /
 
 # Interface: PostMessageWithoutMeta
 
 ## Hierarchy
 
-**PostMessageWithoutMeta**
+* **PostMessageWithoutMeta**
 
-↳  [PostMessage](postmessage.md)
+  * [PostMessage](postmessage.md)
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [key](postmessagewithoutmeta.md#key)
-* [keys](postmessagewithoutmeta.md#keys)
+* [key](postmessagewithoutmeta.md#optional-key)
+* [keys](postmessagewithoutmeta.md#optional-keys)
 * [method](postmessagewithoutmeta.md#method)
-* [options](postmessagewithoutmeta.md#options)
-* [value](postmessagewithoutmeta.md#value)
-
----
+* [options](postmessagewithoutmeta.md#optional-options)
+* [value](postmessagewithoutmeta.md#optional-value)
 
 ## Properties
 
-<a id="key"></a>
+### `Optional` key
 
-### `<Optional>` key
+• **key**? : *undefined | string*
 
-**● key**: *`undefined` \| `string`*
-
-*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L24)*
 
 ___
-<a id="keys"></a>
 
-### `<Optional>` keys
+### `Optional` keys
 
-**● keys**: *`string`[]*
+• **keys**? : *string[]*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
-<a id="method"></a>
 
 ###  method
 
-**● method**: *`string`*
+• **method**: *string*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L26)*
-
-___
-<a id="options"></a>
-
-### `<Optional>` options
-
-**● options**: *[CommonOptions](commonoptions.md) \| `ExportOptions` \| `ImportOptions`*
-
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L27)*
-
-___
-<a id="value"></a>
-
-### `<Optional>` value
-
-**● value**: *`any`*
-
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L26)*
 
 ___
 
+### `Optional` options
+
+• **options**? : *[CommonOptions](commonoptions.md) | `ExportOptions` | `ImportOptions`*
+
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L27)*
+
+___
+
+### `Optional` value
+
+• **value**? : *any*
+
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L28)*

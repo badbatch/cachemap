@@ -1,38 +1,32 @@
-[Documentation](../README.md) > [ExportResult](../interfaces/exportresult.md)
+> **[Documentation](../README.md)**
+
+[ExportResult](exportresult.md) /
 
 # Interface: ExportResult
 
 ## Hierarchy
 
-**ExportResult**
+* **ExportResult**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [entries](exportresult.md#entries)
 * [metadata](exportresult.md#metadata)
 
----
-
 ## Properties
-
-<a id="entries"></a>
 
 ###  entries
 
-**● entries**: *`Array`<[`string`, `any`]>*
+• **entries**: *`Array<[string, any]>`*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L78)*
 
 ___
-<a id="metadata"></a>
 
 ###  metadata
 
-**● metadata**: *[Metadata](metadata.md)[]*
+• **metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L79)*
-
-___
-
+*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L79)*

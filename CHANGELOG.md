@@ -1,3 +1,13 @@
+### 1.3.0 (2019-06-30)
+
+##### Chores
+
+* **repository:**  update dependencies. ([3de6fa72](https://github.com/badbatch/cachemap/commit/3de6fa724cb557d1dc515e07aa9b81b6fa9305d6))
+
+##### Bug Fixes
+
+* **travis:**  update node version in config. ([f0089aa1](https://github.com/badbatch/cachemap/commit/f0089aa194c2b8a7b9f09be5e0e8d2e5a0471f98))
+
 ### 1.2.0 (2019-05-04)
 
 ##### Chores

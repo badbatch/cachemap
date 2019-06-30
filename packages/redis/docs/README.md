@@ -1,41 +1,33 @@
+> **[Documentation](README.md)**
 
-#  Documentation
+### Index
 
-## Index
-
-### Classes
+#### Classes
 
 * [RedisStore](classes/redisstore.md)
 
-### Interfaces
+#### Interfaces
 
 * [ConstructorOptions](interfaces/constructoroptions.md)
 * [InitOptions](interfaces/initoptions.md)
 * [Options](interfaces/options.md)
 
-### Functions
+#### Functions
 
-* [init](#init)
-
----
+* [init](README.md#init)
 
 ## Functions
 
-<a id="init"></a>
-
 ###  init
 
-▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
+▸ **init**(`options`: *[Options](interfaces/options.md)*): *`coreDefs.StoreInit`*
 
-*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/main/index.ts#L153)*
+*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` options | [Options](interfaces/options.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** `coreDefs.StoreInit`
-
-___
-
+**Returns:** *`coreDefs.StoreInit`*

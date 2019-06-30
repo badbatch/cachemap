@@ -1,56 +1,44 @@
+> **[Documentation](README.md)**
 
-#  Documentation
+### Index
 
-## Index
-
-### Classes
+#### Classes
 
 * [MapStore](classes/mapstore.md)
 
-### Interfaces
+#### Interfaces
 
 * [InitOptions](interfaces/initoptions.md)
 * [Options](interfaces/options.md)
 
-### Type aliases
+#### Type aliases
 
-* [ConstructorOptions](#constructoroptions)
+* [ConstructorOptions](README.md#constructoroptions)
 
-### Functions
+#### Functions
 
-* [init](#init)
-
----
+* [init](README.md#init)
 
 ## Type aliases
 
-<a id="constructoroptions"></a>
-
 ###  ConstructorOptions
 
-**Ƭ ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
+Ƭ **ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/defs/index.ts#L1)*
-
-___
+*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/defs/index.ts#L1)*
 
 ## Functions
 
-<a id="init"></a>
-
 ###  init
 
-▸ **init**(options?: *[Options](interfaces/options.md)*): `coreDefs.StoreInit`
+▸ **init**(`options`: *[Options](interfaces/options.md)*): *`coreDefs.StoreInit`*
 
-*Defined in [main/index.ts:73](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L73)*
+*Defined in [main/index.ts:73](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L73)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` options | [Options](interfaces/options.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** `coreDefs.StoreInit`
-
-___
-
+**Returns:** *`coreDefs.StoreInit`*

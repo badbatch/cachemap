@@ -1,28 +1,23 @@
-[Documentation](../README.md) > [RegisterWorkerOptions](../interfaces/registerworkeroptions.md)
+> **[Documentation](../README.md)**
+
+[RegisterWorkerOptions](registerworkeroptions.md) /
 
 # Interface: RegisterWorkerOptions
 
 ## Hierarchy
 
-**RegisterWorkerOptions**
+* **RegisterWorkerOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [cachemap](registerworkeroptions.md#cachemap)
 
----
-
 ## Properties
-
-<a id="cachemap"></a>
 
 ###  cachemap
 
-**● cachemap**: *`Core`*
+• **cachemap**: *`Core`*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L49)*
-
-___
-
+*Defined in [defs/index.ts:49](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L49)*

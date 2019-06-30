@@ -1,38 +1,32 @@
-[Documentation](../README.md) > [ExportOptions](../interfaces/exportoptions.md)
+> **[Documentation](../README.md)**
+
+[ExportOptions](exportoptions.md) /
 
 # Interface: ExportOptions
 
 ## Hierarchy
 
-**ExportOptions**
+* **ExportOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [keys](exportoptions.md#keys)
-* [tag](exportoptions.md#tag)
-
----
+* [keys](exportoptions.md#optional-keys)
+* [tag](exportoptions.md#optional-tag)
 
 ## Properties
 
-<a id="keys"></a>
+### `Optional` keys
 
-### `<Optional>` keys
+• **keys**? : *string[]*
 
-**● keys**: *`string`[]*
-
-*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L73)*
-
-___
-<a id="tag"></a>
-
-### `<Optional>` tag
-
-**● tag**: *`any`*
-
-*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L73)*
 
 ___
 
+### `Optional` tag
+
+• **tag**? : *any*
+
+*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L74)*

@@ -1,15 +1,13 @@
-[Documentation](../README.md) > [PlainObject](../interfaces/plainobject.md)
+> **[Documentation](../README.md)**
+
+[PlainObject](plainobject.md) /
 
 # Interface: PlainObject
 
 ## Hierarchy
 
-**PlainObject**
+* **PlainObject**
 
 ## Indexable
 
-\[key: `string`\]:&nbsp;`any`
-## Index
-
----
-
+● \[▪ **key**: *string*\]: any

@@ -1,38 +1,32 @@
-[Documentation](../README.md) > [ImportOptions](../interfaces/importoptions.md)
+> **[Documentation](../README.md)**
+
+[ImportOptions](importoptions.md) /
 
 # Interface: ImportOptions
 
 ## Hierarchy
 
-**ImportOptions**
+* **ImportOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [entries](importoptions.md#entries)
 * [metadata](importoptions.md#metadata)
 
----
-
 ## Properties
-
-<a id="entries"></a>
 
 ###  entries
 
-**● entries**: *`Array`<[`string`, `any`]>*
+• **entries**: *`Array<[string, any]>`*
 
-*Defined in [defs/index.ts:83](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L83)*
+*Defined in [defs/index.ts:83](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L83)*
 
 ___
-<a id="metadata"></a>
 
 ###  metadata
 
-**● metadata**: *[Metadata](metadata.md)[]*
+• **metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:84](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L84)*
-
-___
-
+*Defined in [defs/index.ts:84](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L84)*

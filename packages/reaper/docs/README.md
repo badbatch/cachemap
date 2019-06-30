@@ -1,105 +1,88 @@
+> **[Documentation](README.md)**
 
-#  Documentation
+### Index
 
-## Index
-
-### Classes
+#### Classes
 
 * [Reaper](classes/reaper.md)
 
-### Interfaces
+#### Interfaces
 
 * [Callbacks](interfaces/callbacks.md)
 * [ConstructorOptions](interfaces/constructoroptions.md)
 * [Options](interfaces/options.md)
 
-### Type aliases
+#### Type aliases
 
-* [DeleteCallback](#deletecallback)
-* [Init](#init)
-* [MetadataCallback](#metadatacallback)
+* [DeleteCallback](README.md#deletecallback)
+* [Init](README.md#init)
+* [MetadataCallback](README.md#metadatacallback)
 
-### Functions
+#### Functions
 
-* [init](#init)
-
----
+* [init](README.md#init)
 
 ## Type aliases
 
-<a id="deletecallback"></a>
-
 ###  DeleteCallback
 
-**Ƭ DeleteCallback**: *`function`*
+Ƭ **DeleteCallback**: *function*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L15)*
 
-#### Type declaration
-▸(key: *`string`*, options?: *`undefined` \| `object`*): `Promise`<`boolean`>
+#### Type declaration:
+
+▸ (`key`: *string*, `options?`: *undefined | object*): *`Promise<boolean>`*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
-| `Optional` options | `undefined` \| `object` |
-
-**Returns:** `Promise`<`boolean`>
+Name | Type |
+------ | ------ |
+`key` | string |
+`options?` | undefined \| object |
 
 ___
-<a id="init"></a>
 
 ###  Init
 
-**Ƭ Init**: *`function`*
+Ƭ **Init**: *function*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L17)*
 
-#### Type declaration
-▸(callbacks: *[Callbacks](interfaces/callbacks.md)*): [Reaper](classes/reaper.md)
+#### Type declaration:
+
+▸ (`callbacks`: *[Callbacks](interfaces/callbacks.md)*): *[Reaper](classes/reaper.md)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| callbacks | [Callbacks](interfaces/callbacks.md) |
-
-**Returns:** [Reaper](classes/reaper.md)
+Name | Type |
+------ | ------ |
+`callbacks` | [Callbacks](interfaces/callbacks.md) |
 
 ___
-<a id="metadatacallback"></a>
 
 ###  MetadataCallback
 
-**Ƭ MetadataCallback**: *`function`*
+Ƭ **MetadataCallback**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L19)*
 
-#### Type declaration
-▸(): `Metadata`[]
+#### Type declaration:
 
-**Returns:** `Metadata`[]
-
-___
+▸ (): *`Metadata`[]*
 
 ## Functions
 
-<a id="init"></a>
-
 ###  init
 
-▸ **init**(options?: *[Options](interfaces/options.md)*): [Init](#init)
+▸ **init**(`options`: *[Options](interfaces/options.md)*): *[Init](README.md#init)*
 
-*Defined in [main/index.ts:70](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/main/index.ts#L70)*
+*Defined in [main/index.ts:70](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/main/index.ts#L70)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` options | [Options](interfaces/options.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** [Init](#init)
-
-___
-
+**Returns:** *[Init](README.md#init)*

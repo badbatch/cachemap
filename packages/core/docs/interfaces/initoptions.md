@@ -1,105 +1,92 @@
-[Documentation](../README.md) > [InitOptions](../interfaces/initoptions.md)
+> **[Documentation](../README.md)**
+
+[InitOptions](initoptions.md) /
 
 # Interface: InitOptions
 
 ## Hierarchy
 
- [BaseOptions](baseoptions.md)
+* [BaseOptions](baseoptions.md)
 
-**↳ InitOptions**
+  * **InitOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [disableCacheInvalidation](initoptions.md#disablecacheinvalidation)
+* [disableCacheInvalidation](initoptions.md#optional-disablecacheinvalidation)
 * [name](initoptions.md#name)
-* [reaper](initoptions.md#reaper)
-* [sharedCache](initoptions.md#sharedcache)
+* [reaper](initoptions.md#optional-reaper)
+* [sharedCache](initoptions.md#optional-sharedcache)
 * [store](initoptions.md#store)
 
-### Methods
+#### Methods
 
-* [sortComparator](initoptions.md#sortcomparator)
-
----
+* [sortComparator](initoptions.md#optional-sortcomparator)
 
 ## Properties
 
-<a id="disablecacheinvalidation"></a>
+### `Optional` disableCacheInvalidation
 
-### `<Optional>` disableCacheInvalidation
+• **disableCacheInvalidation**? : *undefined | false | true*
 
-**● disableCacheInvalidation**: *`undefined` \| `false` \| `true`*
+*Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#optional-disablecacheinvalidation)*
 
-*Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#disablecacheinvalidation)*
-
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L55)*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
 *Inherited from [BaseOptions](baseoptions.md).[name](baseoptions.md#name)*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L56)*
 
 ___
-<a id="reaper"></a>
 
-### `<Optional>` reaper
+### `Optional` reaper
 
-**● reaper**: *[ReaperInit](../#reaperinit)*
+• **reaper**? : *[ReaperInit](../README.md#reaperinit)*
 
-*Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#reaper)*
+*Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#optional-reaper)*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L57)*
-
-___
-<a id="sharedcache"></a>
-
-### `<Optional>` sharedCache
-
-**● sharedCache**: *`undefined` \| `false` \| `true`*
-
-*Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#sharedcache)*
-
-*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L57)*
 
 ___
-<a id="store"></a>
+
+### `Optional` sharedCache
+
+• **sharedCache**? : *undefined | false | true*
+
+*Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#optional-sharedcache)*
+
+*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L58)*
+
+___
 
 ###  store
 
-**● store**: *[StoreInit](../#storeinit)*
+• **store**: *[StoreInit](../README.md#storeinit)*
 
-*Defined in [defs/index.ts:88](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L88)*
-
-___
+*Defined in [defs/index.ts:88](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L88)*
 
 ## Methods
 
-<a id="sortcomparator"></a>
+### `Optional` sortComparator
 
-### `<Optional>` sortComparator
+▸ **sortComparator**(`a`: *any*, `b`: *any*): *number*
 
-▸ **sortComparator**(a: *`any`*, b: *`any`*): `number`
+*Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#optional-sortcomparator)*
 
-*Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#sortcomparator)*
-
-*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L59)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| a | `any` |
-| b | `any` |
+Name | Type |
+------ | ------ |
+`a` | any |
+`b` | any |
 
-**Returns:** `number`
-
-___
-
+**Returns:** *number*

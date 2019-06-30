@@ -1,55 +1,47 @@
-[Documentation](../README.md) > [ReaperCallbacks](../interfaces/reapercallbacks.md)
+> **[Documentation](../README.md)**
+
+[ReaperCallbacks](reapercallbacks.md) /
 
 # Interface: ReaperCallbacks
 
 ## Hierarchy
 
-**ReaperCallbacks**
+* **ReaperCallbacks**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [deleteCallback](reapercallbacks.md#deletecallback)
 * [metadataCallback](reapercallbacks.md#metadatacallback)
 
----
-
 ## Properties
-
-<a id="deletecallback"></a>
 
 ###  deleteCallback
 
-**● deleteCallback**: *`function`*
+• **deleteCallback**: *function*
 
-*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L111)*
+*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L111)*
 
-#### Type declaration
-▸(key: *`string`*, options?: *`undefined` \| `object`*): `Promise`<`boolean`>
+#### Type declaration:
+
+▸ (`key`: *string*, `options?`: *undefined | object*): *`Promise<boolean>`*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
-| `Optional` options | `undefined` \| `object` |
-
-**Returns:** `Promise`<`boolean`>
+Name | Type |
+------ | ------ |
+`key` | string |
+`options?` | undefined \| object |
 
 ___
-<a id="metadatacallback"></a>
 
 ###  metadataCallback
 
-**● metadataCallback**: *`function`*
+• **metadataCallback**: *function*
 
-*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L112)*
+*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L112)*
 
-#### Type declaration
-▸(): [Metadata](metadata.md)[]
+#### Type declaration:
 
-**Returns:** [Metadata](metadata.md)[]
-
-___
-
+▸ (): *[Metadata](metadata.md)[]*

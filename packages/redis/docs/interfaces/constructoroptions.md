@@ -1,48 +1,41 @@
-[Documentation](../README.md) > [ConstructorOptions](../interfaces/constructoroptions.md)
+> **[Documentation](../README.md)**
+
+[ConstructorOptions](constructoroptions.md) /
 
 # Interface: ConstructorOptions
 
 ## Hierarchy
 
-**ConstructorOptions**
+* **ConstructorOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [client](constructoroptions.md#client)
-* [maxHeapSize](constructoroptions.md#maxheapsize)
+* [maxHeapSize](constructoroptions.md#optional-maxheapsize)
 * [name](constructoroptions.md#name)
-
----
 
 ## Properties
 
-<a id="client"></a>
-
 ###  client
 
-**● client**: *`RedisClient`*
+• **client**: *`RedisClient`*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L4)*
-
-___
-<a id="maxheapsize"></a>
-
-### `<Optional>` maxHeapSize
-
-**● maxHeapSize**: *`undefined` \| `number`*
-
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L4)*
 
 ___
-<a id="name"></a>
+
+### `Optional` maxHeapSize
+
+• **maxHeapSize**? : *undefined | number*
+
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L5)*
+
+___
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/1fafbca/packages/redis/src/defs/index.ts#L6)*
-
-___
-
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L6)*

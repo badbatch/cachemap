@@ -1,28 +1,23 @@
-[Documentation](../README.md) > [PendingData](../interfaces/pendingdata.md)
+> **[Documentation](../README.md)**
+
+[PendingData](pendingdata.md) /
 
 # Interface: PendingData
 
 ## Hierarchy
 
-**PendingData**
+* **PendingData**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [resolve](pendingdata.md#resolve)
 
----
-
 ## Properties
-
-<a id="resolve"></a>
 
 ###  resolve
 
-**● resolve**: *[PendingResolver](../#pendingresolver)*
+• **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L18)*
-
-___
-
+*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L18)*

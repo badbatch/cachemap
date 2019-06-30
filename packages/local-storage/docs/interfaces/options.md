@@ -1,30 +1,25 @@
-[Documentation](../README.md) > [Options](../interfaces/options.md)
+> **[Documentation](../README.md)**
+
+[Options](options.md) /
 
 # Interface: Options
 
 ## Hierarchy
 
-**Options**
+* **Options**
 
-↳  [InitOptions](initoptions.md)
+  * [InitOptions](initoptions.md)
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [maxHeapSize](options.md#maxheapsize)
-
----
+* [maxHeapSize](options.md#optional-maxheapsize)
 
 ## Properties
 
-<a id="maxheapsize"></a>
+### `Optional` maxHeapSize
 
-### `<Optional>` maxHeapSize
+• **maxHeapSize**? : *undefined | number*
 
-**● maxHeapSize**: *`undefined` \| `number`*
-
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/1fafbca/packages/local-storage/src/defs/index.ts#L8)*
-
-___
-
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/f0089aa/packages/local-storage/src/defs/index.ts#L8)*

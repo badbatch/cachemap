@@ -1,31 +1,33 @@
-[Documentation](../README.md) > [MapStore](../classes/mapstore.md)
+> **[Documentation](../README.md)**
+
+[MapStore](mapstore.md) /
 
 # Class: MapStore
 
 ## Hierarchy
 
-**MapStore**
+* **MapStore**
 
 ## Implements
 
 * `Store`
 
-## Index
+### Index
 
-### Constructors
+#### Constructors
 
 * [constructor](mapstore.md#constructor)
 
-### Properties
+#### Properties
 
 * [type](mapstore.md#type)
 
-### Accessors
+#### Accessors
 
 * [maxHeapSize](mapstore.md#maxheapsize)
 * [name](mapstore.md#name)
 
-### Methods
+#### Methods
 
 * [clear](mapstore.md#clear)
 * [delete](mapstore.md#delete)
@@ -35,209 +37,181 @@
 * [import](mapstore.md#import)
 * [set](mapstore.md#set)
 * [size](mapstore.md#size)
-* [init](mapstore.md#init)
-
----
+* [init](mapstore.md#static-init)
 
 ## Constructors
 
-<a id="constructor"></a>
-
 ###  constructor
 
-⊕ **new MapStore**(options: *[ConstructorOptions](../#constructoroptions)*): [MapStore](mapstore.md)
+\+ **new MapStore**(`options`: *[ConstructorOptions](../README.md#constructoroptions)*): *[MapStore](mapstore.md)*
 
-*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L13)*
+*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L13)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [ConstructorOptions](../#constructoroptions) |
+Name | Type |
+------ | ------ |
+`options` | [ConstructorOptions](../README.md#constructoroptions) |
 
-**Returns:** [MapStore](mapstore.md)
-
-___
+**Returns:** *[MapStore](mapstore.md)*
 
 ## Properties
 
-<a id="type"></a>
-
 ###  type
 
-**● type**: *"map"* = "map"
+• **type**: *"map"* = "map"
 
-*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L10)*
-
-___
+*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L10)*
 
 ## Accessors
 
-<a id="maxheapsize"></a>
-
 ###  maxHeapSize
 
-**get maxHeapSize**(): `number`
+• **get maxHeapSize**(): *number*
 
-*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L23)*
+*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L23)*
 
-**Returns:** `number`
+**Returns:** *number*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**get name**(): `string`
+• **get name**(): *string*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L27)*
 
-**Returns:** `string`
-
-___
+**Returns:** *string*
 
 ## Methods
 
-<a id="clear"></a>
-
 ###  clear
 
-▸ **clear**(): `Promise`<`void`>
+▸ **clear**(): *`Promise<void>`*
 
-*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L31)*
+*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L31)*
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="delete"></a>
 
 ###  delete
 
-▸ **delete**(key: *`string`*): `Promise`<`boolean`>
+▸ **delete**(`key`: *string*): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:35](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L35)*
+*Defined in [main/index.ts:35](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L35)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="entries"></a>
 
 ###  entries
 
-▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
+▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
 
-*Defined in [main/index.ts:39](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L39)*
+*Defined in [main/index.ts:39](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L39)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` keys | `string`[] |
+Name | Type |
+------ | ------ |
+`keys?` | string[] |
 
-**Returns:** `Promise`<`Array`<[`string`, `any`]>>
+**Returns:** *`Promise<Array<[string, any]>>`*
 
 ___
-<a id="get"></a>
 
 ###  get
 
-▸ **get**(key: *`string`*): `Promise`<`any`>
+▸ **get**(`key`: *string*): *`Promise<any>`*
 
-*Defined in [main/index.ts:52](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L52)*
+*Defined in [main/index.ts:52](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L52)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`any`>
+**Returns:** *`Promise<any>`*
 
 ___
-<a id="has"></a>
 
 ###  has
 
-▸ **has**(key: *`string`*): `Promise`<`boolean`>
+▸ **has**(`key`: *string*): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:56](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L56)*
+*Defined in [main/index.ts:56](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L56)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="import"></a>
 
 ###  import
 
-▸ **import**(entries: *`Array`<[`string`, `any`]>*): `Promise`<`void`>
+▸ **import**(`entries`: *`Array<[string, any]>`*): *`Promise<void>`*
 
-*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L60)*
+*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L60)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| entries | `Array`<[`string`, `any`]> |
+Name | Type |
+------ | ------ |
+`entries` | `Array<[string, any]>` |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="set"></a>
 
 ###  set
 
-▸ **set**(key: *`string`*, value: *`any`*): `Promise`<`void`>
+▸ **set**(`key`: *string*, `value`: *any*): *`Promise<void>`*
 
-*Defined in [main/index.ts:64](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L64)*
+*Defined in [main/index.ts:64](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L64)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| key | `string` |
-| value | `any` |
+Name | Type |
+------ | ------ |
+`key` | string |
+`value` | any |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="size"></a>
 
 ###  size
 
-▸ **size**(): `Promise`<`number`>
+▸ **size**(): *`Promise<number>`*
 
-*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L68)*
+*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L68)*
 
-**Returns:** `Promise`<`number`>
+**Returns:** *`Promise<number>`*
 
 ___
-<a id="init"></a>
 
-### `<Static>` init
+### `Static` init
 
-▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[MapStore](mapstore.md)>
+▸ **init**(`options`: *[InitOptions](../interfaces/initoptions.md)*): *`Promise<MapStore>`*
 
-*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/main/index.ts#L6)*
+*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L6)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [InitOptions](../interfaces/initoptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** `Promise`<[MapStore](mapstore.md)>
-
-___
-
+**Returns:** *`Promise<MapStore>`*

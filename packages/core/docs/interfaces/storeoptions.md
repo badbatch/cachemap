@@ -1,28 +1,23 @@
-[Documentation](../README.md) > [StoreOptions](../interfaces/storeoptions.md)
+> **[Documentation](../README.md)**
+
+[StoreOptions](storeoptions.md) /
 
 # Interface: StoreOptions
 
 ## Hierarchy
 
-**StoreOptions**
+* **StoreOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
 * [name](storeoptions.md#name)
 
----
-
 ## Properties
-
-<a id="name"></a>
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/defs/index.ts#L132)*
-
-___
-
+*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L132)*

@@ -1,84 +1,73 @@
-[Documentation](../README.md) > [Reaper](../classes/reaper.md)
+> **[Documentation](../README.md)**
+
+[Reaper](reaper.md) /
 
 # Class: Reaper
 
 ## Hierarchy
 
-**Reaper**
+* **Reaper**
 
-## Index
+### Index
 
-### Constructors
+#### Constructors
 
 * [constructor](reaper.md#constructor)
 
-### Methods
+#### Methods
 
 * [cull](reaper.md#cull)
 * [start](reaper.md#start)
 * [stop](reaper.md#stop)
 
----
-
 ## Constructors
-
-<a id="constructor"></a>
 
 ###  constructor
 
-⊕ **new Reaper**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [Reaper](reaper.md)
+\+ **new Reaper**(`options`: *[ConstructorOptions](../interfaces/constructoroptions.md)*): *[Reaper](reaper.md)*
 
-*Defined in [main/index.ts:16](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/main/index.ts#L16)*
+*Defined in [main/index.ts:16](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/main/index.ts#L16)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [ConstructorOptions](../interfaces/constructoroptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [ConstructorOptions](../interfaces/constructoroptions.md) |
 
-**Returns:** [Reaper](reaper.md)
-
-___
+**Returns:** *[Reaper](reaper.md)*
 
 ## Methods
 
-<a id="cull"></a>
-
 ###  cull
 
-▸ **cull**(metadata: *`Metadata`[]*): `Promise`<`void`>
+▸ **cull**(`metadata`: *`Metadata`[]*): *`Promise<void>`*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L27)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| metadata | `Metadata`[] |
+Name | Type |
+------ | ------ |
+`metadata` | `Metadata`[] |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="start"></a>
 
 ###  start
 
-▸ **start**(): `void`
+▸ **start**(): *void*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L28)*
 
-**Returns:** `void`
+**Returns:** *void*
 
 ___
-<a id="stop"></a>
 
 ###  stop
 
-▸ **stop**(): `void`
+▸ **stop**(): *void*
 
-*Defined in [defs/index.ts:29](https://github.com/badbatch/cachemap/blob/1fafbca/packages/reaper/src/defs/index.ts#L29)*
+*Defined in [defs/index.ts:29](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L29)*
 
-**Returns:** `void`
-
-___
-
+**Returns:** *void*

@@ -1,42 +1,36 @@
-[Documentation](../README.md) > [InitOptions](../interfaces/initoptions.md)
+> **[Documentation](../README.md)**
+
+[InitOptions](initoptions.md) /
 
 # Interface: InitOptions
 
 ## Hierarchy
 
- [Options](options.md)
+* [Options](options.md)
 
-**↳ InitOptions**
+  * **InitOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [maxHeapSize](initoptions.md#maxheapsize)
+* [maxHeapSize](initoptions.md#optional-maxheapsize)
 * [name](initoptions.md#name)
-
----
 
 ## Properties
 
-<a id="maxheapsize"></a>
+### `Optional` maxHeapSize
 
-### `<Optional>` maxHeapSize
+• **maxHeapSize**? : *undefined | number*
 
-**● maxHeapSize**: *`undefined` \| `number`*
+*Inherited from [Options](options.md).[maxHeapSize](options.md#optional-maxheapsize)*
 
-*Inherited from [Options](options.md).[maxHeapSize](options.md#maxheapsize)*
-
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/defs/index.ts#L8)*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**● name**: *`string`*
+• **name**: *string*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/1fafbca/packages/map/src/defs/index.ts#L4)*
-
-___
-
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/defs/index.ts#L4)*

@@ -1,48 +1,41 @@
-[Documentation](../README.md) > [CommonOptions](../interfaces/commonoptions.md)
+> **[Documentation](../README.md)**
+
+[CommonOptions](commonoptions.md) /
 
 # Interface: CommonOptions
 
 ## Hierarchy
 
-**CommonOptions**
+* **CommonOptions**
 
-## Index
+### Index
 
-### Properties
+#### Properties
 
-* [cacheHeaders](commonoptions.md#cacheheaders)
-* [deleteExpired](commonoptions.md#deleteexpired)
-* [hash](commonoptions.md#hash)
-
----
+* [cacheHeaders](commonoptions.md#optional-cacheheaders)
+* [deleteExpired](commonoptions.md#optional-deleteexpired)
+* [hash](commonoptions.md#optional-hash)
 
 ## Properties
 
-<a id="cacheheaders"></a>
+### `Optional` cacheHeaders
 
-### `<Optional>` cacheHeaders
+• **cacheHeaders**? : *`coreDefs.CacheHeaders`*
 
-**● cacheHeaders**: *`coreDefs.CacheHeaders`*
-
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L4)*
-
-___
-<a id="deleteexpired"></a>
-
-### `<Optional>` deleteExpired
-
-**● deleteExpired**: *`undefined` \| `false` \| `true`*
-
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L5)*
-
-___
-<a id="hash"></a>
-
-### `<Optional>` hash
-
-**● hash**: *`undefined` \| `false` \| `true`*
-
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core-worker/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L4)*
 
 ___
 
+### `Optional` deleteExpired
+
+• **deleteExpired**? : *undefined | false | true*
+
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L5)*
+
+___
+
+### `Optional` hash
+
+• **hash**? : *undefined | false | true*
+
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L6)*

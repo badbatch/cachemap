@@ -1,25 +1,27 @@
-[Documentation](../README.md) > [Core](../classes/core.md)
+> **[Documentation](../README.md)**
+
+[Core](core.md) /
 
 # Class: Core
 
 ## Hierarchy
 
-**Core**
+* **Core**
 
-## Index
+### Index
 
-### Constructors
+#### Constructors
 
 * [constructor](core.md#constructor)
 
-### Accessors
+#### Accessors
 
 * [metadata](core.md#metadata)
 * [name](core.md#name)
 * [storeType](core.md#storetype)
 * [usedHeapSize](core.md#usedheapsize)
 
-### Methods
+#### Methods
 
 * [clear](core.md#clear)
 * [delete](core.md#delete)
@@ -30,256 +32,229 @@
 * [import](core.md#import)
 * [set](core.md#set)
 * [size](core.md#size)
-* [init](core.md#init)
-
----
+* [init](core.md#static-init)
 
 ## Constructors
 
-<a id="constructor"></a>
-
 ###  constructor
 
-⊕ **new Core**(options: *[ConstructorOptions](../interfaces/constructoroptions.md)*): [Core](core.md)
+\+ **new Core**(`options`: *[ConstructorOptions](../interfaces/constructoroptions.md)*): *[Core](core.md)*
 
-*Defined in [main/index.ts:92](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L92)*
+*Defined in [main/index.ts:92](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L92)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [ConstructorOptions](../interfaces/constructoroptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [ConstructorOptions](../interfaces/constructoroptions.md) |
 
-**Returns:** [Core](core.md)
-
-___
+**Returns:** *[Core](core.md)*
 
 ## Accessors
 
-<a id="metadata"></a>
-
 ###  metadata
 
-**get metadata**(): [Metadata](../interfaces/metadata.md)[]
+• **get metadata**(): *[Metadata](../interfaces/metadata.md)[]*
 
-*Defined in [main/index.ts:117](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L117)*
+*Defined in [main/index.ts:117](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L117)*
 
-**Returns:** [Metadata](../interfaces/metadata.md)[]
+**Returns:** *[Metadata](../interfaces/metadata.md)[]*
 
 ___
-<a id="name"></a>
 
 ###  name
 
-**get name**(): `string`
+• **get name**(): *string*
 
-*Defined in [main/index.ts:121](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L121)*
+*Defined in [main/index.ts:121](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L121)*
 
-**Returns:** `string`
+**Returns:** *string*
 
 ___
-<a id="storetype"></a>
 
 ###  storeType
 
-**get storeType**(): `string`
+• **get storeType**(): *string*
 
-*Defined in [main/index.ts:125](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L125)*
+*Defined in [main/index.ts:125](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L125)*
 
-**Returns:** `string`
+**Returns:** *string*
 
 ___
-<a id="usedheapsize"></a>
 
 ###  usedHeapSize
 
-**get usedHeapSize**(): `number`
+• **get usedHeapSize**(): *number*
 
-*Defined in [main/index.ts:129](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L129)*
+*Defined in [main/index.ts:129](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L129)*
 
-**Returns:** `number`
-
-___
+**Returns:** *number*
 
 ## Methods
 
-<a id="clear"></a>
-
 ###  clear
 
-▸ **clear**(): `Promise`<`void`>
+▸ **clear**(): *`Promise<void>`*
 
-*Defined in [main/index.ts:133](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L133)*
+*Defined in [main/index.ts:133](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L133)*
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="delete"></a>
 
 ###  delete
 
-▸ **delete**(key: *`string`*, options?: *`object`*): `Promise`<`boolean`>
+▸ **delete**(`key`: *string*, `options`: *object*): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:144](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L144)*
+*Defined in [main/index.ts:144](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L144)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`boolean`>
+**Returns:** *`Promise<boolean>`*
 
 ___
-<a id="entries"></a>
 
 ###  entries
 
-▸ **entries**(keys?: *`string`[]*): `Promise`<`Array`<[`string`, `any`]>>
+▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
 
-*Defined in [main/index.ts:164](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L164)*
+*Defined in [main/index.ts:164](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L164)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` keys | `string`[] |
+Name | Type |
+------ | ------ |
+`keys?` | string[] |
 
-**Returns:** `Promise`<`Array`<[`string`, `any`]>>
+**Returns:** *`Promise<Array<[string, any]>>`*
 
 ___
-<a id="export"></a>
 
 ###  export
 
-▸ **export**(options?: *[ExportOptions](../interfaces/exportoptions.md)*): `Promise`<[ExportResult](../interfaces/exportresult.md)>
+▸ **export**(`options`: *[ExportOptions](../interfaces/exportoptions.md)*): *`Promise<ExportResult>`*
 
-*Defined in [main/index.ts:176](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L176)*
+*Defined in [main/index.ts:176](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L176)*
 
 **Parameters:**
 
-| Name | Type | Default value |
-| ------ | ------ | ------ |
-| `Default value` options | [ExportOptions](../interfaces/exportoptions.md) |  {} |
+Name | Type | Default |
+------ | ------ | ------ |
+`options` | [ExportOptions](../interfaces/exportoptions.md) |  {} |
 
-**Returns:** `Promise`<[ExportResult](../interfaces/exportresult.md)>
+**Returns:** *`Promise<ExportResult>`*
 
 ___
-<a id="get"></a>
 
 ###  get
 
-▸ **get**(key: *`string`*, options?: *`object`*): `Promise`<`any`>
+▸ **get**(`key`: *string*, `options`: *object*): *`Promise<any>`*
 
-*Defined in [main/index.ts:196](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L196)*
+*Defined in [main/index.ts:196](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L196)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`any`>
+**Returns:** *`Promise<any>`*
 
 ___
-<a id="has"></a>
 
 ###  has
 
-▸ **has**(key: *`string`*, options?: *`object`*): `Promise`<`false` \| `Cacheability`>
+▸ **has**(`key`: *string*, `options`: *object*): *`Promise<false | Cacheability>`*
 
-*Defined in [main/index.ts:216](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L216)*
+*Defined in [main/index.ts:216](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L216)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` deleteExpired | `undefined` \| `false` \| `true` |
-| `Optional` hash | `undefined` \| `false` \| `true` |
+Name | Type |
+------ | ------ |
+`deleteExpired?` | undefined \| false \| true |
+`hash?` | undefined \| false \| true |
 
-**Returns:** `Promise`<`false` \| `Cacheability`>
+**Returns:** *`Promise<false | Cacheability>`*
 
 ___
-<a id="import"></a>
 
 ###  import
 
-▸ **import**(options: *[ImportOptions](../interfaces/importoptions.md)*): `Promise`<`void`>
+▸ **import**(`options`: *[ImportOptions](../interfaces/importoptions.md)*): *`Promise<void>`*
 
-*Defined in [main/index.ts:239](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L239)*
+*Defined in [main/index.ts:239](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L239)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [ImportOptions](../interfaces/importoptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [ImportOptions](../interfaces/importoptions.md) |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="set"></a>
 
 ###  set
 
-▸ **set**(key: *`string`*, value: *`any`*, options?: *`object`*): `Promise`<`void`>
+▸ **set**(`key`: *string*, `value`: *any*, `options`: *object*): *`Promise<void>`*
 
-*Defined in [main/index.ts:264](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L264)*
+*Defined in [main/index.ts:264](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L264)*
 
 **Parameters:**
 
-**key: `string`**
+▪ **key**: *string*
 
-**value: `any`**
+▪ **value**: *any*
 
-**`Default value` options: `object`**
+▪`Default value`  **options**: *object*=  {}
 
-| Name | Type |
-| ------ | ------ |
-| `Optional` cacheHeaders | [CacheHeaders](../#cacheheaders) |
-| `Optional` hash | `undefined` \| `false` \| `true` |
-| `Optional` tag | `any` |
+Name | Type |
+------ | ------ |
+`cacheHeaders?` | [CacheHeaders](../README.md#cacheheaders) |
+`hash?` | undefined \| false \| true |
+`tag?` | any |
 
-**Returns:** `Promise`<`void`>
+**Returns:** *`Promise<void>`*
 
 ___
-<a id="size"></a>
 
 ###  size
 
-▸ **size**(): `Promise`<`number`>
+▸ **size**(): *`Promise<number>`*
 
-*Defined in [main/index.ts:288](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L288)*
+*Defined in [main/index.ts:288](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L288)*
 
-**Returns:** `Promise`<`number`>
+**Returns:** *`Promise<number>`*
 
 ___
-<a id="init"></a>
 
-### `<Static>` init
+### `Static` init
 
-▸ **init**(options: *[InitOptions](../interfaces/initoptions.md)*): `Promise`<[Core](core.md)>
+▸ **init**(`options`: *[InitOptions](../interfaces/initoptions.md)*): *`Promise<Core>`*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/1fafbca/packages/core/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/main/index.ts#L27)*
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| options | [InitOptions](../interfaces/initoptions.md) |
+Name | Type |
+------ | ------ |
+`options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** `Promise`<[Core](core.md)>
-
-___
-
+**Returns:** *`Promise<Core>`*
