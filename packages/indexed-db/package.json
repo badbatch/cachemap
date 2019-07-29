@@ -32,7 +32,7 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "idb": "^4.0.3"
+    "idb": "^4.0.4"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
