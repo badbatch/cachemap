@@ -12,22 +12,22 @@
 
 * `Store`
 
-### Index
+## Index
 
-#### Constructors
+### Constructors
 
 * [constructor](redisstore.md#constructor)
 
-#### Properties
+### Properties
 
 * [type](redisstore.md#type)
 
-#### Accessors
+### Accessors
 
 * [maxHeapSize](redisstore.md#maxheapsize)
 * [name](redisstore.md#name)
 
-#### Methods
+### Methods
 
 * [clear](redisstore.md#clear)
 * [delete](redisstore.md#delete)
@@ -43,9 +43,9 @@
 
 ###  constructor
 
-\+ **new RedisStore**(`options`: *[ConstructorOptions](../interfaces/constructoroptions.md)*): *[RedisStore](redisstore.md)*
+\+ **new RedisStore**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[RedisStore](redisstore.md)*
 
-*Defined in [main/index.ts:22](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L22)*
+*Defined in [main/index.ts:22](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L22)*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ Name | Type |
 
 • **type**: *"redis"* = "redis"
 
-*Defined in [main/index.ts:19](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L19)*
+*Defined in [main/index.ts:19](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L19)*
 
 ## Accessors
 
@@ -69,7 +69,7 @@ Name | Type |
 
 • **get maxHeapSize**(): *number*
 
-*Defined in [main/index.ts:34](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L34)*
+*Defined in [main/index.ts:34](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L34)*
 
 **Returns:** *number*
 
@@ -79,7 +79,7 @@ ___
 
 • **get name**(): *string*
 
-*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L38)*
+*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L38)*
 
 **Returns:** *string*
 
@@ -89,7 +89,7 @@ ___
 
 ▸ **clear**(): *`Promise<void>`*
 
-*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L42)*
+*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L42)*
 
 **Returns:** *`Promise<void>`*
 
@@ -97,9 +97,9 @@ ___
 
 ###  delete
 
-▸ **delete**(`key`: *string*): *`Promise<boolean>`*
+▸ **delete**(`key`: string): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:54](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L54)*
+*Defined in [main/index.ts:54](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L54)*
 
 **Parameters:**
 
@@ -113,9 +113,9 @@ ___
 
 ###  entries
 
-▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
+▸ **entries**(`keys?`: string[]): *`Promise<Array<[string, any]>>`*
 
-*Defined in [main/index.ts:66](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L66)*
+*Defined in [main/index.ts:66](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L66)*
 
 **Parameters:**
 
@@ -129,9 +129,9 @@ ___
 
 ###  get
 
-▸ **get**(`key`: *string*): *`Promise<any>`*
+▸ **get**(`key`: string): *`Promise<any>`*
 
-*Defined in [main/index.ts:86](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L86)*
+*Defined in [main/index.ts:86](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L86)*
 
 **Parameters:**
 
@@ -145,9 +145,9 @@ ___
 
 ###  has
 
-▸ **has**(`key`: *string*): *`Promise<boolean>`*
+▸ **has**(`key`: string): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:98](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L98)*
+*Defined in [main/index.ts:98](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L98)*
 
 **Parameters:**
 
@@ -161,9 +161,9 @@ ___
 
 ###  import
 
-▸ **import**(`entries`: *`Array<[string, any]>`*): *`Promise<void>`*
+▸ **import**(`entries`: `Array<[string, any]>`): *`Promise<void>`*
 
-*Defined in [main/index.ts:110](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L110)*
+*Defined in [main/index.ts:110](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L110)*
 
 **Parameters:**
 
@@ -177,9 +177,9 @@ ___
 
 ###  set
 
-▸ **set**(`key`: *string*, `value`: *any*): *`Promise<void>`*
+▸ **set**(`key`: string, `value`: any): *`Promise<void>`*
 
-*Defined in [main/index.ts:128](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L128)*
+*Defined in [main/index.ts:128](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L128)*
 
 **Parameters:**
 
@@ -196,7 +196,7 @@ ___
 
 ▸ **size**(): *`Promise<number>`*
 
-*Defined in [main/index.ts:140](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L140)*
+*Defined in [main/index.ts:140](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L140)*
 
 **Returns:** *`Promise<number>`*
 
@@ -204,9 +204,9 @@ ___
 
 ### `Static` init
 
-▸ **init**(`options`: *[InitOptions](../interfaces/initoptions.md)*): *`Promise<RedisStore>`*
+▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *`Promise<RedisStore>`*
 
-*Defined in [main/index.ts:8](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/main/index.ts#L8)*
+*Defined in [main/index.ts:8](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/main/index.ts#L8)*
 
 **Parameters:**
 

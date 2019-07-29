@@ -1,21 +1,21 @@
 > **[Documentation](README.md)**
 
-### Index
+## Index
 
-#### Classes
+### Classes
 
 * [LocalStorageStore](classes/localstoragestore.md)
 
-#### Interfaces
+### Interfaces
 
 * [InitOptions](interfaces/initoptions.md)
 * [Options](interfaces/options.md)
 
-#### Type aliases
+### Type aliases
 
 * [ConstructorOptions](README.md#constructoroptions)
 
-#### Functions
+### Functions
 
 * [init](README.md#init)
 
@@ -25,15 +25,15 @@
 
 Ƭ **ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/f0089aa/packages/local-storage/src/defs/index.ts#L1)*
+*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/defs/index.ts#L1)*
 
 ## Functions
 
 ###  init
 
-▸ **init**(`options`: *[Options](interfaces/options.md)*): *`coreDefs.StoreInit`*
+▸ **init**(`options`: [Options](interfaces/options.md)): *`coreDefs.StoreInit`*
 
-*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/f0089aa/packages/local-storage/src/main/index.ts#L142)*
+*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L142)*
 
 **Parameters:**
 

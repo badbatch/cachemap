@@ -8,9 +8,9 @@
 
 * **ExportResult**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [entries](exportresult.md#entries)
 * [metadata](exportresult.md#metadata)
@@ -21,7 +21,7 @@
 
 • **entries**: *`Array<[string, any]>`*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L78)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L79)*

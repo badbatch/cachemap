@@ -8,9 +8,9 @@
 
 * **ReaperCallbacks**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [deleteCallback](reapercallbacks.md#deletecallback)
 * [metadataCallback](reapercallbacks.md#metadatacallback)
@@ -21,11 +21,11 @@
 
 • **deleteCallback**: *function*
 
-*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L111)*
+*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L111)*
 
 #### Type declaration:
 
-▸ (`key`: *string*, `options?`: *undefined | object*): *`Promise<boolean>`*
+▸ (`key`: string, `options?`: undefined | object): *`Promise<boolean>`*
 
 **Parameters:**
 
@@ -40,7 +40,7 @@ ___
 
 • **metadataCallback**: *function*
 
-*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L112)*
+*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L112)*
 
 #### Type declaration:
 

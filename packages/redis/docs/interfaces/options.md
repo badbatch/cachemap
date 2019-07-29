@@ -12,9 +12,9 @@
 
   * [InitOptions](initoptions.md)
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [auth_pass](options.md#optional-auth_pass)
 * [connect_timeout](options.md#optional-connect_timeout)
@@ -110,7 +110,7 @@ ___
 
 • **fast**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L14)*
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L15)*
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 • **mock**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/f0089aa/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L16)*
 
 ___
 

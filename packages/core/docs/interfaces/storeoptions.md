@@ -8,9 +8,9 @@
 
 * **StoreOptions**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [name](storeoptions.md#name)
 
@@ -20,4 +20,4 @@
 
 • **name**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L132)*
+*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L132)*

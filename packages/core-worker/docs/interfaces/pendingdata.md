@@ -8,9 +8,9 @@
 
 * **PendingData**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [resolve](pendingdata.md#resolve)
 
@@ -20,4 +20,4 @@
 
 • **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L18)*

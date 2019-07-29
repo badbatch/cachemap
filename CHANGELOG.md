@@ -1,3 +1,9 @@
+#### 1.3.1 (2019-07-29)
+
+##### Chores
+
+* **update dependencies:**  upgrade dependencies. ([52c713b0](https://github.com/badbatch/cachemap/commit/52c713b0ce20870399099bad6f033688a1f644d2))
+
 ### 1.3.0 (2019-06-30)
 
 ##### Chores

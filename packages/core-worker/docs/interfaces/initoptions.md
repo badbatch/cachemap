@@ -8,9 +8,9 @@
 
 * **InitOptions**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [worker](initoptions.md#worker)
 
@@ -20,4 +20,4 @@
 
 • **worker**: *`Worker`*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L10)*

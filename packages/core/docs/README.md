@@ -1,12 +1,12 @@
 > **[Documentation](README.md)**
 
-### Index
+## Index
 
-#### Classes
+### Classes
 
 * [Core](classes/core.md)
 
-#### Interfaces
+### Interfaces
 
 * [BaseMetadata](interfaces/basemetadata.md)
 * [BaseOptions](interfaces/baseoptions.md)
@@ -23,13 +23,13 @@
 * [Store](interfaces/store.md)
 * [StoreOptions](interfaces/storeoptions.md)
 
-#### Type aliases
+### Type aliases
 
 * [CacheHeaders](README.md#cacheheaders)
 * [ReaperInit](README.md#reaperinit)
 * [StoreInit](README.md#storeinit)
 
-#### Functions
+### Functions
 
 * [rehydrateMetadata](README.md#rehydratemetadata)
 
@@ -39,7 +39,7 @@
 
 Ƭ **CacheHeaders**: *`Headers` | object*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L62)*
 
 ___
 
@@ -47,11 +47,11 @@ ___
 
 Ƭ **ReaperInit**: *function*
 
-*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L115)*
+*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L115)*
 
 #### Type declaration:
 
-▸ (`callbacks`: *[ReaperCallbacks](interfaces/reapercallbacks.md)*): *[Reaper](interfaces/reaper.md)*
+▸ (`callbacks`: [ReaperCallbacks](interfaces/reapercallbacks.md)): *[Reaper](interfaces/reaper.md)*
 
 **Parameters:**
 
@@ -65,11 +65,11 @@ ___
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L135)*
+*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L135)*
 
 #### Type declaration:
 
-▸ (`options`: *[StoreOptions](interfaces/storeoptions.md)*): *`Promise<Store>`*
+▸ (`options`: [StoreOptions](interfaces/storeoptions.md)): *`Promise<Store>`*
 
 **Parameters:**
 
@@ -81,9 +81,9 @@ Name | Type |
 
 ###  rehydrateMetadata
 
-▸ **rehydrateMetadata**(`metadata`: *[DehydratedMetadata](interfaces/dehydratedmetadata.md)[]*): *[Metadata](interfaces/metadata.md)[]*
+▸ **rehydrateMetadata**(`metadata`: [DehydratedMetadata](interfaces/dehydratedmetadata.md)[]): *[Metadata](interfaces/metadata.md)[]*
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 

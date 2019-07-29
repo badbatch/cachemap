@@ -12,22 +12,22 @@
 
 * `Store`
 
-### Index
+## Index
 
-#### Constructors
+### Constructors
 
 * [constructor](mapstore.md#constructor)
 
-#### Properties
+### Properties
 
 * [type](mapstore.md#type)
 
-#### Accessors
+### Accessors
 
 * [maxHeapSize](mapstore.md#maxheapsize)
 * [name](mapstore.md#name)
 
-#### Methods
+### Methods
 
 * [clear](mapstore.md#clear)
 * [delete](mapstore.md#delete)
@@ -43,9 +43,9 @@
 
 ###  constructor
 
-\+ **new MapStore**(`options`: *[ConstructorOptions](../README.md#constructoroptions)*): *[MapStore](mapstore.md)*
+\+ **new MapStore**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[MapStore](mapstore.md)*
 
-*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L13)*
+*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L13)*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ Name | Type |
 
 • **type**: *"map"* = "map"
 
-*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L10)*
+*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L10)*
 
 ## Accessors
 
@@ -69,7 +69,7 @@ Name | Type |
 
 • **get maxHeapSize**(): *number*
 
-*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L23)*
+*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L23)*
 
 **Returns:** *number*
 
@@ -79,7 +79,7 @@ ___
 
 • **get name**(): *string*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L27)*
 
 **Returns:** *string*
 
@@ -89,7 +89,7 @@ ___
 
 ▸ **clear**(): *`Promise<void>`*
 
-*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L31)*
+*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L31)*
 
 **Returns:** *`Promise<void>`*
 
@@ -97,9 +97,9 @@ ___
 
 ###  delete
 
-▸ **delete**(`key`: *string*): *`Promise<boolean>`*
+▸ **delete**(`key`: string): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:35](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L35)*
+*Defined in [main/index.ts:35](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L35)*
 
 **Parameters:**
 
@@ -113,9 +113,9 @@ ___
 
 ###  entries
 
-▸ **entries**(`keys?`: *string[]*): *`Promise<Array<[string, any]>>`*
+▸ **entries**(`keys?`: string[]): *`Promise<Array<[string, any]>>`*
 
-*Defined in [main/index.ts:39](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L39)*
+*Defined in [main/index.ts:39](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L39)*
 
 **Parameters:**
 
@@ -129,9 +129,9 @@ ___
 
 ###  get
 
-▸ **get**(`key`: *string*): *`Promise<any>`*
+▸ **get**(`key`: string): *`Promise<any>`*
 
-*Defined in [main/index.ts:52](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L52)*
+*Defined in [main/index.ts:52](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L52)*
 
 **Parameters:**
 
@@ -145,9 +145,9 @@ ___
 
 ###  has
 
-▸ **has**(`key`: *string*): *`Promise<boolean>`*
+▸ **has**(`key`: string): *`Promise<boolean>`*
 
-*Defined in [main/index.ts:56](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L56)*
+*Defined in [main/index.ts:56](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L56)*
 
 **Parameters:**
 
@@ -161,9 +161,9 @@ ___
 
 ###  import
 
-▸ **import**(`entries`: *`Array<[string, any]>`*): *`Promise<void>`*
+▸ **import**(`entries`: `Array<[string, any]>`): *`Promise<void>`*
 
-*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L60)*
+*Defined in [main/index.ts:60](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L60)*
 
 **Parameters:**
 
@@ -177,9 +177,9 @@ ___
 
 ###  set
 
-▸ **set**(`key`: *string*, `value`: *any*): *`Promise<void>`*
+▸ **set**(`key`: string, `value`: any): *`Promise<void>`*
 
-*Defined in [main/index.ts:64](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L64)*
+*Defined in [main/index.ts:64](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L64)*
 
 **Parameters:**
 
@@ -196,7 +196,7 @@ ___
 
 ▸ **size**(): *`Promise<number>`*
 
-*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L68)*
+*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L68)*
 
 **Returns:** *`Promise<number>`*
 
@@ -204,9 +204,9 @@ ___
 
 ### `Static` init
 
-▸ **init**(`options`: *[InitOptions](../interfaces/initoptions.md)*): *`Promise<MapStore>`*
+▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *`Promise<MapStore>`*
 
-*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/main/index.ts#L6)*
+*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/main/index.ts#L6)*
 
 **Parameters:**
 

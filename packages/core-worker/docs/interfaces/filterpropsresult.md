@@ -8,9 +8,9 @@
 
 * **FilterPropsResult**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [metadata](filterpropsresult.md#metadata)
 * [storeType](filterpropsresult.md#storetype)
@@ -22,7 +22,7 @@
 
 • **metadata**: *`Metadata`[]*
 
-*Defined in [defs/index.ts:53](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L53)*
+*Defined in [defs/index.ts:53](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L53)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **storeType**: *string*
 
-*Defined in [defs/index.ts:54](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L54)*
+*Defined in [defs/index.ts:54](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L54)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **usedHeapSize**: *number*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core-worker/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L55)*

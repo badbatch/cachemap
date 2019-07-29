@@ -8,9 +8,9 @@
 
 * **ExportOptions**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [keys](exportoptions.md#optional-keys)
 * [tag](exportoptions.md#optional-tag)
@@ -21,7 +21,7 @@
 
 • **keys**? : *string[]*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L73)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/f0089aa/packages/core/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L74)*

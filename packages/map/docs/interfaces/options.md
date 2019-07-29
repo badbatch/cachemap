@@ -10,9 +10,9 @@
 
   * [InitOptions](initoptions.md)
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [maxHeapSize](options.md#optional-maxheapsize)
 
@@ -22,4 +22,4 @@
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/f0089aa/packages/map/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/defs/index.ts#L8)*

@@ -8,9 +8,9 @@
 
 * **Callbacks**
 
-### Index
+## Index
 
-#### Properties
+### Properties
 
 * [deleteCallback](callbacks.md#deletecallback)
 * [metadataCallback](callbacks.md#metadatacallback)
@@ -21,7 +21,7 @@
 
 • **deleteCallback**: *[DeleteCallback](../README.md#deletecallback)*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L4)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **metadataCallback**: *[MetadataCallback](../README.md#metadatacallback)*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/f0089aa/packages/reaper/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L5)*
