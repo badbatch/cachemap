@@ -23,6 +23,26 @@
       "stopOnEntry": false,
       "protocol": "inspector",
       "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Build references",
+      "program": "${workspaceFolder}/node_modules/@repodog/build-references/bin/build-references.js",
+      "args": [],
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "New monorepo",
+      "program": "${workspaceFolder}/node_modules/@repodog/new-monorepo/bin/new-monorepo.js",
+      "args": [],
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

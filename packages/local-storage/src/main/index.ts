@@ -55,7 +55,7 @@ export class LocalStorageStore implements coreDefs.Store {
       let _keys: string[] | undefined;
 
       if (keys) {
-        _keys = keys.map((key) => this._buildKey(key));
+        _keys = keys.map(key => this._buildKey(key));
       }
 
       const entries: Array<[string, any]> = [];
@@ -66,7 +66,7 @@ export class LocalStorageStore implements coreDefs.Store {
         if (!key || !key.startsWith(this._name)) continue;
 
         if (_keys) {
-          if (_keys.find((val) => val === key)) {
+          if (_keys.find(val => val === key)) {
             const item = this._storage.getItem(key);
             if (item) entries.push([key.replace(regex, ""), JSON.parse(item)]);
           }

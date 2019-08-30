@@ -43,7 +43,7 @@ export class MapStore implements coreDefs.Store {
     const filtered: Array<[string, any]> = [];
 
     for (const [key, value] of entries) {
-      if (keys.find((val) => val === key)) filtered.push([key, value]);
+      if (keys.find(val => val === key)) filtered.push([key, value]);
     }
 
     return filtered;

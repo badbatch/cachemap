@@ -11,7 +11,7 @@ if (process.env.TEST_ENV === 'worker') {
   proxies['/worker.js'] = `/base/${WORKER_PATH}.js`;
 }
 
-module.exports = (config) => {
+module.exports = config => {
   config.set({
     autoWatch: true,
     basePath: '',

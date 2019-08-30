@@ -1,4 +1,4 @@
-module.exports = (api) => {
+module.exports = api => {
   const env = api.env();
   const modules = env === 'main' || env === 'test' ? 'commonjs' : false;
   let targets;
@@ -24,21 +24,27 @@ module.exports = (api) => {
       '@babel/plugin-proposal-throw-expressions',
       '@babel/plugin-syntax-dynamic-import',
       '@babel/plugin-syntax-import-meta',
-      ['@babel/plugin-transform-runtime', {
-        corejs: false,
-        helpers: true,
-        regenerator: true,
-        useESModules: false,
-      }],
+      [
+        '@babel/plugin-transform-runtime',
+        {
+          corejs: false,
+          helpers: true,
+          regenerator: true,
+          useESModules: false,
+        },
+      ],
       'lodash',
     ],
     presets: [
-      ['@babel/preset-env', {
-        corejs: 2,
-        modules,
-        targets,
-        useBuiltIns: 'usage',
-      }],
+      [
+        '@babel/preset-env',
+        {
+          corejs: 2,
+          modules,
+          targets,
+          useBuiltIns: 'usage',
+        },
+      ],
       '@babel/preset-typescript',
     ],
   };

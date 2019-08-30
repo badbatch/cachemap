@@ -8,8 +8,8 @@
     "src"
   ],
   "references": [
-    { "path": "../core" },
-    { "path": "../indexed-db" },
-    { "path": "../reaper" }
+    {
+      "path": "../core"
+    }
   ]
 }

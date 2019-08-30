@@ -1,13 +1,6 @@
 import { coreDefs } from "@cachemap/core";
 import { isPlainObject } from "lodash";
-import {
-  Callbacks,
-  ConstructorOptions,
-  DeleteCallback,
-  Init,
-  MetadataCallback,
-  Options,
-} from "../defs";
+import { Callbacks, ConstructorOptions, DeleteCallback, Init, MetadataCallback, Options } from "../defs";
 
 export class Reaper {
   private _deleteCallback: DeleteCallback;
@@ -16,12 +9,7 @@ export class Reaper {
   private _metadataCallback: MetadataCallback;
 
   constructor(options: ConstructorOptions) {
-    const {
-      deleteCallback,
-      interval = 60000,
-      metadataCallback,
-      start = true,
-    } = options;
+    const { deleteCallback, interval = 60000, metadataCallback, start = true } = options;
 
     this._deleteCallback = deleteCallback;
     this._interval = interval;

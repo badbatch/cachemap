@@ -105,7 +105,7 @@ export default class CoreWorker {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean, hash?: boolean } = {},
+    options: { deleteExpired?: boolean; hash?: boolean } = {},
   ): Promise<false | Cacheability> {
     try {
       const { result, ...rest } = await this._postMessage({ key, method: HAS, options });
@@ -129,7 +129,7 @@ export default class CoreWorker {
   public async set(
     key: string,
     value: any,
-    options: { cacheHeaders?: coreDefs.CacheHeaders, hash?: boolean, tag?: any } = {},
+    options: { cacheHeaders?: coreDefs.CacheHeaders; hash?: boolean; tag?: any } = {},
   ): Promise<any> {
     try {
       const response = await this._postMessage({ key, method: SET, options, value });
@@ -163,7 +163,7 @@ export default class CoreWorker {
     if (!pending) return;
 
     pending.resolve({ result, ...rest });
-  }
+  };
 
   private async _postMessage(message: PostMessageWithoutMeta): Promise<PostMessageResultWithoutMeta> {
     const messageID = uuid();

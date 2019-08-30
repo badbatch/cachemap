@@ -3,21 +3,24 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'development',
   module: {
-    rules: [{
-      test: /\.tsx?$/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          configFile: './babel.config.js',
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            configFile: './babel.config.js',
+          },
         },
       },
-    }, {
-      enforce: 'pre',
-      test: /\.(tsx?|jsx?)$/,
-      use: {
-        loader: 'source-map-loader',
+      {
+        enforce: 'pre',
+        test: /\.(tsx?|jsx?)$/,
+        use: {
+          loader: 'source-map-loader',
+        },
       },
-    }],
+    ],
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({

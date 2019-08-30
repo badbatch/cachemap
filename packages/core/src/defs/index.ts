@@ -59,7 +59,7 @@ export interface BaseOptions {
   sortComparator?(a: any, b: any): number;
 }
 
-export type CacheHeaders = Headers | { cacheControl?: string; etag?: string; };
+export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
 
 export interface ConstructorOptions extends BaseOptions {
   store: Store;

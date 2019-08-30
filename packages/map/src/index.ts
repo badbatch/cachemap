@@ -1,8 +1,4 @@
 import * as mapDefs from "./defs";
-import init , { MapStore } from "./main";
+import init, { MapStore } from "./main";
 
-export {
-  init as default,
-  mapDefs,
-  MapStore,
-};
+export { init as default, mapDefs, MapStore };

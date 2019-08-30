@@ -3,7 +3,7 @@ import { isPlainObject, isString } from "lodash";
 import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
 import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../defs";
 
-const { addEventListener, postMessage } = self as unknown as DedicatedWorkerGlobalScope;
+const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;
 
 function requiresKey(type: string): boolean {
   return type === DELETE || type === GET || type === HAS || type === SET;
@@ -51,7 +51,7 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
       case SIZE:
         result = await cachemap.size();
         break;
-        // no default
+      // no default
     }
   } catch (errors) {
     postMessage({ errors, messageID });

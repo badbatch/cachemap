@@ -1,7 +1,7 @@
 import { coreDefs } from "@cachemap/core";
 import fakeRedis from "fakeredis";
 import { isNumber, isPlainObject } from "lodash";
-import { createClient, RedisClient } from "redis";
+import { RedisClient, createClient } from "redis";
 import { ConstructorOptions, InitOptions, Options } from "../defs";
 
 export class RedisStore implements coreDefs.Store {
@@ -41,9 +41,9 @@ export class RedisStore implements coreDefs.Store {
 
   public async clear(): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.flushdb((error) => {
+      this._client.flushdb(error => {
         if (error) {
-           reject(error);
+          reject(error);
         } else {
           resolve(undefined);
         }
@@ -115,7 +115,7 @@ export class RedisStore implements coreDefs.Store {
     });
 
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.mset(_entries, (error) => {
+      this._client.mset(_entries, error => {
         if (error) {
           reject(error);
         } else {
@@ -127,7 +127,7 @@ export class RedisStore implements coreDefs.Store {
 
   public async set(key: string, value: any): Promise<void> {
     return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.set(key, JSON.stringify(value), (error) => {
+      this._client.set(key, JSON.stringify(value), error => {
         if (error) {
           reject(error);
         } else {

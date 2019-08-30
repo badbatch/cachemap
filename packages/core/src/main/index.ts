@@ -1,12 +1,5 @@
 import Cacheability from "cacheability";
-import {
-  isArray,
-  isBoolean,
-  isFunction,
-  isPlainObject,
-  isString,
-  isUndefined,
-} from "lodash";
+import { isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
 import {
@@ -215,7 +208,7 @@ export default class Core {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean, hash?: boolean } = {},
+    options: { deleteExpired?: boolean; hash?: boolean } = {},
   ): Promise<false | Cacheability> {
     const errors: TypeError[] = [];
 
@@ -264,7 +257,7 @@ export default class Core {
   public async set(
     key: string,
     value: any,
-    options: { cacheHeaders?: CacheHeaders, hash?: boolean, tag?: any } = {},
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any } = {},
   ): Promise<void> {
     const errors: TypeError[] = [];
 
@@ -358,7 +351,7 @@ export default class Core {
   }
 
   private async _deleteMetadata(key: string): Promise<void> {
-    const index = this._metadata.findIndex((metadata) => metadata.key === key);
+    const index = this._metadata.findIndex(metadata => metadata.key === key);
     if (index === -1) return;
 
     this._metadata.splice(index, 1);
@@ -374,22 +367,22 @@ export default class Core {
 
   private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
     try {
-      const _keys = keys || this._metadata.map((metadata) => metadata.key);
+      const _keys = keys || this._metadata.map(metadata => metadata.key);
       return this._store.entries(_keys);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private async _export(options: { keys?: string[], tag?: any }): Promise<ExportResult> {
+  private async _export(options: { keys?: string[]; tag?: any }): Promise<ExportResult> {
     let keys: string[] | undefined;
     let metadata = this._metadata;
 
     if (options.tag) {
-      metadata = this._metadata.filter((meta) => meta.tags.includes(options.tag));
-      keys = metadata.map((meta) => meta.key);
+      metadata = this._metadata.filter(meta => meta.tags.includes(options.tag));
+      keys = metadata.map(meta => meta.key);
     } else if (options.keys) {
-      metadata = this._metadata.filter((meta) => (options.keys as string[]).includes(meta.key));
+      metadata = this._metadata.filter(meta => (options.keys as string[]).includes(meta.key));
       keys = options.keys;
     }
 
@@ -420,13 +413,10 @@ export default class Core {
   }
 
   private _getMetadataEntry(key: string): Metadata | undefined {
-    return this._metadata.find((metadata) => metadata.key === key);
+    return this._metadata.find(metadata => metadata.key === key);
   }
 
-  private async _has(
-    key: string,
-    options: { deleteExpired?: boolean, hash?: boolean },
-  ): Promise<false | Cacheability> {
+  private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
     const _key = options.hash ? md5(key) : key;
 
     try {
@@ -455,8 +445,8 @@ export default class Core {
     let filterd: Metadata[] = [];
 
     if (this._metadata.length) {
-      filterd = this._metadata.filter((metadata) => {
-        return !options.metadata.find((optionsMetadata) => metadata.key === optionsMetadata.key);
+      filterd = this._metadata.filter(metadata => {
+        return !options.metadata.find(optionsMetadata => metadata.key === optionsMetadata.key);
       });
     }
 
@@ -486,7 +476,7 @@ export default class Core {
   }
 
   private _processed(key: string): void {
-    this._processing = this._processing.filter((value) => value !== key);
+    this._processing = this._processing.filter(value => value !== key);
   }
 
   private async _reduceHeapSize(): Promise<void> {
@@ -513,7 +503,7 @@ export default class Core {
   private async _set(
     key: string,
     value: any,
-    options: { cacheHeaders?: CacheHeaders, hash?: boolean, tag?: any },
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any },
   ): Promise<void> {
     const cacheability = new Cacheability({ headers: options.cacheHeaders });
     const cacheControl = cacheability.metadata.cacheControl;
@@ -524,7 +514,7 @@ export default class Core {
     if (!processing) this._processing.push(_key);
 
     try {
-      const exists = await this._store.has(_key) || processing;
+      const exists = (await this._store.has(_key)) || processing;
       await this._store.set(_key, value);
 
       if (exists) {
@@ -553,7 +543,7 @@ export default class Core {
   }
 
   private _updateHeapSize(): void {
-    this._usedHeapSize = this._metadata.reduce((acc, value) => (acc + value.size), 0);
+    this._usedHeapSize = this._metadata.reduce((acc, value) => acc + value.size, 0);
 
     if (!this._disableCacheInvalidation && this._usedHeapSize > this._store.maxHeapSize) {
       this._reduceHeapSize();
