@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[InitOptions](initoptions.md) /
+[Globals](../README.md) › [InitOptions](initoptions.md)
 
 # Interface: InitOptions
 
@@ -18,6 +18,6 @@
 
 ###  worker
 
-• **worker**: *`Worker`*
+• **worker**: *Worker*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L10)*

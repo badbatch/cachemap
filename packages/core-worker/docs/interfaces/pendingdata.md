@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[PendingData](pendingdata.md) /
+[Globals](../README.md) › [PendingData](pendingdata.md)
 
 # Interface: PendingData
 
@@ -20,4 +20,4 @@
 
 • **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L18)*

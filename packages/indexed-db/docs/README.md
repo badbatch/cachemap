@@ -1,4 +1,6 @@
-> **[Documentation](README.md)**
+**[Documentation](README.md)**
+
+[Globals](README.md)
 
 ## Index
 
@@ -20,9 +22,9 @@
 
 ###  init
 
-▸ **init**(`options`: [Options](interfaces/options.md)): *`coreDefs.StoreInit`*
+▸ **init**(`options`: [Options](interfaces/options.md)): *coreDefs.StoreInit*
 
-*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/52c713b/packages/indexed-db/src/main/index.ts#L154)*
+*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/4fa6105/packages/indexed-db/src/main/index.ts#L154)*
 
 **Parameters:**
 
@@ -30,4 +32,4 @@ Name | Type | Default |
 ------ | ------ | ------ |
 `options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** *`coreDefs.StoreInit`*
+**Returns:** *coreDefs.StoreInit*

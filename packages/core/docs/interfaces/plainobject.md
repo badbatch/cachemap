@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[PlainObject](plainobject.md) /
+[Globals](../README.md) › [PlainObject](plainobject.md)
 
 # Interface: PlainObject
 
@@ -10,4 +10,4 @@
 
 ## Indexable
 
-● \[▪ **key**: *string*\]: any
+* \[ **key**: *string*\]: any

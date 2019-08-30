@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Options](options.md) /
+[Globals](../README.md) › [Options](options.md)
 
 # Interface: Options
 
@@ -21,7 +21,7 @@
 
 • **interval**? : *undefined | number*
 
-*Defined in [defs/index.ts:22](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L22)*
+*Defined in [defs/index.ts:22](https://github.com/badbatch/cachemap/blob/4fa6105/packages/reaper/src/defs/index.ts#L22)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **start**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:23](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L23)*
+*Defined in [defs/index.ts:23](https://github.com/badbatch/cachemap/blob/4fa6105/packages/reaper/src/defs/index.ts#L23)*

@@ -1,12 +1,12 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Options](options.md) /
+[Globals](../README.md) › [Options](options.md)
 
 # Interface: Options
 
 ## Hierarchy
 
-* `ClientOpts`
+* ClientOpts
 
   * **Options**
 
@@ -110,7 +110,7 @@ ___
 
 • **fast**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/4fa6105/packages/redis/src/defs/index.ts#L14)*
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/4fa6105/packages/redis/src/defs/index.ts#L15)*
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 • **mock**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/52c713b/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/4fa6105/packages/redis/src/defs/index.ts#L16)*
 
 ___
 
@@ -232,7 +232,7 @@ ___
 
 ### `Optional` retry_strategy
 
-• **retry_strategy**? : *`RetryStrategy`*
+• **retry_strategy**? : *RetryStrategy*
 
 *Inherited from void*
 

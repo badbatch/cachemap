@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Callbacks](callbacks.md) /
+[Globals](../README.md) › [Callbacks](callbacks.md)
 
 # Interface: Callbacks
 
@@ -21,7 +21,7 @@
 
 • **deleteCallback**: *[DeleteCallback](../README.md#deletecallback)*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/4fa6105/packages/reaper/src/defs/index.ts#L4)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **metadataCallback**: *[MetadataCallback](../README.md#metadatacallback)*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/52c713b/packages/reaper/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/4fa6105/packages/reaper/src/defs/index.ts#L5)*

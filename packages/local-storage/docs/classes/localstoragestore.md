@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[LocalStorageStore](localstoragestore.md) /
+[Globals](../README.md) › [LocalStorageStore](localstoragestore.md)
 
 # Class: LocalStorageStore
 
@@ -10,7 +10,7 @@
 
 ## Implements
 
-* `Store`
+* Store
 
 ## Index
 
@@ -45,7 +45,7 @@
 
 \+ **new LocalStorageStore**(`options`: [ConstructorOptions](../README.md#constructoroptions)): *[LocalStorageStore](localstoragestore.md)*
 
-*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L13)*
+*Defined in [main/index.ts:13](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L13)*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ Name | Type |
 
 • **type**: *"localStorage"* = "localStorage"
 
-*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L10)*
+*Defined in [main/index.ts:10](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L10)*
 
 ## Accessors
 
@@ -69,7 +69,7 @@ Name | Type |
 
 • **get maxHeapSize**(): *number*
 
-*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L23)*
+*Defined in [main/index.ts:23](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L23)*
 
 **Returns:** *number*
 
@@ -79,7 +79,7 @@ ___
 
 • **get name**(): *string*
 
-*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L27)*
+*Defined in [main/index.ts:27](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L27)*
 
 **Returns:** *string*
 
@@ -87,19 +87,19 @@ ___
 
 ###  clear
 
-▸ **clear**(): *`Promise<void>`*
+▸ **clear**(): *Promise‹void›*
 
-*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L31)*
+*Defined in [main/index.ts:31](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L31)*
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
 ###  delete
 
-▸ **delete**(`key`: string): *`Promise<boolean>`*
+▸ **delete**(`key`: string): *Promise‹boolean›*
 
-*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L42)*
+*Defined in [main/index.ts:42](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L42)*
 
 **Parameters:**
 
@@ -107,15 +107,15 @@ Name | Type |
 ------ | ------ |
 `key` | string |
 
-**Returns:** *`Promise<boolean>`*
+**Returns:** *Promise‹boolean›*
 
 ___
 
 ###  entries
 
-▸ **entries**(`keys?`: string[]): *`Promise<Array<[string, any]>>`*
+▸ **entries**(`keys?`: string[]): *Promise‹Array‹[string, any]››*
 
-*Defined in [main/index.ts:53](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L53)*
+*Defined in [main/index.ts:53](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L53)*
 
 **Parameters:**
 
@@ -123,15 +123,15 @@ Name | Type |
 ------ | ------ |
 `keys?` | string[] |
 
-**Returns:** *`Promise<Array<[string, any]>>`*
+**Returns:** *Promise‹Array‹[string, any]››*
 
 ___
 
 ###  get
 
-▸ **get**(`key`: string): *`Promise<any>`*
+▸ **get**(`key`: string): *Promise‹any›*
 
-*Defined in [main/index.ts:87](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L87)*
+*Defined in [main/index.ts:87](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L87)*
 
 **Parameters:**
 
@@ -139,15 +139,15 @@ Name | Type |
 ------ | ------ |
 `key` | string |
 
-**Returns:** *`Promise<any>`*
+**Returns:** *Promise‹any›*
 
 ___
 
 ###  has
 
-▸ **has**(`key`: string): *`Promise<boolean>`*
+▸ **has**(`key`: string): *Promise‹boolean›*
 
-*Defined in [main/index.ts:96](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L96)*
+*Defined in [main/index.ts:96](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L96)*
 
 **Parameters:**
 
@@ -155,31 +155,31 @@ Name | Type |
 ------ | ------ |
 `key` | string |
 
-**Returns:** *`Promise<boolean>`*
+**Returns:** *Promise‹boolean›*
 
 ___
 
 ###  import
 
-▸ **import**(`entries`: `Array<[string, any]>`): *`Promise<void>`*
+▸ **import**(`entries`: Array‹[string, any]›): *Promise‹void›*
 
-*Defined in [main/index.ts:104](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L104)*
+*Defined in [main/index.ts:104](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L104)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`entries` | `Array<[string, any]>` |
+`entries` | Array‹[string, any]› |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
 ###  set
 
-▸ **set**(`key`: string, `value`: any): *`Promise<void>`*
+▸ **set**(`key`: string, `value`: any): *Promise‹void›*
 
-*Defined in [main/index.ts:114](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L114)*
+*Defined in [main/index.ts:114](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L114)*
 
 **Parameters:**
 
@@ -188,25 +188,25 @@ Name | Type |
 `key` | string |
 `value` | any |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
 ###  size
 
-▸ **size**(): *`Promise<number>`*
+▸ **size**(): *Promise‹number›*
 
-*Defined in [main/index.ts:122](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L122)*
+*Defined in [main/index.ts:122](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L122)*
 
-**Returns:** *`Promise<number>`*
+**Returns:** *Promise‹number›*
 
 ___
 
 ### `Static` init
 
-▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *`Promise<LocalStorageStore>`*
+▸ **init**(`options`: [InitOptions](../interfaces/initoptions.md)): *Promise‹[LocalStorageStore](localstoragestore.md)›*
 
-*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L6)*
+*Defined in [main/index.ts:6](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L6)*
 
 **Parameters:**
 
@@ -214,4 +214,4 @@ Name | Type |
 ------ | ------ |
 `options` | [InitOptions](../interfaces/initoptions.md) |
 
-**Returns:** *`Promise<LocalStorageStore>`*
+**Returns:** *Promise‹[LocalStorageStore](localstoragestore.md)›*

@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[PostMessageWithoutMeta](postmessagewithoutmeta.md) /
+[Globals](../README.md) › [PostMessageWithoutMeta](postmessagewithoutmeta.md)
 
 # Interface: PostMessageWithoutMeta
 
@@ -26,7 +26,7 @@
 
 • **key**? : *undefined | string*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L24)*
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 • **keys**? : *string[]*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
 
@@ -42,15 +42,15 @@ ___
 
 • **method**: *string*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L26)*
 
 ___
 
 ### `Optional` options
 
-• **options**? : *[CommonOptions](commonoptions.md) | `ExportOptions` | `ImportOptions`*
+• **options**? : *[CommonOptions](commonoptions.md) | ExportOptions | ImportOptions*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L27)*
 
 ___
 
@@ -58,4 +58,4 @@ ___
 
 • **value**? : *any*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L28)*

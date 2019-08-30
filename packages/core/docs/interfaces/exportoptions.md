@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[ExportOptions](exportoptions.md) /
+[Globals](../README.md) › [ExportOptions](exportoptions.md)
 
 # Interface: ExportOptions
 
@@ -21,7 +21,7 @@
 
 • **keys**? : *string[]*
 
-*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L73)*
+*Defined in [defs/index.ts:73](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core/src/defs/index.ts#L73)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L74)*
+*Defined in [defs/index.ts:74](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core/src/defs/index.ts#L74)*

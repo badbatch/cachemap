@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Options](options.md) /
+[Globals](../README.md) › [Options](options.md)
 
 # Interface: Options
 
@@ -22,4 +22,4 @@
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/52c713b/packages/map/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/4fa6105/packages/map/src/defs/index.ts#L8)*

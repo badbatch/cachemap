@@ -1,4 +1,6 @@
-> **[Documentation](README.md)**
+**[Documentation](README.md)**
+
+[Globals](README.md)
 
 ## Index
 
@@ -25,15 +27,15 @@
 
 Ƭ **ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/defs/index.ts#L1)*
+*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/defs/index.ts#L1)*
 
 ## Functions
 
 ###  init
 
-▸ **init**(`options`: [Options](interfaces/options.md)): *`coreDefs.StoreInit`*
+▸ **init**(`options`: [Options](interfaces/options.md)): *coreDefs.StoreInit*
 
-*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/52c713b/packages/local-storage/src/main/index.ts#L142)*
+*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/4fa6105/packages/local-storage/src/main/index.ts#L142)*
 
 **Parameters:**
 
@@ -41,4 +43,4 @@ Name | Type | Default |
 ------ | ------ | ------ |
 `options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** *`coreDefs.StoreInit`*
+**Returns:** *coreDefs.StoreInit*

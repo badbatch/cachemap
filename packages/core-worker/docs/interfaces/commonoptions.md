@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[CommonOptions](commonoptions.md) /
+[Globals](../README.md) › [CommonOptions](commonoptions.md)
 
 # Interface: CommonOptions
 
@@ -20,9 +20,9 @@
 
 ### `Optional` cacheHeaders
 
-• **cacheHeaders**? : *`coreDefs.CacheHeaders`*
+• **cacheHeaders**? : *coreDefs.CacheHeaders*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L4)*
+*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L4)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **deleteExpired**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L5)*
+*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L5)*
 
 ___
 
@@ -38,4 +38,4 @@ ___
 
 • **hash**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L6)*
+*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L6)*

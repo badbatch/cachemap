@@ -1,3 +1,21 @@
+### 1.4.0 (2019-08-30)
+
+##### Chores
+
+* **dependencies:**  update dependencies and fix follow on issues ([e34b125e](https://github.com/badbatch/cachemap/commit/e34b125edcf5d7c43cf65de61db007436f70331e))
+* **node:**  update version to latest stable. ([a45bfbd6](https://github.com/badbatch/cachemap/commit/a45bfbd6dee0e0d1a257fccca39af0acbec28fda))
+
+##### New Features
+
+* **repodog:**  add additional repodog config packages ([594d4801](https://github.com/badbatch/cachemap/commit/594d48016520b409401b46603b5bdd546e8887ce))
+
+##### Bug Fixes
+
+* **tsconfig:**  move to using repodog config ([4fa61050](https://github.com/badbatch/cachemap/commit/4fa610507087e9635e9db25ef0b5410c5c6a2d43))
+* **npm:**  allow src files to be in packages ([d39ccdfe](https://github.com/badbatch/cachemap/commit/d39ccdfe3953d8c7e0656ffcffc4c2d44adc0afa))
+* **package.json:**  update validate script ([5e13ba7f](https://github.com/badbatch/cachemap/commit/5e13ba7f49f83f51800f38fcb78f487d1cb85611))
+* **dependencies:**  change internal deps to peer ([c0bd2de4](https://github.com/badbatch/cachemap/commit/c0bd2de45bb1ea5f62adff6a61599e6f02c8a4c3))
+
 #### 1.3.1 (2019-07-29)
 
 ##### Chores

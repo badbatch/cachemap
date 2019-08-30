@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[RegisterWorkerOptions](registerworkeroptions.md) /
+[Globals](../README.md) › [RegisterWorkerOptions](registerworkeroptions.md)
 
 # Interface: RegisterWorkerOptions
 
@@ -18,6 +18,6 @@
 
 ###  cachemap
 
-• **cachemap**: *`Core`*
+• **cachemap**: *Core*
 
-*Defined in [defs/index.ts:49](https://github.com/badbatch/cachemap/blob/52c713b/packages/core-worker/src/defs/index.ts#L49)*
+*Defined in [defs/index.ts:49](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core-worker/src/defs/index.ts#L49)*

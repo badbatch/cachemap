@@ -1,6 +1,6 @@
-> **[Documentation](../README.md)**
+**[Documentation](../README.md)**
 
-[Reaper](reaper.md) /
+[Globals](../README.md) › [Reaper](reaper.md)
 
 # Interface: Reaper
 
@@ -20,9 +20,9 @@
 
 ###  cull
 
-▸ **cull**(`metadata`: [Metadata](metadata.md)[]): *`Promise<void>`*
+▸ **cull**(`metadata`: [Metadata](metadata.md)[]): *Promise‹void›*
 
-*Defined in [defs/index.ts:105](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L105)*
+*Defined in [defs/index.ts:105](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core/src/defs/index.ts#L105)*
 
 **Parameters:**
 
@@ -30,7 +30,7 @@ Name | Type |
 ------ | ------ |
 `metadata` | [Metadata](metadata.md)[] |
 
-**Returns:** *`Promise<void>`*
+**Returns:** *Promise‹void›*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 ▸ **start**(): *void*
 
-*Defined in [defs/index.ts:106](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L106)*
+*Defined in [defs/index.ts:106](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core/src/defs/index.ts#L106)*
 
 **Returns:** *void*
 
@@ -48,6 +48,6 @@ ___
 
 ▸ **stop**(): *void*
 
-*Defined in [defs/index.ts:107](https://github.com/badbatch/cachemap/blob/52c713b/packages/core/src/defs/index.ts#L107)*
+*Defined in [defs/index.ts:107](https://github.com/badbatch/cachemap/blob/4fa6105/packages/core/src/defs/index.ts#L107)*
 
 **Returns:** *void*

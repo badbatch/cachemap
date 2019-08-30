@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "private": true,
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "keywords": [
