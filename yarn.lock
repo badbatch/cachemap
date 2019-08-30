@@ -1972,10 +1972,24 @@
   resolved "https://registry.yarnpkg.com/@repodog/lerna-config/-/lerna-config-0.2.26.tgz#cf77cfbe15e7f58b3d718cbe5a959e4268784b44"
   integrity sha512-vUe5m9jz6ykRX2xCaYoMl0ejf984nrQ3Q2/CZhcsSoLlKkPjhWvlbO0+/uNVAyHW7NOitUdUvsWI590EyB6GYw==
 
-"@repodog/new-monorepo@^0.2.27":
-  version "0.2.27"
-  resolved "https://registry.yarnpkg.com/@repodog/new-monorepo/-/new-monorepo-0.2.27.tgz#af3513c757b8f80cf2e9bdf807c80a8b474bf22b"
-  integrity sha512-xZSLFsmm/KoFb21VG2eMnh4WfLRcqLVNiaiSDBkg4P2b4E9bJL/ssA2p+tqaufb6FPUt9gdL97DkorFqL82B7w==
+"@repodog/markdownlint-config@^0.2.6":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@repodog/markdownlint-config/-/markdownlint-config-0.2.26.tgz#5df653852f3a20491b690630f2233575e58b5daf"
+  integrity sha512-sBblMqSmLwg8cG03c03cx1rMGlBDKltheocBa+f52glDkGnDZqNzpo2Quy077vPrGR5EpCT130mzusgG6sK4Lg==
+
+"@repodog/new-monorepo@^0.2.28":
+  version "0.2.28"
+  resolved "https://registry.yarnpkg.com/@repodog/new-monorepo/-/new-monorepo-0.2.28.tgz#6f3eb85157199ccb9849abb4d4b9aa027eecbce3"
+  integrity sha512-mkkCeYpNNHyu/4QKNk+67ufJ8R500JeAO3stIz7APKF+reQ75mNkGLraxWliqshSVr3DWnZ29bAfQ+YjvBfPkA==
+  dependencies:
+    fs-extra "^8.1.0"
+    semver "^6.3.0"
+    yargs "^13.3.0"
+
+"@repodog/new-package@^0.2.6":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@repodog/new-package/-/new-package-0.2.26.tgz#8f15fdf5bf39b0b3887f8df20c9bc66ff06f5515"
+  integrity sha512-568tIbopltQrSChlxqaEH8zLXtfH+3vXsArOnAVgGrZc3EudJhrk/vwhzu7b8bDlPMw0hbGj9js2ujjHyiOtSA==
   dependencies:
     fs-extra "^8.1.0"
     semver "^6.3.0"
@@ -1986,10 +2000,20 @@
   resolved "https://registry.yarnpkg.com/@repodog/prettier-config/-/prettier-config-0.2.26.tgz#d4a17befcf9c1c646cf527ce2fba3cd7b5ccef9a"
   integrity sha512-Jb6XV8o4L1a9ZA5NqjQt15ZB6zYPSwxcs9Ilgb5cWLAtZ4gBdVDmcm63OWMpdc7zwhrzNwBUTTPjma3vHtJH+g==
 
+"@repodog/ts-config@^0.2.6":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@repodog/ts-config/-/ts-config-0.2.26.tgz#c4dc9b8c1741ca8c4e532dabe62777bbba3745ef"
+  integrity sha512-Pq3aJ3cIhnUtJXCZuJ1Vgmz9pdg5hhjxgkLkTx3au7k2z/3NHV1v+7C91mPktlGaWr3dEE0AECcwIlv4ApPjXA==
+
 "@repodog/tslint-config@^0.2.27":
   version "0.2.27"
   resolved "https://registry.yarnpkg.com/@repodog/tslint-config/-/tslint-config-0.2.27.tgz#936662939000a2bb84aefc24cf3fb27a523b3a63"
   integrity sha512-zaxHSA4+SKFVYUdm5gYaOwuiQC3aDGp8Xga0J7vr/ydHxciTxbJhxlkXcAl57R1n0CQGtDsmVaap1rwjFxqIPQ==
+
+"@repodog/typedoc-config@^0.2.6":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@repodog/typedoc-config/-/typedoc-config-0.2.26.tgz#fa3610b799ed7ce30b3cd8fdf60264f1ce622a81"
+  integrity sha512-bAcXfAgtMWVqQPuZEyx+Lbt+glLGjguTPvxs5vspLL92FqjFbCTqYk6mVdwfXf9mo+6xrr1HSROTyui4LD65OQ==
 
 "@sinonjs/commons@^1", "@sinonjs/commons@^1.4.0":
   version "1.4.0"
@@ -2060,6 +2084,13 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.2.0.tgz#81a6731ce4df43619e5c8c945383b3e62a89ea86"
 
+"@types/fs-extra@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-8.0.0.tgz#d3e2c313ca29f95059f198dd60d1f774642d4b25"
+  integrity sha512-bCtL5v9zdbQW86yexOlXWTEGvLNqWxMFyi7gQA7Gcthbezr2cPSOb8SkESVKA937QD5cIwOFLDFt0MQoXOEr9Q==
+  dependencies:
+    "@types/node" "*"
+
 "@types/glob@^7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.1.tgz#aa59a1c6e3fbc421e07ccd31a944c30eba521575"
@@ -2068,6 +2099,18 @@
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/jest-diff@*":
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
+  integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
+
+"@types/jest@^24.0.16":
+  version "24.0.18"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.18.tgz#9c7858d450c59e2164a8a9df0905fc5091944498"
+  integrity sha512-jcDDXdjTcrQzdN06+TSVsPPqxvsZA/5QkYfIZlq1JMw7FdP5AZylbOc+6B/cuDurctRe+MziUMtQ3xQdrbjqyQ==
+  dependencies:
+    "@types/jest-diff" "*"
 
 "@types/lodash@^4.14.138":
   version "4.14.138"
@@ -4419,10 +4462,10 @@ eslint-visitor-keys@^1.1.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.1.0.tgz#e2a82cea84ff246ad6fb57f9bde5b46621459ec2"
   integrity sha512-8y9YjtM1JBJU/A9Kc+SbaOV4y29sSWckBwMHa+FGtVj5gN/sbnKDf6xJUl+8g7FAij9LVaP8C24DUiH/f/2Z9A==
 
-eslint@^6.2.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.2.2.tgz#03298280e7750d81fcd31431f3d333e43d93f24f"
-  integrity sha512-mf0elOkxHbdyGX1IJEUsNBzCDdyoUgljF3rRlgfyYh0pwGnreLc0jjD6ZuleOibjmnUWZLY2eXwSooeOgGJ2jw==
+eslint@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-6.3.0.tgz#1f1a902f67bfd4c354e7288b81e40654d927eb6a"
+  integrity sha512-ZvZTKaqDue+N8Y9g0kp6UPZtS4FSY3qARxBs7p4f0H0iof381XHduqVerFWtK8DPtKmemqbqCFENWSQgPR/Gow==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -9188,6 +9231,11 @@ ts-node@^8.3.0:
     source-map-support "^0.5.6"
     yn "^3.0.0"
 
+ts-toolbelt@^3.2.13:
+  version "3.8.63"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-3.8.63.tgz#ee5a94a5d870f437bc6811f7428ea24c78821f6a"
+  integrity sha512-OlsFC8uF1mpN2O7DlvSkgnXzOvubO790eFhTvZBFI+WLge2BYzkQk73Q3yF0R8usxhkqbemLomqRhCGWasoIKw==
+
 tslib@^1.7.1:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
@@ -9271,6 +9319,11 @@ type-fest@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.4.1.tgz#8bdf77743385d8a4f13ba95f610f5ccd68c728f8"
   integrity sha512-IwzA/LSfD2vC1/YDYMv/zHP4rDF1usCwllsDpbolT3D4fUepIO7f9K70jjmUewU/LmGUKJcwcVtDCpnKk4BPMw==
+
+type-fest@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.6.0.tgz#8d2a2370d3df886eb5c90ada1c5bf6188acf838b"
+  integrity sha512-q+MB8nYR1KDLrgr4G5yemftpMC7/QLqVndBmEEdqzmNj5dcFOO4Oo8qlwZE3ULT3+Zim1F8Kq4cBnikNhlCMlg==
 
 type-is@~1.6.16:
   version "1.6.16"
@@ -9476,6 +9529,11 @@ util@^0.11.0:
   integrity sha512-HShAsny+zS2TZfaXxD9tYj4HQGlBezXZMZuM/S5PKLLoZkShZiGk9o5CzukI1LVHZvjdvZ2Sj1aW/Ndn2NB/HQ==
   dependencies:
     inherits "2.0.3"
+
+utility-types@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/utility-types/-/utility-types-3.7.0.tgz#51f1c29fa35d4267488345706efcf3f68f2b1933"
+  integrity sha512-mqRJXN7dEArK/NZNJUubjr9kbFFVZcmF/JHDc9jt5O/aYXUVmopHYujDMhLmLil1Bxo2+khe6KAIVvDH9Yc4VA==
 
 utils-merge@1.0.1:
   version "1.0.1"

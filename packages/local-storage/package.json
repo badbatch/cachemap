@@ -26,6 +26,7 @@
   },
   "scripts": {
     "compile": "concurrently npm:compile:*",
+    "compile-watch": "yarn run compile:main --watch",
     "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --config-file ../../babel.config.js",
