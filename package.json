@@ -43,7 +43,7 @@
     "cutoff:post-version": "yarn run compile && yarn run docs",
     "debug:integration:web": "cross-env BABEL_ENV=debug TEST_ENV=web karma start --no-single-run --reporters progress --log-level debug --browsers",
     "debug:integration:worker": "cross-env BABEL_ENV=debug TEST_ENV=worker karma start --no-single-run --reporters progress --log-level debug --browsers",
-    "≈": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
+    "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
     "init": "yarn && yarn run bootstrap && yarn run compile",
     "lint": "concurrently npm:lint:*",
     "lint:js": "eslint .",
