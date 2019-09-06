@@ -3148,10 +3148,10 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
-cacheability@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-2.0.7.tgz#263e0ffdd0ac2d9cff108c2160a41ee0624f0524"
-  integrity sha512-7DbmBA2FbrRWW4aUYjzWpQIHVQnZhVDGhvKqR5eZ1cRuEk2q4rCuvM3srGaXgYfgIkPBFls481aOb4fnWTa/AQ==
+cacheability@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/cacheability/-/cacheability-2.0.8.tgz#c16da0db13856dd826816588e2252f0d920fe344"
+  integrity sha512-daXMZsTz5Z+XkjjTZ1P5erQYOoabcHuSDsqxQFAwMOrF3p9gT2niwksWtxFIKKJujxThkreCOA4IA/lhe19Cyw==
 
 call-me-maybe@^1.0.1:
   version "1.0.1"
