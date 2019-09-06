@@ -1,3 +1,12 @@
+#### 1.4.1 (2019-09-06)
+
+##### Chores
+
+* **repo:**
+  *  update dependencies ([13ed3886](https://github.com/badbatch/cachemap/commit/13ed3886bb5292ebed2c9f6393724e0fb0ae5195))
+  *  upgrade depencencies ([d7d1d5ff](https://github.com/badbatch/cachemap/commit/d7d1d5ffc3d6f366252366841f36779809718d83))
+* **dependencies:**  update dependencies and run docs ([78eb8f81](https://github.com/badbatch/cachemap/commit/78eb8f81fd9cfdcdc669b304111461b5902d1907))
+
 ### 1.4.0 (2019-08-30)
 
 ##### Chores

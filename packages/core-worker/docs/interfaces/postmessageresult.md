@@ -27,7 +27,7 @@
 
 • **messageID**: *string*
 
-*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L44)*
+*Defined in [defs/index.ts:44](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L44)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[metadata](postmessageresultwithoutmeta.md#metadata)*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[result](postmessageresultwithoutmeta.md#optional-result)*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L38)*
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[storeType](postmessageresultwithoutmeta.md#storetype)*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L45)*
 
 ___
 
@@ -75,4 +75,4 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[usedHeapSize](postmessageresultwithoutmeta.md#usedheapsize)*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L40)*
+*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L40)*

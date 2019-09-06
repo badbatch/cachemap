@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/core-worker",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "The Cachemap Core Worker module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

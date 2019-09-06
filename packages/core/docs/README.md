@@ -41,7 +41,7 @@
 
 Ƭ **CacheHeaders**: *Headers | object*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/defs/index.ts#L62)*
+*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L62)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 Ƭ **ReaperInit**: *function*
 
-*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/defs/index.ts#L115)*
+*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L115)*
 
 #### Type declaration:
 
@@ -67,7 +67,7 @@ ___
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/defs/index.ts#L135)*
+*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L135)*
 
 #### Type declaration:
 
@@ -85,7 +85,7 @@ Name | Type |
 
 ▸ **rehydrateMetadata**(`metadata`: [DehydratedMetadata](interfaces/dehydratedmetadata.md)[]): *[Metadata](interfaces/metadata.md)[]*
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 

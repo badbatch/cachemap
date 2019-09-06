@@ -27,7 +27,7 @@
 
 Ƭ **ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/cb2a149/packages/local-storage/src/defs/index.ts#L1)*
+*Defined in [defs/index.ts:1](https://github.com/badbatch/cachemap/blob/13ed388/packages/local-storage/src/defs/index.ts#L1)*
 
 ## Functions
 
@@ -35,7 +35,7 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *coreDefs.StoreInit*
 
-*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/cb2a149/packages/local-storage/src/main/index.ts#L142)*
+*Defined in [main/index.ts:142](https://github.com/badbatch/cachemap/blob/13ed388/packages/local-storage/src/main/index.ts#L142)*
 
 **Parameters:**
 

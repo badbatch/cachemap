@@ -20,4 +20,4 @@
 
 • **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core-worker/src/defs/index.ts#L18)*
+*Defined in [defs/index.ts:18](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L18)*

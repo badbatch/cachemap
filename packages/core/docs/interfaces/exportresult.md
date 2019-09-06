@@ -21,7 +21,7 @@
 
 • **entries**: *Array‹[string, any]›*
 
-*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/defs/index.ts#L78)*
+*Defined in [defs/index.ts:78](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L78)*
 
 ___
 
@@ -29,4 +29,4 @@ ___
 
 • **metadata**: *[Metadata](metadata.md)[]*
 
-*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/cb2a149/packages/core/src/defs/index.ts#L79)*
+*Defined in [defs/index.ts:79](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L79)*
