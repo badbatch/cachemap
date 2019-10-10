@@ -44,7 +44,7 @@
     "debug:integration:web": "cross-env BABEL_ENV=debug TEST_ENV=web karma start --no-single-run --reporters progress --log-level debug --browsers",
     "debug:integration:worker": "cross-env BABEL_ENV=debug TEST_ENV=worker karma start --no-single-run --reporters progress --log-level debug --browsers",
     "docs": "lerna exec --parallel -- typedoc --includes ./src/main --out ./docs --options ../../typedoc.js",
-    "init": "yarn run && yarn run bootstrap && yarn run compile",
+    "init": "yarn && yarn run bootstrap && yarn run compile",
     "lint": "concurrently npm:lint:*",
     "lint:js": "eslint .",
     "lint:ts": "tslint --project ./tsconfig.json",
@@ -57,7 +57,7 @@
     "test:integration:web": "cross-env BABEL_ENV=web TEST_ENV=web karma start --single-run --browsers ChromeHeadless --reporters mocha",
     "test:integration:worker": "cross-env BABEL_ENV=web TEST_ENV=worker karma start --single-run --browsers ChromeHeadless --reporters mocha",
     "type-check": "tsc --noEmit",
-    "validate": "yarn run compile && yarn run lint && yarn run test:integration",
+    "validate": "yarn run build && yarn run lint && yarn run type-check && yarn run test:integration",
     "wipe": "yarn run wipe:packages && yarn run wipe:repo",
     "wipe:packages": "lerna exec --parallel -- del-cli ./yarn.lock ./node_modules",
     "wipe:repo": "del-cli ./yarn.lock ./node_modules"
