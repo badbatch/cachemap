@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [BaseOptions](baseoptions.md)
+[Documentation](../README.md) › [BaseOptions](baseoptions.md)
 
 # Interface: BaseOptions
 
@@ -8,9 +6,9 @@
 
 * **BaseOptions**
 
-  * [ConstructorOptions](constructoroptions.md)
+  ↳ [ConstructorOptions](constructoroptions.md)
 
-  * [InitOptions](initoptions.md)
+  ↳ [InitOptions](initoptions.md)
 
 ## Index
 
@@ -31,7 +29,7 @@
 
 • **disableCacheInvalidation**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L55)*
+*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L55)*
 
 ___
 
@@ -39,7 +37,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L56)*
+*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L56)*
 
 ___
 
@@ -47,7 +45,7 @@ ___
 
 • **reaper**? : *[ReaperInit](../README.md#reaperinit)*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L57)*
+*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L57)*
 
 ___
 
@@ -55,7 +53,7 @@ ___
 
 • **sharedCache**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L58)*
+*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L58)*
 
 ## Methods
 
@@ -63,7 +61,7 @@ ___
 
 ▸ **sortComparator**(`a`: any, `b`: any): *number*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L59)*
+*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L59)*
 
 **Parameters:**
 

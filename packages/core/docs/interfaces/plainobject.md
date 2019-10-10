@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [PlainObject](plainobject.md)
+[Documentation](../README.md) › [PlainObject](plainobject.md)
 
 # Interface: PlainObject
 

@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md)
+[Documentation](../README.md) › [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md)
 
 # Interface: PostMessageResultWithoutMeta
 
@@ -8,7 +6,7 @@
 
 * **PostMessageResultWithoutMeta**
 
-  * [PostMessageResult](postmessageresult.md)
+  ↳ [PostMessageResult](postmessageresult.md)
 
 ## Index
 
@@ -25,7 +23,7 @@
 
 • **metadata**: *Metadata[]*
 
-*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L37)*
+*Defined in [defs/index.ts:37](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L37)*
 
 ___
 
@@ -33,7 +31,7 @@ ___
 
 • **result**? : *any*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L38)*
 
 ___
 
@@ -41,7 +39,7 @@ ___
 
 • **storeType**: *string*
 
-*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L39)*
+*Defined in [defs/index.ts:39](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L39)*
 
 ___
 
@@ -49,4 +47,4 @@ ___
 
 • **usedHeapSize**: *number*
 
-*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L40)*
+*Defined in [defs/index.ts:40](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L40)*

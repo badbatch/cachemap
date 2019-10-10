@@ -1,6 +1,6 @@
-**[Documentation](README.md)**
+[Documentation](README.md)
 
-[Globals](README.md)
+# Documentation
 
 ## Index
 
@@ -30,7 +30,7 @@
 
 Ƭ **DeleteCallback**: *function*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/13ed388/packages/reaper/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L15)*
 
 #### Type declaration:
 
@@ -41,7 +41,7 @@
 Name | Type |
 ------ | ------ |
 `key` | string |
-`options?` | undefined \| object |
+`options?` | undefined &#124; object |
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 Ƭ **Init**: *function*
 
-*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/13ed388/packages/reaper/src/defs/index.ts#L17)*
+*Defined in [defs/index.ts:17](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L17)*
 
 #### Type declaration:
 
@@ -67,7 +67,7 @@ ___
 
 Ƭ **MetadataCallback**: *function*
 
-*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/13ed388/packages/reaper/src/defs/index.ts#L19)*
+*Defined in [defs/index.ts:19](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L19)*
 
 #### Type declaration:
 
@@ -79,7 +79,7 @@ ___
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *[Init](README.md#init)*
 
-*Defined in [main/index.ts:58](https://github.com/badbatch/cachemap/blob/13ed388/packages/reaper/src/main/index.ts#L58)*
+*Defined in [main/index.ts:58](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/main/index.ts#L58)*
 
 **Parameters:**
 

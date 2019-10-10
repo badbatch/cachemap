@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [BaseMetadata](basemetadata.md)
+[Documentation](../README.md) › [BaseMetadata](basemetadata.md)
 
 # Interface: BaseMetadata
 
@@ -8,9 +6,9 @@
 
 * **BaseMetadata**
 
-  * [DehydratedMetadata](dehydratedmetadata.md)
+  ↳ [DehydratedMetadata](dehydratedmetadata.md)
 
-  * [Metadata](metadata.md)
+  ↳ [Metadata](metadata.md)
 
 ## Index
 
@@ -31,7 +29,7 @@
 
 • **accessedCount**: *number*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L8)*
 
 The number of times the corresponding data
 entry has been accessed.
@@ -42,7 +40,7 @@ ___
 
 • **added**: *number*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L14)*
 
 The timestamp of when the corresponding data
 entry was added to the Cachemap instance.
@@ -53,7 +51,7 @@ ___
 
 • **key**: *string*
 
-*Defined in [defs/index.ts:20](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L20)*
+*Defined in [defs/index.ts:20](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L20)*
 
 The key the corresponding data entry was stored
 against.
@@ -64,7 +62,7 @@ ___
 
 • **lastAccessed**: *number*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L26)*
 
 The timestamp of when the corresponding data
 entry was last accessed.
@@ -75,7 +73,7 @@ ___
 
 • **lastUpdated**: *number*
 
-*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L32)*
 
 The timestamp of when the corresponding data
 entry was last updated.
@@ -86,7 +84,7 @@ ___
 
 • **size**: *number*
 
-*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L38)*
+*Defined in [defs/index.ts:38](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L38)*
 
 The approximate amount of memory the corresponding
 data entry takes up.
@@ -97,7 +95,7 @@ ___
 
 • **tags**: *any[]*
 
-*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L45)*
+*Defined in [defs/index.ts:45](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L45)*
 
 A list of tags that can be optionally set along with
 the cachemap entry and used when trying to retrieve
@@ -109,7 +107,7 @@ ___
 
 • **updatedCount**: *number*
 
-*Defined in [defs/index.ts:51](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L51)*
+*Defined in [defs/index.ts:51](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L51)*
 
 The number of times the corresponding data
 entry has been updated.

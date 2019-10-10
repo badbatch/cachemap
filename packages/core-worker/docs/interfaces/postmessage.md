@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [PostMessage](postmessage.md)
+[Documentation](../README.md) › [PostMessage](postmessage.md)
 
 # Interface: PostMessage
 
@@ -8,7 +6,7 @@
 
 * [PostMessageWithoutMeta](postmessagewithoutmeta.md)
 
-  * **PostMessage**
+  ↳ **PostMessage**
 
 ## Index
 
@@ -30,7 +28,7 @@
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#optional-key)*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L24)*
+*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L24)*
 
 ___
 
@@ -40,7 +38,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#optional-keys)*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L25)*
 
 ___
 
@@ -48,7 +46,7 @@ ___
 
 • **messageID**: *string*
 
-*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L32)*
+*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L32)*
 
 ___
 
@@ -58,7 +56,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[method](postmessagewithoutmeta.md#method)*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L26)*
+*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L26)*
 
 ___
 
@@ -68,7 +66,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#optional-options)*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L27)*
+*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L27)*
 
 ___
 
@@ -76,7 +74,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L33)*
+*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L33)*
 
 ___
 
@@ -86,4 +84,4 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#optional-value)*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/13ed388/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L28)*

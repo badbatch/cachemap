@@ -1,6 +1,6 @@
-**[Documentation](README.md)**
+[Documentation](README.md)
 
-[Globals](README.md)
+# Documentation
 
 ## Index
 
@@ -24,7 +24,7 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *coreDefs.StoreInit*
 
-*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/13ed388/packages/redis/src/main/index.ts#L153)*
+*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 

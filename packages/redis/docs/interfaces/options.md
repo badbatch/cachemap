@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [Options](options.md)
+[Documentation](../README.md) › [Options](options.md)
 
 # Interface: Options
 
@@ -8,9 +6,9 @@
 
 * ClientOpts
 
-  * **Options**
+  ↳ **Options**
 
-  * [InitOptions](initoptions.md)
+  ↳ [InitOptions](initoptions.md)
 
 ## Index
 
@@ -110,7 +108,7 @@ ___
 
 • **fast**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/13ed388/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L14)*
 
 ___
 
@@ -128,7 +126,7 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/13ed388/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L15)*
 
 ___
 
@@ -146,7 +144,7 @@ ___
 
 • **mock**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/13ed388/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L16)*
 
 ___
 

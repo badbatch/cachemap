@@ -1,3 +1,17 @@
+#### 1.4.2 (2019-10-10)
+
+##### Chores
+
+*  update dependencies ([9f3c9798](https://github.com/badbatch/cachemap/commit/9f3c97989389e8f7d2c23b58acc21483b03d93b7))
+*  update scripts ([f538d136](https://github.com/badbatch/cachemap/commit/f538d13674324a7252138e27ecb80f91021ea07e))
+*  update travis scripts ([beed2a71](https://github.com/badbatch/cachemap/commit/beed2a71aba13a24213115ff1587c3f99fac90e5))
+*  update dependencies ([c7099f2e](https://github.com/badbatch/cachemap/commit/c7099f2ecef47f456dbf64d9b07c439796252fd8))
+*  update scripts to add source maps ([5ae26e48](https://github.com/badbatch/cachemap/commit/5ae26e485e07b87cd555345b8a9af0ca52d36225))
+
+##### Bug Fixes
+
+*  scripts broken and missing commands ([00de699d](https://github.com/badbatch/cachemap/commit/00de699d76bf8ef5d3cc01739f1892c55b1ec242))
+
 #### 1.4.1 (2019-09-06)
 
 ##### Chores

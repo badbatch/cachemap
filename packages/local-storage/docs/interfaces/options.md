@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [Options](options.md)
+[Documentation](../README.md) › [Options](options.md)
 
 # Interface: Options
 
@@ -8,7 +6,7 @@
 
 * **Options**
 
-  * [InitOptions](initoptions.md)
+  ↳ [InitOptions](initoptions.md)
 
 ## Index
 
@@ -22,4 +20,4 @@
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/13ed388/packages/local-storage/src/defs/index.ts#L8)*
+*Defined in [defs/index.ts:8](https://github.com/badbatch/cachemap/blob/00de699/packages/local-storage/src/defs/index.ts#L8)*

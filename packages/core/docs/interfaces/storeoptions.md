@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [StoreOptions](storeoptions.md)
+[Documentation](../README.md) › [StoreOptions](storeoptions.md)
 
 # Interface: StoreOptions
 
@@ -20,4 +18,4 @@
 
 • **name**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L132)*
+*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L132)*

@@ -1,6 +1,4 @@
-**[Documentation](../README.md)**
-
-[Globals](../README.md) › [ReaperCallbacks](reapercallbacks.md)
+[Documentation](../README.md) › [ReaperCallbacks](reapercallbacks.md)
 
 # Interface: ReaperCallbacks
 
@@ -21,7 +19,7 @@
 
 • **deleteCallback**: *function*
 
-*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L111)*
+*Defined in [defs/index.ts:111](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L111)*
 
 #### Type declaration:
 
@@ -32,7 +30,7 @@
 Name | Type |
 ------ | ------ |
 `key` | string |
-`options?` | undefined \| object |
+`options?` | undefined &#124; object |
 
 ___
 
@@ -40,7 +38,7 @@ ___
 
 • **metadataCallback**: *function*
 
-*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/13ed388/packages/core/src/defs/index.ts#L112)*
+*Defined in [defs/index.ts:112](https://github.com/badbatch/cachemap/blob/00de699/packages/core/src/defs/index.ts#L112)*
 
 #### Type declaration:
 
