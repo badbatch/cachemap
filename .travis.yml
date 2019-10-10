@@ -11,17 +11,17 @@ before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
   - export PATH=$HOME/.yarn/bin:$PATH
 install:
-  - yarn init
+  - yarn run init
 script:
-  - yarn lint
-  - yarn type-check
-  - yarn test:integration
+  - yarn run lint
+  - yarn run type-check
+  - yarn run test:integration
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> .npmrc
 deploy:
   provider: script
   script:
-    - yarn publish-lerna-cutoff
+    - yarn run publish-lerna-cutoff
   skip_cleanup: true
   on:
     tags: true
