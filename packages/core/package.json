@@ -33,7 +33,7 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "cacheability": "^2.0.9",
+    "cacheability": "^2.0.10",
     "md5": "^2.2.1",
     "object-sizeof": "^1.5.1"
   },

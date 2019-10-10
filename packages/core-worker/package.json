@@ -33,7 +33,7 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "cacheability": "^2.0.9",
+    "cacheability": "^2.0.10",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
