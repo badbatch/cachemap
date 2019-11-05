@@ -55,7 +55,7 @@
 
 Ƭ **ConstructorOptions**: *[InitOptions](interfaces/initoptions.md)*
 
-*Defined in [defs/index.ts:13](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L13)*
+*Defined in [defs/index.ts:13](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L13)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 Ƭ **PendingResolver**: *function*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L15)*
 
 #### Type declaration:
 
@@ -81,7 +81,7 @@ ___
 
 Ƭ **PendingTracker**: *Map‹string, [PendingData](interfaces/pendingdata.md)›*
 
-*Defined in [defs/index.ts:21](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/defs/index.ts#L21)*
+*Defined in [defs/index.ts:21](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L21)*
 
 ## Variables
 
@@ -89,7 +89,7 @@ ___
 
 • **CACHEMAP**: *"cachemap"* = "cachemap"
 
-*Defined in [constants/index.ts:1](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L1)*
+*Defined in [constants/index.ts:1](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L1)*
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 • **CLEAR**: *"clear"* = "clear"
 
-*Defined in [constants/index.ts:2](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L2)*
+*Defined in [constants/index.ts:2](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L2)*
 
 ___
 
@@ -105,7 +105,7 @@ ___
 
 • **DELETE**: *"delete"* = "delete"
 
-*Defined in [constants/index.ts:3](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L3)*
+*Defined in [constants/index.ts:3](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L3)*
 
 ___
 
@@ -113,7 +113,7 @@ ___
 
 • **ENTRIES**: *"entries"* = "entries"
 
-*Defined in [constants/index.ts:4](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L4)*
+*Defined in [constants/index.ts:4](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L4)*
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 • **EXPORT**: *"export"* = "export"
 
-*Defined in [constants/index.ts:5](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L5)*
+*Defined in [constants/index.ts:5](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L5)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 • **GET**: *"get"* = "get"
 
-*Defined in [constants/index.ts:6](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L6)*
+*Defined in [constants/index.ts:6](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L6)*
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 • **HAS**: *"has"* = "has"
 
-*Defined in [constants/index.ts:7](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L7)*
+*Defined in [constants/index.ts:7](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L7)*
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 • **IMPORT**: *"import"* = "import"
 
-*Defined in [constants/index.ts:8](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L8)*
+*Defined in [constants/index.ts:8](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L8)*
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 • **MESSAGE**: *"message"* = "message"
 
-*Defined in [constants/index.ts:9](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L9)*
+*Defined in [constants/index.ts:9](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L9)*
 
 ___
 
@@ -161,7 +161,7 @@ ___
 
 • **SET**: *"set"* = "set"
 
-*Defined in [constants/index.ts:10](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L10)*
+*Defined in [constants/index.ts:10](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L10)*
 
 ___
 
@@ -169,7 +169,7 @@ ___
 
 • **SIZE**: *"size"* = "size"
 
-*Defined in [constants/index.ts:11](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/constants/index.ts#L11)*
+*Defined in [constants/index.ts:11](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/constants/index.ts#L11)*
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 • **addEventListener**: *addEventListener*
 
-*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L6)*
+*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L6)*
 
 ___
 
@@ -185,7 +185,7 @@ ___
 
 • **postMessage**: *postMessage*
 
-*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L6)*
+*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L6)*
 
 ## Functions
 
@@ -193,7 +193,7 @@ ___
 
 ▸ **filterProps**(`__namedParameters`: object): *[FilterPropsResult](interfaces/filterpropsresult.md)*
 
-*Defined in [register-worker/index.ts:12](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L12)*
+*Defined in [register-worker/index.ts:12](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L12)*
 
 **Parameters:**
 
@@ -213,7 +213,7 @@ ___
 
 ▸ **handleMessage**(`message`: [PostMessage](interfaces/postmessage.md), `cachemap`: Core): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:16](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L16)*
+*Defined in [register-worker/index.ts:16](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L16)*
 
 **Parameters:**
 
@@ -230,7 +230,7 @@ ___
 
 ▸ **registerWorker**(`__namedParameters`: object): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:63](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L63)*
+*Defined in [register-worker/index.ts:63](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L63)*
 
 **Parameters:**
 
@@ -248,7 +248,7 @@ ___
 
 ▸ **requiresKey**(`type`: string): *boolean*
 
-*Defined in [register-worker/index.ts:8](https://github.com/badbatch/cachemap/blob/00de699/packages/core-worker/src/register-worker/index.ts#L8)*
+*Defined in [register-worker/index.ts:8](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/register-worker/index.ts#L8)*
 
 **Parameters:**
 

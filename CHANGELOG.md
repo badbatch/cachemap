@@ -1,3 +1,9 @@
+## 2.0.0 (2019-11-05)
+
+##### Chores
+
+*  upgrade dependencies, including core-js ([40e3beaa](https://github.com/badbatch/cachemap/commit/40e3beaa6aa2b3fae40431039adae0087df96d00))
+
 #### 1.4.2 (2019-10-10)
 
 ##### Chores

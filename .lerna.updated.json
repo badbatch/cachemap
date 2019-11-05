@@ -1,44 +1,37 @@
 [
   {
-    "name": "@cachemap/core-worker",
-    "version": "1.4.1",
+    "name": "@cachemap/core",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/core-worker"
+    "version": "1.4.2"
   },
   {
-    "name": "@cachemap/core",
-    "version": "1.4.1",
+    "name": "@cachemap/core-worker",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/core"
+    "version": "1.4.2"
   },
   {
     "name": "@cachemap/indexed-db",
-    "version": "1.4.1",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/indexed-db"
+    "version": "1.4.2"
   },
   {
     "name": "@cachemap/local-storage",
-    "version": "1.4.1",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/local-storage"
+    "version": "1.4.2"
   },
   {
     "name": "@cachemap/map",
-    "version": "1.4.1",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/map"
+    "version": "1.4.2"
   },
   {
     "name": "@cachemap/reaper",
-    "version": "1.4.1",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/reaper"
+    "version": "1.4.2"
   },
   {
     "name": "@cachemap/redis",
-    "version": "1.4.1",
     "private": false,
-    "location": "/Users/dylanaubrey/Documents/workspaces/cachemap/packages/redis"
+    "version": "1.4.2"
   }
 ]

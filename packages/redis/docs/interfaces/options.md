@@ -108,7 +108,7 @@ ___
 
 • **fast**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L14)*
+*Defined in [defs/index.ts:14](https://github.com/badbatch/cachemap/blob/40e3bea/packages/redis/src/defs/index.ts#L14)*
 
 ___
 
@@ -126,7 +126,7 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L15)*
+*Defined in [defs/index.ts:15](https://github.com/badbatch/cachemap/blob/40e3bea/packages/redis/src/defs/index.ts#L15)*
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 • **mock**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/00de699/packages/redis/src/defs/index.ts#L16)*
+*Defined in [defs/index.ts:16](https://github.com/badbatch/cachemap/blob/40e3bea/packages/redis/src/defs/index.ts#L16)*
 
 ___
 

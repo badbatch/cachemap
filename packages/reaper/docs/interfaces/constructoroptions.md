@@ -21,7 +21,7 @@
 
 • **deleteCallback**: *[DeleteCallback](../README.md#deletecallback)*
 
-*Defined in [defs/index.ts:9](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L9)*
+*Defined in [defs/index.ts:9](https://github.com/badbatch/cachemap/blob/40e3bea/packages/reaper/src/defs/index.ts#L9)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **interval**? : *undefined | number*
 
-*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L10)*
+*Defined in [defs/index.ts:10](https://github.com/badbatch/cachemap/blob/40e3bea/packages/reaper/src/defs/index.ts#L10)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **metadataCallback**: *[MetadataCallback](../README.md#metadatacallback)*
 
-*Defined in [defs/index.ts:11](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L11)*
+*Defined in [defs/index.ts:11](https://github.com/badbatch/cachemap/blob/40e3bea/packages/reaper/src/defs/index.ts#L11)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **start**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/00de699/packages/reaper/src/defs/index.ts#L12)*
+*Defined in [defs/index.ts:12](https://github.com/badbatch/cachemap/blob/40e3bea/packages/reaper/src/defs/index.ts#L12)*
