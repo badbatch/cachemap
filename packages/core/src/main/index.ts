@@ -154,7 +154,7 @@ export default class Core {
     }
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     if (keys && !isArray(keys)) {
       return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
     }
@@ -365,7 +365,7 @@ export default class Core {
     }
   }
 
-  private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
+  private async _entries(keys?: string[]): Promise<[string, any][]> {
     try {
       const _keys = keys || this._metadata.map(metadata => metadata.key);
       return this._store.entries(_keys);

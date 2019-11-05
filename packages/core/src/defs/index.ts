@@ -75,12 +75,12 @@ export interface ExportOptions {
 }
 
 export interface ExportResult {
-  entries: Array<[string, any]>;
+  entries: [string, any][];
   metadata: Metadata[];
 }
 
 export interface ImportOptions {
-  entries: Array<[string, any]>;
+  entries: [string, any][];
   metadata: Metadata[];
 }
 
@@ -120,10 +120,10 @@ export interface Store {
   readonly type: string;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<Array<[string, any]>>;
+  entries(keys?: string[]): Promise<[string, any][]>;
   get(key: string): Promise<any>;
   has(key: string): Promise<boolean>;
-  import(entries: Array<[string, any]>): Promise<void>;
+  import(entries: [string, any][]): Promise<void>;
   set(key: string, value: any): Promise<void>;
   size(): Promise<number>;
 }

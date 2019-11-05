@@ -7,7 +7,7 @@ import md5 from "md5";
 import { testData } from "../../data";
 import { PlainObject, RunOptions } from "../../defs";
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export function run(
   { cachemapSize, init, worker }: RunOptions,
@@ -365,14 +365,16 @@ export function run(
       });
 
       context("When no keys are passed in", () => {
-        let result: Array<[string, any]>;
+        let result: [string, any][];
 
         before(async () => {
           const keys = Object.keys(testData);
 
-          await Promise.all(keys.map((id) => {
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           result = await cachemap.entries();
         });
@@ -387,17 +389,19 @@ export function run(
       });
 
       context("When keys are passed in", () => {
-        let result: Array<[string, any]>;
+        let result: [string, any][];
 
         before(async () => {
           const ids = Object.keys(testData);
           const hashedKeys: string[] = [];
 
-          await Promise.all(ids.map((id) => {
-            const url = testData[id].url;
-            hashedKeys.push(md5(url));
-            return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            ids.map(id => {
+              const url = testData[id].url;
+              hashedKeys.push(md5(url));
+              return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           result = await cachemap.entries(hashedKeys.slice(0, 2));
         });
@@ -430,9 +434,11 @@ export function run(
         before(async () => {
           const keys = Object.keys(testData);
 
-          await Promise.all(keys.map((id) => {
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           result = await cachemap.export();
         });
@@ -454,11 +460,13 @@ export function run(
           const ids = Object.keys(testData);
           const hashedKeys: string[] = [];
 
-          await Promise.all(ids.map((id) => {
-            const url = testData[id].url;
-            hashedKeys.push(md5(url));
-            return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            ids.map(id => {
+              const url = testData[id].url;
+              hashedKeys.push(md5(url));
+              return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
         });
@@ -480,10 +488,12 @@ export function run(
           const keys = Object.keys(testData);
           const tags = ["alfa", "bravo", "charlie"];
 
-          await Promise.all(keys.map((id) => {
-            const tag = tags.pop();
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true, tag });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              const tag = tags.pop();
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true, tag });
+            }),
+          );
 
           result = await cachemap.export({ tag: "alfa" });
         });
@@ -515,9 +525,11 @@ export function run(
         before(async () => {
           const keys = Object.keys(testData);
 
-          await Promise.all(keys.map((id) => {
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           const exported = await cachemap.export();
           await cachemap.clear();
@@ -538,9 +550,11 @@ export function run(
         before(async () => {
           const keys = Object.keys(testData);
 
-          await Promise.all(keys.map((id) => {
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
 
           const exported = await cachemap.export();
           await cachemap.import(exported);
@@ -605,9 +619,11 @@ export function run(
 
           keys = Object.keys(testData);
 
-          await Promise.all(keys.map((id) => {
-            return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-          }));
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
         });
 
         after(async () => {

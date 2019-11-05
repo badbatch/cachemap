@@ -73,7 +73,7 @@ export default class CoreWorker {
     }
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     try {
       const { result, ...rest } = await this._postMessage({ keys, method: ENTRIES });
       this._setProps(rest);

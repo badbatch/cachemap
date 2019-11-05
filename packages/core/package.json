@@ -27,19 +27,19 @@
   "scripts": {
     "compile": "concurrently npm:compile:*",
     "compile-watch": "yarn run compile:main --watch",
-    "compile:browser": "cross-env BABEL_ENV=web rollup -c ../../rollup.config.js",
+    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "cacheability": "^2.0.10",
+    "cacheability": "^3.0.0",
     "md5": "^2.2.1",
-    "object-sizeof": "^1.5.1"
+    "object-sizeof": "^1.5.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^2.0",
+    "core-js": "^3.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5"
   },

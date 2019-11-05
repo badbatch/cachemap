@@ -36,11 +36,11 @@ export class MapStore implements coreDefs.Store {
     return this._map.delete(key);
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     const entries = this._map.entries();
     if (!keys) return Array.from(entries);
 
-    const filtered: Array<[string, any]> = [];
+    const filtered: [string, any][] = [];
 
     for (const [key, value] of entries) {
       if (keys.find(val => val === key)) filtered.push([key, value]);
@@ -57,7 +57,7 @@ export class MapStore implements coreDefs.Store {
     return this._map.get(key) !== undefined;
   }
 
-  public async import(entries: Array<[string, any]>): Promise<void> {
+  public async import(entries: [string, any][]): Promise<void> {
     this._map = new Map([...this._map, ...entries]);
   }
 
