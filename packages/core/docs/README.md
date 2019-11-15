@@ -46,7 +46,7 @@
 
 Ƭ **CacheHeaders**: *Headers | object*
 
-*Defined in [types.ts:62](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/types.ts#L62)*
+*Defined in [types.ts:62](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L62)*
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 Ƭ **MethodName**: *"clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size"*
 
-*Defined in [types.ts:113](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/types.ts#L113)*
+*Defined in [types.ts:113](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L113)*
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 Ƭ **ReaperInit**: *function*
 
-*Defined in [types.ts:111](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/types.ts#L111)*
+*Defined in [types.ts:111](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L111)*
 
 #### Type declaration:
 
@@ -80,7 +80,7 @@ ___
 
 Ƭ **RequestQueue**: *Array‹[function, [MethodName](README.md#methodname), any[]]›*
 
-*Defined in [types.ts:115](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/types.ts#L115)*
+*Defined in [types.ts:115](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L115)*
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [types.ts:135](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/types.ts#L135)*
+*Defined in [types.ts:135](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L135)*
 
 #### Type declaration:
 
@@ -106,7 +106,7 @@ Name | Type |
 
 • **DEFAULT_MAX_HEAP_SIZE**: *4194304* = 4194304
 
-*Defined in [constants.ts:1](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/constants.ts#L1)*
+*Defined in [constants.ts:1](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/constants.ts#L1)*
 
 ## Functions
 
@@ -114,7 +114,7 @@ Name | Type |
 
 ▸ **rehydrateMetadata**(`metadata`: [DehydratedMetadata](interfaces/dehydratedmetadata.md)[]): *[Metadata](interfaces/metadata.md)[]*
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 

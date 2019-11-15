@@ -25,7 +25,7 @@
 
 • **messageID**: *string*
 
-*Defined in [types.ts:42](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L42)*
+*Defined in [types.ts:42](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L42)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[metadata](postmessageresultwithoutmeta.md#metadata)*
 
-*Defined in [types.ts:35](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L35)*
+*Defined in [types.ts:35](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L35)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[result](postmessageresultwithoutmeta.md#optional-result)*
 
-*Defined in [types.ts:36](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L36)*
+*Defined in [types.ts:36](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L36)*
 
 ___
 
@@ -55,7 +55,7 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[storeType](postmessageresultwithoutmeta.md#storetype)*
 
-*Defined in [types.ts:37](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L37)*
+*Defined in [types.ts:37](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L37)*
 
 ___
 
@@ -63,7 +63,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:43](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L43)*
+*Defined in [types.ts:43](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L43)*
 
 ___
 
@@ -73,4 +73,4 @@ ___
 
 *Inherited from [PostMessageResultWithoutMeta](postmessageresultwithoutmeta.md).[usedHeapSize](postmessageresultwithoutmeta.md#usedheapsize)*
 
-*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L38)*
+*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L38)*

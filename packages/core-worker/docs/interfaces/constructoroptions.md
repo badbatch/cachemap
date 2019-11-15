@@ -18,4 +18,4 @@
 
 • **worker**: *Worker*
 
-*Defined in [types.ts:10](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L10)*
+*Defined in [types.ts:10](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core-worker/src/types.ts#L10)*

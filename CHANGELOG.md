@@ -1,3 +1,9 @@
+#### 3.0.3 (2019-11-15)
+
+##### Bug Fixes
+
+* **constants:**  add public scope to package json ([f68b2bfb](https://github.com/badbatch/cachemap/commit/f68b2bfb4019ede76ab65302556ff02f398ca5f8))
+
 #### 3.0.2 (2019-11-15)
 
 ##### Bug Fixes

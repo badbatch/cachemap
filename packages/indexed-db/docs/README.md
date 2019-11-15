@@ -24,7 +24,7 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *StoreInit*
 
-*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/indexed-db/src/main/index.ts#L154)*
+*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/indexed-db/src/main/index.ts#L154)*
 
 **Parameters:**
 
