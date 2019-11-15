@@ -1,8 +1,8 @@
-import { coreDefs } from "@cachemap/core";
+import { Store, StoreInit, StoreOptions } from "@cachemap/core";
 import { isNumber, isPlainObject } from "lodash";
-import { ConstructorOptions, InitOptions, Options } from "../defs";
+import { ConstructorOptions, InitOptions, Options } from "../types";
 
-export class MapStore implements coreDefs.Store {
+export class MapStore implements Store {
   public static async init(options: InitOptions): Promise<MapStore> {
     return new MapStore(options);
   }
@@ -70,10 +70,10 @@ export class MapStore implements coreDefs.Store {
   }
 }
 
-export default function init(options: Options = {}): coreDefs.StoreInit {
+export default function init(options: Options = {}): StoreInit {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/map expected options to be a plain object.");
   }
 
-  return (storeOptions: coreDefs.StoreOptions) => MapStore.init({ ...options, ...storeOptions });
+  return (storeOptions: StoreOptions) => MapStore.init({ ...options, ...storeOptions });
 }

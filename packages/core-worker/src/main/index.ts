@@ -1,4 +1,4 @@
-import { coreDefs, rehydrateMetadata } from "@cachemap/core";
+import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, Metadata, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
 import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
@@ -11,10 +11,10 @@ import {
   PostMessageResult,
   PostMessageResultWithoutMeta,
   PostMessageWithoutMeta,
-} from "../defs";
+} from "../types";
 
 export default class CoreWorker {
-  private _metadata: coreDefs.Metadata[] = [];
+  private _metadata: Metadata[] = [];
   private _pending: PendingTracker = new Map();
   private _storeType: string | undefined;
   private _usedHeapSize: number = 0;
@@ -37,7 +37,7 @@ export default class CoreWorker {
     this._addEventListener();
   }
 
-  get metadata(): coreDefs.Metadata[] {
+  get metadata(): Metadata[] {
     return this._metadata;
   }
 
@@ -78,7 +78,7 @@ export default class CoreWorker {
     }
   }
 
-  public async export(options: coreDefs.ExportOptions = {}): Promise<coreDefs.ExportResult> {
+  public async export(options: ExportOptions = {}): Promise<ExportResult> {
     try {
       const { result, ...rest } = await this._postMessage({ method: EXPORT, options });
       this._setProps(rest);
@@ -112,7 +112,7 @@ export default class CoreWorker {
     }
   }
 
-  public async import(options: coreDefs.ImportOptions): Promise<void> {
+  public async import(options: ImportOptions): Promise<void> {
     try {
       const { result, ...rest } = await this._postMessage({ method: IMPORT, options });
       this._setProps(rest);
@@ -124,7 +124,7 @@ export default class CoreWorker {
   public async set(
     key: string,
     value: any,
-    options: { cacheHeaders?: coreDefs.CacheHeaders; hash?: boolean; tag?: any } = {},
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any } = {},
   ): Promise<any> {
     try {
       const response = await this._postMessage({ key, method: SET, options, value });

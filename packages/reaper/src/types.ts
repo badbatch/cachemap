@@ -1,4 +1,4 @@
-import { coreDefs } from "@cachemap/core";
+import { Metadata } from "@cachemap/core";
 
 export interface Callbacks {
   deleteCallback: DeleteCallback;
@@ -16,7 +16,7 @@ export type DeleteCallback = (key: string, options?: { hash?: boolean }) => Prom
 
 export type Init = (callbacks: Callbacks) => Reaper;
 
-export type MetadataCallback = () => coreDefs.Metadata[];
+export type MetadataCallback = () => Metadata[];
 
 export interface Options {
   interval?: number;
@@ -24,7 +24,7 @@ export interface Options {
 }
 
 export interface Reaper {
-  cull(metadata: coreDefs.Metadata[]): Promise<void>;
+  cull(metadata: Metadata[]): Promise<void>;
   start(): void;
   stop(): void;
 }

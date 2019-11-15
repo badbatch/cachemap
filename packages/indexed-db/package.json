@@ -37,7 +37,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "core-js": "^3.0",
+    "core-js": "> 4",
     "lodash": "^4.17.5"
   },
   "devDependencies": {

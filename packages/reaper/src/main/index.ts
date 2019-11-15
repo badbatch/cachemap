@@ -1,6 +1,6 @@
-import { coreDefs } from "@cachemap/core";
+import { Metadata } from "@cachemap/core";
 import { isPlainObject } from "lodash";
-import { Callbacks, ConstructorOptions, DeleteCallback, Init, MetadataCallback, Options } from "../defs";
+import { Callbacks, ConstructorOptions, DeleteCallback, Init, MetadataCallback, Options } from "../types";
 
 export class Reaper {
   private _deleteCallback: DeleteCallback;
@@ -17,7 +17,7 @@ export class Reaper {
     if (start) this._start();
   }
 
-  public async cull(metadata: coreDefs.Metadata[]): Promise<void> {
+  public async cull(metadata: Metadata[]): Promise<void> {
     await this._cull(metadata);
   }
 
@@ -29,7 +29,7 @@ export class Reaper {
     this._stop();
   }
 
-  private async _cull(metadata: coreDefs.Metadata[]): Promise<void> {
+  private async _cull(metadata: Metadata[]): Promise<void> {
     if (!metadata.length) return;
 
     try {
@@ -39,7 +39,7 @@ export class Reaper {
     }
   }
 
-  private _getExpiredMetadata(): coreDefs.Metadata[] {
+  private _getExpiredMetadata(): Metadata[] {
     const metadata = this._metadataCallback();
     return metadata.filter(({ cacheability }) => !cacheability.checkTTL());
   }

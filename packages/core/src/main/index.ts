@@ -3,6 +3,7 @@ import { isArray, isFunction, isPlainObject, isString, isUndefined } from "lodas
 import md5 from "md5";
 import sizeof from "object-sizeof";
 import { CLEAR, DEFAULT_MAX_HEAP_SIZE, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "../constants";
+import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
 import {
   CacheHeaders,
   ConstructorOptions,
@@ -15,8 +16,7 @@ import {
   ReaperInit,
   RequestQueue,
   Store,
-} from "../defs";
-import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
+} from "../types";
 
 export default class Core {
   private static _sortComparator(a: Metadata, b: Metadata): number {

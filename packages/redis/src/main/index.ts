@@ -1,10 +1,10 @@
-import { coreDefs } from "@cachemap/core";
+import { Store, StoreInit, StoreOptions } from "@cachemap/core";
 import fakeRedis from "fakeredis";
 import { isNumber, isPlainObject } from "lodash";
 import { RedisClient, createClient } from "redis";
-import { ConstructorOptions, InitOptions, Options } from "../defs";
+import { ConstructorOptions, InitOptions, Options } from "../types";
 
-export class RedisStore implements coreDefs.Store {
+export class RedisStore implements Store {
   public static async init(options: InitOptions): Promise<RedisStore> {
     const { fast, maxHeapSize, mock, name, ...otherProps } = options;
 
@@ -150,10 +150,10 @@ export class RedisStore implements coreDefs.Store {
   }
 }
 
-export default function init(options: Options = {}): coreDefs.StoreInit {
+export default function init(options: Options = {}): StoreInit {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/redis expected options to be a plain object.");
   }
 
-  return (storeOptions: coreDefs.StoreOptions) => RedisStore.init({ ...options, ...storeOptions });
+  return (storeOptions: StoreOptions) => RedisStore.init({ ...options, ...storeOptions });
 }

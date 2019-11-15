@@ -1,9 +1,9 @@
-import { coreDefs } from "@cachemap/core";
+import { Store, StoreInit, StoreOptions } from "@cachemap/core";
 import { IDBPDatabase, openDB } from "idb";
 import { isNumber, isPlainObject } from "lodash";
-import { ConstructorOptions, InitOptions, Options } from "../defs";
+import { ConstructorOptions, InitOptions, Options } from "../types";
 
-export class IndexedDBStore implements coreDefs.Store {
+export class IndexedDBStore implements Store {
   public static async init(options: InitOptions): Promise<IndexedDBStore> {
     try {
       const databaseName = `${options.name}-store`;
@@ -151,10 +151,10 @@ export class IndexedDBStore implements coreDefs.Store {
   }
 }
 
-export default function init(options: Options = {}): coreDefs.StoreInit {
+export default function init(options: Options = {}): StoreInit {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/indexedDB expected options to be a plain object.");
   }
 
-  return (storeOptions: coreDefs.StoreOptions) => IndexedDBStore.init({ ...options, ...storeOptions });
+  return (storeOptions: StoreOptions) => IndexedDBStore.init({ ...options, ...storeOptions });
 }

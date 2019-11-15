@@ -1,7 +1,7 @@
-import Core, { coreDefs } from "@cachemap/core";
+import Core, { ExportOptions, ImportOptions } from "@cachemap/core";
 import { isPlainObject, isString } from "lodash";
 import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
-import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../defs";
+import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../types";
 
 const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;
 
@@ -34,7 +34,7 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
         result = await cachemap.entries(keys);
         break;
       case EXPORT:
-        result = await cachemap.export(options as coreDefs.ExportOptions);
+        result = await cachemap.export(options as ExportOptions);
         break;
       case GET:
         if (key) result = await cachemap.get(key, options as CommonOptions);
@@ -43,7 +43,7 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
         if (key) result = await cachemap.has(key, options as CommonOptions);
         break;
       case IMPORT:
-        if (options) await cachemap.import(options as coreDefs.ImportOptions);
+        if (options) await cachemap.import(options as ImportOptions);
         break;
       case SET:
         if (key) await cachemap.set(key, value, options as CommonOptions);

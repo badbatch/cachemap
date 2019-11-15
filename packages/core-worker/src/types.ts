@@ -1,7 +1,7 @@
-import Core, { coreDefs } from "@cachemap/core";
+import Core, { CacheHeaders, ExportOptions, ImportOptions, Metadata } from "@cachemap/core";
 
 export interface CommonOptions {
-  cacheHeaders?: coreDefs.CacheHeaders;
+  cacheHeaders?: CacheHeaders;
   deleteExpired?: boolean;
   hash?: boolean;
 }
@@ -22,7 +22,7 @@ export interface PostMessageWithoutMeta {
   key?: string;
   keys?: string[];
   method: string;
-  options?: CommonOptions | coreDefs.ExportOptions | coreDefs.ImportOptions;
+  options?: CommonOptions | ExportOptions | ImportOptions;
   value?: any;
 }
 
@@ -32,7 +32,7 @@ export interface PostMessage extends PostMessageWithoutMeta {
 }
 
 export interface PostMessageResultWithoutMeta {
-  metadata: coreDefs.Metadata[];
+  metadata: Metadata[];
   result?: any;
   storeType: string;
   usedHeapSize: number;
@@ -48,7 +48,7 @@ export interface RegisterWorkerOptions {
 }
 
 export interface FilterPropsResult {
-  metadata: coreDefs.Metadata[];
+  metadata: Metadata[];
   storeType: string;
   usedHeapSize: number;
 }
