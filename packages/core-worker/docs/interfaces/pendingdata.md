@@ -18,4 +18,4 @@
 
 • **resolve**: *[PendingResolver](../README.md#pendingresolver)*
 
-*Defined in [types.ts:16](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L16)*
+*Defined in [types.ts:16](https://github.com/badbatch/cachemap/blob/34d12b9/packages/core-worker/src/types.ts#L16)*

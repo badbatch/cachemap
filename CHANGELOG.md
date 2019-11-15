@@ -1,3 +1,9 @@
+#### 3.0.1 (2019-11-15)
+
+##### Bug Fixes
+
+*  update peer dependency versions ([34d12b9d](https://github.com/badbatch/cachemap/commit/34d12b9d2744aae37db7586029c3870c0156c3f0))
+
 ## 3.0.0 (2019-11-15)
 
 ##### Documentation Changes

@@ -109,7 +109,7 @@ ___
 
 *Inherited from [Options](options.md).[fast](options.md#optional-fast)*
 
-*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/1f50616/packages/redis/src/types.ts#L14)*
+*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/34d12b9/packages/redis/src/types.ts#L14)*
 
 ___
 
@@ -129,7 +129,7 @@ ___
 
 *Inherited from [Options](options.md).[maxHeapSize](options.md#optional-maxheapsize)*
 
-*Defined in [types.ts:15](https://github.com/badbatch/cachemap/blob/1f50616/packages/redis/src/types.ts#L15)*
+*Defined in [types.ts:15](https://github.com/badbatch/cachemap/blob/34d12b9/packages/redis/src/types.ts#L15)*
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 *Inherited from [Options](options.md).[mock](options.md#optional-mock)*
 
-*Defined in [types.ts:16](https://github.com/badbatch/cachemap/blob/1f50616/packages/redis/src/types.ts#L16)*
+*Defined in [types.ts:16](https://github.com/badbatch/cachemap/blob/34d12b9/packages/redis/src/types.ts#L16)*
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:10](https://github.com/badbatch/cachemap/blob/1f50616/packages/redis/src/types.ts#L10)*
+*Defined in [types.ts:10](https://github.com/badbatch/cachemap/blob/34d12b9/packages/redis/src/types.ts#L10)*
 
 ___
 
