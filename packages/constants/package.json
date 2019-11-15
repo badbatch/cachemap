@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/constants",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "The Cachemap constants module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

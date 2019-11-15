@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/redis",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "The Cachemap Redis module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "lodash": "^4.17.5"
   },
   "devDependencies": {
-    "@cachemap/core": "^2.0.0",
+    "@cachemap/core": "^3.0.0",
     "@types/redis": "^2.8.14"
   }
 }

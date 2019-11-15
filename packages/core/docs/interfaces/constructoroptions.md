@@ -30,7 +30,7 @@
 
 *Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#optional-disablecacheinvalidation)*
 
-*Defined in [defs/index.ts:55](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L55)*
+*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L55)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[name](baseoptions.md#name)*
 
-*Defined in [defs/index.ts:56](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L56)*
+*Defined in [types.ts:56](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L56)*
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#optional-reaper)*
 
-*Defined in [defs/index.ts:57](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L57)*
+*Defined in [types.ts:57](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L57)*
 
 ___
 
@@ -60,15 +60,15 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#optional-sharedcache)*
 
-*Defined in [defs/index.ts:58](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L58)*
+*Defined in [types.ts:58](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L58)*
 
 ___
 
 ###  store
 
-• **store**: *[Store](store.md)*
+• **store**: *[StoreInit](../README.md#storeinit)*
 
-*Defined in [defs/index.ts:65](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L65)*
+*Defined in [types.ts:65](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L65)*
 
 ## Methods
 
@@ -78,7 +78,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#optional-sortcomparator)*
 
-*Defined in [defs/index.ts:59](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L59)*
+*Defined in [types.ts:59](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L59)*
 
 **Parameters:**
 

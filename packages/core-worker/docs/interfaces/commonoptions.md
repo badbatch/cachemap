@@ -18,9 +18,9 @@
 
 ### `Optional` cacheHeaders
 
-• **cacheHeaders**? : *coreDefs.CacheHeaders*
+• **cacheHeaders**? : *CacheHeaders*
 
-*Defined in [defs/index.ts:4](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L4)*
+*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L4)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **deleteExpired**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:5](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L5)*
+*Defined in [types.ts:5](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L5)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **hash**? : *undefined | false | true*
 
-*Defined in [defs/index.ts:6](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L6)*
+*Defined in [types.ts:6](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L6)*

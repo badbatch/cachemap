@@ -28,7 +28,7 @@
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[key](postmessagewithoutmeta.md#optional-key)*
 
-*Defined in [defs/index.ts:24](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L24)*
+*Defined in [types.ts:22](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L22)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[keys](postmessagewithoutmeta.md#optional-keys)*
 
-*Defined in [defs/index.ts:25](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L25)*
+*Defined in [types.ts:23](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L23)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **messageID**: *string*
 
-*Defined in [defs/index.ts:32](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L32)*
+*Defined in [types.ts:30](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L30)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[method](postmessagewithoutmeta.md#method)*
 
-*Defined in [defs/index.ts:26](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L26)*
+*Defined in [types.ts:24](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L24)*
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[options](postmessagewithoutmeta.md#optional-options)*
 
-*Defined in [defs/index.ts:27](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L27)*
+*Defined in [types.ts:25](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L25)*
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [defs/index.ts:33](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L33)*
+*Defined in [types.ts:31](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L31)*
 
 ___
 
@@ -84,4 +84,4 @@ ___
 
 *Inherited from [PostMessageWithoutMeta](postmessagewithoutmeta.md).[value](postmessagewithoutmeta.md#optional-value)*
 
-*Defined in [defs/index.ts:28](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core-worker/src/defs/index.ts#L28)*
+*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/1f50616/packages/core-worker/src/types.ts#L26)*

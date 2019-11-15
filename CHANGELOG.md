@@ -1,3 +1,16 @@
+## 3.0.0 (2019-11-15)
+
+##### Documentation Changes
+
+*  update docs to reflect syc init for core and core-worker ([1f506166](https://github.com/badbatch/cachemap/commit/1f506166857066baa0b22b121899fdb7bcc1f4ec))
+
+##### Refactors
+
+*  create constants package ([5679b70a](https://github.com/badbatch/cachemap/commit/5679b70a46502cd27259d9eef914de29e88b2aab))
+*  changing folder/file structure and exports ([f4b1374e](https://github.com/badbatch/cachemap/commit/f4b1374e5df6da16d069020c0950e8a83e6550ad))
+*  moving core-worker to sync init ([acf663c2](https://github.com/badbatch/cachemap/commit/acf663c29d0811cfd985ae1938d817fd8b533176))
+*  moving cashmap init to sync ([a6ae2457](https://github.com/badbatch/cachemap/commit/a6ae2457e27675ea715434d4a4e99af485c1719e))
+
 ## 2.0.0 (2019-11-05)
 
 ##### Chores

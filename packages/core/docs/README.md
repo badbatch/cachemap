@@ -17,7 +17,6 @@
 * [ExportOptions](interfaces/exportoptions.md)
 * [ExportResult](interfaces/exportresult.md)
 * [ImportOptions](interfaces/importoptions.md)
-* [InitOptions](interfaces/initoptions.md)
 * [Metadata](interfaces/metadata.md)
 * [PlainObject](interfaces/plainobject.md)
 * [Reaper](interfaces/reaper.md)
@@ -28,8 +27,14 @@
 ### Type aliases
 
 * [CacheHeaders](README.md#cacheheaders)
+* [MethodName](README.md#methodname)
 * [ReaperInit](README.md#reaperinit)
+* [RequestQueue](README.md#requestqueue)
 * [StoreInit](README.md#storeinit)
+
+### Variables
+
+* [DEFAULT_MAX_HEAP_SIZE](README.md#const-default_max_heap_size)
 
 ### Functions
 
@@ -41,7 +46,15 @@
 
 Ƭ **CacheHeaders**: *Headers | object*
 
-*Defined in [defs/index.ts:62](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L62)*
+*Defined in [types.ts:62](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L62)*
+
+___
+
+###  MethodName
+
+Ƭ **MethodName**: *"clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size"*
+
+*Defined in [types.ts:113](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L113)*
 
 ___
 
@@ -49,7 +62,7 @@ ___
 
 Ƭ **ReaperInit**: *function*
 
-*Defined in [defs/index.ts:115](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L115)*
+*Defined in [types.ts:111](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L111)*
 
 #### Type declaration:
 
@@ -63,11 +76,19 @@ Name | Type |
 
 ___
 
+###  RequestQueue
+
+Ƭ **RequestQueue**: *Array‹[function, [MethodName](README.md#methodname), any[]]›*
+
+*Defined in [types.ts:115](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L115)*
+
+___
+
 ###  StoreInit
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [defs/index.ts:135](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L135)*
+*Defined in [types.ts:135](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L135)*
 
 #### Type declaration:
 
@@ -79,13 +100,21 @@ Name | Type |
 ------ | ------ |
 `options` | [StoreOptions](interfaces/storeoptions.md) |
 
+## Variables
+
+### `Const` DEFAULT_MAX_HEAP_SIZE
+
+• **DEFAULT_MAX_HEAP_SIZE**: *4194304* = 4194304
+
+*Defined in [constants.ts:1](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/constants.ts#L1)*
+
 ## Functions
 
 ###  rehydrateMetadata
 
 ▸ **rehydrateMetadata**(`metadata`: [DehydratedMetadata](interfaces/dehydratedmetadata.md)[]): *[Metadata](interfaces/metadata.md)[]*
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 

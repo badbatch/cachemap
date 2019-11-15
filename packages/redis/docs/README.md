@@ -22,9 +22,9 @@
 
 ###  init
 
-▸ **init**(`options`: [Options](interfaces/options.md)): *coreDefs.StoreInit*
+▸ **init**(`options`: [Options](interfaces/options.md)): *StoreInit*
 
-*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/40e3bea/packages/redis/src/main/index.ts#L153)*
+*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/1f50616/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 
@@ -32,4 +32,4 @@ Name | Type | Default |
 ------ | ------ | ------ |
 `options` | [Options](interfaces/options.md) |  {} |
 
-**Returns:** *coreDefs.StoreInit*
+**Returns:** *StoreInit*

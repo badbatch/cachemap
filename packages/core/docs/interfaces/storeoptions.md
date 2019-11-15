@@ -18,4 +18,4 @@
 
 • **name**: *string*
 
-*Defined in [defs/index.ts:132](https://github.com/badbatch/cachemap/blob/40e3bea/packages/core/src/defs/index.ts#L132)*
+*Defined in [types.ts:132](https://github.com/badbatch/cachemap/blob/1f50616/packages/core/src/types.ts#L132)*
