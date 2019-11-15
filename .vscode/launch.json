@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Mocha Tests",
       "cwd": "${workspaceRoot}",
-      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "program": "${workspaceRoot}/node_modules/.bin/_mocha",
       "args": [
         "--debug-brk",
         "-u", "tdd",
@@ -20,9 +20,8 @@
       "env": {
         "BABEL_ENV": "test"
       },
-      "stopOnEntry": false,
-      "protocol": "inspector",
-      "internalConsoleOptions": "openOnSessionStart"
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",

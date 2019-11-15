@@ -1,49 +1,24 @@
 import Cacheability from "cacheability";
-import { isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined } from "lodash";
+import { isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
+import { CLEAR, DEFAULT_MAX_HEAP_SIZE, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "../constants";
 import {
   CacheHeaders,
   ConstructorOptions,
   ExportOptions,
   ExportResult,
   ImportOptions,
-  InitOptions,
   Metadata,
+  MethodName,
   Reaper,
   ReaperInit,
+  RequestQueue,
   Store,
 } from "../defs";
 import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
 
 export default class Core {
-  public static async init(options: InitOptions): Promise<Core> {
-    const errors: TypeError[] = [];
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to ba a plain object."));
-    }
-
-    if (!isString(options.name)) {
-      errors.push(new TypeError("@cachemap/core expected options.name to be a string."));
-    }
-
-    if (!isFunction(options.store)) {
-      errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
-    }
-
-    if (errors.length) return Promise.reject(errors);
-
-    try {
-      const store = await options.store({ name: options.name });
-      const instance = new Core({ ...options, store });
-      await instance._retreiveMetadata();
-      return instance;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
   private static _sortComparator(a: Metadata, b: Metadata): number {
     let i;
 
@@ -74,37 +49,55 @@ export default class Core {
     return i;
   }
 
-  private _disableCacheInvalidation: boolean = false;
+  private _disableCacheInvalidation: boolean;
+  private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
   private _name: string;
   private _persistedStore: boolean = true;
   private _processing: string[] = [];
   private _reaper?: Reaper;
-  private _sharedCache: boolean = false;
-  private _store: Store;
+  private _requestQueue: RequestQueue = [];
+  private _sharedCache: boolean;
+  private _store: Store | null = null;
   private _usedHeapSize: number = 0;
 
   constructor(options: ConstructorOptions) {
-    if (isBoolean(options.disableCacheInvalidation)) {
-      this._disableCacheInvalidation = options.disableCacheInvalidation;
+    const errors: TypeError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
     }
 
+    if (!isString(options.name)) {
+      errors.push(new TypeError("@cachemap/core expected options.name to be a string."));
+    }
+
+    if (!isFunction(options.store)) {
+      errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
+    }
+
+    if (errors.length) throw errors;
+
+    this._disableCacheInvalidation = options.disableCacheInvalidation || false;
     this._name = options.name;
-    this._persistedStore = options.store.type !== "map";
 
     if (isFunction(options.reaper)) {
       this._reaper = this._initializeReaper(options.reaper);
     }
 
-    if (isBoolean(options.sharedCache)) {
-      this._sharedCache = options.sharedCache;
-    }
+    this._sharedCache = options.sharedCache || false;
 
     if (isFunction(options.sortComparator)) {
       Core._sortComparator = options.sortComparator;
     }
 
-    this._store = options.store;
+    options.store({ name: options.name }).then(store => {
+      this._maxHeapSize = store.maxHeapSize;
+      this._store = store;
+      this._persistedStore = store.type !== "map";
+      this._retreiveMetadata();
+      this._releaseQueuedRequests();
+    });
   }
 
   get metadata(): Metadata[] {
@@ -116,7 +109,7 @@ export default class Core {
   }
 
   get storeType(): string {
-    return this._store.type;
+    return this._store?.type ?? "none";
   }
 
   get usedHeapSize(): number {
@@ -125,12 +118,9 @@ export default class Core {
 
   public async clear(): Promise<void> {
     try {
-      await this._store.clear();
-      this._metadata = [];
-      this._processing = [];
-      await this._backupMetadata();
+      return this._clear();
     } catch (error) {
-      Promise.reject(error);
+      return Promise.reject(error);
     }
   }
 
@@ -154,7 +144,7 @@ export default class Core {
     }
   }
 
-  public async entries(keys?: string[]): Promise<[string, any][]> {
+  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
     if (keys && !isArray(keys)) {
       return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
     }
@@ -309,18 +299,24 @@ export default class Core {
     }
   }
 
+  private _addRequestToQueue<T>(methodName: MethodName, ...payload: any[]) {
+    return new Promise((resolve: (value: T) => void) => {
+      this._requestQueue.push([resolve, methodName, payload]);
+    });
+  }
+
   private async _backupMetadata(): Promise<void> {
-    if (!this._persistedStore) return;
+    if (!this._store || !this._persistedStore) return;
 
     try {
-      await this._store.set("metadata", this._metadata);
+      await this._store.set(METADATA, this._metadata);
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
   private _calcReductionChunk(): number | undefined {
-    const reductionSize = Math.round(this._store.maxHeapSize * 0.2);
+    const reductionSize = Math.round(this._maxHeapSize * 0.2);
     let chunkSize = 0;
     let index: number | undefined;
 
@@ -336,7 +332,26 @@ export default class Core {
     return index;
   }
 
+  private async _clear() {
+    if (!this._store) {
+      return this._addRequestToQueue<void>(CLEAR);
+    }
+
+    try {
+      await this._store.clear();
+      this._metadata = [];
+      this._processing = [];
+      await this._backupMetadata();
+    } catch (error) {
+      Promise.reject(error);
+    }
+  }
+
   private async _delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+    if (!this._store) {
+      return this._addRequestToQueue<boolean>(DELETE, key, options);
+    }
+
     const _key = options.hash ? md5(key) : key;
 
     try {
@@ -365,7 +380,11 @@ export default class Core {
     }
   }
 
-  private async _entries(keys?: string[]): Promise<[string, any][]> {
+  private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
+    if (!this._store) {
+      return this._addRequestToQueue<Array<[string, any]>>(ENTRIES, keys);
+    }
+
     try {
       const _keys = keys || this._metadata.map(metadata => metadata.key);
       return this._store.entries(_keys);
@@ -394,6 +413,10 @@ export default class Core {
   }
 
   private async _get(key: string, options: { hash?: boolean }): Promise<any> {
+    if (!this._store) {
+      return this._addRequestToQueue<any>(GET, key, options);
+    }
+
     const _key = options.hash ? md5(key) : key;
 
     try {
@@ -417,6 +440,10 @@ export default class Core {
   }
 
   private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
+    if (!this._store) {
+      return this._addRequestToQueue<any>(HAS, key, options);
+    }
+
     const _key = options.hash ? md5(key) : key;
 
     try {
@@ -442,6 +469,10 @@ export default class Core {
   }
 
   private async _import(options: ImportOptions): Promise<void> {
+    if (!this._store) {
+      return this._addRequestToQueue<void>(IMPORT, options);
+    }
+
     let filterd: Metadata[] = [];
 
     if (this._metadata.length) {
@@ -486,11 +517,18 @@ export default class Core {
     this._reaper.cull(this._metadata.slice(index, this._metadata.length));
   }
 
+  private _releaseQueuedRequests() {
+    this._requestQueue.forEach(async ([resolve, methodName, payload]) => {
+      // @ts-ignore
+      resolve(await this[methodName](...payload));
+    });
+  }
+
   private async _retreiveMetadata(): Promise<void> {
-    if (!this._persistedStore) return;
+    if (!this._store || !this._persistedStore) return;
 
     try {
-      const metadata: Metadata[] = await this._store.get("metadata");
+      const metadata: Metadata[] = await this._store.get(METADATA);
 
       if (isArray(metadata)) {
         this._metadata = rehydrateMetadata(metadata);
@@ -505,6 +543,10 @@ export default class Core {
     value: any,
     options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any },
   ): Promise<void> {
+    if (!this._store) {
+      return this._addRequestToQueue<void>(SET, key, value, options);
+    }
+
     const cacheability = new Cacheability({ headers: options.cacheHeaders });
     const cacheControl = cacheability.metadata.cacheControl;
     if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) return;
@@ -531,6 +573,10 @@ export default class Core {
   }
 
   private async _size(): Promise<number> {
+    if (!this._store) {
+      return this._addRequestToQueue<number>(SIZE);
+    }
+
     try {
       return this._store.size();
     } catch (error) {
@@ -545,7 +591,7 @@ export default class Core {
   private _updateHeapSize(): void {
     this._usedHeapSize = this._metadata.reduce((acc, value) => acc + value.size, 0);
 
-    if (!this._disableCacheInvalidation && this._usedHeapSize > this._store.maxHeapSize) {
+    if (!this._disableCacheInvalidation && this._usedHeapSize > this._maxHeapSize) {
       this._reduceHeapSize();
     }
   }

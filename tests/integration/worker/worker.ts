@@ -3,7 +3,7 @@ import { registerWorker } from "@cachemap/core-worker";
 import map from "@cachemap/map";
 
 (async () => {
-  const cachemap = await Core.init({
+  const cachemap = new Core({
     name: "worker-integration-tests",
     store: map(),
   });

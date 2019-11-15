@@ -365,7 +365,7 @@ export function run(
       });
 
       context("When no keys are passed in", () => {
-        let result: [string, any][];
+        let result: Array<[string, any]>;
 
         before(async () => {
           const keys = Object.keys(testData);
@@ -389,7 +389,7 @@ export function run(
       });
 
       context("When keys are passed in", () => {
-        let result: [string, any][];
+        let result: Array<[string, any]>;
 
         before(async () => {
           const ids = Object.keys(testData);

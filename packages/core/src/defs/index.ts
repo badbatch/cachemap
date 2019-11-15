@@ -62,7 +62,7 @@ export interface BaseOptions {
 export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
 
 export interface ConstructorOptions extends BaseOptions {
-  store: Store;
+  store: StoreInit;
 }
 
 export interface DehydratedMetadata extends BaseMetadata {
@@ -75,17 +75,13 @@ export interface ExportOptions {
 }
 
 export interface ExportResult {
-  entries: [string, any][];
+  entries: Array<[string, any]>;
   metadata: Metadata[];
 }
 
 export interface ImportOptions {
-  entries: [string, any][];
+  entries: Array<[string, any]>;
   metadata: Metadata[];
-}
-
-export interface InitOptions extends BaseOptions {
-  store: StoreInit;
 }
 
 export interface Metadata extends BaseMetadata {
@@ -114,16 +110,20 @@ export interface ReaperCallbacks {
 
 export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 
+export type MethodName = "clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size";
+
+export type RequestQueue<T = any> = Array<[(value?: T) => void, MethodName, any[]]>;
+
 export interface Store {
   readonly maxHeapSize: number;
   readonly name: string;
   readonly type: string;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<[string, any][]>;
+  entries(keys?: string[]): Promise<Array<[string, any]>>;
   get(key: string): Promise<any>;
   has(key: string): Promise<boolean>;
-  import(entries: [string, any][]): Promise<void>;
+  import(entries: Array<[string, any]>): Promise<void>;
   set(key: string, value: any): Promise<void>;
   size(): Promise<number>;
 }
