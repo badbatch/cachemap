@@ -1,6 +1,6 @@
+import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "@cachemap/constants";
 import Core, { ExportOptions, ImportOptions } from "@cachemap/core";
 import { isPlainObject, isString } from "lodash";
-import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
 import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../types";
 
 const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;

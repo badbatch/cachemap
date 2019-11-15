@@ -1,7 +1,7 @@
 {
-  "name": "@cachemap/core-worker",
+  "name": "@cachemap/constants",
   "version": "2.0.0",
-  "description": "The Cachemap Core Worker module.",
+  "description": "The Cachemap constants module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
@@ -18,12 +18,8 @@
   "types": "lib/types/index.d.ts",
   "keywords": [
     "cachemap",
-    "cache",
-    "worker"
+    "cache"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "compile": "concurrently npm:compile:*",
     "compile-watch": "yarn run compile:main --watch",
@@ -32,14 +28,8 @@
     "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build"
   },
-  "dependencies": {
-    "cacheability": "^3.0.0",
-    "uuid": "^3.3.3"
-  },
   "peerDependencies": {
     "@babel/runtime": "^7.0.0",
-    "@cachemap/constants": "> 3",
-    "@cachemap/core": "> 3",
     "core-js": "> 4",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.5"

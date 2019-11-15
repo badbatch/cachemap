@@ -1,0 +1,12 @@
+export const CACHEMAP = "cachemap" as const;
+export const CLEAR = "clear" as const;
+export const DELETE = "delete" as const;
+export const ENTRIES = "entries" as const;
+export const EXPORT = "export" as const;
+export const GET = "get" as const;
+export const HAS = "has" as const;
+export const IMPORT = "import" as const;
+export const MESSAGE = "message" as const;
+export const METADATA = "metadata" as const;
+export const SET = "set" as const;
+export const SIZE = "size" as const;

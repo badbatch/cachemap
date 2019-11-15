@@ -1,8 +1,8 @@
+import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "@cachemap/constants";
 import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, Metadata, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
 import { isPlainObject } from "lodash";
 import uuid from "uuid/v1";
-import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "../constants";
 import {
   ConstructorOptions,
   FilterPropsResult,

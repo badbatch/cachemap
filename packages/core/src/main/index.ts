@@ -1,8 +1,9 @@
+import { CLEAR, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "@cachemap/constants";
 import Cacheability from "cacheability";
 import { isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
-import { CLEAR, DEFAULT_MAX_HEAP_SIZE, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "../constants";
+import { DEFAULT_MAX_HEAP_SIZE } from "../constants";
 import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
 import {
   CacheHeaders,
