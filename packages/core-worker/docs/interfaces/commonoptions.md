@@ -20,7 +20,7 @@
 
 • **cacheHeaders**? : *CacheHeaders*
 
-*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/34d12b9/packages/core-worker/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L4)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **deleteExpired**? : *undefined | false | true*
 
-*Defined in [types.ts:5](https://github.com/badbatch/cachemap/blob/34d12b9/packages/core-worker/src/types.ts#L5)*
+*Defined in [types.ts:5](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L5)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **hash**? : *undefined | false | true*
 
-*Defined in [types.ts:6](https://github.com/badbatch/cachemap/blob/34d12b9/packages/core-worker/src/types.ts#L6)*
+*Defined in [types.ts:6](https://github.com/badbatch/cachemap/blob/2f4f64a/packages/core-worker/src/types.ts#L6)*

@@ -1,3 +1,9 @@
+#### 3.0.2 (2019-11-15)
+
+##### Bug Fixes
+
+* **constants:**  add npmrc ([2f4f64a5](https://github.com/badbatch/cachemap/commit/2f4f64a5377bd7d0e43172d7e4d9eb3bc2c4b120))
+
 #### 3.0.1 (2019-11-15)
 
 ##### Bug Fixes
