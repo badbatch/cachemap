@@ -6,7 +6,6 @@ import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SE
 import {
   ConstructorOptions,
   FilterPropsResult,
-  InitOptions,
   PendingResolver,
   PendingTracker,
   PostMessageResult,
@@ -15,7 +14,13 @@ import {
 } from "../defs";
 
 export default class CoreWorker {
-  public static async init(options: InitOptions): Promise<CoreWorker> {
+  private _metadata: coreDefs.Metadata[] = [];
+  private _pending: PendingTracker = new Map();
+  private _storeType: string | undefined;
+  private _usedHeapSize: number = 0;
+  private _worker: Worker;
+
+  constructor(options: ConstructorOptions) {
     const errors: TypeError[] = [];
 
     if (!isPlainObject(options)) {
@@ -26,19 +31,9 @@ export default class CoreWorker {
       errors.push(new TypeError("@cachemap/core-worker expected options.worker to be an instance of a Worker."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) throw errors;
 
-    return new CoreWorker(options);
-  }
-
-  private _metadata: coreDefs.Metadata[] = [];
-  private _pending: PendingTracker = new Map();
-  private _storeType: string | undefined;
-  private _usedHeapSize: number = 0;
-  private _worker: Worker;
-
-  constructor({ worker }: ConstructorOptions) {
-    this._worker = worker;
+    this._worker = options.worker;
     this._addEventListener();
   }
 

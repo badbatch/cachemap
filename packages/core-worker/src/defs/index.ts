@@ -6,11 +6,9 @@ export interface CommonOptions {
   hash?: boolean;
 }
 
-export interface InitOptions {
+export interface ConstructorOptions {
   worker: Worker;
 }
-
-export type ConstructorOptions = InitOptions;
 
 export type PendingResolver = (value: PostMessageResultWithoutMeta) => void;
 

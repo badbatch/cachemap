@@ -23,8 +23,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -130,8 +130,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -188,8 +188,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -252,8 +252,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -356,8 +356,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -420,8 +420,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -513,8 +513,8 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
       let cachemap: Core | CoreWorker;
 
-      before(async () => {
-        cachemap = await init({
+      before(() => {
+        cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
           worker,
@@ -582,7 +582,7 @@ export function run(
 
       context("When an entry's cacheability expires", () => {
         before(async () => {
-          cachemap = await init({
+          cachemap = init({
             name: `${storeType}-integration-tests`,
             reaper: reaper({ interval: 500 }),
             store: store && store(storeOptions),
@@ -610,7 +610,7 @@ export function run(
         let keys: string[];
 
         before(async () => {
-          cachemap = await init({
+          cachemap = init({
             maxHeapSize: 50,
             name: `${storeType}-integration-tests`,
             reaper: reaper(),

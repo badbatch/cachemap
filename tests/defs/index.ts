@@ -8,5 +8,5 @@ export interface PlainObject {
 export interface RunOptions {
   cachemapSize: (value: number) => number;
   worker?: Worker;
-  init(options: PlainObject): Promise<Core | CoreWorker>;
+  init(options: PlainObject): Core | CoreWorker;
 }
