@@ -8,7 +8,7 @@ The Cachemap core module.
 ## Installation
 
 ```bash
-yarn add @cachemap/core
+yarn add @cachemap/core @cachemap/constants
 ```
 
 ## Usage

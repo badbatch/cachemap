@@ -45,6 +45,7 @@ yarn add @cachemap/core @cachemap/indexed-db @cachemap/reaper
 The Cachemap's multi-package structure allows you to compose your cache of the modules you need, without additional
 bloat. Start with the `@cachemap/core` package and build out from there.
 
+* [@cachemap/constants](packages/constants)
 * [@cachemap/core](packages/core)
 * [@cachemap/core-worker](packages/core-worker)
 * [@cachemap/indexed-db](packages/indexed-db)
@@ -62,27 +63,22 @@ key/value databases.
 
 ### Creating a Cachemap instance
 
-The Cachemap is initialized using the async static `init` method on the `@cachemap/core` class, don't initialize
-it using the traditional class constructor. The reason for this is so the Cachemap can wait for asynchronous tasks,
-like establishing database connections, to complete before returning an instance of the Cachemap.
+The Cachemap is initialized using the traditional class constructor. Any modules you want to add to the Cachemap, like
+the store to work with your database or the reaper to prune stale entries, are passed as properties to the constructor.
 
-Any modules you want to add to the Cachemap, like the store to work with your database or the reaper to
-prune stale entries, are passed as properties into the `init` method. The default export of each module is a
-curried function that returns an async function that initializes the module. This allows you and the Cachemap to pass
-configuration options into the module.
+The default export of each module is a curried function that returns an async function that initializes the module.
+This allows you and the Cachemap to pass configuration options into the module.
 
 ```typescript
-import Core from "@cachemap/core";
+import Cachemap from "@cachemap/core";
 import indexedDB from "@cachemap/indexed-db";
 import reaper from "@cachemap/reaper";
 
-(async () => {
-  const cachemap = await Core.init({
-    name: `foobar`,
-    reaper: reaper({ interval: 300000 }),
-    store: indexedDB(),
-  });
-})();
+const cachemap = new Cachemap({
+  name: `foobar`,
+  reaper: reaper({ interval: 300000 }),
+  store: indexedDB(),
+});
 ```
 
 The example above initializes a persisted cache for the browser that uses IndexedDB as its database and checks for
@@ -161,38 +157,33 @@ To free up the browser's main thread you can run the Cachemap in a web worker. F
 `@cachemap/core-worker` package in addition to `@cachemap/core`, a store and optional reaper package.
 
 The package exports the `CoreWorker` class that you initialize on the main thread and the `registerWorker` method to
-use in your `worker.js` file. Apart from the static `init` method, the `CoreWorker` class method signatures are
-identical to those of the `Core` class.
+use in your `worker.js` file. The `CoreWorker` class method signatures are identical to those of the `Core` class.
 
 ```typescript
 // main.js
 
-import CoreWorker from "@cachemap/core-worker";
+import CachemapWorker from "@cachemap/core-worker";
 
-(async () => {
-  const cachemap = await CoreWorker.init({
-    worker: new Worker('worker.js'),
-  });
-})();
+const cachemap = new CachemapWorker({
+  worker: new Worker('worker.js'),
+});
 ```
 
 ```typescript
 // worker.js
 
-import Core from "@cachemap/core";
+import Cachemap from "@cachemap/core";
 import { registerWorker } from "@cachemap/core-worker";
 import indexedDB from "@cachemap/indexed-db";
 import reaper from "@cachemap/reaper";
 
-(async () => {
-  const cachemap = await Core.init({
-    name: "worker-integration-tests",
-    reaper: reaper({ interval: 300000 }),
-    store: indexedDB(),
-  });
+const cachemap = new Cachemap({
+  name: "worker-integration-tests",
+  reaper: reaper({ interval: 300000 }),
+  store: indexedDB(),
+});
 
-  registerWorker({ cachemap });
-})();
+registerWorker({ cachemap });
 ```
 
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
