@@ -63,15 +63,15 @@ export class RedisStore implements Store {
     });
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     const _keys = keys as string[];
 
-    return new Promise((resolve: (value: Array<[string, any]>) => void, reject: (reason: Error) => void) => {
+    return new Promise((resolve: (value: [string, any][]) => void, reject: (reason: Error) => void) => {
       this._client.mget(_keys, (error, reply) => {
         if (error) {
           reject(error);
         } else {
-          const entries: Array<[string, any]> = [];
+          const entries: [string, any][] = [];
 
           _keys.forEach((key, index) => {
             entries.push([key, JSON.parse(reply[index])]);
@@ -107,7 +107,7 @@ export class RedisStore implements Store {
     });
   }
 
-  public async import(entries: Array<[string, any]>): Promise<void> {
+  public async import(entries: [string, any][]): Promise<void> {
     const _entries: string[] = [];
 
     entries.forEach(([key, value]) => {

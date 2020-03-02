@@ -145,7 +145,7 @@ export default class Core {
     }
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     if (keys && !isArray(keys)) {
       return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
     }
@@ -381,9 +381,9 @@ export default class Core {
     }
   }
 
-  private async _entries(keys?: string[]): Promise<Array<[string, any]>> {
+  private async _entries(keys?: string[]): Promise<[string, any][]> {
     if (!this._store) {
-      return this._addRequestToQueue<Array<[string, any]>>(ENTRIES, keys);
+      return this._addRequestToQueue<[string, any][]>(ENTRIES, keys);
     }
 
     try {

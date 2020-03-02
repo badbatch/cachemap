@@ -33,14 +33,12 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "idb": "^4.0.5"
+    "idb": "^5.0.1"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.0.0",
-    "core-js": "> 4",
-    "lodash": "^4.17.5"
-  },
-  "devDependencies": {
-    "@cachemap/core": "^3.0.0"
+    "@babel/runtime": "< 8",
+    "@cachemap/core": "< 4",
+    "core-js": "< 4",
+    "lodash": "< 5"
   }
 }

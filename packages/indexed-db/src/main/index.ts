@@ -69,10 +69,10 @@ export class IndexedDBStore implements Store {
     }
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     try {
       const tx = this._indexedDB.transaction(this._name);
-      const entries: Array<[string, any]> = [];
+      const entries: [string, any][] = [];
       let cursor = await tx.objectStore(this._name).openCursor();
 
       while (cursor) {
@@ -112,7 +112,7 @@ export class IndexedDBStore implements Store {
     }
   }
 
-  public async import(entries: Array<[string, any]>): Promise<void> {
+  public async import(entries: [string, any][]): Promise<void> {
     try {
       const tx = this._indexedDB.transaction(this._name, "readwrite");
       await Promise.all(entries.map(([key, value]) => tx.objectStore(this._name).put(value, key)));
@@ -135,7 +135,7 @@ export class IndexedDBStore implements Store {
   public async size(): Promise<number> {
     try {
       const tx = this._indexedDB.transaction(this._name);
-      const keys: Array<IDBKeyRange | IDBValidKey> = [];
+      const keys: (IDBKeyRange | IDBValidKey)[] = [];
       let cursor = await tx.objectStore(this._name).openCursor();
 
       while (cursor) {

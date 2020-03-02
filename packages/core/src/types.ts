@@ -75,12 +75,12 @@ export interface ExportOptions {
 }
 
 export interface ExportResult {
-  entries: Array<[string, any]>;
+  entries: [string, any][];
   metadata: Metadata[];
 }
 
 export interface ImportOptions {
-  entries: Array<[string, any]>;
+  entries: [string, any][];
   metadata: Metadata[];
 }
 
@@ -112,7 +112,7 @@ export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 
 export type MethodName = "clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size";
 
-export type RequestQueue<T = any> = Array<[(value?: T) => void, MethodName, any[]]>;
+export type RequestQueue<T = any> = [(value?: T) => void, MethodName, any[]][];
 
 export interface Store {
   readonly maxHeapSize: number;
@@ -120,10 +120,10 @@ export interface Store {
   readonly type: string;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<Array<[string, any]>>;
+  entries(keys?: string[]): Promise<[string, any][]>;
   get(key: string): Promise<any>;
   has(key: string): Promise<boolean>;
-  import(entries: Array<[string, any]>): Promise<void>;
+  import(entries: [string, any][]): Promise<void>;
   set(key: string, value: any): Promise<void>;
   size(): Promise<number>;
 }

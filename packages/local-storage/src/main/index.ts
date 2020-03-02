@@ -50,7 +50,7 @@ export class LocalStorageStore implements Store {
     }
   }
 
-  public async entries(keys?: string[]): Promise<Array<[string, any]>> {
+  public async entries(keys?: string[]): Promise<[string, any][]> {
     try {
       let _keys: string[] | undefined;
 
@@ -58,7 +58,7 @@ export class LocalStorageStore implements Store {
         _keys = keys.map(key => this._buildKey(key));
       }
 
-      const entries: Array<[string, any]> = [];
+      const entries: [string, any][] = [];
       const regex = new RegExp(`${this._name}-`);
 
       for (let i = 0; i < this._storage.length; i += 1) {
@@ -101,7 +101,7 @@ export class LocalStorageStore implements Store {
     }
   }
 
-  public async import(entries: Array<[string, any]>): Promise<void> {
+  public async import(entries: [string, any][]): Promise<void> {
     try {
       entries.forEach(([key, value]) => {
         this._storage.setItem(this._buildKey(key), JSON.stringify(value));
