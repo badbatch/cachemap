@@ -21,9 +21,9 @@
 
 • **maxHeapSize**? : *undefined | number*
 
-*Inherited from [Options](options.md).[maxHeapSize](options.md#optional-maxheapsize)*
+*Inherited from [InitOptions](initoptions.md).[maxHeapSize](initoptions.md#optional-maxheapsize)*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/local-storage/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/50a09dd/packages/local-storage/src/types.ts#L8)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/local-storage/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/50a09dd/packages/local-storage/src/types.ts#L4)*

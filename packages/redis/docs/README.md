@@ -24,12 +24,12 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *StoreInit*
 
-*Defined in [main/index.ts:153](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/redis/src/main/index.ts#L153)*
+*Defined in [packages/redis/src/main/index.ts:153](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 
 Name | Type | Default |
 ------ | ------ | ------ |
-`options` | [Options](interfaces/options.md) |  {} |
+`options` | [Options](interfaces/options.md) | {} |
 
 **Returns:** *StoreInit*

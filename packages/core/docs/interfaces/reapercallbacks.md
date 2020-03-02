@@ -19,7 +19,7 @@
 
 • **deleteCallback**: *function*
 
-*Defined in [types.ts:107](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L107)*
+*Defined in [types.ts:107](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L107)*
 
 #### Type declaration:
 
@@ -38,7 +38,7 @@ ___
 
 • **metadataCallback**: *function*
 
-*Defined in [types.ts:108](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L108)*
+*Defined in [types.ts:108](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L108)*
 
 #### Type declaration:
 

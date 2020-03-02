@@ -22,7 +22,7 @@
 
 • **indexedDB**: *IDBPDatabase*
 
-*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/indexed-db/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/50a09dd/packages/indexed-db/src/types.ts#L4)*
 
 ___
 
@@ -30,9 +30,9 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Inherited from [Options](options.md).[maxHeapSize](options.md#optional-maxheapsize)*
+*Inherited from [ConstructorOptions](constructoroptions.md).[maxHeapSize](constructoroptions.md#optional-maxheapsize)*
 
-*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/indexed-db/src/types.ts#L12)*
+*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/50a09dd/packages/indexed-db/src/types.ts#L12)*
 
 ___
 
@@ -40,6 +40,6 @@ ___
 
 • **name**: *string*
 
-*Inherited from [InitOptions](initoptions.md).[name](initoptions.md#name)*
+*Inherited from [ConstructorOptions](constructoroptions.md).[name](constructoroptions.md#name)*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/indexed-db/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/50a09dd/packages/indexed-db/src/types.ts#L8)*

@@ -1,3 +1,9 @@
+#### 3.0.4 (2020-03-02)
+
+##### Chores
+
+*  updating dependencies and peer versions ([50a09ddf](https://github.com/badbatch/cachemap/commit/50a09ddff17db212211252bc5c0d0b0987e66229))
+
 #### 3.0.3 (2019-11-15)
 
 ##### Bug Fixes

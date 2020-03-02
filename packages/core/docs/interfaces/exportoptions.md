@@ -19,7 +19,7 @@
 
 • **keys**? : *string[]*
 
-*Defined in [types.ts:73](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L73)*
+*Defined in [types.ts:73](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L73)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [types.ts:74](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/core/src/types.ts#L74)*
+*Defined in [types.ts:74](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L74)*

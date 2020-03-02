@@ -1,4 +1,3 @@
-[Documentation](README.md)
 
 # Documentation
 
@@ -23,94 +22,94 @@
 
 ### `Const` CACHEMAP
 
-• **CACHEMAP**: *"cachemap"* =  "cachemap" as const
+• **CACHEMAP**: *"cachemap"* = "cachemap" as const
 
-*Defined in [index.ts:1](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L1)*
+*Defined in [index.ts:1](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L1)*
 
 ___
 
 ### `Const` CLEAR
 
-• **CLEAR**: *"clear"* =  "clear" as const
+• **CLEAR**: *"clear"* = "clear" as const
 
-*Defined in [index.ts:2](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L2)*
+*Defined in [index.ts:2](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L2)*
 
 ___
 
 ### `Const` DELETE
 
-• **DELETE**: *"delete"* =  "delete" as const
+• **DELETE**: *"delete"* = "delete" as const
 
-*Defined in [index.ts:3](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L3)*
+*Defined in [index.ts:3](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L3)*
 
 ___
 
 ### `Const` ENTRIES
 
-• **ENTRIES**: *"entries"* =  "entries" as const
+• **ENTRIES**: *"entries"* = "entries" as const
 
-*Defined in [index.ts:4](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L4)*
+*Defined in [index.ts:4](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L4)*
 
 ___
 
 ### `Const` EXPORT
 
-• **EXPORT**: *"export"* =  "export" as const
+• **EXPORT**: *"export"* = "export" as const
 
-*Defined in [index.ts:5](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L5)*
+*Defined in [index.ts:5](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L5)*
 
 ___
 
 ### `Const` GET
 
-• **GET**: *"get"* =  "get" as const
+• **GET**: *"get"* = "get" as const
 
-*Defined in [index.ts:6](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L6)*
+*Defined in [index.ts:6](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L6)*
 
 ___
 
 ### `Const` HAS
 
-• **HAS**: *"has"* =  "has" as const
+• **HAS**: *"has"* = "has" as const
 
-*Defined in [index.ts:7](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L7)*
+*Defined in [index.ts:7](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L7)*
 
 ___
 
 ### `Const` IMPORT
 
-• **IMPORT**: *"import"* =  "import" as const
+• **IMPORT**: *"import"* = "import" as const
 
-*Defined in [index.ts:8](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L8)*
+*Defined in [index.ts:8](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L8)*
 
 ___
 
 ### `Const` MESSAGE
 
-• **MESSAGE**: *"message"* =  "message" as const
+• **MESSAGE**: *"message"* = "message" as const
 
-*Defined in [index.ts:9](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L9)*
+*Defined in [index.ts:9](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L9)*
 
 ___
 
 ### `Const` METADATA
 
-• **METADATA**: *"metadata"* =  "metadata" as const
+• **METADATA**: *"metadata"* = "metadata" as const
 
-*Defined in [index.ts:10](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L10)*
+*Defined in [index.ts:10](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L10)*
 
 ___
 
 ### `Const` SET
 
-• **SET**: *"set"* =  "set" as const
+• **SET**: *"set"* = "set" as const
 
-*Defined in [index.ts:11](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L11)*
+*Defined in [index.ts:11](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L11)*
 
 ___
 
 ### `Const` SIZE
 
-• **SIZE**: *"size"* =  "size" as const
+• **SIZE**: *"size"* = "size" as const
 
-*Defined in [index.ts:12](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/constants/src/index.ts#L12)*
+*Defined in [index.ts:12](https://github.com/badbatch/cachemap/blob/50a09dd/packages/constants/src/index.ts#L12)*

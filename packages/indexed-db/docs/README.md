@@ -24,12 +24,12 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *StoreInit*
 
-*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/indexed-db/src/main/index.ts#L154)*
+*Defined in [main/index.ts:154](https://github.com/badbatch/cachemap/blob/50a09dd/packages/indexed-db/src/main/index.ts#L154)*
 
 **Parameters:**
 
 Name | Type | Default |
 ------ | ------ | ------ |
-`options` | [Options](interfaces/options.md) |  {} |
+`options` | [Options](interfaces/options.md) | {} |
 
 **Returns:** *StoreInit*

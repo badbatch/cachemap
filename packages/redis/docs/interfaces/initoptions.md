@@ -35,7 +35,7 @@
 * [retry_strategy](initoptions.md#optional-retry_strategy)
 * [retry_unfulfilled_commands](initoptions.md#optional-retry_unfulfilled_commands)
 * [return_buffers](initoptions.md#optional-return_buffers)
-* [socket_initialdelay](initoptions.md#optional-socket_initialdelay)
+* [socket_initial_delay](initoptions.md#optional-socket_initial_delay)
 * [socket_keepalive](initoptions.md#optional-socket_keepalive)
 * [string_numbers](initoptions.md#optional-string_numbers)
 * [tls](initoptions.md#optional-tls)
@@ -47,9 +47,9 @@
 
 • **auth_pass**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[auth_pass](initoptions.md#optional-auth_pass)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:32
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:32
 
 ___
 
@@ -57,9 +57,9 @@ ___
 
 • **connect_timeout**? : *undefined | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[connect_timeout](initoptions.md#optional-connect_timeout)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:29
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:29
 
 ___
 
@@ -67,9 +67,9 @@ ___
 
 • **db**? : *string | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[db](initoptions.md#optional-db)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:34
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:34
 
 ___
 
@@ -77,9 +77,9 @@ ___
 
 • **detect_buffers**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[detect_buffers](initoptions.md#optional-detect_buffers)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:23
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:23
 
 ___
 
@@ -87,9 +87,9 @@ ___
 
 • **enable_offline_queue**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[enable_offline_queue](initoptions.md#optional-enable_offline_queue)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:27
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:27
 
 ___
 
@@ -97,9 +97,9 @@ ___
 
 • **family**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[family](initoptions.md#optional-family)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:35
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:35
 
 ___
 
@@ -107,9 +107,9 @@ ___
 
 • **fast**? : *undefined | false | true*
 
-*Inherited from [Options](options.md).[fast](options.md#optional-fast)*
+*Inherited from [InitOptions](initoptions.md).[fast](initoptions.md#optional-fast)*
 
-*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/redis/src/types.ts#L14)*
+*Defined in [packages/redis/src/types.ts:14](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/types.ts#L14)*
 
 ___
 
@@ -117,9 +117,9 @@ ___
 
 • **host**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[host](initoptions.md#optional-host)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:16
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:16
 
 ___
 
@@ -127,9 +127,9 @@ ___
 
 • **maxHeapSize**? : *undefined | number*
 
-*Inherited from [Options](options.md).[maxHeapSize](options.md#optional-maxheapsize)*
+*Inherited from [InitOptions](initoptions.md).[maxHeapSize](initoptions.md#optional-maxheapsize)*
 
-*Defined in [types.ts:15](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/redis/src/types.ts#L15)*
+*Defined in [packages/redis/src/types.ts:15](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/types.ts#L15)*
 
 ___
 
@@ -137,9 +137,9 @@ ___
 
 • **max_attempts**? : *undefined | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[max_attempts](initoptions.md#optional-max_attempts)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:30
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:30
 
 ___
 
@@ -147,9 +147,9 @@ ___
 
 • **mock**? : *undefined | false | true*
 
-*Inherited from [Options](options.md).[mock](options.md#optional-mock)*
+*Inherited from [InitOptions](initoptions.md).[mock](initoptions.md#optional-mock)*
 
-*Defined in [types.ts:16](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/redis/src/types.ts#L16)*
+*Defined in [packages/redis/src/types.ts:16](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/types.ts#L16)*
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:10](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/redis/src/types.ts#L10)*
+*Defined in [packages/redis/src/types.ts:10](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/types.ts#L10)*
 
 ___
 
@@ -165,9 +165,9 @@ ___
 
 • **no_ready_check**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[no_ready_check](initoptions.md#optional-no_ready_check)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:26
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:26
 
 ___
 
@@ -175,9 +175,9 @@ ___
 
 • **parser**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[parser](initoptions.md#optional-parser)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:20
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:20
 
 ___
 
@@ -185,9 +185,9 @@ ___
 
 • **password**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[password](initoptions.md#optional-password)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:33
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:33
 
 ___
 
@@ -195,9 +195,9 @@ ___
 
 • **path**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[path](initoptions.md#optional-path)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:18
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:18
 
 ___
 
@@ -205,9 +205,9 @@ ___
 
 • **port**? : *undefined | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[port](initoptions.md#optional-port)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:17
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:17
 
 ___
 
@@ -215,9 +215,9 @@ ___
 
 • **prefix**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[prefix](initoptions.md#optional-prefix)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:38
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:38
 
 ___
 
@@ -225,9 +225,9 @@ ___
 
 • **rename_commands**? : *object | null*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[rename_commands](initoptions.md#optional-rename_commands)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:36
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:36
 
 ___
 
@@ -235,9 +235,9 @@ ___
 
 • **retry_max_delay**? : *undefined | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[retry_max_delay](initoptions.md#optional-retry_max_delay)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:28
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:28
 
 ___
 
@@ -245,9 +245,9 @@ ___
 
 • **retry_strategy**? : *RetryStrategy*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[retry_strategy](initoptions.md#optional-retry_strategy)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:39
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:39
 
 ___
 
@@ -255,9 +255,9 @@ ___
 
 • **retry_unfulfilled_commands**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[retry_unfulfilled_commands](initoptions.md#optional-retry_unfulfilled_commands)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:31
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:31
 
 ___
 
@@ -265,19 +265,19 @@ ___
 
 • **return_buffers**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[return_buffers](initoptions.md#optional-return_buffers)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:22
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:22
 
 ___
 
-### `Optional` socket_initialdelay
+### `Optional` socket_initial_delay
 
-• **socket_initialdelay**? : *undefined | number*
+• **socket_initial_delay**? : *undefined | number*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[socket_initial_delay](initoptions.md#optional-socket_initial_delay)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:25
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:25
 
 ___
 
@@ -285,9 +285,9 @@ ___
 
 • **socket_keepalive**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[socket_keepalive](initoptions.md#optional-socket_keepalive)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:24
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:24
 
 ___
 
@@ -295,9 +295,9 @@ ___
 
 • **string_numbers**? : *undefined | false | true*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[string_numbers](initoptions.md#optional-string_numbers)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:21
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:21
 
 ___
 
@@ -305,9 +305,9 @@ ___
 
 • **tls**? : *any*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[tls](initoptions.md#optional-tls)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:37
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:37
 
 ___
 
@@ -315,6 +315,6 @@ ___
 
 • **url**? : *undefined | string*
 
-*Inherited from void*
+*Inherited from [InitOptions](initoptions.md).[url](initoptions.md#optional-url)*
 
-Defined in /Users/dylanaubrey/Documents/workspaces/cachemap/node_modules/@types/redis/ts3.1/index.d.ts:19
+Defined in node_modules/@types/redis/ts3.1/index.d.ts:19

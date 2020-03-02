@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/indexed-db",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "The Cachemap IndexedDB module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",

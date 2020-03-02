@@ -19,7 +19,7 @@
 
 • **interval**? : *undefined | number*
 
-*Defined in [types.ts:22](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/reaper/src/types.ts#L22)*
+*Defined in [types.ts:22](https://github.com/badbatch/cachemap/blob/50a09dd/packages/reaper/src/types.ts#L22)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **start**? : *undefined | false | true*
 
-*Defined in [types.ts:23](https://github.com/badbatch/cachemap/blob/f68b2bf/packages/reaper/src/types.ts#L23)*
+*Defined in [types.ts:23](https://github.com/badbatch/cachemap/blob/50a09dd/packages/reaper/src/types.ts#L23)*
