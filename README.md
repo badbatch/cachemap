@@ -2,7 +2,7 @@
 
 An extensible, isomorphic cache with modules to interface with Redis, LocalStorage, IndexedDB and an in-memory Map.
 
-[![Build Status](https://travis-ci.org/badbatch/cachemap.svg?branch=master)](https://travis-ci.org/badbatch/cachemap)
+[![Build Status](https://travis-ci.com/badbatch/cachemap.svg?branch=master)](https://travis-ci.com/badbatch/cachemap)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Summary
