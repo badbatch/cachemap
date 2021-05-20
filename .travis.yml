@@ -15,7 +15,7 @@ install:
 script:
   - yarn run lint
   - yarn run type-check
-  - yarn run test:integration
+  - yarn run test
 before_deploy:
   - echo "//registry.npmjs.org/:_authToken=\${NPM_AUTH_TOKEN}" >> .npmrc
 deploy:

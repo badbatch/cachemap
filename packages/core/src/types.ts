@@ -70,7 +70,10 @@ export interface DehydratedMetadata extends BaseMetadata {
   cacheability: { metadata: CacheabilityMetadata };
 }
 
+export type FilterByValue = { comparator: any; keyChain: string };
+
 export interface ExportOptions {
+  filterByValue?: FilterByValue | FilterByValue[];
   keys?: string[];
   tag?: any;
 }

@@ -52,7 +52,7 @@
     "new-package": "new-package",
     "new-package:post": "yarn run bootstrap",
     "publish-cutoff": "publish-lerna-cutoff",
-    "test:integration": "yarn run test:integration:node && yarn run test:integration:browser && yarn run test:integration:worker",
+    "test": "yarn run test:integration:node && yarn run test:integration:browser && yarn run test:integration:worker",
     "test:integration:node": "cross-env BABEL_ENV=test mocha --opts ./mocha.opts",
     "test:integration:browser": "cross-env BABEL_ENV=browserTest TEST_ENV=browser karma start --single-run --browsers ChromeHeadless --reporters mocha",
     "test:integration:worker": "cross-env BABEL_ENV=browserTest TEST_ENV=worker karma start --single-run --browsers ChromeHeadless --reporters mocha",

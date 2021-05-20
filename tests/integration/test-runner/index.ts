@@ -507,6 +507,32 @@ export function run(
           expect(result.metadata).to.be.lengthOf(1);
         });
       });
+
+      context("When filterByValue is passed in", () => {
+        let result: coreDefs.ExportResult;
+
+        before(async () => {
+          const keys = Object.keys(testData);
+
+          await Promise.all(
+            keys.map(id => {
+              return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
+            }),
+          );
+
+          // @ts-ignore
+          result = await cachemap.export({ filterByValue: { comparator: "180-1387", keyChain: "id" } });
+        });
+
+        after(async () => {
+          await cachemap.clear();
+        });
+
+        it("The export method should return the matching key/value pair entries and their metadata", async () => {
+          expect(result.entries).to.be.lengthOf(1);
+          expect(result.metadata).to.be.lengthOf(1);
+        });
+      });
     });
 
     describe("Adding multiple entries and their metadata to the cachemap", () => {

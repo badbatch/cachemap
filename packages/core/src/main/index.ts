@@ -1,6 +1,6 @@
 import { CLEAR, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "@cachemap/constants";
 import Cacheability from "cacheability";
-import { isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
+import { castArray, get, isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
 import { DEFAULT_MAX_HEAP_SIZE } from "../constants";
@@ -12,6 +12,7 @@ import {
   ConstructorOptions,
   ExportOptions,
   ExportResult,
+  FilterByValue,
   ImportOptions,
   Metadata,
   MethodName,
@@ -396,13 +397,23 @@ export default class Core {
 
     try {
       const _keys = keys || this._metadata.map(metadata => metadata.key);
-      return this._store.entries(_keys);
+
+      const entries = (await this._store.entries(_keys)).map(([key, data]) => [
+        key,
+        this._encryptionSecret ? decrypt(data, this._encryptionSecret) : decode(data),
+      ]) as [string, any][];
+
+      return entries;
     } catch (error) {
       return Promise.reject(error);
     }
   }
 
-  private async _export(options: { keys?: string[]; tag?: any }): Promise<ExportResult> {
+  private async _export(options: {
+    filterByValue?: FilterByValue | FilterByValue[];
+    keys?: string[];
+    tag?: any;
+  }): Promise<ExportResult> {
     let keys: string[] | undefined;
     let metadata = this._metadata;
 
@@ -415,7 +426,19 @@ export default class Core {
     }
 
     try {
-      return { entries: await this._entries(keys), metadata };
+      let entries = await this._entries(keys);
+
+      if (options.filterByValue) {
+        const castFilterByValue = castArray(options.filterByValue);
+
+        entries = entries.filter(([, data]) =>
+          castFilterByValue.every(({ keyChain, comparator }) => get(data, keyChain) === comparator),
+        );
+
+        metadata = metadata.filter(meta => entries.some(([key]) => key === meta.key));
+      }
+
+      return { entries, metadata };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -491,7 +514,12 @@ export default class Core {
     }
 
     try {
-      await this._store.import(options.entries);
+      const entries = options.entries.map(([key, data]) => [
+        key,
+        this._encryptionSecret ? encrypt(data, this._encryptionSecret) : encode(data),
+      ]) as [string, any][];
+
+      await this._store.import(entries);
       this._metadata = rehydrateMetadata([...filterd, ...options.metadata]);
     } catch (error) {
       return Promise.reject(error);
