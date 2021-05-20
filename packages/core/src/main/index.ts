@@ -4,6 +4,8 @@ import { isArray, isFunction, isPlainObject, isString, isUndefined } from "lodas
 import md5 from "md5";
 import sizeof from "object-sizeof";
 import { DEFAULT_MAX_HEAP_SIZE } from "../constants";
+import { decode, encode } from "../helpers/base64";
+import { decrypt, encrypt } from "../helpers/encryption";
 import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
 import {
   CacheHeaders,
@@ -51,6 +53,7 @@ export default class Core {
   }
 
   private _disableCacheInvalidation: boolean;
+  private _encryptionSecret: string | undefined;
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
   private _name: string;
@@ -80,6 +83,11 @@ export default class Core {
     if (errors.length) throw errors;
 
     this._disableCacheInvalidation = options.disableCacheInvalidation || false;
+
+    if (isString(options.encryptionSecret)) {
+      this._encryptionSecret = options.encryptionSecret;
+    }
+
     this._name = options.name;
 
     if (isFunction(options.reaper)) {
@@ -425,7 +433,7 @@ export default class Core {
       if (!value) return undefined;
 
       await this._updateMetadata(_key);
-      return value;
+      return this._encryptionSecret ? decrypt(value, this._encryptionSecret) : decode(value);
     } catch (error) {
       return Promise.reject(error);
     }
@@ -558,6 +566,7 @@ export default class Core {
 
     try {
       const exists = (await this._store.has(_key)) || processing;
+      value = this._encryptionSecret ? encrypt(value, this._encryptionSecret) : encode(value);
       await this._store.set(_key, value);
 
       if (exists) {

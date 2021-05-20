@@ -89,7 +89,7 @@ export class RedisStore implements Store {
         if (error) {
           reject(error);
         } else {
-          resolve(JSON.parse(reply));
+          resolve(reply ? JSON.parse(reply) : reply);
         }
       });
     });

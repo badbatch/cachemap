@@ -365,7 +365,7 @@ export function run(
       });
 
       context("When no keys are passed in", () => {
-        let result: Array<[string, any]>;
+        let result: [string, any][];
 
         before(async () => {
           const keys = Object.keys(testData);
@@ -389,7 +389,7 @@ export function run(
       });
 
       context("When keys are passed in", () => {
-        let result: Array<[string, any]>;
+        let result: [string, any][];
 
         before(async () => {
           const ids = Object.keys(testData);
@@ -611,10 +611,10 @@ export function run(
 
         before(async () => {
           cachemap = init({
-            maxHeapSize: 50,
+            maxHeapSize: 100,
             name: `${storeType}-integration-tests`,
             reaper: reaper(),
-            store: store && store({ ...storeOptions, maxHeapSize: 50 }),
+            store: store && store({ ...storeOptions, maxHeapSize: 100 }),
           });
 
           keys = Object.keys(testData);

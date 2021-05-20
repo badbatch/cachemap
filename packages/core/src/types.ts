@@ -53,6 +53,7 @@ export interface BaseMetadata {
 
 export interface BaseOptions {
   disableCacheInvalidation?: boolean;
+  encryptionSecret?: string;
   name: string;
   reaper?: ReaperInit;
   sharedCache?: boolean;
