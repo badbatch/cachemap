@@ -1,3 +1,18 @@
+#### 3.1.2 (2021-05-21)
+
+##### Bug Fixes
+
+*  typo in actions config ([4dfa510b](https://github.com/badbatch/cachemap/commit/4dfa510ba121b1ae4622c562ed638f5c3d0a1c25))
+*  typo in actions config ([ba9f48a5](https://github.com/badbatch/cachemap/commit/ba9f48a5388d36ac22c05d0248da05e16a7a2365))
+*  typo in actions config ([a4038f09](https://github.com/badbatch/cachemap/commit/a4038f09961ea5f729f19565b67c4f1611e38934))
+*  update way of storing variables ([950c8c67](https://github.com/badbatch/cachemap/commit/950c8c677f65792a77487a9b25ac96113d9e4860))
+*  names of action scripts ([8bbd4a46](https://github.com/badbatch/cachemap/commit/8bbd4a46df9574e9f10187433d0826032ae3d875))
+
+##### Refactors
+
+*  move builds to be combined again ([5c288399](https://github.com/badbatch/cachemap/commit/5c2883996a20eaf8c666c8b2bd5f7a48d3fb9d00))
+*  split build and deploy action configs ([cabdd40c](https://github.com/badbatch/cachemap/commit/cabdd40c75b0d6dd964e78555dc4fcdd492f3a69))
+
 #### 3.1.1 (2021-05-21)
 
 ##### Bug Fixes
