@@ -20,7 +20,7 @@
 
 • **filterByValue**? : *[FilterByValue](../README.md#filterbyvalue) | [FilterByValue](../README.md#filterbyvalue)[]*
 
-*Defined in [types.ts:76](https://github.com/badbatch/cachemap/blob/4dfa510/packages/core/src/types.ts#L76)*
+*Defined in [types.ts:76](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core/src/types.ts#L76)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **keys**? : *string[]*
 
-*Defined in [types.ts:77](https://github.com/badbatch/cachemap/blob/4dfa510/packages/core/src/types.ts#L77)*
+*Defined in [types.ts:77](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core/src/types.ts#L77)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [types.ts:78](https://github.com/badbatch/cachemap/blob/4dfa510/packages/core/src/types.ts#L78)*
+*Defined in [types.ts:78](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core/src/types.ts#L78)*

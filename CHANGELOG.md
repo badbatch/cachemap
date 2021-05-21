@@ -1,3 +1,9 @@
+#### 3.1.3 (2021-05-21)
+
+##### Bug Fixes
+
+*  alt approach to setting tag output ([4cf17242](https://github.com/badbatch/cachemap/commit/4cf1724294f622b632c57f4c5957d4bfde12e3bc))
+
 #### 3.1.2 (2021-05-21)
 
 ##### Bug Fixes
