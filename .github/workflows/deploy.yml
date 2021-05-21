@@ -1,9 +1,10 @@
 name: build-and-deploy
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches:
+      - master
+    tags:
+      - v*
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -27,29 +28,7 @@ jobs:
       - name: Install dependencies and build packages
         run: yarn run init
 
-      - name: Lint packages
-        run: |
-          yarn run lint
-          yarn run type-check
-
-      - name: Run unit tests
-        run: yarn run test
-
-      - name: Get branch name
-        id: get_branch_name
-        run: echo ::set-output name=BRANCH::${GITHUB_REF/refs\/heads\//}
-
-      - name: Get tag
-        id: get_tag
-        run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
-
-      - name: Log branch name and tag
-        run: |
-          echo "Branch name is ${{ steps.get_branch_name.outputs.BRANCH }}"
-          echo "Tag is ${{ steps.get_tag.outputs.TAG }}"
-
       - name: Publish packages
-        if: steps.get_branch_name.outputs.BRANCH == 'master' && startsWith(steps.get_tag.outputs.TAG, 'v')
         env:
           npm_auth_token: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |

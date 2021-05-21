@@ -1,0 +1,40 @@
+name: build-and-deploy
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '!v*'
+  pull_request:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.13.0]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Yarn
+        run: |
+          curl -o- -L https://yarnpkg.com/install.sh | bash
+          export PATH=$HOME/.yarn/bin:$PATH
+
+      - name: Install dependencies and build packages
+        run: yarn run init
+
+      - name: Lint packages
+        run: |
+          yarn run lint
+          yarn run type-check
+
+      - name: Run unit tests
+        run: yarn run test
