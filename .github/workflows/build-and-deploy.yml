@@ -45,11 +45,11 @@ jobs:
 
       - name: Log branch name and tag
         run: |
-          echo "Branch name is ${{ stages.get_branch_name.output.BRANCH_NAME }}"
-          echo "Tag is ${{ stages.get_tag.output.TAG }}"
+          echo "Branch name is ${{ stage.get_branch_name.output.BRANCH_NAME }}"
+          echo "Tag is ${{ stage.get_tag.output.TAG }}"
 
       - name: Publish packages
-        if: stages.get_branch_name.output.BRANCH_NAME == 'master' && stages.get_tag.output.TAG != ''
+        if: stage.get_branch_name.output.BRANCH_NAME == 'master' && stage.get_tag.output.TAG != ''
         run: |
           echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
           yarn run publish-lerna-cutoff
