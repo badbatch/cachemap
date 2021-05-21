@@ -1,4 +1,4 @@
-name: build-and-deploy
+name: build
 on:
   push:
     branches:
@@ -9,7 +9,7 @@ on:
     branches:
       - master
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
