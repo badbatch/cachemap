@@ -44,7 +44,7 @@ jobs:
         run: echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
 
       - name: Publish packages
-        if: steps.get_branch_name == "master" && startsWith(steps.get_tag.outputs.TAG, 'v')
+        if: steps.get_branch_name == 'master' && startsWith(steps.get_tag.outputs.TAG, 'v')
         env:
           npm_auth_token: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
