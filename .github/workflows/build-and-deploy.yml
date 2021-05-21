@@ -36,18 +36,20 @@ jobs:
         run: yarn run test
 
       - name: Get branch name
-        run: echo ::set-env name=BRANCH_NAME::${GITHUB_REF/refs\/heads\//}
+        id: get_branch_name
+        run: echo ::set-output name=BRANCH_NAME::${GITHUB_REF/refs\/heads\//}
 
       - name: Get tag
-        run: echo "::set-env name=TAG::$(git tag --points-at HEAD)"
+        id: get_tag
+        run: echo "::set-output name=TAG::$(git tag --points-at HEAD)"
 
       - name: Log branch name and tag
         run: |
-          echo "Branch name is ${{ env.BRANCH_NAME }}"
-          echo "Tag is ${{ env.TAG }}"
+          echo "Branch name is ${{ stages.get_branch_name.output.BRANCH_NAME }}"
+          echo "Tag is ${{ stages.get_tag.output.TAG }}"
 
       - name: Publish packages
-        if: env.BRANCH_NAME == 'master' && env.TAG != ''
+        if: stages.get_branch_name.output.BRANCH_NAME == 'master' && stages.get_tag.output.TAG != ''
         run: |
           echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
           yarn run publish-lerna-cutoff
