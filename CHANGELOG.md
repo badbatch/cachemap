@@ -1,3 +1,19 @@
+### 3.1.0 (2021-05-21)
+
+##### New Features
+
+*  add actions badge to readme ([78d1a971](https://github.com/badbatch/cachemap/commit/78d1a97106063dc5e3ae4095a0893f2eee5ace9c))
+*  move to github actions ([e7325101](https://github.com/badbatch/cachemap/commit/e73251017de3552468566d75d49b94261e0d8d72))
+*  enable filter by value in export ([53585a0f](https://github.com/badbatch/cachemap/commit/53585a0f2bf10367ace2f1383ba9de8758bf9ef9))
+*  add encryption and encoding ([515f09e7](https://github.com/badbatch/cachemap/commit/515f09e7b6500c4da3dbd199649fcc6c76a75bb0))
+
+##### Bug Fixes
+
+*  use of double quotes in actions config ([1be9499e](https://github.com/badbatch/cachemap/commit/1be9499ebf2b55e0f6a1bd338dd213677d77f8b4))
+*  typo in actions file ([c9b09523](https://github.com/badbatch/cachemap/commit/c9b095230bcbbb355f5cd377eb4a6f0c242cb1f7))
+*  delete travis file ([a88fa197](https://github.com/badbatch/cachemap/commit/a88fa197c5df01d74704a3d9a72b4ffa86add4db))
+*  update travis url ([60c4e976](https://github.com/badbatch/cachemap/commit/60c4e976c0b66b066fd483c9ea23ebc5d83bbc85))
+
 #### 3.0.4 (2020-03-02)
 
 ##### Chores

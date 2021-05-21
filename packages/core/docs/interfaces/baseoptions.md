@@ -13,6 +13,7 @@
 ### Properties
 
 * [disableCacheInvalidation](baseoptions.md#optional-disablecacheinvalidation)
+* [encryptionSecret](baseoptions.md#optional-encryptionsecret)
 * [name](baseoptions.md#name)
 * [reaper](baseoptions.md#optional-reaper)
 * [sharedCache](baseoptions.md#optional-sharedcache)
@@ -27,7 +28,15 @@
 
 • **disableCacheInvalidation**? : *undefined | false | true*
 
-*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L55)*
+*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L55)*
+
+___
+
+### `Optional` encryptionSecret
+
+• **encryptionSecret**? : *undefined | string*
+
+*Defined in [types.ts:56](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L56)*
 
 ___
 
@@ -35,7 +44,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:56](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L56)*
+*Defined in [types.ts:57](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L57)*
 
 ___
 
@@ -43,7 +52,7 @@ ___
 
 • **reaper**? : *[ReaperInit](../README.md#reaperinit)*
 
-*Defined in [types.ts:57](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L57)*
+*Defined in [types.ts:58](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L58)*
 
 ___
 
@@ -51,7 +60,7 @@ ___
 
 • **sharedCache**? : *undefined | false | true*
 
-*Defined in [types.ts:58](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L58)*
+*Defined in [types.ts:59](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L59)*
 
 ## Methods
 
@@ -59,7 +68,7 @@ ___
 
 ▸ **sortComparator**(`a`: any, `b`: any): *number*
 
-*Defined in [types.ts:59](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L59)*
+*Defined in [types.ts:60](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L60)*
 
 **Parameters:**
 

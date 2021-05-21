@@ -24,7 +24,7 @@
 
 ▸ **init**(`options`: [Options](interfaces/options.md)): *StoreInit*
 
-*Defined in [packages/redis/src/main/index.ts:153](https://github.com/badbatch/cachemap/blob/50a09dd/packages/redis/src/main/index.ts#L153)*
+*Defined in [packages/redis/src/main/index.ts:153](https://github.com/badbatch/cachemap/blob/78d1a97/packages/redis/src/main/index.ts#L153)*
 
 **Parameters:**
 

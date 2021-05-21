@@ -10,16 +10,25 @@
 
 ### Properties
 
+* [filterByValue](exportoptions.md#optional-filterbyvalue)
 * [keys](exportoptions.md#optional-keys)
 * [tag](exportoptions.md#optional-tag)
 
 ## Properties
 
+### `Optional` filterByValue
+
+• **filterByValue**? : *[FilterByValue](../README.md#filterbyvalue) | [FilterByValue](../README.md#filterbyvalue)[]*
+
+*Defined in [types.ts:76](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L76)*
+
+___
+
 ### `Optional` keys
 
 • **keys**? : *string[]*
 
-*Defined in [types.ts:73](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L73)*
+*Defined in [types.ts:77](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L77)*
 
 ___
 
@@ -27,4 +36,4 @@ ___
 
 • **tag**? : *any*
 
-*Defined in [types.ts:74](https://github.com/badbatch/cachemap/blob/50a09dd/packages/core/src/types.ts#L74)*
+*Defined in [types.ts:78](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L78)*
