@@ -1,14 +1,42 @@
 [
   {
-    "name": "@cachemap/core",
-    "version": "3.0.2",
+    "name": "@cachemap/constants",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core"
+    "version": "3.0.3"
+  },
+  {
+    "name": "@cachemap/core",
+    "private": false,
+    "version": "3.1.0"
+  },
+  {
+    "name": "@cachemap/core-worker",
+    "private": false,
+    "version": "3.0.2"
+  },
+  {
+    "name": "@cachemap/indexed-db",
+    "private": false,
+    "version": "3.0.2"
+  },
+  {
+    "name": "@cachemap/local-storage",
+    "private": false,
+    "version": "3.0.2"
+  },
+  {
+    "name": "@cachemap/map",
+    "private": false,
+    "version": "3.0.2"
+  },
+  {
+    "name": "@cachemap/reaper",
+    "private": false,
+    "version": "3.0.2"
   },
   {
     "name": "@cachemap/redis",
-    "version": "3.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/redis"
+    "version": "3.1.0"
   }
 ]

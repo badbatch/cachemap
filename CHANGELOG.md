@@ -1,3 +1,10 @@
+#### 3.1.1 (2021-05-21)
+
+##### Bug Fixes
+
+*  mistake in actions config ([ba019baa](https://github.com/badbatch/cachemap/commit/ba019baa70a4d26223990531d5e0f3c03cbc4c83))
+*  update actions config ([8ff4a773](https://github.com/badbatch/cachemap/commit/8ff4a773d69eaa3a1b38a7ffd4985787a759b0d5))
+
 ### 3.1.0 (2021-05-21)
 
 ##### New Features

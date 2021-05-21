@@ -20,7 +20,7 @@
 
 ▸ **cull**(`metadata`: [Metadata](metadata.md)[]): *Promise‹void›*
 
-*Defined in [types.ts:105](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L105)*
+*Defined in [types.ts:105](https://github.com/badbatch/cachemap/blob/ba019ba/packages/core/src/types.ts#L105)*
 
 **Parameters:**
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **start**(): *void*
 
-*Defined in [types.ts:106](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L106)*
+*Defined in [types.ts:106](https://github.com/badbatch/cachemap/blob/ba019ba/packages/core/src/types.ts#L106)*
 
 **Returns:** *void*
 
@@ -46,6 +46,6 @@ ___
 
 ▸ **stop**(): *void*
 
-*Defined in [types.ts:107](https://github.com/badbatch/cachemap/blob/78d1a97/packages/core/src/types.ts#L107)*
+*Defined in [types.ts:107](https://github.com/badbatch/cachemap/blob/ba019ba/packages/core/src/types.ts#L107)*
 
 **Returns:** *void*
