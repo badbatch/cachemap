@@ -41,7 +41,7 @@ jobs:
 
       - name: Get tag
         id: get_tag
-        run: echo "::set-output name=TAG::$(git tag --points-at HEAD)"
+        run: echo ::set-output name=TAG::$(git tag --points-at HEAD)
 
       - name: Log branch name and tag
         run: |
