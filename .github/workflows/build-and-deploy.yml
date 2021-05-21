@@ -1,15 +1,11 @@
-name: build
+name: build-and-deploy
 on:
   push:
-    branches:
-      - master
-    tags:
-      - '!v*'
+    branches: [ master ]
   pull_request:
-    branches:
-      - master
+    branches: [ master ]
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,3 +34,20 @@ jobs:
 
       - name: Run unit tests
         run: yarn run test
+
+      - name: Get branch name
+        run: echo ::set-env name=BRANCH_NAME::${GITHUB_REF/refs\/heads\//}
+
+      - name: Get tag
+        run: echo "::set-env name=TAG::$(git tag --points-at HEAD)"
+
+      - name: Log branch name and tag
+        run: |
+          echo "Branch name is ${{ env.BRANCH_NAME }}"
+          echo "Tag is ${{ env.TAG }}"
+
+      - name: Publish packages
+        if: env.BRANCH_NAME == 'master' && env.TAG != ''
+        run: |
+          echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
+          yarn run publish-lerna-cutoff
