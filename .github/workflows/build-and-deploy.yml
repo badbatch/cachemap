@@ -50,6 +50,8 @@ jobs:
 
       - name: Publish packages
         if: steps.get_branch_name.outputs.BRANCH_NAME == 'master' && steps.get_tag.outputs.TAG != ''
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=\${{ secrets.NPM_AUTH_TOKEN }}" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=\$env:NPM_AUTH_TOKEN" >> .npmrc
           yarn run publish-lerna-cutoff
