@@ -20,4 +20,4 @@
 
 • **maxHeapSize**? : *undefined | number*
 
-*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/4cf1724/packages/indexed-db/src/types.ts#L12)*
+*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/28dde3d/packages/indexed-db/src/types.ts#L12)*

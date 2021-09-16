@@ -1,6 +1,6 @@
 {
   "name": "cachemap",
-  "version": "3.1.3",
+  "version": "3.1.4",
   "private": true,
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "keywords": [
@@ -57,7 +57,7 @@
     "test:integration:browser": "cross-env BABEL_ENV=browserTest TEST_ENV=browser karma start --single-run --browsers ChromeHeadless --reporters mocha",
     "test:integration:worker": "cross-env BABEL_ENV=browserTest TEST_ENV=worker karma start --single-run --browsers ChromeHeadless --reporters mocha",
     "type-check": "tsc --noEmit",
-    "validate": "yarn run build && yarn run lint && yarn run type-check && yarn run test:integration",
+    "validate": "yarn run build && yarn run lint && yarn run type-check && yarn run test",
     "wipe": "yarn run wipe:packages && yarn run wipe:repo",
     "wipe:packages": "lerna exec --parallel -- del-cli ./yarn.lock ./node_modules",
     "wipe:repo": "del-cli ./yarn.lock ./node_modules"

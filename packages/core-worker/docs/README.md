@@ -43,7 +43,7 @@
 
 Ƭ **PendingResolver**: *function*
 
-*Defined in [types.ts:13](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/types.ts#L13)*
+*Defined in [types.ts:13](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/types.ts#L13)*
 
 #### Type declaration:
 
@@ -61,7 +61,7 @@ ___
 
 Ƭ **PendingTracker**: *Map‹string, [PendingData](interfaces/pendingdata.md)›*
 
-*Defined in [types.ts:19](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/types.ts#L19)*
+*Defined in [types.ts:19](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/types.ts#L19)*
 
 ## Variables
 
@@ -69,7 +69,7 @@ ___
 
 • **addEventListener**: *addEventListener*
 
-*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L6)*
+*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L6)*
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 • **postMessage**: *postMessage*
 
-*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L6)*
+*Defined in [register-worker/index.ts:6](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L6)*
 
 ## Functions
 
@@ -85,7 +85,7 @@ ___
 
 ▸ **filterProps**(`__namedParameters`: object): *[FilterPropsResult](interfaces/filterpropsresult.md)*
 
-*Defined in [register-worker/index.ts:12](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L12)*
+*Defined in [register-worker/index.ts:12](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L12)*
 
 **Parameters:**
 
@@ -105,7 +105,7 @@ ___
 
 ▸ **handleMessage**(`message`: [PostMessage](interfaces/postmessage.md), `cachemap`: Core): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:16](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L16)*
+*Defined in [register-worker/index.ts:16](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L16)*
 
 **Parameters:**
 
@@ -122,7 +122,7 @@ ___
 
 ▸ **registerWorker**(`__namedParameters`: object): *Promise‹void›*
 
-*Defined in [register-worker/index.ts:63](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L63)*
+*Defined in [register-worker/index.ts:63](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L63)*
 
 **Parameters:**
 
@@ -140,7 +140,7 @@ ___
 
 ▸ **requiresKey**(`type`: string): *boolean*
 
-*Defined in [register-worker/index.ts:8](https://github.com/badbatch/cachemap/blob/4cf1724/packages/core-worker/src/register-worker/index.ts#L8)*
+*Defined in [register-worker/index.ts:8](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core-worker/src/register-worker/index.ts#L8)*
 
 **Parameters:**
 

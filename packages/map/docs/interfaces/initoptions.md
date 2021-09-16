@@ -23,7 +23,7 @@
 
 *Inherited from [InitOptions](initoptions.md).[maxHeapSize](initoptions.md#optional-maxheapsize)*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/4cf1724/packages/map/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/28dde3d/packages/map/src/types.ts#L8)*
 
 ___
 
@@ -31,4 +31,4 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/4cf1724/packages/map/src/types.ts#L4)*
+*Defined in [types.ts:4](https://github.com/badbatch/cachemap/blob/28dde3d/packages/map/src/types.ts#L4)*

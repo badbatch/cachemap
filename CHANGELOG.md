@@ -1,3 +1,14 @@
+#### 3.1.4 (2021-09-16)
+
+##### Chores
+
+*  another attempt with actions config ([a5c9fb39](https://github.com/badbatch/cachemap/commit/a5c9fb397658a765aa87562cb85f73b306ee1ccc))
+*  another update to tag logic ([e01c9e23](https://github.com/badbatch/cachemap/commit/e01c9e23748568c2ecda28f682073bceed75b15a))
+
+##### Bug Fixes
+
+*  clear request queue when all requests have been resolved ([28dde3d8](https://github.com/badbatch/cachemap/commit/28dde3d8abaa0b556cb7771532b66bf1b3da996e))
+
 #### 3.1.3 (2021-05-21)
 
 ##### Bug Fixes
