@@ -559,6 +559,8 @@ export default class Core {
       // @ts-ignore
       resolve(await this[methodName](...payload));
     });
+
+    this._requestQueue = [];
   }
 
   private async _retreiveMetadata(): Promise<void> {
