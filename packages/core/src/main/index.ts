@@ -351,6 +351,7 @@ export default class Core {
       await this._store.clear();
       this._metadata = [];
       this._processing = [];
+      this._updateHeapSize();
       await this._backupMetadata();
     } catch (error) {
       Promise.reject(error);
