@@ -30,7 +30,7 @@
 
 *Inherited from [BaseMetadata](basemetadata.md).[accessedCount](basemetadata.md#accessedcount)*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L8)*
 
 The number of times the corresponding data
 entry has been accessed.
@@ -43,7 +43,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[added](basemetadata.md#added)*
 
-*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L14)*
+*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L14)*
 
 The timestamp of when the corresponding data
 entry was added to the Cachemap instance.
@@ -54,7 +54,7 @@ ___
 
 • **cacheability**: *object*
 
-*Defined in [types.ts:70](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L70)*
+*Defined in [types.ts:70](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L70)*
 
 #### Type declaration:
 
@@ -68,7 +68,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[key](basemetadata.md#key)*
 
-*Defined in [types.ts:20](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L20)*
+*Defined in [types.ts:20](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L20)*
 
 The key the corresponding data entry was stored
 against.
@@ -81,7 +81,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[lastAccessed](basemetadata.md#lastaccessed)*
 
-*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L26)*
+*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L26)*
 
 The timestamp of when the corresponding data
 entry was last accessed.
@@ -94,7 +94,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[lastUpdated](basemetadata.md#lastupdated)*
 
-*Defined in [types.ts:32](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L32)*
+*Defined in [types.ts:32](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L32)*
 
 The timestamp of when the corresponding data
 entry was last updated.
@@ -107,7 +107,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[size](basemetadata.md#size)*
 
-*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L38)*
+*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L38)*
 
 The approximate amount of memory the corresponding
 data entry takes up.
@@ -120,7 +120,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[tags](basemetadata.md#tags)*
 
-*Defined in [types.ts:45](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L45)*
+*Defined in [types.ts:45](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L45)*
 
 A list of tags that can be optionally set along with
 the cachemap entry and used when trying to retrieve
@@ -134,7 +134,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[updatedCount](basemetadata.md#updatedcount)*
 
-*Defined in [types.ts:51](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L51)*
+*Defined in [types.ts:51](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L51)*
 
 The number of times the corresponding data
 entry has been updated.

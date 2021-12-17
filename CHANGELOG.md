@@ -1,3 +1,9 @@
+#### 3.1.5 (2021-12-17)
+
+##### Bug Fixes
+
+*  used heap size not being reset on clear ([497d8de9](https://github.com/badbatch/cachemap/commit/497d8de9c9eb9455a0d60412762d7fbb0eb46612))
+
 #### 3.1.4 (2021-09-16)
 
 ##### Chores

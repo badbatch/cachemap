@@ -31,7 +31,7 @@
 
 • **maxHeapSize**: *number*
 
-*Defined in [types.ts:122](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L122)*
+*Defined in [types.ts:122](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L122)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:123](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L123)*
+*Defined in [types.ts:123](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L123)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:124](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L124)*
+*Defined in [types.ts:124](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L124)*
 
 ## Methods
 
@@ -55,7 +55,7 @@ ___
 
 ▸ **clear**(): *Promise‹void›*
 
-*Defined in [types.ts:125](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L125)*
+*Defined in [types.ts:125](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L125)*
 
 **Returns:** *Promise‹void›*
 
@@ -65,7 +65,7 @@ ___
 
 ▸ **delete**(`key`: string): *Promise‹boolean›*
 
-*Defined in [types.ts:126](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L126)*
+*Defined in [types.ts:126](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L126)*
 
 **Parameters:**
 
@@ -81,7 +81,7 @@ ___
 
 ▸ **entries**(`keys?`: string[]): *Promise‹[string, any][]›*
 
-*Defined in [types.ts:127](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L127)*
+*Defined in [types.ts:127](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L127)*
 
 **Parameters:**
 
@@ -97,7 +97,7 @@ ___
 
 ▸ **get**(`key`: string): *Promise‹any›*
 
-*Defined in [types.ts:128](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L128)*
+*Defined in [types.ts:128](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L128)*
 
 **Parameters:**
 
@@ -113,7 +113,7 @@ ___
 
 ▸ **has**(`key`: string): *Promise‹boolean›*
 
-*Defined in [types.ts:129](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L129)*
+*Defined in [types.ts:129](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L129)*
 
 **Parameters:**
 
@@ -129,7 +129,7 @@ ___
 
 ▸ **import**(`entries`: [string, any][]): *Promise‹void›*
 
-*Defined in [types.ts:130](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L130)*
+*Defined in [types.ts:130](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L130)*
 
 **Parameters:**
 
@@ -145,7 +145,7 @@ ___
 
 ▸ **set**(`key`: string, `value`: any): *Promise‹void›*
 
-*Defined in [types.ts:131](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L131)*
+*Defined in [types.ts:131](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L131)*
 
 **Parameters:**
 
@@ -162,6 +162,6 @@ ___
 
 ▸ **size**(): *Promise‹number›*
 
-*Defined in [types.ts:132](https://github.com/badbatch/cachemap/blob/28dde3d/packages/core/src/types.ts#L132)*
+*Defined in [types.ts:132](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L132)*
 
 **Returns:** *Promise‹number›*
