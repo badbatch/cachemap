@@ -57,6 +57,7 @@ export interface BaseOptions {
   name: string;
   reaper?: ReaperInit;
   sharedCache?: boolean;
+  type: string;
   sortComparator?(a: any, b: any): number;
 }
 

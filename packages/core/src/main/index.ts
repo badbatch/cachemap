@@ -64,6 +64,7 @@ export default class Core {
   private _requestQueue: RequestQueue = [];
   private _sharedCache: boolean;
   private _store: Store | null = null;
+  private _type: string;
   private _usedHeapSize: number = 0;
 
   constructor(options: ConstructorOptions) {
@@ -79,6 +80,10 @@ export default class Core {
 
     if (!isFunction(options.store)) {
       errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
+    }
+
+    if (!isString(options.type)) {
+      errors.push(new TypeError("@cachemap/core expected options.type to be a string."));
     }
 
     if (errors.length) throw errors;
@@ -101,6 +106,8 @@ export default class Core {
       Core._sortComparator = options.sortComparator;
     }
 
+    this._type = options.type;
+
     options.store({ name: options.name }).then(store => {
       this._maxHeapSize = store.maxHeapSize;
       this._store = store;
@@ -120,6 +127,10 @@ export default class Core {
 
   get storeType(): string {
     return this._store?.type ?? "none";
+  }
+
+  get type(): string {
+    return this._type;
   }
 
   get usedHeapSize(): number {

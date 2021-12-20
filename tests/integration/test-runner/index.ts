@@ -1,4 +1,4 @@
-import Core, { coreDefs } from "@cachemap/core";
+import Core, { ExportResult, Metadata, StoreInit } from "@cachemap/core";
 import CoreWorker from "@cachemap/core-worker";
 import reaper from "@cachemap/reaper";
 import Cacheability from "cacheability";
@@ -12,7 +12,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export function run(
   { cachemapSize, init, worker }: RunOptions,
   storeType: string,
-  store?: (options: any) => coreDefs.StoreInit,
+  store?: (options: any) => StoreInit,
   storeOptions: PlainObject = {},
 ): void {
   describe(`When store type is ${storeType}`, () => {
@@ -27,6 +27,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -60,7 +61,7 @@ export function run(
       });
 
       context("When a matching entry does exist", () => {
-        let metadata: coreDefs.Metadata;
+        let metadata: Metadata;
 
         before(async () => {
           await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true });
@@ -134,6 +135,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -192,6 +194,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -213,7 +216,7 @@ export function run(
       });
 
       context("When a matching entry exists", () => {
-        let metadata: coreDefs.Metadata;
+        let metadata: Metadata;
         let entry;
 
         before(async () => {
@@ -256,6 +259,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -360,6 +364,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -424,12 +429,13 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
 
       context("When no keys are passed in", () => {
-        let result: coreDefs.ExportResult;
+        let result: ExportResult;
 
         before(async () => {
           const keys = Object.keys(testData);
@@ -454,7 +460,7 @@ export function run(
       });
 
       context("When keys are passed in", () => {
-        let result: coreDefs.ExportResult;
+        let result: ExportResult;
 
         before(async () => {
           const ids = Object.keys(testData);
@@ -482,7 +488,7 @@ export function run(
       });
 
       context("When a tag is passed in", () => {
-        let result: coreDefs.ExportResult;
+        let result: ExportResult;
 
         before(async () => {
           const keys = Object.keys(testData);
@@ -509,7 +515,7 @@ export function run(
       });
 
       context("When filterByValue is passed in", () => {
-        let result: coreDefs.ExportResult;
+        let result: ExportResult;
 
         before(async () => {
           const keys = Object.keys(testData);
@@ -543,6 +549,7 @@ export function run(
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
+          type: "integration-tests",
           worker,
         });
       });
@@ -612,6 +619,7 @@ export function run(
             name: `${storeType}-integration-tests`,
             reaper: reaper({ interval: 500 }),
             store: store && store(storeOptions),
+            type: "integration-tests",
           });
 
           await cachemap.set(key, value, { cacheHeaders, hash: true });
@@ -641,6 +649,7 @@ export function run(
             name: `${storeType}-integration-tests`,
             reaper: reaper(),
             store: store && store({ ...storeOptions, maxHeapSize: 100 }),
+            type: "integration-tests",
           });
 
           keys = Object.keys(testData);

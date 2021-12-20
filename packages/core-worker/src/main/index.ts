@@ -1,7 +1,7 @@
 import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "@cachemap/constants";
 import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, Metadata, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
-import { isPlainObject } from "lodash";
+import { isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
 import {
   ConstructorOptions,
@@ -15,8 +15,10 @@ import {
 
 export default class CoreWorker {
   private _metadata: Metadata[] = [];
+  private _name: string;
   private _pending: PendingTracker = new Map();
   private _storeType: string | undefined;
+  private _type: string;
   private _usedHeapSize: number = 0;
   private _worker: Worker;
 
@@ -27,12 +29,22 @@ export default class CoreWorker {
       errors.push(new TypeError("@cachemap/core-worker expected options to ba a plain object."));
     }
 
+    if (!isString(options.name)) {
+      errors.push(new TypeError("@cachemap/core-worker expected options.name to be a string."));
+    }
+
+    if (!isString(options.type)) {
+      errors.push(new TypeError("@cachemap/core-worker expected options.type to be a string."));
+    }
+
     if (!(options.worker instanceof Worker)) {
       errors.push(new TypeError("@cachemap/core-worker expected options.worker to be an instance of a Worker."));
     }
 
     if (errors.length) throw errors;
 
+    this._name = options.name;
+    this._type = options.type;
     this._worker = options.worker;
     this._addEventListener();
   }
@@ -41,8 +53,16 @@ export default class CoreWorker {
     return this._metadata;
   }
 
+  get name(): string {
+    return this._name;
+  }
+
   get storeType(): string | undefined {
     return this._storeType;
+  }
+
+  get type(): string {
+    return this._type;
   }
 
   get usedHeapSize(): number {

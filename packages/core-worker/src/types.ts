@@ -7,6 +7,8 @@ export interface CommonOptions {
 }
 
 export interface ConstructorOptions {
+  name: string;
+  type: string;
   worker: Worker;
 }
 

@@ -8,6 +8,8 @@
     "src"
   ],
   "references": [
-    { "path": "../constants" }
+    {
+      "path": "../constants"
+    }
   ]
 }
