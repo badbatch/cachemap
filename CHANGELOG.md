@@ -1,3 +1,13 @@
+### 3.2.0 (2021-12-22)
+
+##### New Features
+
+*  add controller module ([62390881](https://github.com/badbatch/cachemap/commit/62390881d3bdc115ef937099c820169235c18021))
+
+##### Refactors
+
+*  add type contructor prop to core ([789ce496](https://github.com/badbatch/cachemap/commit/789ce496c2832f48eb38d3312bd0a3676921da1e))
+
 #### 3.1.5 (2021-12-17)
 
 ##### Bug Fixes

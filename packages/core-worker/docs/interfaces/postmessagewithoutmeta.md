@@ -24,7 +24,7 @@
 
 • **key**? : *undefined | string*
 
-*Defined in [types.ts:22](https://github.com/badbatch/cachemap/blob/497d8de/packages/core-worker/src/types.ts#L22)*
+*Defined in [types.ts:24](https://github.com/badbatch/cachemap/blob/6239088/packages/core-worker/src/types.ts#L24)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • **keys**? : *string[]*
 
-*Defined in [types.ts:23](https://github.com/badbatch/cachemap/blob/497d8de/packages/core-worker/src/types.ts#L23)*
+*Defined in [types.ts:25](https://github.com/badbatch/cachemap/blob/6239088/packages/core-worker/src/types.ts#L25)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • **method**: *string*
 
-*Defined in [types.ts:24](https://github.com/badbatch/cachemap/blob/497d8de/packages/core-worker/src/types.ts#L24)*
+*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/6239088/packages/core-worker/src/types.ts#L26)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • **options**? : *[CommonOptions](commonoptions.md) | ExportOptions | ImportOptions*
 
-*Defined in [types.ts:25](https://github.com/badbatch/cachemap/blob/497d8de/packages/core-worker/src/types.ts#L25)*
+*Defined in [types.ts:27](https://github.com/badbatch/cachemap/blob/6239088/packages/core-worker/src/types.ts#L27)*
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **value**? : *any*
 
-*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/497d8de/packages/core-worker/src/types.ts#L26)*
+*Defined in [types.ts:28](https://github.com/badbatch/cachemap/blob/6239088/packages/core-worker/src/types.ts#L28)*

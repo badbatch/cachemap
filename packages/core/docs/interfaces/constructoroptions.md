@@ -18,6 +18,7 @@
 * [reaper](constructoroptions.md#optional-reaper)
 * [sharedCache](constructoroptions.md#optional-sharedcache)
 * [store](constructoroptions.md#store)
+* [type](constructoroptions.md#type)
 
 ### Methods
 
@@ -31,7 +32,7 @@
 
 *Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#optional-disablecacheinvalidation)*
 
-*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L55)*
+*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L55)*
 
 ___
 
@@ -41,7 +42,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[encryptionSecret](baseoptions.md#optional-encryptionsecret)*
 
-*Defined in [types.ts:56](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L56)*
+*Defined in [types.ts:56](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L56)*
 
 ___
 
@@ -51,7 +52,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[name](baseoptions.md#name)*
 
-*Defined in [types.ts:57](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L57)*
+*Defined in [types.ts:57](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L57)*
 
 ___
 
@@ -61,7 +62,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#optional-reaper)*
 
-*Defined in [types.ts:58](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L58)*
+*Defined in [types.ts:58](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L58)*
 
 ___
 
@@ -71,7 +72,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#optional-sharedcache)*
 
-*Defined in [types.ts:59](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L59)*
+*Defined in [types.ts:59](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L59)*
 
 ___
 
@@ -79,7 +80,17 @@ ___
 
 • **store**: *[StoreInit](../README.md#storeinit)*
 
-*Defined in [types.ts:66](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L66)*
+*Defined in [types.ts:67](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L67)*
+
+___
+
+###  type
+
+• **type**: *string*
+
+*Inherited from [BaseOptions](baseoptions.md).[type](baseoptions.md#type)*
+
+*Defined in [types.ts:60](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L60)*
 
 ## Methods
 
@@ -89,7 +100,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#optional-sortcomparator)*
 
-*Defined in [types.ts:60](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L60)*
+*Defined in [types.ts:61](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L61)*
 
 **Parameters:**
 

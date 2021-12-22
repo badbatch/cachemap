@@ -27,6 +27,7 @@
 ### Type aliases
 
 * [CacheHeaders](README.md#cacheheaders)
+* [ControllerEvent](README.md#controllerevent)
 * [FilterByValue](README.md#filterbyvalue)
 * [MethodName](README.md#methodname)
 * [ReaperInit](README.md#reaperinit)
@@ -51,7 +52,21 @@
 
 Ƭ **CacheHeaders**: *Headers | object*
 
-*Defined in [types.ts:63](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L63)*
+*Defined in [types.ts:64](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L64)*
+
+___
+
+###  ControllerEvent
+
+Ƭ **ControllerEvent**: *object*
+
+*Defined in [types.ts:76](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L76)*
+
+#### Type declaration:
+
+* **name**? : *undefined | string*
+
+* **type**? : *undefined | string*
 
 ___
 
@@ -59,7 +74,7 @@ ___
 
 Ƭ **FilterByValue**: *object*
 
-*Defined in [types.ts:73](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L73)*
+*Defined in [types.ts:74](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L74)*
 
 #### Type declaration:
 
@@ -73,7 +88,7 @@ ___
 
 Ƭ **MethodName**: *"clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size"*
 
-*Defined in [types.ts:117](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L117)*
+*Defined in [types.ts:123](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L123)*
 
 ___
 
@@ -81,7 +96,7 @@ ___
 
 Ƭ **ReaperInit**: *function*
 
-*Defined in [types.ts:115](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L115)*
+*Defined in [types.ts:121](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L121)*
 
 #### Type declaration:
 
@@ -99,7 +114,7 @@ ___
 
 Ƭ **RequestQueue**: *[function, [MethodName](README.md#methodname), any[]][]*
 
-*Defined in [types.ts:119](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L119)*
+*Defined in [types.ts:125](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L125)*
 
 ___
 
@@ -107,7 +122,7 @@ ___
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [types.ts:139](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/types.ts#L139)*
+*Defined in [types.ts:145](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/types.ts#L145)*
 
 #### Type declaration:
 
@@ -125,7 +140,7 @@ Name | Type |
 
 • **DEFAULT_MAX_HEAP_SIZE**: *4194304* = 4194304
 
-*Defined in [constants.ts:1](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/constants.ts#L1)*
+*Defined in [constants.ts:1](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/constants.ts#L1)*
 
 ## Functions
 
@@ -133,7 +148,7 @@ Name | Type |
 
 ▸ **decode**(`encodedData`: string): *any*
 
-*Defined in [helpers/base64/index.ts:6](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/helpers/base64/index.ts#L6)*
+*Defined in [helpers/base64/index.ts:6](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/helpers/base64/index.ts#L6)*
 
 **Parameters:**
 
@@ -149,7 +164,7 @@ ___
 
 ▸ **decrypt**(`encryptedData`: string, `secret`: string): *any*
 
-*Defined in [helpers/encryption/index.ts:6](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/helpers/encryption/index.ts#L6)*
+*Defined in [helpers/encryption/index.ts:6](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/helpers/encryption/index.ts#L6)*
 
 **Parameters:**
 
@@ -166,7 +181,7 @@ ___
 
 ▸ **encode**(`data`: JsonValue): *string*
 
-*Defined in [helpers/base64/index.ts:4](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/helpers/base64/index.ts#L4)*
+*Defined in [helpers/base64/index.ts:4](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/helpers/base64/index.ts#L4)*
 
 **Parameters:**
 
@@ -182,7 +197,7 @@ ___
 
 ▸ **encrypt**(`data`: JsonValue, `secret`: string): *string*
 
-*Defined in [helpers/encryption/index.ts:4](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/helpers/encryption/index.ts#L4)*
+*Defined in [helpers/encryption/index.ts:4](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/helpers/encryption/index.ts#L4)*
 
 **Parameters:**
 
@@ -199,7 +214,7 @@ ___
 
 ▸ **rehydrateMetadata**(`metadata`: [DehydratedMetadata](interfaces/dehydratedmetadata.md)[]): *[Metadata](interfaces/metadata.md)[]*
 
-*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/497d8de/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
+*Defined in [helpers/rehydrate-metadata/index.ts:4](https://github.com/badbatch/cachemap/blob/6239088/packages/core/src/helpers/rehydrate-metadata/index.ts#L4)*
 
 **Parameters:**
 
