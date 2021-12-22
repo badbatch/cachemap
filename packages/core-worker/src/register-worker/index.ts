@@ -1,4 +1,18 @@
-import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "@cachemap/constants";
+import {
+  CACHEMAP,
+  CLEAR,
+  DELETE,
+  ENTRIES,
+  EXPORT,
+  GET,
+  HAS,
+  IMPORT,
+  MESSAGE,
+  SET,
+  SIZE,
+  START,
+  STOP,
+} from "@cachemap/constants";
 import Core, { ExportOptions, ImportOptions } from "@cachemap/core";
 import { isPlainObject, isString } from "lodash";
 import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../types";
@@ -50,6 +64,12 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
         break;
       case SIZE:
         result = await cachemap.size();
+        break;
+      case START:
+        cachemap.reaper?.start();
+        break;
+      case STOP:
+        cachemap.reaper?.stop();
         break;
       // no default
     }

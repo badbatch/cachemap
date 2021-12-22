@@ -3,6 +3,12 @@
   "files": [],
   "references": [
     {
+      "path": "./constants"
+    },
+    {
+      "path": "./controller"
+    },
+    {
       "path": "./core"
     },
     {

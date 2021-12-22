@@ -1,9 +1,11 @@
 {
-  "name": "@cachemap/core",
+  "name": "@cachemap/controller",
   "version": "3.1.5",
-  "description": "The Cachemap core module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
-  "license": "MIT",
+  "description": "The Cachemap controller module.",
+  "keywords": [
+    "cachemap",
+    "cache"
+  ],
   "homepage": "https://github.com/badbatch/cachemap",
   "bugs": {
     "url": "https://github.com/badbatch/cachemap/issues"
@@ -12,18 +14,12 @@
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
+  "license": "MIT",
+  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "main": "lib/main/index.js",
   "module": "lib/module/index.js",
   "browser": "lib/browser/index.js",
   "types": "lib/types/index.d.ts",
-  "keywords": [
-    "cachemap",
-    "cache",
-    "core"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "compile": "concurrently npm:compile:*",
     "compile-watch": "yarn run compile:main --watch",
@@ -33,21 +29,17 @@
     "compile:types": "tsc --build"
   },
   "dependencies": {
-    "js-base64": "3.6.0",
-    "cacheability": "^3.0.1",
-    "crypto-js": "^4.0.0",
-    "md5": "^2.2.1",
-    "object-sizeof": "^1.5.3"
+    "eventemitter3": "4.0.7"
   },
+  "devDependencies": {},
   "peerDependencies": {
     "@babel/runtime": "< 8",
     "@cachemap/constants": "< 4",
-    "@cachemap/controller": "< 4",
     "core-js": "< 4",
     "isomorphic-fetch": "< 3",
     "lodash": "< 5"
   },
-  "devDependencies": {
-    "@types/md5": "^2.1.33"
+  "publishConfig": {
+    "access": "public"
   }
 }

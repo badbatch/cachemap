@@ -1,4 +1,19 @@
-import { CACHEMAP, CLEAR, DELETE, ENTRIES, EXPORT, GET, HAS, IMPORT, MESSAGE, SET, SIZE } from "@cachemap/constants";
+import {
+  CACHEMAP,
+  CLEAR,
+  DELETE,
+  ENTRIES,
+  EXPORT,
+  GET,
+  HAS,
+  IMPORT,
+  MESSAGE,
+  SET,
+  SIZE,
+  START,
+  STOP,
+} from "@cachemap/constants";
+import controller, { EventData } from "@cachemap/controller";
 import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, Metadata, rehydrateMetadata } from "@cachemap/core";
 import Cacheability from "cacheability";
 import { isPlainObject, isString } from "lodash";
@@ -46,6 +61,7 @@ export default class CoreWorker {
     this._name = options.name;
     this._type = options.type;
     this._worker = options.worker;
+    this._addControllerEventListeners();
     this._addEventListener();
   }
 
@@ -164,8 +180,32 @@ export default class CoreWorker {
     }
   }
 
+  private _addControllerEventListeners() {
+    controller.on(CLEAR, this._handleClearEvent);
+    controller.on(START, this._handleStartEvent);
+    controller.on(STOP, this._handleStopEvent);
+  }
+
   private _addEventListener(): void {
     this._worker.addEventListener(MESSAGE, this._onMessage);
+  }
+
+  private _handleClearEvent({ name, type }: EventData): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._postMessage({ method: CLEAR });
+    }
+  }
+
+  private _handleStartEvent({ name, type }: EventData): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._postMessage({ method: START });
+    }
+  }
+
+  private _handleStopEvent({ name, type }: EventData): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._postMessage({ method: STOP });
+    }
   }
 
   private _onMessage = async ({ data }: MessageEvent): Promise<void> => {

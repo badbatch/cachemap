@@ -73,6 +73,11 @@ export interface DehydratedMetadata extends BaseMetadata {
 
 export type FilterByValue = { comparator: any; keyChain: string };
 
+export type ControllerEvent = {
+  name?: string;
+  type?: string;
+};
+
 export interface ExportOptions {
   filterByValue?: FilterByValue | FilterByValue[];
   keys?: string[];

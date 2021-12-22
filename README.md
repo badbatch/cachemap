@@ -45,14 +45,15 @@ yarn add @cachemap/core @cachemap/indexed-db @cachemap/reaper
 The Cachemap's multi-package structure allows you to compose your cache of the modules you need, without additional
 bloat. Start with the `@cachemap/core` package and build out from there.
 
-* [@cachemap/constants](packages/constants)
-* [@cachemap/core](packages/core)
-* [@cachemap/core-worker](packages/core-worker)
-* [@cachemap/indexed-db](packages/indexed-db)
-* [@cachemap/local-storage](packages/local-storage)
-* [@cachemap/map](packages/map)
-* [@cachemap/reaper](packages/reaper)
-* [@cachemap/redis](packages/redis)
+* [@cachemap/constants](packages/constants/README.md)
+* [@cachemap/controller](packages/controller/README.md)
+* [@cachemap/core](packages/core/README.md)
+* [@cachemap/core-worker](packages/core-worker/README.md)
+* [@cachemap/indexed-db](packages/indexed-db/README.md)
+* [@cachemap/local-storage](packages/local-storage/README.md)
+* [@cachemap/map](packages/map/README.md)
+* [@cachemap/reaper](packages/reaper/README.md)
+* [@cachemap/redis](packages/redis/README.md)
 
 ## Usage
 
@@ -75,9 +76,10 @@ import indexedDB from "@cachemap/indexed-db";
 import reaper from "@cachemap/reaper";
 
 const cachemap = new Cachemap({
-  name: `foobar`,
+  name: "foobar",
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
+  type: "someType",
 });
 ```
 
@@ -165,7 +167,9 @@ use in your `worker.js` file. The `CoreWorker` class method signatures are ident
 import CachemapWorker from "@cachemap/core-worker";
 
 const cachemap = new CachemapWorker({
-  worker: new Worker('worker.js'),
+  name: "integration-tests",
+  worker: new Worker("worker.js"),
+  type: "someType",
 });
 ```
 
@@ -181,6 +185,7 @@ const cachemap = new Cachemap({
   name: "worker-integration-tests",
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
+  type: "someType",
 });
 
 registerWorker({ cachemap });
@@ -189,6 +194,22 @@ registerWorker({ cachemap });
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
 reaper modules. For a full list of configuration options, see the `@cachemap/core-worker`
 [documentation](packages/core-worker/docs/README.md).
+
+### Controlling multiple instances
+
+Sometimes you'll want to control multiple Cachemap instances that are not directly accessible. You can do this through
+the `@cachemap/controller` package. The package exports an eventemitter-based module that has methods for clearing
+instances caches and starting/stopping each instance's reaper module.
+
+Each Cachemap instance is listening for these events and will action them if the `name` or `type` props passed into the
+method match the instance's.
+
+```typescript
+import controller from "@cachewmap/controller";
+
+controller.clearCaches({ type: "someType" });
+controller.stopReapers({ type: "someType" });
+```
 
 ### Custom modules
 

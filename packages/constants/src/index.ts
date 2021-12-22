@@ -10,3 +10,5 @@ export const MESSAGE = "message" as const;
 export const METADATA = "metadata" as const;
 export const SET = "set" as const;
 export const SIZE = "size" as const;
+export const START = "start" as const;
+export const STOP = "stop" as const;

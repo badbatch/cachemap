@@ -1,8 +1,10 @@
-import { CLEAR, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE } from "@cachemap/constants";
+import { CLEAR, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE, START, STOP } from "@cachemap/constants";
+import controller from "@cachemap/controller";
 import Cacheability from "cacheability";
 import { castArray, get, isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
+import { ControllerEvent } from "..";
 import { DEFAULT_MAX_HEAP_SIZE } from "../constants";
 import { decode, encode } from "../helpers/base64";
 import { decrypt, encrypt } from "../helpers/encryption";
@@ -107,6 +109,7 @@ export default class Core {
     }
 
     this._type = options.type;
+    this._addControllerEventListeners();
 
     options.store({ name: options.name }).then(store => {
       this._maxHeapSize = store.maxHeapSize;
@@ -123,6 +126,10 @@ export default class Core {
 
   get name(): string {
     return this._name;
+  }
+
+  get reaper(): Reaper | void {
+    return this._reaper;
   }
 
   get storeType(): string {
@@ -295,6 +302,12 @@ export default class Core {
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  private _addControllerEventListeners() {
+    controller.on(CLEAR, this._handleClearEvent);
+    controller.on(START, this._handleStartEvent);
+    controller.on(STOP, this._handleStopEvent);
   }
 
   private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: any): Promise<void> {
@@ -481,6 +494,24 @@ export default class Core {
 
   private _getMetadataEntry(key: string): Metadata | undefined {
     return this._metadata.find(metadata => metadata.key === key);
+  }
+
+  private _handleClearEvent({ name, type }: ControllerEvent): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._clear();
+    }
+  }
+
+  private _handleStartEvent({ name, type }: ControllerEvent): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._reaper?.start();
+    }
+  }
+
+  private _handleStopEvent({ name, type }: ControllerEvent): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._reaper?.stop();
+    }
   }
 
   private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
