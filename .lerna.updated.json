@@ -1,26 +1,8 @@
 [
   {
-    "name": "@cachemap/constants",
+    "name": "@cachemap/reaper",
     "version": "3.1.3",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/constants"
-  },
-  {
-    "name": "@cachemap/controller",
-    "version": "3.1.5",
-    "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/controller"
-  },
-  {
-    "name": "@cachemap/core-worker",
-    "version": "3.1.3",
-    "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core-worker"
-  },
-  {
-    "name": "@cachemap/core",
-    "version": "3.1.5",
-    "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core"
+    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/reaper"
   }
 ]

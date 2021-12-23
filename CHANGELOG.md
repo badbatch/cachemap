@@ -1,3 +1,9 @@
+### 3.3.0 (2021-12-23)
+
+##### New Features
+
+*  set reaper to initialise without starting by default ([b1807986](https://github.com/badbatch/cachemap/commit/b18079866768bd145d023a50e0a0c0a6ef7ce6ec))
+
 ### 3.2.0 (2021-12-22)
 
 ##### New Features
