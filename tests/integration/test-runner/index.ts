@@ -617,7 +617,7 @@ export function run(
         before(async () => {
           cachemap = init({
             name: `${storeType}-integration-tests`,
-            reaper: reaper({ interval: 500 }),
+            reaper: reaper({ interval: 500, start: true }),
             store: store && store(storeOptions),
             type: "integration-tests",
           });
@@ -647,7 +647,7 @@ export function run(
           cachemap = init({
             maxHeapSize: 100,
             name: `${storeType}-integration-tests`,
-            reaper: reaper(),
+            reaper: reaper({ start: true }),
             store: store && store({ ...storeOptions, maxHeapSize: 100 }),
             type: "integration-tests",
           });

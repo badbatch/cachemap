@@ -9,7 +9,7 @@ export class Reaper {
   private _metadataCallback: MetadataCallback;
 
   constructor(options: ConstructorOptions) {
-    const { deleteCallback, interval = 60000, metadataCallback, start = true } = options;
+    const { deleteCallback, interval = 60000, metadataCallback, start = false } = options;
 
     this._deleteCallback = deleteCallback;
     this._interval = interval;
