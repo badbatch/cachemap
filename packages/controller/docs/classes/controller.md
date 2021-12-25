@@ -148,7 +148,7 @@ ___
 
 ▸ **clearCaches**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:7](https://github.com/badbatch/cachemap/blob/b180798/packages/controller/src/main/index.ts#L7)*
+*Defined in [packages/controller/src/main/index.ts:7](https://github.com/badbatch/cachemap/blob/631c61b/packages/controller/src/main/index.ts#L7)*
 
 **Parameters:**
 
@@ -375,7 +375,7 @@ ___
 
 ▸ **startReapers**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:15](https://github.com/badbatch/cachemap/blob/b180798/packages/controller/src/main/index.ts#L15)*
+*Defined in [packages/controller/src/main/index.ts:15](https://github.com/badbatch/cachemap/blob/631c61b/packages/controller/src/main/index.ts#L15)*
 
 **Parameters:**
 
@@ -394,7 +394,7 @@ ___
 
 ▸ **stopReapers**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:23](https://github.com/badbatch/cachemap/blob/b180798/packages/controller/src/main/index.ts#L23)*
+*Defined in [packages/controller/src/main/index.ts:23](https://github.com/badbatch/cachemap/blob/631c61b/packages/controller/src/main/index.ts#L23)*
 
 **Parameters:**
 

@@ -20,7 +20,7 @@
 
 • **metadata**: *Metadata[]*
 
-*Defined in [types.ts:53](https://github.com/badbatch/cachemap/blob/b180798/packages/core-worker/src/types.ts#L53)*
+*Defined in [types.ts:53](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/types.ts#L53)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **storeType**: *string*
 
-*Defined in [types.ts:54](https://github.com/badbatch/cachemap/blob/b180798/packages/core-worker/src/types.ts#L54)*
+*Defined in [types.ts:54](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/types.ts#L54)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **usedHeapSize**: *number*
 
-*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/b180798/packages/core-worker/src/types.ts#L55)*
+*Defined in [types.ts:55](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/types.ts#L55)*

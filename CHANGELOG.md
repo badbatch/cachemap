@@ -1,3 +1,9 @@
+#### 3.3.1 (2021-12-25)
+
+##### Bug Fixes
+
+*  event handler binding within core ([631c61ba](https://github.com/badbatch/cachemap/commit/631c61bac0289d18abd574d29d676da9c467a205))
+
 ### 3.3.0 (2021-12-23)
 
 ##### New Features
