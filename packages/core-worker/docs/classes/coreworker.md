@@ -38,7 +38,7 @@
 
 \+ **new CoreWorker**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[CoreWorker](coreworker.md)*
 
-*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L38)*
+*Defined in [main/index.ts:38](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L38)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ Name | Type |
 
 • **get metadata**(): *Metadata[]*
 
-*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L68)*
+*Defined in [main/index.ts:68](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L68)*
 
 **Returns:** *Metadata[]*
 
@@ -64,7 +64,7 @@ ___
 
 • **get name**(): *string*
 
-*Defined in [main/index.ts:72](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L72)*
+*Defined in [main/index.ts:72](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L72)*
 
 **Returns:** *string*
 
@@ -74,7 +74,7 @@ ___
 
 • **get storeType**(): *string | undefined*
 
-*Defined in [main/index.ts:76](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L76)*
+*Defined in [main/index.ts:76](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L76)*
 
 **Returns:** *string | undefined*
 
@@ -84,7 +84,7 @@ ___
 
 • **get type**(): *string*
 
-*Defined in [main/index.ts:80](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L80)*
+*Defined in [main/index.ts:80](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L80)*
 
 **Returns:** *string*
 
@@ -94,7 +94,7 @@ ___
 
 • **get usedHeapSize**(): *number*
 
-*Defined in [main/index.ts:84](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L84)*
+*Defined in [main/index.ts:84](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L84)*
 
 **Returns:** *number*
 
@@ -104,7 +104,7 @@ ___
 
 ▸ **clear**(): *Promise‹void›*
 
-*Defined in [main/index.ts:88](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L88)*
+*Defined in [main/index.ts:88](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L88)*
 
 **Returns:** *Promise‹void›*
 
@@ -114,7 +114,7 @@ ___
 
 ▸ **delete**(`key`: string, `options`: object): *Promise‹boolean›*
 
-*Defined in [main/index.ts:97](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L97)*
+*Defined in [main/index.ts:97](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L97)*
 
 **Parameters:**
 
@@ -134,7 +134,7 @@ ___
 
 ▸ **entries**(`keys?`: string[]): *Promise‹[string, any][]›*
 
-*Defined in [main/index.ts:107](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L107)*
+*Defined in [main/index.ts:107](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L107)*
 
 **Parameters:**
 
@@ -150,7 +150,7 @@ ___
 
 ▸ **export**(`options`: ExportOptions): *Promise‹ExportResult›*
 
-*Defined in [main/index.ts:117](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L117)*
+*Defined in [main/index.ts:117](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L117)*
 
 **Parameters:**
 
@@ -166,7 +166,7 @@ ___
 
 ▸ **get**(`key`: string, `options`: object): *Promise‹any›*
 
-*Defined in [main/index.ts:127](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L127)*
+*Defined in [main/index.ts:127](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L127)*
 
 **Parameters:**
 
@@ -186,7 +186,7 @@ ___
 
 ▸ **has**(`key`: string, `options`: object): *Promise‹false | Cacheability›*
 
-*Defined in [main/index.ts:137](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L137)*
+*Defined in [main/index.ts:137](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L137)*
 
 **Parameters:**
 
@@ -207,7 +207,7 @@ ___
 
 ▸ **import**(`options`: ImportOptions): *Promise‹void›*
 
-*Defined in [main/index.ts:151](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L151)*
+*Defined in [main/index.ts:151](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L151)*
 
 **Parameters:**
 
@@ -223,7 +223,7 @@ ___
 
 ▸ **set**(`key`: string, `value`: any, `options`: object): *Promise‹any›*
 
-*Defined in [main/index.ts:160](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L160)*
+*Defined in [main/index.ts:160](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L160)*
 
 **Parameters:**
 
@@ -247,6 +247,6 @@ ___
 
 ▸ **size**(): *Promise‹number›*
 
-*Defined in [main/index.ts:173](https://github.com/badbatch/cachemap/blob/631c61b/packages/core-worker/src/main/index.ts#L173)*
+*Defined in [main/index.ts:173](https://github.com/badbatch/cachemap/blob/29323d9/packages/core-worker/src/main/index.ts#L173)*
 
 **Returns:** *Promise‹number›*

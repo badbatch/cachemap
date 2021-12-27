@@ -1,8 +1,8 @@
 [
   {
-    "name": "@cachemap/core",
+    "name": "@cachemap/core-worker",
     "version": "3.2.0",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core"
+    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core-worker"
   }
 ]

@@ -1,3 +1,9 @@
+#### 3.3.2 (2021-12-27)
+
+##### Bug Fixes
+
+*  bind core worker event handlers ([29323d92](https://github.com/badbatch/cachemap/commit/29323d921a42d2f2c3e6190dbc4a6f73736c635f))
+
 #### 3.3.1 (2021-12-25)
 
 ##### Bug Fixes
