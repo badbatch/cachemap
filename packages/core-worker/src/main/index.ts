@@ -181,6 +181,9 @@ export default class CoreWorker {
   }
 
   private _addControllerEventListeners() {
+    this._handleClearEvent = this._handleClearEvent.bind(this);
+    this._handleStartEvent = this._handleStartEvent.bind(this);
+    this._handleStopEvent = this._handleStopEvent.bind(this);
     controller.on(CLEAR, this._handleClearEvent);
     controller.on(START, this._handleStartEvent);
     controller.on(STOP, this._handleStopEvent);
