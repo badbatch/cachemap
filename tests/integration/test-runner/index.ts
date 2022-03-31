@@ -1,6 +1,7 @@
-import Core, { ExportResult, Metadata, StoreInit } from "@cachemap/core";
+import Core, { ExportResult } from "@cachemap/core";
 import CoreWorker from "@cachemap/core-worker";
 import reaper from "@cachemap/reaper";
+import { Metadata, StoreInit } from "@cachemap/types";
 import Cacheability from "cacheability";
 import { expect } from "chai";
 import md5 from "md5";
@@ -32,7 +33,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does not exist", () => {
+      describe("When a matching entry does not exist", () => {
         before(async () => {
           await cachemap.set(key, value, { cacheHeaders, hash: true });
         });
@@ -60,7 +61,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does exist", () => {
+      describe("When a matching entry does exist", () => {
         let metadata: Metadata;
 
         before(async () => {
@@ -92,7 +93,7 @@ export function run(
         });
       });
 
-      context("When the same key is added twice in quick succession", () => {
+      describe("When the same key is added twice in quick succession", () => {
         before(async () => {
           await Promise.all([
             cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true }),
@@ -140,7 +141,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does not exist", () => {
+      describe("When a matching entry does not exist", () => {
         let deleted: boolean;
 
         before(async () => {
@@ -156,7 +157,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does exist", () => {
+      describe("When a matching entry does exist", () => {
         let deleted: boolean;
 
         before(async () => {
@@ -199,7 +200,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does not exist", () => {
+      describe("When a matching entry does not exist", () => {
         let entry;
 
         before(async () => {
@@ -215,7 +216,7 @@ export function run(
         });
       });
 
-      context("When a matching entry exists", () => {
+      describe("When a matching entry exists", () => {
         let metadata: Metadata;
         let entry;
 
@@ -264,7 +265,7 @@ export function run(
         });
       });
 
-      context("When a matching entry does not exist", () => {
+      describe("When a matching entry does not exist", () => {
         let exists: boolean | Cacheability;
 
         before(async () => {
@@ -280,8 +281,8 @@ export function run(
         });
       });
 
-      context("When a matching entry exists", () => {
-        context("When the extry's cacheability is valid", () => {
+      describe("When a matching entry exists", () => {
+        describe("When the extry's cacheability is valid", () => {
           let exists: boolean | Cacheability;
 
           before(async () => {
@@ -298,8 +299,8 @@ export function run(
           });
         });
 
-        context("When the entry's cacheability is expired", () => {
-          context("When deleteExpired is not passed in as an option", () => {
+        describe("When the entry's cacheability is expired", () => {
+          describe("When deleteExpired is not passed in as an option", () => {
             let exists: boolean | Cacheability;
 
             before(async () => {
@@ -326,7 +327,7 @@ export function run(
             });
           });
 
-          context("When deleteExpired is passed in as an option", () => {
+          describe("When deleteExpired is passed in as an option", () => {
             let exists: boolean | Cacheability;
 
             before(async () => {
@@ -369,7 +370,7 @@ export function run(
         });
       });
 
-      context("When no keys are passed in", () => {
+      describe("When no keys are passed in", () => {
         let result: [string, any][];
 
         before(async () => {
@@ -393,7 +394,7 @@ export function run(
         });
       });
 
-      context("When keys are passed in", () => {
+      describe("When keys are passed in", () => {
         let result: [string, any][];
 
         before(async () => {
@@ -434,7 +435,7 @@ export function run(
         });
       });
 
-      context("When no keys are passed in", () => {
+      describe("When no keys are passed in", () => {
         let result: ExportResult;
 
         before(async () => {
@@ -459,7 +460,7 @@ export function run(
         });
       });
 
-      context("When keys are passed in", () => {
+      describe("When keys are passed in", () => {
         let result: ExportResult;
 
         before(async () => {
@@ -487,7 +488,7 @@ export function run(
         });
       });
 
-      context("When a tag is passed in", () => {
+      describe("When a tag is passed in", () => {
         let result: ExportResult;
 
         before(async () => {
@@ -514,7 +515,7 @@ export function run(
         });
       });
 
-      context("When filterByValue is passed in", () => {
+      describe("When filterByValue is passed in", () => {
         let result: ExportResult;
 
         before(async () => {
@@ -554,7 +555,7 @@ export function run(
         });
       });
 
-      context("When no matching entries exist", () => {
+      describe("When no matching entries exist", () => {
         before(async () => {
           const keys = Object.keys(testData);
 
@@ -579,7 +580,7 @@ export function run(
         });
       });
 
-      context("When matching entries exist", () => {
+      describe("When matching entries exist", () => {
         before(async () => {
           const keys = Object.keys(testData);
 
@@ -613,7 +614,7 @@ export function run(
       const cacheHeaders: PlainObject = { cacheControl: "public, max-age=0" };
       let cachemap: Core | CoreWorker;
 
-      context("When an entry's cacheability expires", () => {
+      describe("When an entry's cacheability expires", () => {
         before(async () => {
           cachemap = init({
             name: `${storeType}-integration-tests`,
@@ -640,7 +641,7 @@ export function run(
         });
       });
 
-      context("When the entries exceed the max heap size", () => {
+      describe("When the entries exceed the max heap size", () => {
         let keys: string[];
 
         before(async () => {

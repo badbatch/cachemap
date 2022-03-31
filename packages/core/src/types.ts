@@ -1,4 +1,4 @@
-import { BaseMetadata, Metadata } from "@cachemap/types";
+import { BaseMetadata, Metadata, StoreInit } from "@cachemap/types";
 import { Metadata as CacheabilityMetadata } from "cacheability";
 
 export interface BaseOptions {
@@ -113,23 +113,3 @@ export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 export type MethodName = "clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size";
 
 export type RequestQueue<T = any> = [(value?: T) => void, MethodName, any[]][];
-
-export interface Store {
-  readonly maxHeapSize: number;
-  readonly name: string;
-  readonly type: string;
-  clear(): Promise<void>;
-  delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<[string, any][]>;
-  get(key: string): Promise<any>;
-  has(key: string): Promise<boolean>;
-  import(entries: [string, any][]): Promise<void>;
-  set(key: string, value: any): Promise<void>;
-  size(): Promise<number>;
-}
-
-export interface StoreOptions {
-  name: string;
-}
-
-export type StoreInit = (options: StoreOptions) => Promise<Store>;

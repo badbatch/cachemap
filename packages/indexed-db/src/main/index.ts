@@ -79,9 +79,13 @@ export class IndexedDBStore implements Store {
         const key = cursor.key as string;
 
         if (keys) {
-          if (keys.find(value => value === key)) entries.push([key, cursor.value]);
+          if (keys.find(value => value === key)) {
+            entries.push([key, cursor.value]);
+          }
         } else {
-          if (!key.endsWith("metadata")) entries.push([key, cursor.value]);
+          if (!key.endsWith("metadata")) {
+            entries.push([key, cursor.value]);
+          }
         }
 
         cursor = await cursor.continue();

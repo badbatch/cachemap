@@ -8,4 +8,13 @@ run({ cachemapSize: value => value, init: (options: any) => new Core(options) },
 
 run({ cachemapSize: value => value, init: (options: any) => new Core(options) }, "localStorage", localStorage);
 
+run(
+  {
+    cachemapSize: value => value,
+    init: (options: any) => new Core({ ...options, backupStore: true, startBackup: true }),
+  },
+  "localStorageBackup",
+  localStorage,
+);
+
 run({ cachemapSize: value => value - 1, init: (options: any) => new Core(options) }, "map", map);

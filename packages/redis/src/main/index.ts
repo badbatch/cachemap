@@ -63,8 +63,8 @@ export class RedisStore implements Store {
     });
   }
 
-  public async entries(keys?: string[]): Promise<[string, any][]> {
-    const _keys = keys as string[];
+  public async entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, any][]> {
+    const _keys = keys?.length ? keys : (options?.allKeys as string[]);
 
     return new Promise((resolve: (value: [string, any][]) => void, reject: (reason: Error) => void) => {
       this._client.mget(_keys, (error, reply) => {

@@ -66,7 +66,7 @@ export interface Store {
   readonly type: string;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<[string, any][]>;
+  entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, any][]>;
   get(key: string): Promise<any>;
   has(key: string): Promise<boolean>;
   import(entries: [string, any][]): Promise<void>;

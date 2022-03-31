@@ -15,7 +15,7 @@ import {
 } from "@cachemap/constants";
 import controller from "@cachemap/controller";
 import { MapStore } from "@cachemap/map";
-import { Metadata } from "@cachemap/types";
+import { Metadata, Store } from "@cachemap/types";
 import Cacheability from "cacheability";
 import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
@@ -28,6 +28,7 @@ import {
   CacheHeaders,
   ConstructorOptions,
   ControllerEvent,
+  DehydratedMetadata,
   ExportOptions,
   ExportResult,
   FilterByValue,
@@ -36,7 +37,6 @@ import {
   Reaper,
   ReaperInit,
   RequestQueue,
-  Store,
 } from "../types";
 
 export default class Core {
@@ -80,6 +80,7 @@ export default class Core {
   private _name: string;
   private _persistedStore: boolean = true;
   private _processing: string[] = [];
+  private _ready: boolean = false;
   private _reaper?: Reaper;
   private _requestQueue: RequestQueue = [];
   private _sharedCache: boolean;
@@ -147,19 +148,18 @@ export default class Core {
         this._persistedStore = true;
         this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name: options.name });
 
-        this._backupStore.entries().then(entries => {
-          (this._store as Store).import(entries).then(() => {
-            this._retreiveMetadata();
-            this._releaseQueuedRequests();
+        this._backupStoreEntriesToStore().then(() => {
+          this._ready = true;
+          this._releaseQueuedRequests();
 
-            if (options.startBackup) {
-              this._startBackup();
-            }
-          });
+          if (options.startBackup) {
+            this._startBackup();
+          }
         });
       } else {
         this._persistedStore = store.type !== "map";
         this._store = store;
+        this._ready = true;
         this._retreiveMetadata();
         this._releaseQueuedRequests();
       }
@@ -412,13 +412,19 @@ export default class Core {
     }
   }
 
-  private async _backupStoreImport(): Promise<void> {
+  private async _backupStoreEntriesToStore(): Promise<void> {
     if (!(this._backupStore && this._store)) {
       return;
     }
 
-    await this._backupStore.clear();
-    this._backupStore.import(await this._store.entries());
+    const metadata: DehydratedMetadata[] = (await this._backupStore.get(METADATA)) ?? [];
+
+    if (metadata.length) {
+      const keys = metadata.map(entry => entry.key);
+      await this._store.import(await this._backupStore.entries(undefined, { allKeys: keys }));
+    }
+
+    this._metadata = rehydrateMetadata(metadata);
   }
 
   private _calcReductionChunk(): number | undefined {
@@ -439,7 +445,7 @@ export default class Core {
   }
 
   private async _clear() {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<void>(CLEAR);
     }
 
@@ -455,7 +461,7 @@ export default class Core {
   }
 
   private async _delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<boolean>(DELETE, key, options);
     }
 
@@ -488,7 +494,7 @@ export default class Core {
   }
 
   private async _entries(keys?: string[]): Promise<[string, any][]> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<[string, any][]>(ENTRIES, keys);
     }
 
@@ -542,7 +548,7 @@ export default class Core {
   }
 
   private async _get(key: string, options: { hash?: boolean }): Promise<any> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<any>(GET, key, options);
     }
 
@@ -599,7 +605,7 @@ export default class Core {
   }
 
   private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<any>(HAS, key, options);
     }
 
@@ -628,7 +634,7 @@ export default class Core {
   }
 
   private async _import(options: ImportOptions): Promise<void> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<void>(IMPORT, options);
     }
 
@@ -691,7 +697,9 @@ export default class Core {
   }
 
   private async _retreiveMetadata(): Promise<void> {
-    if (!this._store || !this._persistedStore) return;
+    if (!this._store || !this._persistedStore) {
+      return;
+    }
 
     try {
       const metadata: Metadata[] = await this._store.get(METADATA);
@@ -709,7 +717,7 @@ export default class Core {
     value: any,
     options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any },
   ): Promise<void> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<void>(SET, key, value, options);
     }
 
@@ -740,7 +748,7 @@ export default class Core {
   }
 
   private async _size(): Promise<number> {
-    if (!this._store) {
+    if (!this._ready || !this._store) {
       return this._addRequestToQueue<number>(SIZE);
     }
 
@@ -757,7 +765,7 @@ export default class Core {
 
   private _startBackup(): void {
     this._backupIntervalID = setInterval(() => {
-      this._backupStoreImport();
+      this._storeEntriesToBackupStore();
     }, this._backupInterval);
   }
 
@@ -765,6 +773,15 @@ export default class Core {
     if (this._backupIntervalID) {
       clearInterval(this._backupIntervalID);
     }
+  }
+
+  private async _storeEntriesToBackupStore(): Promise<void> {
+    if (!(this._backupStore && this._store)) {
+      return;
+    }
+
+    await this._backupStore.clear();
+    this._backupStore.import(await this._store.entries());
   }
 
   private _updateHeapSize(): void {
