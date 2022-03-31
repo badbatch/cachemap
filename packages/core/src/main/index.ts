@@ -17,6 +17,7 @@ import controller from "@cachemap/controller";
 import { MapStore } from "@cachemap/map";
 import { Metadata, Store } from "@cachemap/types";
 import Cacheability from "cacheability";
+import EventEmitter from "eventemitter3";
 import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
@@ -70,10 +71,15 @@ export default class Core {
     return i;
   }
 
+  public events = {
+    ENTRY_DELETED: "ENTRY_DELETED",
+  };
+
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
   private _backupIntervalID?: NodeJS.Timer;
   private _backupStore: Store | null = null;
   private _disableCacheInvalidation: boolean;
+  private _emitter: EventEmitter = new EventEmitter();
   private _encryptionSecret: string | undefined;
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
@@ -166,6 +172,10 @@ export default class Core {
     });
   }
 
+  get emitter(): EventEmitter {
+    return this._emitter;
+  }
+
   get metadata(): Metadata[] {
     return this._metadata;
   }
@@ -209,7 +219,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return this._delete(key, options);
@@ -241,7 +253,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected options.keys to be an array."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return this._export(options);
@@ -261,7 +275,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return this._get(key, options);
@@ -284,7 +300,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return this._has(key, options);
@@ -309,7 +327,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected metadata to be an array."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       await this._import(options);
@@ -333,7 +353,9 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
     }
 
-    if (errors.length) return Promise.reject(errors);
+    if (errors.length) {
+      return Promise.reject(errors);
+    }
 
     try {
       return this._set(key, value, options);
@@ -469,7 +491,10 @@ export default class Core {
 
     try {
       const deleted = await this._store.delete(_key);
-      if (!deleted) return false;
+
+      if (!deleted) {
+        return false;
+      }
 
       await this._deleteMetadata(_key);
       return true;
@@ -480,7 +505,10 @@ export default class Core {
 
   private async _deleteMetadata(key: string): Promise<void> {
     const index = this._metadata.findIndex(metadata => metadata.key === key);
-    if (index === -1) return;
+
+    if (index === -1) {
+      return;
+    }
 
     this._metadata.splice(index, 1);
     this._sortMetadata();
@@ -556,7 +584,10 @@ export default class Core {
 
     try {
       const value = await this._store.get(_key);
-      if (!value) return undefined;
+
+      if (!value) {
+        return undefined;
+      }
 
       await this._updateMetadata(_key);
       return this._encryptionSecret ? decrypt(value, this._encryptionSecret) : decode(value);
@@ -613,7 +644,10 @@ export default class Core {
 
     try {
       const exists = await this._store.has(_key);
-      if (!exists) return false;
+
+      if (!exists) {
+        return false;
+      }
 
       if (options.deleteExpired && this._hasCacheEntryExpired(_key)) {
         await this.delete(_key);
@@ -627,7 +661,9 @@ export default class Core {
   }
 
   private _hasCacheEntryExpired(key: string): boolean {
-    if (this._disableCacheInvalidation) return false;
+    if (this._disableCacheInvalidation) {
+      return false;
+    }
 
     const cacheability = this._getCacheability(key);
     return cacheability ? !cacheability.checkTTL() : false;
@@ -671,7 +707,9 @@ export default class Core {
 
   private _initializeReaper(reaperInit: ReaperInit): Reaper {
     return reaperInit({
-      deleteCallback: (key: string, options: { hash?: boolean } = {}): Promise<boolean> => this._delete(key, options),
+      deleteCallback: async (key: string, tags?: any[]) => {
+        this.emitter.emit(this.events.ENTRY_DELETED, { key, deleted: await this._delete(key), tags });
+      },
       metadataCallback: () => this._metadata,
     });
   }
@@ -682,7 +720,10 @@ export default class Core {
 
   private async _reduceHeapSize(): Promise<void> {
     const index = this._calcReductionChunk();
-    if (!index || !this._reaper) return;
+
+    if (!index || !this._reaper) {
+      return;
+    }
 
     this._reaper.cull(this._metadata.slice(index, this._metadata.length));
   }
@@ -723,11 +764,17 @@ export default class Core {
 
     const cacheability = new Cacheability({ headers: options.cacheHeaders });
     const cacheControl = cacheability.metadata.cacheControl;
-    if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) return;
+
+    if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) {
+      return;
+    }
 
     const _key = options.hash ? md5(key) : key;
     const processing = this._processing.includes(_key);
-    if (!processing) this._processing.push(_key);
+
+    if (!processing) {
+      this._processing.push(_key);
+    }
 
     try {
       const exists = (await this._store.has(_key)) || processing;
@@ -794,7 +841,10 @@ export default class Core {
 
   private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: any): Promise<void> {
     const entry = this._getMetadataEntry(key);
-    if (!entry) return;
+
+    if (!entry) {
+      return;
+    }
 
     if (size) {
       entry.size = size;
@@ -805,8 +855,13 @@ export default class Core {
       entry.lastAccessed = Date.now();
     }
 
-    if (cacheability) entry.cacheability = cacheability;
-    if (!isUndefined(tag)) entry.tags.push(tag);
+    if (cacheability) {
+      entry.cacheability = cacheability;
+    }
+
+    if (!isUndefined(tag)) {
+      entry.tags.push(tag);
+    }
 
     this._sortMetadata();
     this._updateHeapSize();

@@ -36,6 +36,7 @@
     "js-base64": "3.6.0",
     "cacheability": "^3.0.1",
     "crypto-js": "^4.0.0",
+    "eventemitter3": "4.0.7",
     "md5": "^2.2.1",
     "object-sizeof": "^1.5.3"
   },

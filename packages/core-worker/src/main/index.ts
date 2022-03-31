@@ -19,6 +19,7 @@ import controller, { EventData } from "@cachemap/controller";
 import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, rehydrateMetadata } from "@cachemap/core";
 import { Metadata } from "@cachemap/types";
 import Cacheability from "cacheability";
+import EventEmitter from "eventemitter3";
 import { isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
 import {
@@ -27,11 +28,16 @@ import {
   PendingResolver,
   PendingTracker,
   PostMessageResult,
-  PostMessageResultWithoutMeta,
+  PostMessageResultWithMeta,
   PostMessageWithoutMeta,
 } from "../types";
 
 export default class CoreWorker {
+  public events = {
+    ENTRY_DELETED: "ENTRY_DELETED",
+  };
+
+  private _emitter: EventEmitter = new EventEmitter();
   private _metadata: Metadata[] = [];
   private _name: string;
   private _pending: PendingTracker = new Map();
@@ -59,13 +65,19 @@ export default class CoreWorker {
       errors.push(new TypeError("@cachemap/core-worker expected options.worker to be an instance of a Worker."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) {
+      throw errors;
+    }
 
     this._name = options.name;
     this._type = options.type;
     this._worker = options.worker;
     this._addControllerEventListeners();
     this._addEventListener();
+  }
+
+  get emitter(): EventEmitter {
+    return this._emitter;
   }
 
   get metadata(): Metadata[] {
@@ -144,7 +156,10 @@ export default class CoreWorker {
     try {
       const { result, ...rest } = await this._postMessage({ key, method: HAS, options });
       this._setProps(rest);
-      if (!result) return false;
+
+      if (!result) {
+        return false;
+      }
       return new Cacheability({ metadata: result.metadata });
     } catch (error) {
       return Promise.reject(error);
@@ -231,18 +246,31 @@ export default class CoreWorker {
   }
 
   private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
-    if (!isPlainObject(data)) return;
+    if (!isPlainObject(data)) {
+      return;
+    }
 
-    const { messageID, result, type, ...rest } = data as PostMessageResult;
-    if (type !== CACHEMAP) return;
+    const { method, messageID, result, type, ...rest } = data as PostMessageResult;
+
+    if (type !== CACHEMAP) {
+      return;
+    }
+
+    if (method === this.events.ENTRY_DELETED) {
+      this.emitter.emit(this.events.ENTRY_DELETED, rest);
+      return;
+    }
 
     const pending = this._pending.get(messageID);
-    if (!pending) return;
+
+    if (!pending) {
+      return;
+    }
 
     pending.resolve({ result, ...rest });
   };
 
-  private async _postMessage(message: PostMessageWithoutMeta): Promise<PostMessageResultWithoutMeta> {
+  private async _postMessage(message: PostMessageWithoutMeta): Promise<PostMessageResultWithMeta> {
     const messageID = uuid();
 
     try {
@@ -262,7 +290,11 @@ export default class CoreWorker {
 
   private _setProps({ metadata, storeType, usedHeapSize }: FilterPropsResult): void {
     this._metadata = rehydrateMetadata(metadata);
-    if (!this._storeType) this._storeType = storeType;
+
+    if (!this._storeType) {
+      this._storeType = storeType;
+    }
+
     this._usedHeapSize = usedHeapSize;
   }
 }

@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "cacheability": "^3.0.1",
+    "eventemitter3": "4.0.7",
     "uuid": "^7.0.1"
   },
   "peerDependencies": {

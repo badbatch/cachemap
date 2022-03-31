@@ -38,7 +38,7 @@ export class Reaper {
     }
 
     try {
-      await Promise.all(metadata.map(({ key }) => this._deleteCallback(key)));
+      await Promise.all(metadata.map(({ key, tags }) => this._deleteCallback(key, tags)));
     } catch (error) {
       // no catch
     }

@@ -12,7 +12,7 @@ export interface ConstructorOptions {
   start?: boolean;
 }
 
-export type DeleteCallback = (key: string, options?: { hash?: boolean }) => Promise<boolean>;
+export type DeleteCallback = (key: string, tags?: any[]) => Promise<void>;
 
 export type Init = (callbacks: Callbacks) => Reaper;
 

@@ -615,6 +615,8 @@ export function run(
       let cachemap: Core | CoreWorker;
 
       describe("When an entry's cacheability expires", () => {
+        let entryDeletedData: PlainObject;
+
         before(async () => {
           cachemap = init({
             name: `${storeType}-integration-tests`,
@@ -623,7 +625,11 @@ export function run(
             type: "integration-tests",
           });
 
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
+            entryDeletedData = data;
+          });
+
+          await cachemap.set(key, value, { cacheHeaders, hash: true, tag: "ALPHA" });
           await delay(1000);
         });
 
@@ -639,9 +645,16 @@ export function run(
         it("The reaper should remove the entry metadata", async () => {
           expect(cachemap.metadata).lengthOf(0);
         });
+
+        it("The ENTRY_DELETED event should be emitted with the correct data", () => {
+          expect(entryDeletedData.key).to.be.a("string");
+          expect(entryDeletedData.deleted).to.equal(true);
+          expect(entryDeletedData.tags).to.eql(["ALPHA"]);
+        });
       });
 
       describe("When the entries exceed the max heap size", () => {
+        const entryDeletedData: PlainObject[] = [];
         let keys: string[];
 
         before(async () => {
@@ -651,6 +664,10 @@ export function run(
             reaper: reaper({ start: true }),
             store: store && store({ ...storeOptions, maxHeapSize: 100 }),
             type: "integration-tests",
+          });
+
+          cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
+            entryDeletedData.push(data);
           });
 
           keys = Object.keys(testData);
@@ -673,6 +690,13 @@ export function run(
 
         it("The reaper should remove the entry metadata", async () => {
           expect(cachemap.metadata).lengthOf(2);
+        });
+
+        it("The ENTRY_DELETED event should be emitted with the correct data", () => {
+          expect(entryDeletedData).to.have.length(1);
+          expect(entryDeletedData[0].key).to.be.a("string");
+          expect(entryDeletedData[0].deleted).to.equal(true);
+          expect(entryDeletedData[0].tags).to.eql([]);
         });
       });
     });

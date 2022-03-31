@@ -95,7 +95,7 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
     postMessage({ errors, messageID });
   }
 
-  postMessage({ messageID, result, type, ...filterProps(cachemap) });
+  postMessage({ method, messageID, result, type, ...filterProps(cachemap) });
 }
 
 export default async function registerWorker({ cachemap }: RegisterWorkerOptions): Promise<void> {
@@ -105,6 +105,7 @@ export default async function registerWorker({ cachemap }: RegisterWorkerOptions
     }
 
     const { type } = data as PostMessage;
+
     if (type !== CACHEMAP) {
       return;
     }
@@ -113,4 +114,8 @@ export default async function registerWorker({ cachemap }: RegisterWorkerOptions
   }
 
   addEventListener(MESSAGE, onMessage);
+
+  cachemap.emitter.on(cachemap.events.ENTRY_DELETED, ({ key, deleted }: { deleted: boolean; key: string }) => {
+    postMessage({ method: cachemap.events.ENTRY_DELETED, key, deleted, type: CACHEMAP });
+  });
 }

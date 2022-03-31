@@ -104,7 +104,7 @@ export interface Reaper {
 }
 
 export interface ReaperCallbacks {
-  deleteCallback: (key: string, options?: { hash?: boolean }) => Promise<boolean>;
+  deleteCallback: (key: string, tags?: any[]) => Promise<void>;
   metadataCallback: () => Metadata[];
 }
 
