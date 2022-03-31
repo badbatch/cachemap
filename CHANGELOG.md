@@ -1,3 +1,9 @@
+## 4.0.0 (2022-03-31)
+
+##### New Features
+
+*  backup to persisted storage and delete entry event emitter ([#36](https://github.com/badbatch/cachemap/pull/36)) ([141407d7](https://github.com/badbatch/cachemap/commit/141407d7c8f128f8827f3d304751195ceb0a2064))
+
 #### 3.3.2 (2021-12-27)
 
 ##### Bug Fixes

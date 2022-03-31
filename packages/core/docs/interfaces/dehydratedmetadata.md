@@ -4,7 +4,7 @@
 
 ## Hierarchy
 
-* [BaseMetadata](basemetadata.md)
+* BaseMetadata
 
   ↳ **DehydratedMetadata**
 
@@ -28,9 +28,9 @@
 
 • **accessedCount**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[accessedCount](basemetadata.md#accessedcount)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[accessedCount](dehydratedmetadata.md#accessedcount)*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L8)*
+Defined in types/lib/types/index.d.ts:7
 
 The number of times the corresponding data
 entry has been accessed.
@@ -41,9 +41,9 @@ ___
 
 • **added**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[added](basemetadata.md#added)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[added](dehydratedmetadata.md#added)*
 
-*Defined in [types.ts:14](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L14)*
+Defined in types/lib/types/index.d.ts:12
 
 The timestamp of when the corresponding data
 entry was added to the Cachemap instance.
@@ -54,7 +54,7 @@ ___
 
 • **cacheability**: *object*
 
-*Defined in [types.ts:71](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L71)*
+*Defined in [core/src/types.ts:70](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L70)*
 
 #### Type declaration:
 
@@ -66,9 +66,9 @@ ___
 
 • **key**: *string*
 
-*Inherited from [BaseMetadata](basemetadata.md).[key](basemetadata.md#key)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[key](dehydratedmetadata.md#key)*
 
-*Defined in [types.ts:20](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L20)*
+Defined in types/lib/types/index.d.ts:17
 
 The key the corresponding data entry was stored
 against.
@@ -79,9 +79,9 @@ ___
 
 • **lastAccessed**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[lastAccessed](basemetadata.md#lastaccessed)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[lastAccessed](dehydratedmetadata.md#lastaccessed)*
 
-*Defined in [types.ts:26](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L26)*
+Defined in types/lib/types/index.d.ts:22
 
 The timestamp of when the corresponding data
 entry was last accessed.
@@ -92,9 +92,9 @@ ___
 
 • **lastUpdated**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[lastUpdated](basemetadata.md#lastupdated)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[lastUpdated](dehydratedmetadata.md#lastupdated)*
 
-*Defined in [types.ts:32](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L32)*
+Defined in types/lib/types/index.d.ts:27
 
 The timestamp of when the corresponding data
 entry was last updated.
@@ -105,9 +105,9 @@ ___
 
 • **size**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[size](basemetadata.md#size)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[size](dehydratedmetadata.md#size)*
 
-*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L38)*
+Defined in types/lib/types/index.d.ts:32
 
 The approximate amount of memory the corresponding
 data entry takes up.
@@ -118,9 +118,9 @@ ___
 
 • **tags**: *any[]*
 
-*Inherited from [BaseMetadata](basemetadata.md).[tags](basemetadata.md#tags)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[tags](dehydratedmetadata.md#tags)*
 
-*Defined in [types.ts:45](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L45)*
+Defined in types/lib/types/index.d.ts:38
 
 A list of tags that can be optionally set along with
 the cachemap entry and used when trying to retrieve
@@ -132,9 +132,9 @@ ___
 
 • **updatedCount**: *number*
 
-*Inherited from [BaseMetadata](basemetadata.md).[updatedCount](basemetadata.md#updatedcount)*
+*Inherited from [DehydratedMetadata](dehydratedmetadata.md).[updatedCount](dehydratedmetadata.md#updatedcount)*
 
-*Defined in [types.ts:51](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L51)*
+Defined in types/lib/types/index.d.ts:43
 
 The number of times the corresponding data
 entry has been updated.

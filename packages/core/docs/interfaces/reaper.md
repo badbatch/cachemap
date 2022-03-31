@@ -18,15 +18,15 @@
 
 ###  cull
 
-▸ **cull**(`metadata`: [Metadata](metadata.md)[]): *Promise‹void›*
+▸ **cull**(`metadata`: Metadata[]): *Promise‹void›*
 
-*Defined in [types.ts:111](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L111)*
+*Defined in [core/src/types.ts:101](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L101)*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`metadata` | [Metadata](metadata.md)[] |
+`metadata` | Metadata[] |
 
 **Returns:** *Promise‹void›*
 
@@ -36,7 +36,7 @@ ___
 
 ▸ **start**(): *void*
 
-*Defined in [types.ts:112](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L112)*
+*Defined in [core/src/types.ts:102](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L102)*
 
 **Returns:** *void*
 
@@ -46,6 +46,6 @@ ___
 
 ▸ **stop**(): *void*
 
-*Defined in [types.ts:113](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L113)*
+*Defined in [core/src/types.ts:103](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L103)*
 
 **Returns:** *void*

@@ -47,7 +47,9 @@
 * [once](controller.md#once)
 * [removeAllListeners](controller.md#removealllisteners)
 * [removeListener](controller.md#removelistener)
+* [startBackups](controller.md#startbackups)
 * [startReapers](controller.md#startreapers)
+* [stopBackups](controller.md#stopbackups)
 * [stopReapers](controller.md#stopreapers)
 
 ## Type aliases
@@ -148,7 +150,7 @@ ___
 
 ▸ **clearCaches**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:7](https://github.com/badbatch/cachemap/blob/29323d9/packages/controller/src/main/index.ts#L7)*
+*Defined in [packages/controller/src/main/index.ts:7](https://github.com/badbatch/cachemap/blob/141407d/packages/controller/src/main/index.ts#L7)*
 
 **Parameters:**
 
@@ -371,11 +373,49 @@ Name | Type |
 
 ___
 
+###  startBackups
+
+▸ **startBackups**(`__namedParameters`: object): *void*
+
+*Defined in [packages/controller/src/main/index.ts:15](https://github.com/badbatch/cachemap/blob/141407d/packages/controller/src/main/index.ts#L15)*
+
+**Parameters:**
+
+▪`Default value`  **__namedParameters**: *object*= {}
+
+Name | Type |
+------ | ------ |
+`name` | undefined &#124; string |
+`type` | undefined &#124; string |
+
+**Returns:** *void*
+
+___
+
 ###  startReapers
 
 ▸ **startReapers**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:15](https://github.com/badbatch/cachemap/blob/29323d9/packages/controller/src/main/index.ts#L15)*
+*Defined in [packages/controller/src/main/index.ts:23](https://github.com/badbatch/cachemap/blob/141407d/packages/controller/src/main/index.ts#L23)*
+
+**Parameters:**
+
+▪`Default value`  **__namedParameters**: *object*= {}
+
+Name | Type |
+------ | ------ |
+`name` | undefined &#124; string |
+`type` | undefined &#124; string |
+
+**Returns:** *void*
+
+___
+
+###  stopBackups
+
+▸ **stopBackups**(`__namedParameters`: object): *void*
+
+*Defined in [packages/controller/src/main/index.ts:31](https://github.com/badbatch/cachemap/blob/141407d/packages/controller/src/main/index.ts#L31)*
 
 **Parameters:**
 
@@ -394,7 +434,7 @@ ___
 
 ▸ **stopReapers**(`__namedParameters`: object): *void*
 
-*Defined in [packages/controller/src/main/index.ts:23](https://github.com/badbatch/cachemap/blob/29323d9/packages/controller/src/main/index.ts#L23)*
+*Defined in [packages/controller/src/main/index.ts:39](https://github.com/badbatch/cachemap/blob/141407d/packages/controller/src/main/index.ts#L39)*
 
 **Parameters:**
 

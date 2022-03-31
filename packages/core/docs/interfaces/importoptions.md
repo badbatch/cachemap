@@ -19,12 +19,12 @@
 
 • **entries**: *[string, any][]*
 
-*Defined in [types.ts:93](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L93)*
+*Defined in [core/src/types.ts:92](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L92)*
 
 ___
 
 ###  metadata
 
-• **metadata**: *[Metadata](metadata.md)[]*
+• **metadata**: *Metadata[]*
 
-*Defined in [types.ts:94](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L94)*
+*Defined in [core/src/types.ts:93](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L93)*

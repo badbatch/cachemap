@@ -19,18 +19,18 @@
 
 • **deleteCallback**: *function*
 
-*Defined in [types.ts:117](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L117)*
+*Defined in [core/src/types.ts:107](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L107)*
 
 #### Type declaration:
 
-▸ (`key`: string, `options?`: undefined | object): *Promise‹boolean›*
+▸ (`key`: string, `tags?`: any[]): *Promise‹void›*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
 `key` | string |
-`options?` | undefined &#124; object |
+`tags?` | any[] |
 
 ___
 
@@ -38,8 +38,8 @@ ___
 
 • **metadataCallback**: *function*
 
-*Defined in [types.ts:118](https://github.com/badbatch/cachemap/blob/29323d9/packages/core/src/types.ts#L118)*
+*Defined in [core/src/types.ts:108](https://github.com/badbatch/cachemap/blob/141407d/packages/core/src/types.ts#L108)*
 
 #### Type declaration:
 
-▸ (): *[Metadata](metadata.md)[]*
+▸ (): *Metadata[]*
