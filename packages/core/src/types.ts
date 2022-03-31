@@ -1,63 +1,62 @@
-import Cacheability, { Metadata as CacheabilityMetadata } from "cacheability";
-
-export interface BaseMetadata {
-  /**
-   * The number of times the corresponding data
-   * entry has been accessed.
-   */
-  accessedCount: number;
-
-  /**
-   * The timestamp of when the corresponding data
-   * entry was added to the Cachemap instance.
-   */
-  added: number;
-
-  /**
-   * The key the corresponding data entry was stored
-   * against.
-   */
-  key: string;
-
-  /**
-   * The timestamp of when the corresponding data
-   * entry was last accessed.
-   */
-  lastAccessed: number;
-
-  /**
-   * The timestamp of when the corresponding data
-   * entry was last updated.
-   */
-  lastUpdated: number;
-
-  /**
-   * The approximate amount of memory the corresponding
-   * data entry takes up.
-   */
-  size: number;
-
-  /**
-   * A list of tags that can be optionally set along with
-   * the cachemap entry and used when trying to retrieve
-   * a subset of data.
-   */
-  tags: any[];
-
-  /**
-   * The number of times the corresponding data
-   * entry has been updated.
-   */
-  updatedCount: number;
-}
+import { BaseMetadata, Metadata } from "@cachemap/types";
+import { Metadata as CacheabilityMetadata } from "cacheability";
 
 export interface BaseOptions {
+  /**
+   * The time in milliseconds between back ups from a map store
+   * to the provided persisted store.
+   */
+  backupInterval?: number;
+  /**
+   * Whether to use store to back up to from a map store. If true,
+   * the provided store is used to periodically back up to rather than
+   * directly write to. This makes reading/writing much quicker, but
+   * still gives you persistence across browser reloads or server
+   * restarts. If true, the store should be a peristed store.
+   */
+  backupStore?: boolean;
+  /**
+   * Whether to disable the checking of a cache entry's TTL before
+   * returning the entry. This also disabling the purging of stale
+   * cache entries by the reaper, if one is configured.
+   */
   disableCacheInvalidation?: boolean;
+  /**
+   * This is used to encrypt all entries. If a secret is provided,
+   * all entries are encrypted.
+   */
   encryptionSecret?: string;
+  /**
+   * The name is primarily used as a target for the controller, in order
+   * to centrally control the cachemap in an application with muliple
+   * instances.
+   */
   name: string;
+  /**
+   * The reaper is used to keep the cachemap size below user specified limits
+   * by purging the least imporant entries in the cachemap.
+   */
   reaper?: ReaperInit;
+  /**
+   * Whether the cache is shared. If true, entries with a cache control
+   * header of "private" are not stored in the cachemap.
+   */
   sharedCache?: boolean;
+  /**
+   * Whether to start backing up store on initialisation. If set to false,
+   * you would be triggering the backup through the controller.
+   */
+  startBackup?: boolean;
+  /**
+   * The type is primarily used as a target for the controller, in order
+   * to centrally control a group of cachemaps in an application with muliple
+   * instances.
+   */
   type: string;
+  /**
+   * The sort comparator is used to order cachemap entries by importance so the
+   * reaper knows what entries to purge first.
+   */
   sortComparator?(a: any, b: any): number;
 }
 
@@ -92,15 +91,6 @@ export interface ExportResult {
 export interface ImportOptions {
   entries: [string, any][];
   metadata: Metadata[];
-}
-
-export interface Metadata extends BaseMetadata {
-  /**
-   * The cache information of the corresponding
-   * data entry, which uses the [Cacheability
-   * module](https://github.com/dylanaubrey/cacheability).
-   */
-  cacheability: Cacheability;
 }
 
 export interface PlainObject {

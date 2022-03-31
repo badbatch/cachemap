@@ -1,4 +1,5 @@
-import Core, { CacheHeaders, ExportOptions, ImportOptions, Metadata } from "@cachemap/core";
+import Core, { CacheHeaders, ExportOptions, ImportOptions } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 
 export interface CommonOptions {
   cacheHeaders?: CacheHeaders;

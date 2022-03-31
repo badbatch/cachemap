@@ -1,4 +1,4 @@
-import { Store, StoreInit, StoreOptions } from "@cachemap/core";
+import { Store, StoreInit, StoreOptions } from "@cachemap/types";
 import { IDBPDatabase, openDB } from "idb";
 import { isNumber, isPlainObject } from "lodash";
 import { ConstructorOptions, InitOptions, Options } from "../types";

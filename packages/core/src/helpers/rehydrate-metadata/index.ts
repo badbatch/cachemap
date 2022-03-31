@@ -1,5 +1,6 @@
+import { Metadata } from "@cachemap/types";
 import Cacheability from "cacheability";
-import { DehydratedMetadata, Metadata } from "../../types";
+import { DehydratedMetadata } from "../../types";
 
 export function rehydrateMetadata(metadata: DehydratedMetadata[]): Metadata[] {
   return metadata.map(({ cacheability, ...otherProps }) => {

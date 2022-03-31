@@ -41,6 +41,7 @@
     "@cachemap/constants": "< 4",
     "@cachemap/controller": "< 4",
     "@cachemap/core": "< 4",
+    "@cachemap/types": "< 4",
     "core-js": "< 4",
     "isomorphic-fetch": "< 3",
     "lodash": "< 5"

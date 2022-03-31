@@ -13,6 +13,12 @@
     },
     {
       "path": "../controller"
+    },
+    {
+      "path": "../map"
+    },
+    {
+      "path": "../types"
     }
   ]
 }

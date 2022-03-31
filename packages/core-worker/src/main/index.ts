@@ -10,11 +10,14 @@ import {
   MESSAGE,
   SET,
   SIZE,
-  START,
-  STOP,
+  START_BACKUP,
+  START_REAPER,
+  STOP_BACKUP,
+  STOP_REAPER,
 } from "@cachemap/constants";
 import controller, { EventData } from "@cachemap/controller";
-import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, Metadata, rehydrateMetadata } from "@cachemap/core";
+import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, rehydrateMetadata } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 import Cacheability from "cacheability";
 import { isPlainObject, isString } from "lodash";
 import { v1 as uuid } from "uuid";
@@ -182,11 +185,15 @@ export default class CoreWorker {
 
   private _addControllerEventListeners() {
     this._handleClearEvent = this._handleClearEvent.bind(this);
-    this._handleStartEvent = this._handleStartEvent.bind(this);
-    this._handleStopEvent = this._handleStopEvent.bind(this);
+    this._handleStartReaperEvent = this._handleStartReaperEvent.bind(this);
+    this._handleStopReaperEvent = this._handleStopReaperEvent.bind(this);
+    this._handleStartBackupEvent = this._handleStartBackupEvent.bind(this);
+    this._handleStopBackupEvent = this._handleStopBackupEvent.bind(this);
     controller.on(CLEAR, this._handleClearEvent);
-    controller.on(START, this._handleStartEvent);
-    controller.on(STOP, this._handleStopEvent);
+    controller.on(START_REAPER, this._handleStartReaperEvent);
+    controller.on(STOP_REAPER, this._handleStopReaperEvent);
+    controller.on(START_BACKUP, this._handleStartBackupEvent);
+    controller.on(STOP_BACKUP, this._handleStopBackupEvent);
   }
 
   private _addEventListener(): void {
@@ -199,15 +206,27 @@ export default class CoreWorker {
     }
   }
 
-  private _handleStartEvent({ name, type }: EventData): void {
+  private _handleStartBackupEvent({ name, type }: EventData): void {
     if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: START });
+      this._postMessage({ method: START_BACKUP });
     }
   }
 
-  private _handleStopEvent({ name, type }: EventData): void {
+  private _handleStartReaperEvent({ name, type }: EventData): void {
     if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: STOP });
+      this._postMessage({ method: START_REAPER });
+    }
+  }
+
+  private _handleStopBackupEvent({ name, type }: EventData): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._postMessage({ method: STOP_BACKUP });
+    }
+  }
+
+  private _handleStopReaperEvent({ name, type }: EventData): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._postMessage({ method: STOP_REAPER });
     }
   }
 

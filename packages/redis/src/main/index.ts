@@ -1,4 +1,4 @@
-import { Store, StoreInit, StoreOptions } from "@cachemap/core";
+import { Store, StoreInit, StoreOptions } from "@cachemap/types";
 import fakeRedis from "fakeredis";
 import { isNumber, isPlainObject } from "lodash";
 import { RedisClient, createClient } from "redis";

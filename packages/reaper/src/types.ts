@@ -1,4 +1,4 @@
-import { Metadata } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 
 export interface Callbacks {
   deleteCallback: DeleteCallback;

@@ -10,8 +10,10 @@ import {
   MESSAGE,
   SET,
   SIZE,
-  START,
-  STOP,
+  START_BACKUP,
+  START_REAPER,
+  STOP_BACKUP,
+  STOP_REAPER,
 } from "@cachemap/constants";
 import Core, { ExportOptions, ImportOptions } from "@cachemap/core";
 import { isPlainObject, isString } from "lodash";
@@ -42,7 +44,9 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
         await cachemap.clear();
         break;
       case DELETE:
-        if (key) result = await cachemap.delete(key, options as CommonOptions);
+        if (key) {
+          result = await cachemap.delete(key, options as CommonOptions);
+        }
         break;
       case ENTRIES:
         result = await cachemap.entries(keys);
@@ -51,25 +55,39 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
         result = await cachemap.export(options as ExportOptions);
         break;
       case GET:
-        if (key) result = await cachemap.get(key, options as CommonOptions);
+        if (key) {
+          result = await cachemap.get(key, options as CommonOptions);
+        }
         break;
       case HAS:
-        if (key) result = await cachemap.has(key, options as CommonOptions);
+        if (key) {
+          result = await cachemap.has(key, options as CommonOptions);
+        }
         break;
       case IMPORT:
-        if (options) await cachemap.import(options as ImportOptions);
+        if (options) {
+          await cachemap.import(options as ImportOptions);
+        }
         break;
       case SET:
-        if (key) await cachemap.set(key, value, options as CommonOptions);
+        if (key) {
+          await cachemap.set(key, value, options as CommonOptions);
+        }
         break;
       case SIZE:
         result = await cachemap.size();
         break;
-      case START:
+      case START_REAPER:
         cachemap.reaper?.start();
         break;
-      case STOP:
+      case STOP_REAPER:
         cachemap.reaper?.stop();
+        break;
+      case START_BACKUP:
+        cachemap.startBackup();
+        break;
+      case STOP_BACKUP:
+        cachemap.stopBackup();
         break;
       // no default
     }
@@ -82,10 +100,14 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
 
 export default async function registerWorker({ cachemap }: RegisterWorkerOptions): Promise<void> {
   function onMessage({ data }: MessageEvent): void {
-    if (!isPlainObject(data)) return;
+    if (!isPlainObject(data)) {
+      return;
+    }
 
     const { type } = data as PostMessage;
-    if (type !== CACHEMAP) return;
+    if (type !== CACHEMAP) {
+      return;
+    }
 
     handleMessage(data, cachemap);
   }

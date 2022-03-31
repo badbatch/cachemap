@@ -1,4 +1,4 @@
-import { Metadata } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 import { isPlainObject } from "lodash";
 import { Callbacks, ConstructorOptions, DeleteCallback, Init, MetadataCallback, Options } from "../types";
 
@@ -14,7 +14,10 @@ export class Reaper {
     this._deleteCallback = deleteCallback;
     this._interval = interval;
     this._metadataCallback = metadataCallback;
-    if (start) this._start();
+
+    if (start) {
+      this._start();
+    }
   }
 
   public async cull(metadata: Metadata[]): Promise<void> {
@@ -30,7 +33,9 @@ export class Reaper {
   }
 
   private async _cull(metadata: Metadata[]): Promise<void> {
-    if (!metadata.length) return;
+    if (!metadata.length) {
+      return;
+    }
 
     try {
       await Promise.all(metadata.map(({ key }) => this._deleteCallback(key)));
@@ -51,7 +56,9 @@ export class Reaper {
   }
 
   private _stop(): void {
-    if (this._intervalID) clearInterval(this._intervalID);
+    if (this._intervalID) {
+      clearInterval(this._intervalID);
+    }
   }
 }
 

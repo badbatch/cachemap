@@ -1,1 +1,2 @@
 export const DEFAULT_MAX_HEAP_SIZE = 4194304;
+export const DEFAULT_BACKUP_INTERVAL = 10000;

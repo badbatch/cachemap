@@ -1,22 +1,37 @@
-import { CLEAR, DELETE, ENTRIES, GET, HAS, IMPORT, METADATA, SET, SIZE, START, STOP } from "@cachemap/constants";
+import {
+  CLEAR,
+  DELETE,
+  ENTRIES,
+  GET,
+  HAS,
+  IMPORT,
+  METADATA,
+  SET,
+  SIZE,
+  START_BACKUP,
+  START_REAPER,
+  STOP_BACKUP,
+  STOP_REAPER,
+} from "@cachemap/constants";
 import controller from "@cachemap/controller";
+import { MapStore } from "@cachemap/map";
+import { Metadata } from "@cachemap/types";
 import Cacheability from "cacheability";
-import { castArray, get, isArray, isFunction, isPlainObject, isString, isUndefined } from "lodash";
+import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from "lodash";
 import md5 from "md5";
 import sizeof from "object-sizeof";
-import { ControllerEvent } from "..";
-import { DEFAULT_MAX_HEAP_SIZE } from "../constants";
+import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from "../constants";
 import { decode, encode } from "../helpers/base64";
 import { decrypt, encrypt } from "../helpers/encryption";
 import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
 import {
   CacheHeaders,
   ConstructorOptions,
+  ControllerEvent,
   ExportOptions,
   ExportResult,
   FilterByValue,
   ImportOptions,
-  Metadata,
   MethodName,
   Reaper,
   ReaperInit,
@@ -55,6 +70,9 @@ export default class Core {
     return i;
   }
 
+  private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
+  private _backupIntervalID?: NodeJS.Timer;
+  private _backupStore: Store | null = null;
   private _disableCacheInvalidation: boolean;
   private _encryptionSecret: string | undefined;
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
@@ -88,9 +106,11 @@ export default class Core {
       errors.push(new TypeError("@cachemap/core expected options.type to be a string."));
     }
 
-    if (errors.length) throw errors;
+    if (errors.length) {
+      throw errors;
+    }
 
-    this._disableCacheInvalidation = options.disableCacheInvalidation || false;
+    this._disableCacheInvalidation = options.disableCacheInvalidation ?? false;
 
     if (isString(options.encryptionSecret)) {
       this._encryptionSecret = options.encryptionSecret;
@@ -102,7 +122,7 @@ export default class Core {
       this._reaper = this._initializeReaper(options.reaper);
     }
 
-    this._sharedCache = options.sharedCache || false;
+    this._sharedCache = options.sharedCache ?? false;
 
     if (isFunction(options.sortComparator)) {
       Core._sortComparator = options.sortComparator;
@@ -113,10 +133,36 @@ export default class Core {
 
     options.store({ name: options.name }).then(store => {
       this._maxHeapSize = store.maxHeapSize;
-      this._store = store;
-      this._persistedStore = store.type !== "map";
-      this._retreiveMetadata();
-      this._releaseQueuedRequests();
+
+      if (options.backupStore) {
+        if (store.type === "map") {
+          throw new TypeError("@cachemap/core expected store.type not to be 'map' when options.backupStore is true.");
+        }
+
+        if (isNumber(options.backupInterval)) {
+          this._backupInterval = options.backupInterval;
+        }
+
+        this._backupStore = store;
+        this._persistedStore = true;
+        this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name: options.name });
+
+        this._backupStore.entries().then(entries => {
+          (this._store as Store).import(entries).then(() => {
+            this._retreiveMetadata();
+            this._releaseQueuedRequests();
+
+            if (options.startBackup) {
+              this._startBackup();
+            }
+          });
+        });
+      } else {
+        this._persistedStore = store.type !== "map";
+        this._store = store;
+        this._retreiveMetadata();
+        this._releaseQueuedRequests();
+      }
     });
   }
 
@@ -304,13 +350,25 @@ export default class Core {
     }
   }
 
+  public startBackup(): void {
+    this._startBackup();
+  }
+
+  public stopBackup(): void {
+    this._stopBackup();
+  }
+
   private _addControllerEventListeners() {
     this._handleClearEvent = this._handleClearEvent.bind(this);
-    this._handleStartEvent = this._handleStartEvent.bind(this);
-    this._handleStopEvent = this._handleStopEvent.bind(this);
+    this._handleStartReaperEvent = this._handleStartReaperEvent.bind(this);
+    this._handleStopReaperEvent = this._handleStopReaperEvent.bind(this);
+    this._handleStartBackupEvent = this._handleStartBackupEvent.bind(this);
+    this._handleStopBackupEvent = this._handleStopBackupEvent.bind(this);
     controller.on(CLEAR, this._handleClearEvent);
-    controller.on(START, this._handleStartEvent);
-    controller.on(STOP, this._handleStopEvent);
+    controller.on(START_REAPER, this._handleStartReaperEvent);
+    controller.on(STOP_REAPER, this._handleStopReaperEvent);
+    controller.on(START_BACKUP, this._handleStartBackupEvent);
+    controller.on(STOP_BACKUP, this._handleStopBackupEvent);
   }
 
   private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: any): Promise<void> {
@@ -343,13 +401,24 @@ export default class Core {
   }
 
   private async _backupMetadata(): Promise<void> {
-    if (!this._store || !this._persistedStore) return;
+    if (!this._store || !this._persistedStore) {
+      return;
+    }
 
     try {
       await this._store.set(METADATA, this._metadata);
     } catch (error) {
       return Promise.reject(error);
     }
+  }
+
+  private async _backupStoreImport(): Promise<void> {
+    if (!(this._backupStore && this._store)) {
+      return;
+    }
+
+    await this._backupStore.clear();
+    this._backupStore.import(await this._store.entries());
   }
 
   private _calcReductionChunk(): number | undefined {
@@ -505,13 +574,25 @@ export default class Core {
     }
   }
 
-  private _handleStartEvent({ name, type }: ControllerEvent): void {
+  private _handleStartBackupEvent({ name, type }: ControllerEvent): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._startBackup();
+    }
+  }
+
+  private _handleStartReaperEvent({ name, type }: ControllerEvent): void {
     if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
       this._reaper?.start();
     }
   }
 
-  private _handleStopEvent({ name, type }: ControllerEvent): void {
+  private _handleStopBackupEvent({ name, type }: ControllerEvent): void {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._stopBackup();
+    }
+  }
+
+  private _handleStopReaperEvent({ name, type }: ControllerEvent): void {
     if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
       this._reaper?.stop();
     }
@@ -672,6 +753,18 @@ export default class Core {
 
   private _sortMetadata(): void {
     this._metadata.sort(Core._sortComparator);
+  }
+
+  private _startBackup(): void {
+    this._backupIntervalID = setInterval(() => {
+      this._backupStoreImport();
+    }, this._backupInterval);
+  }
+
+  private _stopBackup(): void {
+    if (this._backupIntervalID) {
+      clearInterval(this._backupIntervalID);
+    }
   }
 
   private _updateHeapSize(): void {

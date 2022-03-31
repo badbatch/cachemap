@@ -43,6 +43,8 @@
     "@babel/runtime": "< 8",
     "@cachemap/constants": "< 4",
     "@cachemap/controller": "< 4",
+    "@cachemap/map": "< 4",
+    "@cachemap/types": "< 4",
     "core-js": "< 4",
     "isomorphic-fetch": "< 3",
     "lodash": "< 5"
