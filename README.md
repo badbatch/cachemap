@@ -30,14 +30,14 @@ yarn add @cachemap/<package>
 So, for example, if you want a server cache that uses Redis you would install the packages below.
 
 ```bash
-yarn add @cachemap/core @cachemap/redis
+yarn add @cachemap/core @cachemap/types @cachemap/redis
 ```
 
 If, however, you want a persisted client cache that uses IndexedDB and culls stale data you would install the
 following packages.
 
 ```bash
-yarn add @cachemap/core @cachemap/indexed-db @cachemap/reaper
+yarn add @cachemap/core @cachemap/types @cachemap/indexed-db @cachemap/reaper
 ```
 
 ## Packages
@@ -54,6 +54,7 @@ bloat. Start with the `@cachemap/core` package and build out from there.
 * [@cachemap/map](packages/map/README.md)
 * [@cachemap/reaper](packages/reaper/README.md)
 * [@cachemap/redis](packages/redis/README.md)
+* [@cachemap/types](packages/types/README.md)
 
 ## Usage
 
@@ -194,6 +195,25 @@ registerWorker({ cachemap });
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
 reaper modules. For a full list of configuration options, see the `@cachemap/core-worker`
 [documentation](packages/core-worker/docs/README.md).
+
+### Taking actions when entries are deleted
+
+Each Cachemap has its own event emitter on the `emitter` property, which can be used to listen to events such as the
+`"ENTRY_DELTED"` event. This is emitted whenever an entry is deleted by the reaper. The data passed to the listener
+includes the entry `key`, any `tags` associated with the entry and whether it was successfully `deleted`.
+
+```typescript
+const cachemap = new Cachemap({
+  name: "worker-integration-tests",
+  reaper: reaper({ interval: 300000 }),
+  store: indexedDB(),
+  type: "someType",
+});
+
+cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
+  // DO SOMETHING
+});
+```
 
 ### Controlling multiple instances
 

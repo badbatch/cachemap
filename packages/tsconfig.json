@@ -28,6 +28,9 @@
     },
     {
       "path": "./redis"
+    },
+    {
+      "path": "./types"
     }
   ]
 }

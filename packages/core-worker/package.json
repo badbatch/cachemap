@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "cacheability": "^3.0.1",
+    "eventemitter3": "4.0.7",
     "uuid": "^7.0.1"
   },
   "peerDependencies": {
@@ -41,6 +42,7 @@
     "@cachemap/constants": "< 4",
     "@cachemap/controller": "< 4",
     "@cachemap/core": "< 4",
+    "@cachemap/types": "< 4",
     "core-js": "< 4",
     "isomorphic-fetch": "< 3",
     "lodash": "< 5"

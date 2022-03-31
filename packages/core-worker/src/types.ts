@@ -1,4 +1,5 @@
-import Core, { CacheHeaders, ExportOptions, ImportOptions, Metadata } from "@cachemap/core";
+import Core, { CacheHeaders, ExportOptions, ImportOptions } from "@cachemap/core";
+import { Metadata } from "@cachemap/types";
 
 export interface CommonOptions {
   cacheHeaders?: CacheHeaders;
@@ -12,7 +13,7 @@ export interface ConstructorOptions {
   worker: Worker;
 }
 
-export type PendingResolver = (value: PostMessageResultWithoutMeta) => void;
+export type PendingResolver = (value: PostMessageResultWithMeta) => void;
 
 export interface PendingData {
   resolve: PendingResolver;
@@ -33,15 +34,16 @@ export interface PostMessage extends PostMessageWithoutMeta {
   type: string;
 }
 
-export interface PostMessageResultWithoutMeta {
+export interface PostMessageResultWithMeta {
   metadata: Metadata[];
   result?: any;
   storeType: string;
   usedHeapSize: number;
 }
 
-export interface PostMessageResult extends PostMessageResultWithoutMeta {
+export interface PostMessageResult extends PostMessageResultWithMeta {
   messageID: string;
+  method: string;
   type: string;
 }
 
