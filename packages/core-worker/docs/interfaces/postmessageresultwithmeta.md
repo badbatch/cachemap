@@ -23,7 +23,7 @@
 
 • **metadata**: *Metadata[]*
 
-*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/141407d/packages/core-worker/src/types.ts#L38)*
+*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L38)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • **result**? : *any*
 
-*Defined in [types.ts:39](https://github.com/badbatch/cachemap/blob/141407d/packages/core-worker/src/types.ts#L39)*
+*Defined in [types.ts:39](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L39)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • **storeType**: *string*
 
-*Defined in [types.ts:40](https://github.com/badbatch/cachemap/blob/141407d/packages/core-worker/src/types.ts#L40)*
+*Defined in [types.ts:40](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L40)*
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 • **usedHeapSize**: *number*
 
-*Defined in [types.ts:41](https://github.com/badbatch/cachemap/blob/141407d/packages/core-worker/src/types.ts#L41)*
+*Defined in [types.ts:41](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L41)*
