@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "< 8",
-    "@cachemap/types": "< 4",
+    "@cachemap/types": ">= 4",
     "core-js": "< 4",
     "lodash": "< 5"
   }
