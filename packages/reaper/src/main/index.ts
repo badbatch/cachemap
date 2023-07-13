@@ -62,10 +62,12 @@ export class Reaper {
   }
 }
 
-export default function init(options: Options = {}): Init {
+export function init(options: Options = {}): Init {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/reaper expected options to be a plain object.");
   }
 
   return (callbacks: Callbacks) => new Reaper({ ...options, ...callbacks });
 }
+
+export default init;

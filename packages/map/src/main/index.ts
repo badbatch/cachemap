@@ -70,10 +70,12 @@ export class MapStore implements Store {
   }
 }
 
-export default function init(options: Options = {}): StoreInit {
+export function init(options: Options = {}): StoreInit {
   if (!isPlainObject(options)) {
     throw new TypeError("@cachemap/map expected options to be a plain object.");
   }
 
   return (storeOptions: StoreOptions) => MapStore.init({ ...options, ...storeOptions });
 }
+
+export default init;

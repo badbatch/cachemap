@@ -1,2 +1,2 @@
 export * from "./types";
-export { default, Reaper } from "./main";
+export { default, init, Reaper } from "./main";

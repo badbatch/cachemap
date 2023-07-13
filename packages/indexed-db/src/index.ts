@@ -1,2 +1,2 @@
 export * from "./types";
-export { default, IndexedDBStore } from "./main";
+export { default, init, IndexedDBStore } from "./main";

@@ -1,2 +1,2 @@
 export * from "./types";
-export { default, RedisStore } from "./main";
+export { default, init, RedisStore } from "./main";

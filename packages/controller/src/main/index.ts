@@ -45,4 +45,6 @@ export class Controller extends EventEmitter {
   }
 }
 
-export default new Controller();
+export const controller = new Controller();
+
+export default controller;

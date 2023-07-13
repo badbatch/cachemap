@@ -32,7 +32,7 @@ import {
   PostMessageWithoutMeta,
 } from "../types";
 
-export default class CoreWorker {
+export class CoreWorker {
   public events = {
     ENTRY_DELETED: "ENTRY_DELETED",
   };
@@ -298,3 +298,5 @@ export default class CoreWorker {
     this._usedHeapSize = usedHeapSize;
   }
 }
+
+export default CoreWorker;

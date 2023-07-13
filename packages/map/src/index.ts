@@ -1,2 +1,2 @@
 export * from "./types";
-export { default, MapStore } from "./main";
+export { default, init, MapStore } from "./main";

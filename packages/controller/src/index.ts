@@ -1,2 +1,2 @@
 export * from "./types";
-export { default } from "./main";
+export { default, controller } from "./main";

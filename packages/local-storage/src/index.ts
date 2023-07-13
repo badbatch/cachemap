@@ -1,2 +1,2 @@
 export * from "./types";
-export { default, LocalStorageStore } from "./main";
+export { default, init, LocalStorageStore } from "./main";
