@@ -25,7 +25,7 @@
 
 *Inherited from [ConstructorOptions](constructoroptions.md).[maxHeapSize](constructoroptions.md#optional-maxheapsize)*
 
-*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/indexed-db/src/types.ts#L12)*
+*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/27e229b/packages/indexed-db/src/types.ts#L12)*
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 • **name**: *string*
 
-*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/indexed-db/src/types.ts#L8)*
+*Defined in [types.ts:8](https://github.com/badbatch/cachemap/blob/27e229b/packages/indexed-db/src/types.ts#L8)*

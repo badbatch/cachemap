@@ -152,7 +152,7 @@ ___
 
 *Inherited from [InitOptions](initoptions.md).[fast](initoptions.md#optional-fast)*
 
-*Defined in [packages/redis/src/types.ts:14](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/redis/src/types.ts#L14)*
+*Defined in [packages/redis/src/types.ts:14](https://github.com/badbatch/cachemap/blob/27e229b/packages/redis/src/types.ts#L14)*
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 *Inherited from [InitOptions](initoptions.md).[maxHeapSize](initoptions.md#optional-maxheapsize)*
 
-*Defined in [packages/redis/src/types.ts:15](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/redis/src/types.ts#L15)*
+*Defined in [packages/redis/src/types.ts:15](https://github.com/badbatch/cachemap/blob/27e229b/packages/redis/src/types.ts#L15)*
 
 ___
 
@@ -196,7 +196,7 @@ ___
 
 *Inherited from [InitOptions](initoptions.md).[mock](initoptions.md#optional-mock)*
 
-*Defined in [packages/redis/src/types.ts:16](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/redis/src/types.ts#L16)*
+*Defined in [packages/redis/src/types.ts:16](https://github.com/badbatch/cachemap/blob/27e229b/packages/redis/src/types.ts#L16)*
 
 ___
 
@@ -204,7 +204,7 @@ ___
 
 • **name**: *string*
 
-*Defined in [packages/redis/src/types.ts:10](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/redis/src/types.ts#L10)*
+*Defined in [packages/redis/src/types.ts:10](https://github.com/badbatch/cachemap/blob/27e229b/packages/redis/src/types.ts#L10)*
 
 ___
 

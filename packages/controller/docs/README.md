@@ -18,7 +18,7 @@
 
 Ƭ **EventData**: *object*
 
-*Defined in [packages/controller/src/types.ts:1](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/controller/src/types.ts#L1)*
+*Defined in [packages/controller/src/types.ts:1](https://github.com/badbatch/cachemap/blob/27e229b/packages/controller/src/types.ts#L1)*
 
 #### Type declaration:
 

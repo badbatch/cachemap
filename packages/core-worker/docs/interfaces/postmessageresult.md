@@ -26,7 +26,7 @@
 
 • **messageID**: *string*
 
-*Defined in [types.ts:45](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L45)*
+*Defined in [types.ts:45](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L45)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 *Inherited from [PostMessageResultWithMeta](postmessageresultwithmeta.md).[metadata](postmessageresultwithmeta.md#metadata)*
 
-*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L38)*
+*Defined in [types.ts:38](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L38)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • **method**: *string*
 
-*Defined in [types.ts:46](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L46)*
+*Defined in [types.ts:46](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L46)*
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 *Inherited from [PostMessageResultWithMeta](postmessageresultwithmeta.md).[result](postmessageresultwithmeta.md#optional-result)*
 
-*Defined in [types.ts:39](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L39)*
+*Defined in [types.ts:39](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L39)*
 
 ___
 
@@ -64,7 +64,7 @@ ___
 
 *Inherited from [PostMessageResultWithMeta](postmessageresultwithmeta.md).[storeType](postmessageresultwithmeta.md#storetype)*
 
-*Defined in [types.ts:40](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L40)*
+*Defined in [types.ts:40](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L40)*
 
 ___
 
@@ -72,7 +72,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:47](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L47)*
+*Defined in [types.ts:47](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L47)*
 
 ___
 
@@ -82,4 +82,4 @@ ___
 
 *Inherited from [PostMessageResultWithMeta](postmessageresultwithmeta.md).[usedHeapSize](postmessageresultwithmeta.md#usedheapsize)*
 
-*Defined in [types.ts:41](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core-worker/src/types.ts#L41)*
+*Defined in [types.ts:41](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L41)*

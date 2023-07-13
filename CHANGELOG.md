@@ -1,3 +1,9 @@
+#### 4.0.2 (2023-07-13)
+
+##### Refactors
+
+*  named export core class ([27e229b0](https://github.com/badbatch/cachemap/commit/27e229b057d4977ec3ba917dcc0bce9ea4778ae8))
+
 #### 4.0.1 (2022-12-08)
 
 ## 4.0.0 (2022-03-31)

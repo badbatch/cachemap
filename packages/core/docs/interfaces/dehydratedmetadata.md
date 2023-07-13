@@ -54,7 +54,7 @@ ___
 
 • **cacheability**: *object*
 
-*Defined in [core/src/types.ts:70](https://github.com/badbatch/cachemap/blob/8c9b61b/packages/core/src/types.ts#L70)*
+*Defined in [core/src/types.ts:70](https://github.com/badbatch/cachemap/blob/27e229b/packages/core/src/types.ts#L70)*
 
 #### Type declaration:
 
