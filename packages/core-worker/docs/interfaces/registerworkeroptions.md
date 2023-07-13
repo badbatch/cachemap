@@ -18,4 +18,4 @@
 
 • **cachemap**: *Core*
 
-*Defined in [types.ts:51](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L51)*
+*Defined in [types.ts:51](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core-worker/src/types.ts#L51)*

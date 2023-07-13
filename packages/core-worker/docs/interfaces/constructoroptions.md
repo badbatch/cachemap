@@ -20,7 +20,7 @@
 
 • **name**: *string*
 
-*Defined in [types.ts:11](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L11)*
+*Defined in [types.ts:11](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core-worker/src/types.ts#L11)*
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 • **type**: *string*
 
-*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L12)*
+*Defined in [types.ts:12](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core-worker/src/types.ts#L12)*
 
 ___
 
@@ -36,4 +36,4 @@ ___
 
 • **worker**: *Worker*
 
-*Defined in [types.ts:13](https://github.com/badbatch/cachemap/blob/27e229b/packages/core-worker/src/types.ts#L13)*
+*Defined in [types.ts:13](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core-worker/src/types.ts#L13)*

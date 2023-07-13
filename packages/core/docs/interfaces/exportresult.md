@@ -19,7 +19,7 @@
 
 • **entries**: *[string, any][]*
 
-*Defined in [core/src/types.ts:87](https://github.com/badbatch/cachemap/blob/27e229b/packages/core/src/types.ts#L87)*
+*Defined in [core/src/types.ts:87](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L87)*
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 • **metadata**: *Metadata[]*
 
-*Defined in [core/src/types.ts:88](https://github.com/badbatch/cachemap/blob/27e229b/packages/core/src/types.ts#L88)*
+*Defined in [core/src/types.ts:88](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L88)*

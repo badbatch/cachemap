@@ -1,3 +1,9 @@
+#### 4.0.3 (2023-07-13)
+
+##### Bug Fixes
+
+*  add named exports ([f503e0e1](https://github.com/badbatch/cachemap/commit/f503e0e12475b3434574b9dc6b07b73700d78b70))
+
 #### 4.0.2 (2023-07-13)
 
 ##### Refactors
