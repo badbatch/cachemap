@@ -40,7 +40,7 @@ import {
   RequestQueue,
 } from "../types";
 
-export default class Core {
+export class Core {
   private static _sortComparator(a: Metadata, b: Metadata): number {
     let i;
 
