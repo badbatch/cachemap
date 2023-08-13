@@ -46,7 +46,7 @@
 
 \+ **new Core**(`options`: [ConstructorOptions](../interfaces/constructoroptions.md)): *[Core](core.md)*
 
-*Defined in [core/src/main/index.ts:95](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L95)*
+*Defined in [core/src/main/index.ts:95](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L95)*
 
 **Parameters:**
 
@@ -62,7 +62,7 @@ Name | Type |
 
 • **get emitter**(): *EventEmitter*
 
-*Defined in [core/src/main/index.ts:175](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L175)*
+*Defined in [core/src/main/index.ts:175](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L175)*
 
 **Returns:** *EventEmitter*
 
@@ -72,7 +72,7 @@ ___
 
 • **get metadata**(): *Metadata[]*
 
-*Defined in [core/src/main/index.ts:179](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L179)*
+*Defined in [core/src/main/index.ts:179](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L179)*
 
 **Returns:** *Metadata[]*
 
@@ -82,7 +82,7 @@ ___
 
 • **get name**(): *string*
 
-*Defined in [core/src/main/index.ts:183](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L183)*
+*Defined in [core/src/main/index.ts:183](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L183)*
 
 **Returns:** *string*
 
@@ -92,7 +92,7 @@ ___
 
 • **get reaper**(): *[Reaper](../interfaces/reaper.md) | void*
 
-*Defined in [core/src/main/index.ts:187](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L187)*
+*Defined in [core/src/main/index.ts:187](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L187)*
 
 **Returns:** *[Reaper](../interfaces/reaper.md) | void*
 
@@ -102,7 +102,7 @@ ___
 
 • **get storeType**(): *string*
 
-*Defined in [core/src/main/index.ts:191](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L191)*
+*Defined in [core/src/main/index.ts:191](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L191)*
 
 **Returns:** *string*
 
@@ -112,7 +112,7 @@ ___
 
 • **get type**(): *string*
 
-*Defined in [core/src/main/index.ts:195](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L195)*
+*Defined in [core/src/main/index.ts:195](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L195)*
 
 **Returns:** *string*
 
@@ -122,7 +122,7 @@ ___
 
 • **get usedHeapSize**(): *number*
 
-*Defined in [core/src/main/index.ts:199](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L199)*
+*Defined in [core/src/main/index.ts:199](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L199)*
 
 **Returns:** *number*
 
@@ -132,7 +132,7 @@ ___
 
 ▸ **clear**(): *Promise‹void›*
 
-*Defined in [core/src/main/index.ts:203](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L203)*
+*Defined in [core/src/main/index.ts:203](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L203)*
 
 **Returns:** *Promise‹void›*
 
@@ -142,7 +142,7 @@ ___
 
 ▸ **delete**(`key`: string, `options`: object): *Promise‹boolean›*
 
-*Defined in [core/src/main/index.ts:211](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L211)*
+*Defined in [core/src/main/index.ts:211](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L211)*
 
 **Parameters:**
 
@@ -162,7 +162,7 @@ ___
 
 ▸ **entries**(`keys?`: string[]): *Promise‹[string, any][]›*
 
-*Defined in [core/src/main/index.ts:233](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L233)*
+*Defined in [core/src/main/index.ts:233](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L233)*
 
 **Parameters:**
 
@@ -178,7 +178,7 @@ ___
 
 ▸ **export**(`options`: [ExportOptions](../interfaces/exportoptions.md)): *Promise‹[ExportResult](../interfaces/exportresult.md)›*
 
-*Defined in [core/src/main/index.ts:245](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L245)*
+*Defined in [core/src/main/index.ts:245](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L245)*
 
 **Parameters:**
 
@@ -194,7 +194,7 @@ ___
 
 ▸ **get**(`key`: string, `options`: object): *Promise‹any›*
 
-*Defined in [core/src/main/index.ts:267](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L267)*
+*Defined in [core/src/main/index.ts:267](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L267)*
 
 **Parameters:**
 
@@ -214,7 +214,7 @@ ___
 
 ▸ **has**(`key`: string, `options`: object): *Promise‹false | Cacheability›*
 
-*Defined in [core/src/main/index.ts:289](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L289)*
+*Defined in [core/src/main/index.ts:289](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L289)*
 
 **Parameters:**
 
@@ -235,7 +235,7 @@ ___
 
 ▸ **import**(`options`: [ImportOptions](../interfaces/importoptions.md)): *Promise‹void›*
 
-*Defined in [core/src/main/index.ts:314](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L314)*
+*Defined in [core/src/main/index.ts:314](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L314)*
 
 **Parameters:**
 
@@ -251,7 +251,7 @@ ___
 
 ▸ **set**(`key`: string, `value`: any, `options`: object): *Promise‹void›*
 
-*Defined in [core/src/main/index.ts:341](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L341)*
+*Defined in [core/src/main/index.ts:341](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L341)*
 
 **Parameters:**
 
@@ -275,7 +275,7 @@ ___
 
 ▸ **size**(): *Promise‹number›*
 
-*Defined in [core/src/main/index.ts:367](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L367)*
+*Defined in [core/src/main/index.ts:367](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L367)*
 
 **Returns:** *Promise‹number›*
 
@@ -285,7 +285,7 @@ ___
 
 ▸ **startBackup**(): *void*
 
-*Defined in [core/src/main/index.ts:375](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L375)*
+*Defined in [core/src/main/index.ts:375](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L375)*
 
 **Returns:** *void*
 
@@ -295,7 +295,7 @@ ___
 
 ▸ **stopBackup**(): *void*
 
-*Defined in [core/src/main/index.ts:379](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L379)*
+*Defined in [core/src/main/index.ts:379](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L379)*
 
 **Returns:** *void*
 
@@ -305,10 +305,10 @@ ___
 
 ### ▪ **events**: *object*
 
-*Defined in [core/src/main/index.ts:74](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L74)*
+*Defined in [core/src/main/index.ts:74](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L74)*
 
 ###  ENTRY_DELETED
 
 • **ENTRY_DELETED**: *string* = "ENTRY_DELETED"
 
-*Defined in [core/src/main/index.ts:75](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/main/index.ts#L75)*
+*Defined in [core/src/main/index.ts:75](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/main/index.ts#L75)*

@@ -35,7 +35,7 @@
 
 *Inherited from [BaseOptions](baseoptions.md).[backupInterval](baseoptions.md#optional-backupinterval)*
 
-*Defined in [core/src/types.ts:9](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L9)*
+*Defined in [core/src/types.ts:9](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L9)*
 
 The time in milliseconds between back ups from a map store
 to the provided persisted store.
@@ -48,7 +48,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[backupStore](baseoptions.md#optional-backupstore)*
 
-*Defined in [core/src/types.ts:17](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L17)*
+*Defined in [core/src/types.ts:17](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L17)*
 
 Whether to use store to back up to from a map store. If true,
 the provided store is used to periodically back up to rather than
@@ -64,7 +64,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[disableCacheInvalidation](baseoptions.md#optional-disablecacheinvalidation)*
 
-*Defined in [core/src/types.ts:23](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L23)*
+*Defined in [core/src/types.ts:23](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L23)*
 
 Whether to disable the checking of a cache entry's TTL before
 returning the entry. This also disabling the purging of stale
@@ -78,7 +78,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[encryptionSecret](baseoptions.md#optional-encryptionsecret)*
 
-*Defined in [core/src/types.ts:28](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L28)*
+*Defined in [core/src/types.ts:28](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L28)*
 
 This is used to encrypt all entries. If a secret is provided,
 all entries are encrypted.
@@ -91,7 +91,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[name](baseoptions.md#name)*
 
-*Defined in [core/src/types.ts:34](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L34)*
+*Defined in [core/src/types.ts:34](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L34)*
 
 The name is primarily used as a target for the controller, in order
 to centrally control the cachemap in an application with muliple
@@ -105,7 +105,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[reaper](baseoptions.md#optional-reaper)*
 
-*Defined in [core/src/types.ts:39](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L39)*
+*Defined in [core/src/types.ts:39](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L39)*
 
 The reaper is used to keep the cachemap size below user specified limits
 by purging the least imporant entries in the cachemap.
@@ -118,7 +118,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[sharedCache](baseoptions.md#optional-sharedcache)*
 
-*Defined in [core/src/types.ts:44](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L44)*
+*Defined in [core/src/types.ts:44](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L44)*
 
 Whether the cache is shared. If true, entries with a cache control
 header of "private" are not stored in the cachemap.
@@ -131,7 +131,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[startBackup](baseoptions.md#optional-startbackup)*
 
-*Defined in [core/src/types.ts:49](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L49)*
+*Defined in [core/src/types.ts:49](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L49)*
 
 Whether to start backing up store on initialisation. If set to false,
 you would be triggering the backup through the controller.
@@ -142,7 +142,7 @@ ___
 
 • **store**: *StoreInit*
 
-*Defined in [core/src/types.ts:66](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L66)*
+*Defined in [core/src/types.ts:66](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L66)*
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 *Inherited from [BaseOptions](baseoptions.md).[type](baseoptions.md#type)*
 
-*Defined in [core/src/types.ts:55](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L55)*
+*Defined in [core/src/types.ts:55](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L55)*
 
 The type is primarily used as a target for the controller, in order
 to centrally control a group of cachemaps in an application with muliple
@@ -166,7 +166,7 @@ instances.
 
 *Inherited from [BaseOptions](baseoptions.md).[sortComparator](baseoptions.md#optional-sortcomparator)*
 
-*Defined in [core/src/types.ts:60](https://github.com/badbatch/cachemap/blob/f503e0e/packages/core/src/types.ts#L60)*
+*Defined in [core/src/types.ts:60](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/core/src/types.ts#L60)*
 
 The sort comparator is used to order cachemap entries by importance so the
 reaper knows what entries to purge first.

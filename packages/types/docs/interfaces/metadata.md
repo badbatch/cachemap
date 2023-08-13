@@ -30,7 +30,7 @@
 
 *Inherited from [BaseMetadata](basemetadata.md).[accessedCount](basemetadata.md#accessedcount)*
 
-*Defined in [index.ts:8](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L8)*
+*Defined in [index.ts:8](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L8)*
 
 The number of times the corresponding data
 entry has been accessed.
@@ -43,7 +43,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[added](basemetadata.md#added)*
 
-*Defined in [index.ts:14](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L14)*
+*Defined in [index.ts:14](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L14)*
 
 The timestamp of when the corresponding data
 entry was added to the Cachemap instance.
@@ -54,7 +54,7 @@ ___
 
 • **cacheability**: *Cacheability*
 
-*Defined in [index.ts:60](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L60)*
+*Defined in [index.ts:60](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L60)*
 
 The cache information of the corresponding
 data entry, which uses the [Cacheability
@@ -68,7 +68,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[key](basemetadata.md#key)*
 
-*Defined in [index.ts:20](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L20)*
+*Defined in [index.ts:20](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L20)*
 
 The key the corresponding data entry was stored
 against.
@@ -81,7 +81,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[lastAccessed](basemetadata.md#lastaccessed)*
 
-*Defined in [index.ts:26](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L26)*
+*Defined in [index.ts:26](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L26)*
 
 The timestamp of when the corresponding data
 entry was last accessed.
@@ -94,7 +94,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[lastUpdated](basemetadata.md#lastupdated)*
 
-*Defined in [index.ts:32](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L32)*
+*Defined in [index.ts:32](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L32)*
 
 The timestamp of when the corresponding data
 entry was last updated.
@@ -107,7 +107,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[size](basemetadata.md#size)*
 
-*Defined in [index.ts:38](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L38)*
+*Defined in [index.ts:38](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L38)*
 
 The approximate amount of memory the corresponding
 data entry takes up.
@@ -120,7 +120,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[tags](basemetadata.md#tags)*
 
-*Defined in [index.ts:45](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L45)*
+*Defined in [index.ts:45](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L45)*
 
 A list of tags that can be optionally set along with
 the cachemap entry and used when trying to retrieve
@@ -134,7 +134,7 @@ ___
 
 *Inherited from [BaseMetadata](basemetadata.md).[updatedCount](basemetadata.md#updatedcount)*
 
-*Defined in [index.ts:51](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L51)*
+*Defined in [index.ts:51](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L51)*
 
 The number of times the corresponding data
 entry has been updated.

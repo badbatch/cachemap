@@ -21,7 +21,7 @@
 
 Ƭ **StoreInit**: *function*
 
-*Defined in [index.ts:81](https://github.com/badbatch/cachemap/blob/f503e0e/packages/types/src/index.ts#L81)*
+*Defined in [index.ts:81](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/types/src/index.ts#L81)*
 
 #### Type declaration:
 

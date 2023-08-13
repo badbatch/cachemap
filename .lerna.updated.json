@@ -1,50 +1,62 @@
 [
   {
-    "name": "@cachemap/controller",
+    "name": "@cachemap/constants",
     "version": "4.0.1",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/controller"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/constants"
+  },
+  {
+    "name": "@cachemap/controller",
+    "version": "4.0.2",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/controller"
   },
   {
     "name": "@cachemap/core-worker",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core-worker"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/core-worker"
   },
   {
     "name": "@cachemap/core",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/core"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/core"
   },
   {
     "name": "@cachemap/indexed-db",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/indexed-db"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/indexed-db"
   },
   {
     "name": "@cachemap/local-storage",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/local-storage"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/local-storage"
   },
   {
     "name": "@cachemap/map",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/map"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/map"
   },
   {
     "name": "@cachemap/reaper",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/reaper"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/reaper"
   },
   {
     "name": "@cachemap/redis",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
-    "location": "/Users/dylan.aubrey/workspaces/cachemap/packages/redis"
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/redis"
+  },
+  {
+    "name": "@cachemap/types",
+    "version": "4.0.0",
+    "private": false,
+    "location": "/Users/dylan.aubrey/workspaces/personal/cachemap/packages/types"
   }
 ]

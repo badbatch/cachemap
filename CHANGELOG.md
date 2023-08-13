@@ -1,3 +1,9 @@
+#### 4.0.4 (2023-08-13)
+
+##### Bug Fixes
+
+*  output  mjs files for module ([ca43a4d3](https://github.com/badbatch/cachemap/commit/ca43a4d361f37d76726984be1926bf167a5da8ed))
+
 #### 4.0.3 (2023-07-13)
 
 ##### Bug Fixes

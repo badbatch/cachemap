@@ -22,7 +22,7 @@
 
 Ƭ **EventData**: *object*
 
-*Defined in [packages/controller/src/types.ts:1](https://github.com/badbatch/cachemap/blob/f503e0e/packages/controller/src/types.ts#L1)*
+*Defined in [packages/controller/src/types.ts:1](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/controller/src/types.ts#L1)*
 
 #### Type declaration:
 
@@ -36,4 +36,4 @@
 
 • **controller**: *[Controller](classes/controller.md)‹›* = new Controller()
 
-*Defined in [packages/controller/src/main/index.ts:48](https://github.com/badbatch/cachemap/blob/f503e0e/packages/controller/src/main/index.ts#L48)*
+*Defined in [packages/controller/src/main/index.ts:48](https://github.com/badbatch/cachemap/blob/ca43a4d/packages/controller/src/main/index.ts#L48)*

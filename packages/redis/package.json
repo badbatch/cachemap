@@ -1,6 +1,6 @@
 {
   "name": "@cachemap/redis",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "The Cachemap Redis module.",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
   "license": "MIT",
