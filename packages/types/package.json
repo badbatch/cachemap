@@ -16,11 +16,13 @@
   },
   "license": "MIT",
   "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
-  "main": "lib/main/index.ts",
+  "main": "lib/main/index.js",
+  "module": "lib/module/index.mjs",
   "types": "lib/types/index.d.ts",
   "scripts": {
     "compile": "concurrently npm:compile:*",
     "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
+    "compile:module": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
     "compile:types": "tsc --build"
   },
   "publishConfig": {
