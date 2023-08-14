@@ -2,8 +2,8 @@
 .DS_Store
 .env
 .eslintcache
-.nyc_output/
-bundle/
+.vscode/settings.json
 coverage/
+dist/
 lib/
 node_modules/

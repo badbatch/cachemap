@@ -2,12 +2,10 @@
   "name": "@cachemap/redis",
   "version": "4.0.3",
   "description": "The Cachemap Redis module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": {
-    "url": "https://github.com/badbatch/cachemap/issues"
-  },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
@@ -35,10 +33,10 @@
     "redis": "^3.0.2"
   },
   "peerDependencies": {
-    "@babel/runtime": "< 8",
+    "@babel/runtime": "<8",
     "@cachemap/types": ">= 4",
-    "core-js": "< 4",
-    "lodash": "< 5"
+    "core-js": "<4",
+    "lodash": "<5"
   },
   "devDependencies": {
     "@types/redis": "^2.8.16"

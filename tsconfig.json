@@ -1,12 +1,6 @@
 {
-  "extends": "./tsconfig.settings.json",
-  "exclude": [
-    "**/bin/**",
-    "**/lib/**",
-    "**/node_modules/**"
-  ],
+  "extends": "@repodog/ts-config/index.json",
   "include": [
-    "packages",
-    "test"
+    "packages/**/*"
   ]
 }

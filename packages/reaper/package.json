@@ -2,12 +2,10 @@
   "name": "@cachemap/reaper",
   "version": "4.0.3",
   "description": "The Cachemap reaper module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": {
-    "url": "https://github.com/badbatch/cachemap/issues"
-  },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
@@ -33,9 +31,9 @@
     "compile:types": "tsc --build"
   },
   "peerDependencies": {
-    "@babel/runtime": "< 8",
+    "@babel/runtime": "<8",
     "@cachemap/types": ">= 4",
-    "core-js": "< 4",
-    "lodash": "< 5"
+    "core-js": "<4",
+    "lodash": "<5"
   }
 }
