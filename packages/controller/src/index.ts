@@ -1,2 +1,2 @@
-export * from "./types";
-export { default, controller } from "./main";
+export * from './types.ts';
+export { Controller, instance } from './main/index.ts';

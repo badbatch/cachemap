@@ -1,12 +1,13 @@
-import Core, { ExportResult } from "@cachemap/core";
-import CoreWorker from "@cachemap/core-worker";
-import reaper from "@cachemap/reaper";
-import { Metadata, StoreInit } from "@cachemap/types";
-import Cacheability from "cacheability";
-import { expect } from "chai";
-import md5 from "md5";
-import { testData } from "../../data";
-import { PlainObject, RunOptions } from "../../defs";
+import { type ExportResult } from '@cachemap/core';
+import type Core from '@cachemap/core';
+import type CoreWorker from '@cachemap/core-worker';
+import reaper from '@cachemap/reaper';
+import { type Metadata, type StoreInit } from '@cachemap/types';
+import Cacheability from 'cacheability';
+import { expect } from 'chai';
+import md5 from 'md5';
+import { testData } from '../../data';
+import { type PlainObject, type RunOptions } from '../../defs';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -14,26 +15,26 @@ export function run(
   { cachemapSize, init, worker }: RunOptions,
   storeType: string,
   store?: (options: any) => StoreInit,
-  storeOptions: PlainObject = {},
+  storeOptions: PlainObject = {}
 ): void {
   describe(`When store type is ${storeType}`, () => {
-    describe("Adding an entry into the cachemap", () => {
-      const ID = "136-7317";
+    describe('Adding an entry into the cachemap', () => {
+      const ID = '136-7317';
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When a matching entry does not exist", () => {
+      describe('When a matching entry does not exist', () => {
         before(async () => {
           await cachemap.set(key, value, { cacheHeaders, hash: true });
         });
@@ -42,26 +43,26 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The set method should store the entry metadata", async () => {
+        it('The set method should store the entry metadata', async () => {
           expect(cachemap.metadata).lengthOf(1);
           const metadata = cachemap.metadata[0];
           expect(metadata.accessedCount).to.equal(0);
-          expect(metadata.added).to.be.a("number");
+          expect(metadata.added).to.be.a('number');
           expect(metadata.cacheability).to.be.instanceOf(Cacheability);
           expect(metadata.key).to.equal(md5(key));
-          expect(metadata.lastAccessed).to.be.a("number");
-          expect(metadata.lastUpdated).to.be.a("number");
-          expect(metadata.size).to.be.a("number");
+          expect(metadata.lastAccessed).to.be.a('number');
+          expect(metadata.lastUpdated).to.be.a('number');
+          expect(metadata.size).to.be.a('number');
           expect(metadata.updatedCount).to.equal(0);
         });
 
-        it("The set method should store the key/value pair", async () => {
+        it('The set method should store the key/value pair', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(2));
           expect(await cachemap.get(key, { hash: true })).to.deep.equal(value);
         });
       });
 
-      describe("When a matching entry does exist", () => {
+      describe('When a matching entry does exist', () => {
         let metadata: Metadata;
 
         before(async () => {
@@ -93,7 +94,7 @@ export function run(
         });
       });
 
-      describe("When the same key is added twice in quick succession", () => {
+      describe('When the same key is added twice in quick succession', () => {
         before(async () => {
           await Promise.all([
             cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true }),
@@ -109,12 +110,12 @@ export function run(
           expect(cachemap.metadata).lengthOf(1);
           const metadata = cachemap.metadata[0];
           expect(metadata.accessedCount).to.equal(0);
-          expect(metadata.added).to.be.a("number");
+          expect(metadata.added).to.be.a('number');
           expect(metadata.cacheability).to.be.instanceOf(Cacheability);
           expect(metadata.key).to.equal(md5(key));
-          expect(metadata.lastAccessed).to.be.a("number");
-          expect(metadata.lastUpdated).to.be.a("number");
-          expect(metadata.size).to.be.a("number");
+          expect(metadata.lastAccessed).to.be.a('number');
+          expect(metadata.lastUpdated).to.be.a('number');
+          expect(metadata.size).to.be.a('number');
           expect(metadata.updatedCount).to.equal(1);
         });
 
@@ -125,23 +126,23 @@ export function run(
       });
     });
 
-    describe("Removing an entry from the cachemap", () => {
-      const ID = "136-7317";
+    describe('Removing an entry from the cachemap', () => {
+      const ID = '136-7317';
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When a matching entry does not exist", () => {
+      describe('When a matching entry does not exist', () => {
         let deleted: boolean;
 
         before(async () => {
@@ -152,12 +153,12 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The delete method should return false", async () => {
+        it('The delete method should return false', async () => {
           expect(deleted).to.equal(false);
         });
       });
 
-      describe("When a matching entry does exist", () => {
+      describe('When a matching entry does exist', () => {
         let deleted: boolean;
 
         before(async () => {
@@ -169,38 +170,38 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The delete method should return true", async () => {
+        it('The delete method should return true', async () => {
           expect(deleted).to.equal(true);
         });
 
-        it("The delete method should remove the entry metadata", async () => {
+        it('The delete method should remove the entry metadata', async () => {
           expect(cachemap.metadata).lengthOf(0);
         });
 
-        it("The delete method should remove the key/value pair", async () => {
+        it('The delete method should remove the key/value pair', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(1));
           expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
         });
       });
     });
 
-    describe("Retrieving an entry from the cachemap", () => {
-      const ID = "136-7317";
+    describe('Retrieving an entry from the cachemap', () => {
+      const ID = '136-7317';
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When a matching entry does not exist", () => {
+      describe('When a matching entry does not exist', () => {
         let entry;
 
         before(async () => {
@@ -211,12 +212,12 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The get method should return undefined", async () => {
+        it('The get method should return undefined', async () => {
           expect(entry).to.equal(undefined);
         });
       });
 
-      describe("When a matching entry exists", () => {
+      describe('When a matching entry exists', () => {
         let metadata: Metadata;
         let entry;
 
@@ -230,7 +231,7 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The get method should return the entry value", async () => {
+        it('The get method should return the entry value', async () => {
           expect(entry).to.deep.equal(value);
         });
 
@@ -249,23 +250,23 @@ export function run(
       });
     });
 
-    describe("Checking if the cachemap has an entry", () => {
-      const ID = "136-7317";
+    describe('Checking if the cachemap has an entry', () => {
+      const ID = '136-7317';
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When a matching entry does not exist", () => {
+      describe('When a matching entry does not exist', () => {
         let exists: boolean | Cacheability;
 
         before(async () => {
@@ -276,12 +277,12 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The has method should return false", async () => {
+        it('The has method should return false', async () => {
           expect(exists).to.equal(false);
         });
       });
 
-      describe("When a matching entry exists", () => {
+      describe('When a matching entry exists', () => {
         describe("When the extry's cacheability is valid", () => {
           let exists: boolean | Cacheability;
 
@@ -300,7 +301,7 @@ export function run(
         });
 
         describe("When the entry's cacheability is expired", () => {
-          describe("When deleteExpired is not passed in as an option", () => {
+          describe('When deleteExpired is not passed in as an option', () => {
             let exists: boolean | Cacheability;
 
             before(async () => {
@@ -317,17 +318,17 @@ export function run(
               expect(exists).to.be.instanceOf(Cacheability);
             });
 
-            it("The has method should not remove the entry metadata", async () => {
+            it('The has method should not remove the entry metadata', async () => {
               expect(cachemap.metadata).lengthOf(1);
             });
 
-            it("The has method should not remove the key/value pair", async () => {
+            it('The has method should not remove the key/value pair', async () => {
               expect(await cachemap.size()).to.equal(cachemapSize(2));
               expect(await cachemap.get(key, { hash: true })).to.deep.equal(value);
             });
           });
 
-          describe("When deleteExpired is passed in as an option", () => {
+          describe('When deleteExpired is passed in as an option', () => {
             let exists: boolean | Cacheability;
 
             before(async () => {
@@ -340,15 +341,15 @@ export function run(
               await cachemap.clear();
             });
 
-            it("The has method should return false", async () => {
+            it('The has method should return false', async () => {
               expect(exists).to.equal(false);
             });
 
-            it("The has method should remove the entry metadata", async () => {
+            it('The has method should remove the entry metadata', async () => {
               expect(cachemap.metadata).lengthOf(0);
             });
 
-            it("The has method should remove the key/value pair", async () => {
+            it('The has method should remove the key/value pair', async () => {
               expect(await cachemap.size()).to.equal(cachemapSize(1));
               expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
             });
@@ -357,20 +358,20 @@ export function run(
       });
     });
 
-    describe("Retrieving multiple entries from the cachemap", () => {
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+    describe('Retrieving multiple entries from the cachemap', () => {
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When no keys are passed in", () => {
+      describe('When no keys are passed in', () => {
         let result: [string, any][];
 
         before(async () => {
@@ -379,7 +380,7 @@ export function run(
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           result = await cachemap.entries();
@@ -389,12 +390,12 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The entries method should return all the key/value pair entries", () => {
+        it('The entries method should return all the key/value pair entries', () => {
           expect(result).to.be.lengthOf(3);
         });
       });
 
-      describe("When keys are passed in", () => {
+      describe('When keys are passed in', () => {
         let result: [string, any][];
 
         before(async () => {
@@ -406,7 +407,7 @@ export function run(
               const url = testData[id].url;
               hashedKeys.push(md5(url));
               return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           result = await cachemap.entries(hashedKeys.slice(0, 2));
@@ -416,26 +417,26 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The entries method should return the matching key/value pair entries", async () => {
+        it('The entries method should return the matching key/value pair entries', async () => {
           expect(result).to.be.lengthOf(2);
         });
       });
     });
 
-    describe("Retrieving multiple entries and their metadata from the cachemap", () => {
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+    describe('Retrieving multiple entries and their metadata from the cachemap', () => {
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When no keys are passed in", () => {
+      describe('When no keys are passed in', () => {
         let result: ExportResult;
 
         before(async () => {
@@ -444,7 +445,7 @@ export function run(
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           result = await cachemap.export();
@@ -454,13 +455,13 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The export method should return all the key/value pair entries and their metadata", () => {
+        it('The export method should return all the key/value pair entries and their metadata', () => {
           expect(result.entries).to.be.lengthOf(3);
           expect(result.metadata).to.be.lengthOf(3);
         });
       });
 
-      describe("When keys are passed in", () => {
+      describe('When keys are passed in', () => {
         let result: ExportResult;
 
         before(async () => {
@@ -472,7 +473,7 @@ export function run(
               const url = testData[id].url;
               hashedKeys.push(md5(url));
               return cachemap.set(url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
@@ -482,40 +483,40 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The export method should return the matching key/value pair entries and their metadata", async () => {
+        it('The export method should return the matching key/value pair entries and their metadata', async () => {
           expect(result.entries).to.be.lengthOf(2);
           expect(result.metadata).to.be.lengthOf(2);
         });
       });
 
-      describe("When a tag is passed in", () => {
+      describe('When a tag is passed in', () => {
         let result: ExportResult;
 
         before(async () => {
           const keys = Object.keys(testData);
-          const tags = ["alfa", "bravo", "charlie"];
+          const tags = ['alfa', 'bravo', 'charlie'];
 
           await Promise.all(
             keys.map(id => {
               const tag = tags.pop();
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true, tag });
-            }),
+            })
           );
 
-          result = await cachemap.export({ tag: "alfa" });
+          result = await cachemap.export({ tag: 'alfa' });
         });
 
         after(async () => {
           await cachemap.clear();
         });
 
-        it("The export method should return the matching key/value pair entries and their metadata", async () => {
+        it('The export method should return the matching key/value pair entries and their metadata', async () => {
           expect(result.entries).to.be.lengthOf(1);
           expect(result.metadata).to.be.lengthOf(1);
         });
       });
 
-      describe("When filterByValue is passed in", () => {
+      describe('When filterByValue is passed in', () => {
         let result: ExportResult;
 
         before(async () => {
@@ -524,45 +525,45 @@ export function run(
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
-          // @ts-ignore
-          result = await cachemap.export({ filterByValue: { comparator: "180-1387", keyChain: "id" } });
+          // @ts-expect-error
+          result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
         });
 
         after(async () => {
           await cachemap.clear();
         });
 
-        it("The export method should return the matching key/value pair entries and their metadata", async () => {
+        it('The export method should return the matching key/value pair entries and their metadata', async () => {
           expect(result.entries).to.be.lengthOf(1);
           expect(result.metadata).to.be.lengthOf(1);
         });
       });
     });
 
-    describe("Adding multiple entries and their metadata to the cachemap", () => {
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=1" };
+    describe('Adding multiple entries and their metadata to the cachemap', () => {
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
       let cachemap: Core | CoreWorker;
 
       before(() => {
         cachemap = init({
           name: `${storeType}-integration-tests`,
           store: store && store(storeOptions),
-          type: "integration-tests",
+          type: 'integration-tests',
           worker,
         });
       });
 
-      describe("When no matching entries exist", () => {
+      describe('When no matching entries exist', () => {
         before(async () => {
           const keys = Object.keys(testData);
 
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           const exported = await cachemap.export();
@@ -574,20 +575,20 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The import method should add the key/value pair entries and their metadata", async () => {
+        it('The import method should add the key/value pair entries and their metadata', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(4));
           expect(cachemap.metadata).to.be.lengthOf(3);
         });
       });
 
-      describe("When matching entries exist", () => {
+      describe('When matching entries exist', () => {
         before(async () => {
           const keys = Object.keys(testData);
 
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
 
           const exported = await cachemap.export();
@@ -598,7 +599,7 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The import method should overwrite the matching key/value pair entries and their metadata", async () => {
+        it('The import method should overwrite the matching key/value pair entries and their metadata', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(4));
           expect(cachemap.metadata).to.be.lengthOf(3);
         });
@@ -607,11 +608,11 @@ export function run(
 
     if (worker) return;
 
-    describe("When the reaper module is passed into the cachemap", () => {
-      const ID = "136-7317";
+    describe('When the reaper module is passed into the cachemap', () => {
+      const ID = '136-7317';
       const key: string = testData[ID].url;
       const value: PlainObject = testData[ID].body;
-      const cacheHeaders: PlainObject = { cacheControl: "public, max-age=0" };
+      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=0' };
       let cachemap: Core | CoreWorker;
 
       describe("When an entry's cacheability expires", () => {
@@ -622,14 +623,14 @@ export function run(
             name: `${storeType}-integration-tests`,
             reaper: reaper({ interval: 500, start: true }),
             store: store && store(storeOptions),
-            type: "integration-tests",
+            type: 'integration-tests',
           });
 
           cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
             entryDeletedData = data;
           });
 
-          await cachemap.set(key, value, { cacheHeaders, hash: true, tag: "ALPHA" });
+          await cachemap.set(key, value, { cacheHeaders, hash: true, tag: 'ALPHA' });
           await delay(1000);
         });
 
@@ -637,23 +638,23 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The reaper should remove the key/value pair", async () => {
+        it('The reaper should remove the key/value pair', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(1));
           expect(await cachemap.get(key, { hash: true })).to.equal(undefined);
         });
 
-        it("The reaper should remove the entry metadata", async () => {
+        it('The reaper should remove the entry metadata', async () => {
           expect(cachemap.metadata).lengthOf(0);
         });
 
-        it("The ENTRY_DELETED event should be emitted with the correct data", () => {
-          expect(entryDeletedData.key).to.be.a("string");
+        it('The ENTRY_DELETED event should be emitted with the correct data', () => {
+          expect(entryDeletedData.key).to.be.a('string');
           expect(entryDeletedData.deleted).to.equal(true);
-          expect(entryDeletedData.tags).to.eql(["ALPHA"]);
+          expect(entryDeletedData.tags).to.eql(['ALPHA']);
         });
       });
 
-      describe("When the entries exceed the max heap size", () => {
+      describe('When the entries exceed the max heap size', () => {
         const entryDeletedData: PlainObject[] = [];
         let keys: string[];
 
@@ -663,7 +664,7 @@ export function run(
             name: `${storeType}-integration-tests`,
             reaper: reaper({ start: true }),
             store: store && store({ ...storeOptions, maxHeapSize: 100 }),
-            type: "integration-tests",
+            type: 'integration-tests',
           });
 
           cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
@@ -675,7 +676,7 @@ export function run(
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id].url, testData[id].body, { cacheHeaders, hash: true });
-            }),
+            })
           );
         });
 
@@ -683,18 +684,18 @@ export function run(
           await cachemap.clear();
         });
 
-        it("The reaper should remove the necessary key/value pair", async () => {
+        it('The reaper should remove the necessary key/value pair', async () => {
           expect(await cachemap.size()).to.equal(cachemapSize(3));
           expect(await cachemap.get(key[2], { hash: true })).to.equal(undefined);
         });
 
-        it("The reaper should remove the entry metadata", async () => {
+        it('The reaper should remove the entry metadata', async () => {
           expect(cachemap.metadata).lengthOf(2);
         });
 
-        it("The ENTRY_DELETED event should be emitted with the correct data", () => {
+        it('The ENTRY_DELETED event should be emitted with the correct data', () => {
           expect(entryDeletedData).to.have.length(1);
-          expect(entryDeletedData[0].key).to.be.a("string");
+          expect(entryDeletedData[0].key).to.be.a('string');
           expect(entryDeletedData[0].deleted).to.equal(true);
           expect(entryDeletedData[0].tags).to.eql([]);
         });

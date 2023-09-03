@@ -1,0 +1,49 @@
+{
+  "name": "@cachemap/utils",
+  "description": "The Cachemap utils module.",
+  "version": "4.0.2",
+  "author": "Dylan Aubrey",
+  "license": "MIT",
+  "homepage": "https://github.com/badbatch/cachemap",
+  "repository": {
+    "directory": "packages/utils",
+    "type": "git",
+    "url": "https://github.com/badbatch/cachemap"
+  },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
+  "type": "module",
+  "main": "./dist/main/index.mjs",
+  "types": "./dist/types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cachemap/types": "workspace:../types",
+    "cacheability": "^4.0.1",
+    "crypto-js": "^4.0.0",
+    "js-base64": "^3.6.0"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "<8",
+    "core-js": "<4"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.20.13",
+    "@types/crypto-js": "^4.1.1",
+    "core-js": "^3.27.2",
+    "lodash": "^4.17.21",
+    "type-fest": "^3.10.0"
+  },
+  "keywords": [
+    "cache",
+    "cachemap"
+  ]
+}

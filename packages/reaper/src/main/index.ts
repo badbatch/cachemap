@@ -1,6 +1,13 @@
-import { Metadata } from "@cachemap/types";
-import { isPlainObject } from "lodash";
-import { Callbacks, ConstructorOptions, DeleteCallback, Init, MetadataCallback, Options } from "../types";
+import { type Metadata } from '@cachemap/types';
+import isPlainObject from 'lodash/isPlainObject.js';
+import {
+  type Callbacks,
+  type ConstructorOptions,
+  type DeleteCallback,
+  type Init,
+  type MetadataCallback,
+  type Options,
+} from '../types.ts';
 
 export class Reaper {
   private _deleteCallback: DeleteCallback;
@@ -9,7 +16,7 @@ export class Reaper {
   private _metadataCallback: MetadataCallback;
 
   constructor(options: ConstructorOptions) {
-    const { deleteCallback, interval = 60000, metadataCallback, start = false } = options;
+    const { deleteCallback, interval = 60_000, metadataCallback, start = false } = options;
 
     this._deleteCallback = deleteCallback;
     this._interval = interval;
@@ -33,13 +40,13 @@ export class Reaper {
   }
 
   private async _cull(metadata: Metadata[]): Promise<void> {
-    if (!metadata.length) {
+    if (metadata.length === 0) {
       return;
     }
 
     try {
       await Promise.all(metadata.map(({ key, tags }) => this._deleteCallback(key, tags)));
-    } catch (error) {
+    } catch {
       // no catch
     }
   }
@@ -51,7 +58,7 @@ export class Reaper {
 
   private _start(): void {
     this._intervalID = setInterval(() => {
-      this._cull(this._getExpiredMetadata());
+      void this._cull(this._getExpiredMetadata());
     }, this._interval);
   }
 
@@ -64,10 +71,8 @@ export class Reaper {
 
 export function init(options: Options = {}): Init {
   if (!isPlainObject(options)) {
-    throw new TypeError("@cachemap/reaper expected options to be a plain object.");
+    throw new TypeError('@cachemap/reaper expected options to be a plain object.');
   }
 
   return (callbacks: Callbacks) => new Reaper({ ...options, ...callbacks });
 }
-
-export default init;

@@ -1,39 +1,46 @@
 {
   "name": "@cachemap/map",
-  "version": "4.0.3",
   "description": "The Cachemap Map module.",
+  "version": "4.0.3",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
+    "directory": "packages/map",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
-  "main": "lib/main/index.js",
-  "module": "lib/module/index.mjs",
-  "browser": "lib/browser/index.js",
-  "types": "lib/types/index.d.ts",
-  "keywords": [
-    "cachemap",
-    "cache",
-    "Map"
-  ],
+  "bugs": "https://github.com/badbatch/cachemap/issues",
+  "type": "module",
+  "main": "./dist/main/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "compile": "concurrently npm:compile:*",
-    "compile-watch": "yarn run compile:main --watch",
-    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
-    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
-    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
-    "compile:types": "tsc --build"
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cachemap/types": "workspace:../types"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
-    "@cachemap/types": ">= 4",
     "core-js": "<4",
     "lodash": "<5"
-  }
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "lodash": "^4.17.21",
+    "type-fest": "^3.10.0"
+  },
+  "keywords": [
+    "Map",
+    "cache",
+    "cachemap"
+  ]
 }

@@ -1,16 +1,16 @@
 {
   "name": "@cachemap/core-worker",
-  "version": "4.0.3",
   "description": "The Cachemap Core Worker module.",
+  "version": "4.0.3",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
     "directory": "packages/core-worker",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
   "main": "./dist/main/index.mjs",
   "types": "./dist/types/index.d.ts",
@@ -26,12 +26,12 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/constants": "workspace:../constants",
     "@cachemap/controller": "workspace:../controller",
     "@cachemap/map": "workspace:../map",
     "@cachemap/types": "workspace:../types",
-    "cacheability": "^3.0.2",
-    "eventemitter3": "4.0.7",
+    "@cachemap/utils": "workspace:../utils",
+    "cacheability": "^4.0.1",
+    "eventemitter3": "^4.0.7",
     "uuid": "^7.0.1"
   },
   "peerDependencies": {
@@ -41,11 +41,16 @@
     "lodash": "<5"
   },
   "devDependencies": {
-    "@cachemap/core": "workspace:../core"
+    "@babel/runtime": "^7.20.13",
+    "@cachemap/core": "workspace:../core",
+    "@types/lodash": "^4.14.191",
+    "@types/uuid": "^9.0.3",
+    "core-js": "^3.27.2",
+    "lodash": "^4.17.21"
   },
   "keywords": [
-    "cachemap",
     "cache",
+    "cachemap",
     "worker"
   ]
 }

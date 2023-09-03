@@ -1,4 +1,4 @@
-import { IDBPDatabase } from "idb";
+import { type IDBPDatabase } from 'idb';
 
 export interface ConstructorOptions extends InitOptions {
   indexedDB: IDBPDatabase;

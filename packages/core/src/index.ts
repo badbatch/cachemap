@@ -1,3 +1,2 @@
-export { rehydrateMetadata } from "./helpers/rehydrate-metadata";
-export { Core, default } from "./main";
-export * from "./types";
+export { Core } from './main/index.ts';
+export * from './types.ts';

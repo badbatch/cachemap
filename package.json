@@ -3,15 +3,12 @@
   "description": "An isomorphic cache that can use Redis, LocalStorage, IndexedDB or an in-memory Map.",
   "version": "4.0.4",
   "author": "Dylan Aubrey",
-  "private": true,
-  "type": "module",
-  "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": "https://github.com/badbatch/cachemap/issues",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/badbatch/cachemap"
-  },
   "license": "MIT",
+  "private": true,
+  "homepage": "https://github.com/badbatch/cachemap",
+  "repository": "badbatch/cachemap",
+  "bugs": "https://github.com/badbatch/cachemap/issues",
+  "type": "module",
   "engines": {
     "node": "^18.13.0",
     "pnpm": "^7.27.0"
@@ -50,7 +47,7 @@
     "@repodog/babel-config": "^1.1.4",
     "@repodog/cli": "^1.1.5",
     "@repodog/commitlint-config": "^1.1.4",
-    "@repodog/eslint-config": "^1.1.4",
+    "@repodog/eslint-config": "^1.1.5",
     "@repodog/jest-config": "^1.1.4",
     "@repodog/markdownlint-config": "^1.1.4",
     "@repodog/prettier-config": "^1.1.4",

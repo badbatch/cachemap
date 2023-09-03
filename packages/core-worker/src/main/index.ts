@@ -1,258 +1,35 @@
+import { type EventData, instance } from '@cachemap/controller';
+import { type CacheHeaders, type ExportOptions, type ExportResult, type ImportOptions } from '@cachemap/core';
+import { type Metadata, type Tag } from '@cachemap/types';
+import { ArgsError, GroupedError, constants, rehydrateMetadata } from '@cachemap/utils';
+import { Cacheability } from 'cacheability';
+import EventEmitter from 'eventemitter3';
+import isPlainObject from 'lodash/isPlainObject.js';
+import isString from 'lodash/isString.js';
+import { v4 as uuidv4 } from 'uuid';
 import {
-  CACHEMAP,
-  CLEAR,
-  DELETE,
-  ENTRIES,
-  EXPORT,
-  GET,
-  HAS,
-  IMPORT,
-  MESSAGE,
-  SET,
-  SIZE,
-  START_BACKUP,
-  START_REAPER,
-  STOP_BACKUP,
-  STOP_REAPER,
-} from "@cachemap/constants";
-import controller, { EventData } from "@cachemap/controller";
-import { CacheHeaders, ExportOptions, ExportResult, ImportOptions, rehydrateMetadata } from "@cachemap/core";
-import { Metadata } from "@cachemap/types";
-import Cacheability from "cacheability";
-import EventEmitter from "eventemitter3";
-import { isPlainObject, isString } from "lodash";
-import { v1 as uuid } from "uuid";
-import {
-  ConstructorOptions,
-  FilterPropsResult,
-  PendingResolver,
-  PendingTracker,
-  PostMessageResult,
-  PostMessageResultWithMeta,
-  PostMessageWithoutMeta,
-} from "../types";
+  type ConstructorOptions,
+  type FilterPropsResult,
+  type PendingResolver,
+  type PendingTracker,
+  type PostMessageResult,
+  type PostMessageResultWithMeta,
+  type PostMessageWithoutMeta,
+} from '../types.ts';
 
 export class CoreWorker {
   public events = {
-    ENTRY_DELETED: "ENTRY_DELETED",
+    ENTRY_DELETED: 'ENTRY_DELETED',
   };
 
-  private _emitter: EventEmitter = new EventEmitter();
-  private _metadata: Metadata[] = [];
-  private _name: string;
-  private _pending: PendingTracker = new Map();
-  private _storeType: string | undefined;
-  private _type: string;
-  private _usedHeapSize: number = 0;
-  private _worker: Worker;
-
-  constructor(options: ConstructorOptions) {
-    const errors: TypeError[] = [];
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core-worker expected options to ba a plain object."));
-    }
-
-    if (!isString(options.name)) {
-      errors.push(new TypeError("@cachemap/core-worker expected options.name to be a string."));
-    }
-
-    if (!isString(options.type)) {
-      errors.push(new TypeError("@cachemap/core-worker expected options.type to be a string."));
-    }
-
-    if (!(options.worker instanceof Worker)) {
-      errors.push(new TypeError("@cachemap/core-worker expected options.worker to be an instance of a Worker."));
-    }
-
-    if (errors.length) {
-      throw errors;
-    }
-
-    this._name = options.name;
-    this._type = options.type;
-    this._worker = options.worker;
-    this._addControllerEventListeners();
-    this._addEventListener();
-  }
-
-  get emitter(): EventEmitter {
-    return this._emitter;
-  }
-
-  get metadata(): Metadata[] {
-    return this._metadata;
-  }
-
-  get name(): string {
-    return this._name;
-  }
-
-  get storeType(): string | undefined {
-    return this._storeType;
-  }
-
-  get type(): string {
-    return this._type;
-  }
-
-  get usedHeapSize(): number {
-    return this._usedHeapSize;
-  }
-
-  public async clear(): Promise<void> {
-    try {
-      const response = await this._postMessage({ method: CLEAR });
-      this._setProps(response);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
-    try {
-      const { result, ...rest } = await this._postMessage({ key, method: DELETE, options });
-      this._setProps(rest);
-      return result;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async entries(keys?: string[]): Promise<[string, any][]> {
-    try {
-      const { result, ...rest } = await this._postMessage({ keys, method: ENTRIES });
-      this._setProps(rest);
-      return result;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async export(options: ExportOptions = {}): Promise<ExportResult> {
-    try {
-      const { result, ...rest } = await this._postMessage({ method: EXPORT, options });
-      this._setProps(rest);
-      return { entries: result.entries, metadata: rehydrateMetadata(result.metadata) };
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async get(key: string, options: { hash?: boolean } = {}): Promise<any> {
-    try {
-      const { result, ...rest } = await this._postMessage({ key, method: GET, options });
-      this._setProps(rest);
-      return result;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async has(
-    key: string,
-    options: { deleteExpired?: boolean; hash?: boolean } = {},
-  ): Promise<false | Cacheability> {
-    try {
-      const { result, ...rest } = await this._postMessage({ key, method: HAS, options });
-      this._setProps(rest);
-
-      if (!result) {
-        return false;
-      }
-      return new Cacheability({ metadata: result.metadata });
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async import(options: ImportOptions): Promise<void> {
-    try {
-      const { result, ...rest } = await this._postMessage({ method: IMPORT, options });
-      this._setProps(rest);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async set(
-    key: string,
-    value: any,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any } = {},
-  ): Promise<any> {
-    try {
-      const response = await this._postMessage({ key, method: SET, options, value });
-      this._setProps(response);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async size(): Promise<number> {
-    try {
-      const { result, ...rest } = await this._postMessage({ method: SIZE });
-      this._setProps(rest);
-      return result;
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  private _addControllerEventListeners() {
-    this._handleClearEvent = this._handleClearEvent.bind(this);
-    this._handleStartReaperEvent = this._handleStartReaperEvent.bind(this);
-    this._handleStopReaperEvent = this._handleStopReaperEvent.bind(this);
-    this._handleStartBackupEvent = this._handleStartBackupEvent.bind(this);
-    this._handleStopBackupEvent = this._handleStopBackupEvent.bind(this);
-    controller.on(CLEAR, this._handleClearEvent);
-    controller.on(START_REAPER, this._handleStartReaperEvent);
-    controller.on(STOP_REAPER, this._handleStopReaperEvent);
-    controller.on(START_BACKUP, this._handleStartBackupEvent);
-    controller.on(STOP_BACKUP, this._handleStopBackupEvent);
-  }
-
-  private _addEventListener(): void {
-    this._worker.addEventListener(MESSAGE, this._onMessage);
-  }
-
-  private _handleClearEvent({ name, type }: EventData): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: CLEAR });
-    }
-  }
-
-  private _handleStartBackupEvent({ name, type }: EventData): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: START_BACKUP });
-    }
-  }
-
-  private _handleStartReaperEvent({ name, type }: EventData): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: START_REAPER });
-    }
-  }
-
-  private _handleStopBackupEvent({ name, type }: EventData): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: STOP_BACKUP });
-    }
-  }
-
-  private _handleStopReaperEvent({ name, type }: EventData): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._postMessage({ method: STOP_REAPER });
-    }
-  }
-
-  private _onMessage = async ({ data }: MessageEvent): Promise<void> => {
+  private _onMessage = ({ data }: MessageEvent<PostMessageResult<never>>): void => {
     if (!isPlainObject(data)) {
       return;
     }
 
-    const { method, messageID, result, type, ...rest } = data as PostMessageResult;
+    const { messageID, method, result, type, ...rest } = data;
 
-    if (type !== CACHEMAP) {
+    if (type !== constants.CACHEMAP) {
       return;
     }
 
@@ -270,22 +47,186 @@ export class CoreWorker {
     pending.resolve({ result, ...rest });
   };
 
-  private async _postMessage(message: PostMessageWithoutMeta): Promise<PostMessageResultWithMeta> {
-    const messageID = uuid();
-
-    try {
-      return new Promise((resolve: PendingResolver) => {
-        this._worker.postMessage({
-          ...message,
-          messageID,
-          type: CACHEMAP,
-        });
-
-        this._pending.set(messageID, { resolve });
-      });
-    } catch (error) {
-      return Promise.reject(error);
+  private _handleClearEvent = ({ name, type }: EventData): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._postMessage({ method: constants.CLEAR });
     }
+  };
+
+  private _handleStartBackupEvent = ({ name, type }: EventData): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._postMessage({ method: constants.START_BACKUP });
+    }
+  };
+
+  private _handleStartReaperEvent = ({ name, type }: EventData): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._postMessage({ method: constants.START_REAPER });
+    }
+  };
+
+  private _handleStopBackupEvent = ({ name, type }: EventData): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._postMessage({ method: constants.STOP_BACKUP });
+    }
+  };
+
+  private _handleStopReaperEvent = ({ name, type }: EventData): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._postMessage({ method: constants.STOP_REAPER });
+    }
+  };
+
+  private _emitter: EventEmitter = new EventEmitter();
+  private _metadata: Metadata[] = [];
+  private _name: string;
+  private _pending: PendingTracker = new Map();
+  private _storeType: string | undefined;
+  private _type: string;
+  private _usedHeapSize = 0;
+  private _worker: Worker;
+
+  constructor(options: ConstructorOptions) {
+    const errors: ArgsError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new ArgsError('@cachemap/core-worker expected options to ba a plain object.'));
+    }
+
+    if (!isString(options.name)) {
+      errors.push(new ArgsError('@cachemap/core-worker expected options.name to be a string.'));
+    }
+
+    if (!isString(options.type)) {
+      errors.push(new ArgsError('@cachemap/core-worker expected options.type to be a string.'));
+    }
+
+    if (!(options.worker instanceof Worker)) {
+      errors.push(new ArgsError('@cachemap/core-worker expected options.worker to be an instance of a Worker.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core-worker constructor argument validation errors.', errors);
+    }
+
+    this._name = options.name;
+    this._type = options.type;
+    this._worker = options.worker;
+    this._addControllerEventListeners();
+    this._addEventListener();
+  }
+
+  public async clear(): Promise<void> {
+    const response = await this._postMessage<undefined>({ method: constants.CLEAR });
+    this._setProps(response);
+  }
+
+  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+    const { result, ...rest } = await this._postMessage<boolean>({ key, method: constants.DELETE, options });
+    this._setProps(rest);
+    return result;
+  }
+
+  get emitter(): EventEmitter {
+    return this._emitter;
+  }
+
+  public async entries<T>(keys?: string[]): Promise<[string, T][]> {
+    const { result, ...rest } = await this._postMessage<[string, T][]>({ keys, method: constants.ENTRIES });
+    this._setProps(rest);
+    return result;
+  }
+
+  public async export<T>(options: ExportOptions = {}): Promise<ExportResult<T>> {
+    const { result, ...rest } = await this._postMessage<ExportResult<T>>({ method: constants.EXPORT, options });
+    this._setProps(rest);
+    return { entries: result.entries, metadata: rehydrateMetadata(result.metadata) };
+  }
+
+  public async get<T>(key: string, options: { hash?: boolean } = {}): Promise<T | undefined> {
+    const { result, ...rest } = await this._postMessage<T | undefined>({ key, method: constants.GET, options });
+    this._setProps(rest);
+    return result;
+  }
+
+  public async has(
+    key: string,
+    options: { deleteExpired?: boolean; hash?: boolean } = {}
+  ): Promise<false | Cacheability> {
+    const { result, ...rest } = await this._postMessage<false | Cacheability>({
+      key,
+      method: constants.HAS,
+      options,
+    });
+
+    this._setProps(rest);
+    return result ? new Cacheability({ metadata: result.metadata }) : false;
+  }
+
+  public async import(options: ImportOptions): Promise<void> {
+    const { result, ...rest } = await this._postMessage({ method: constants.IMPORT, options });
+    this._setProps(rest);
+  }
+
+  get metadata(): Metadata[] {
+    return this._metadata;
+  }
+
+  get name(): string {
+    return this._name;
+  }
+
+  public async set(
+    key: string,
+    value: unknown,
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag } = {}
+  ): Promise<void> {
+    const response = await this._postMessage({ key, method: constants.SET, options, value });
+    this._setProps(response);
+  }
+
+  public async size(): Promise<number> {
+    const { result, ...rest } = await this._postMessage<number>({ method: constants.SIZE });
+    this._setProps(rest);
+    return result;
+  }
+
+  get storeType(): string | undefined {
+    return this._storeType;
+  }
+
+  get type(): string {
+    return this._type;
+  }
+
+  get usedHeapSize(): number {
+    return this._usedHeapSize;
+  }
+
+  private _addControllerEventListeners() {
+    instance.on(constants.CLEAR, this._handleClearEvent);
+    instance.on(constants.START_REAPER, this._handleStartReaperEvent);
+    instance.on(constants.STOP_REAPER, this._handleStopReaperEvent);
+    instance.on(constants.START_BACKUP, this._handleStartBackupEvent);
+    instance.on(constants.STOP_BACKUP, this._handleStopBackupEvent);
+  }
+
+  private _addEventListener(): void {
+    this._worker.addEventListener(constants.MESSAGE, this._onMessage);
+  }
+
+  private async _postMessage<T>(message: PostMessageWithoutMeta): Promise<PostMessageResultWithMeta<T>> {
+    const messageID = uuidv4();
+
+    return new Promise((resolve: PendingResolver<T>) => {
+      this._worker.postMessage({
+        ...message,
+        messageID,
+        type: constants.CACHEMAP,
+      });
+
+      this._pending.set(messageID, { resolve });
+    });
   }
 
   private _setProps({ metadata, storeType, usedHeapSize }: FilterPropsResult): void {
@@ -298,5 +239,3 @@ export class CoreWorker {
     this._usedHeapSize = usedHeapSize;
   }
 }
-
-export default CoreWorker;

@@ -1,2 +1,2 @@
-export * from "./types";
-export { default, init, RedisStore } from "./main";
+export * from './types.ts';
+export { init, RedisStore } from './main/index.ts';

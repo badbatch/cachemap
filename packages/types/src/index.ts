@@ -1,6 +1,7 @@
-import Cacheability from "cacheability";
+import { type Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
 
-export interface BaseMetadata {
+export type BaseMetadata = {
+  [index: string]: unknown;
   /**
    * The number of times the corresponding data
    * entry has been accessed.
@@ -42,40 +43,46 @@ export interface BaseMetadata {
    * the cachemap entry and used when trying to retrieve
    * a subset of data.
    */
-  tags: any[];
+  tags: Tag[];
 
   /**
    * The number of times the corresponding data
    * entry has been updated.
    */
   updatedCount: number;
-}
+};
 
-export interface Metadata extends BaseMetadata {
+export type DehydratedMetadata = BaseMetadata & {
+  cacheability: { metadata: CacheabilityMetadata };
+};
+
+export type Metadata = BaseMetadata & {
   /**
    * The cache information of the corresponding
    * data entry, which uses the [Cacheability
    * module](https://github.com/dylanaubrey/cacheability).
    */
   cacheability: Cacheability;
-}
+};
 
 export interface Store {
-  readonly maxHeapSize: number;
-  readonly name: string;
-  readonly type: string;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, any][]>;
-  get(key: string): Promise<any>;
+  entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, string][]>;
+  get(key: string): Promise<string | undefined>;
   has(key: string): Promise<boolean>;
-  import(entries: [string, any][]): Promise<void>;
-  set(key: string, value: any): Promise<void>;
+  import(entries: [string, string][]): Promise<void>;
+  readonly maxHeapSize: number;
+  readonly name: string;
+  set(key: string, value: string): Promise<void>;
   size(): Promise<number>;
+  readonly type: string;
 }
 
 export interface StoreOptions {
   name: string;
 }
 
-export type StoreInit = (options: StoreOptions) => Promise<Store>;
+export type StoreInit = (options: StoreOptions) => Promise<Store> | Store;
+
+export type Tag = string | number;

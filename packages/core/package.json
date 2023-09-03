@@ -1,16 +1,16 @@
 {
   "name": "@cachemap/core",
-  "version": "4.0.4",
   "description": "The Cachemap core module.",
+  "version": "4.0.4",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
     "directory": "packages/core",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
   "main": "./dist/main/index.mjs",
   "types": "./dist/types/index.d.ts",
@@ -26,13 +26,11 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/constants": "workspace:../constants",
     "@cachemap/controller": "workspace:../controller",
     "@cachemap/map": "workspace:../map",
     "@cachemap/types": "workspace:../types",
-    "js-base64": "^3.6.0",
-    "cacheability": "^3.0.2",
-    "crypto-js": "^4.0.0",
+    "@cachemap/utils": "workspace:../utils",
+    "cacheability": "^4.0.1",
     "eventemitter3": "^4.0.7",
     "md5": "^2.2.1",
     "object-sizeof": "^1.5.3"
@@ -43,11 +41,16 @@
     "lodash": "<5"
   },
   "devDependencies": {
-    "@types/md5": "^2.1.33"
+    "@babel/runtime": "^7.20.13",
+    "@types/lodash": "^4.14.191",
+    "@types/md5": "^2.1.33",
+    "core-js": "^3.27.2",
+    "lodash": "^4.17.21",
+    "type-fest": "^3.10.0"
   },
   "keywords": [
-    "cachemap",
     "cache",
+    "cachemap",
     "core"
   ]
 }

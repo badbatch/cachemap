@@ -1,2 +1,2 @@
-export * from "./types";
-export { default, init, IndexedDBStore } from "./main";
+export * from './types.ts';
+export { init, IndexedDBStore } from './main/index.ts';

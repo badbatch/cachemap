@@ -1,16 +1,16 @@
 {
   "name": "@cachemap/controller",
-  "version": "4.0.3",
   "description": "The Cachemap controller module.",
+  "version": "4.0.3",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": "https://github.com/badbatch/cachemap/issues",
   "repository": {
     "directory": "packages/controller",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
+  "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
   "main": "./dist/main/index.mjs",
   "types": "./dist/types/index.d.ts",
@@ -26,16 +26,15 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/constants": "workspace:../constants",
+    "@cachemap/utils": "workspace:../utils",
     "eventemitter3": "^4.0.7"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
-    "core-js": "<4",
-    "lodash": "<5"
+    "core-js": "<4"
   },
   "keywords": [
-    "cachemap",
-    "cache"
+    "cache",
+    "cachemap"
   ]
 }

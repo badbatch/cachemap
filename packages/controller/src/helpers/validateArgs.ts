@@ -1,4 +1,4 @@
-import { isString } from "lodash";
-import { EventData } from "..";
+import { type EventData } from '../types.ts';
 
-export default ({ name, type }: EventData) => (isString(name) && !!name.length) || (isString(type) && !!type.length);
+export const validateArgs = ({ name, type }: EventData): boolean =>
+  (typeof name === 'string' && name.length > 0) || (typeof type === 'string' && type.length > 0);
