@@ -427,7 +427,9 @@ export class Core {
       return;
     }
 
-    return this._store.set(
+    const store = this._backupStore ?? this._store;
+
+    return store.set(
       constants.METADATA,
       prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._encryptionSecret)
     );
@@ -448,7 +450,7 @@ export class Core {
 
       if (metadata.length > 0) {
         const keys = metadata.map(entry => entry.key);
-        await this._store.import(await this._backupStore.entries(undefined, { allKeys: keys }));
+        await this._store.import(await this._backupStore.entries(keys));
         this._metadata = rehydrateMetadata(metadata);
       }
     }
@@ -748,7 +750,8 @@ export class Core {
     }
 
     await this._backupStore.clear();
-    void this._backupStore.import(await this._store.entries());
+    const keys = this._metadata.map(entry => entry.key);
+    void this._backupStore.import(await this._store.entries(keys));
   }
 
   private _updateHeapSize(): void {

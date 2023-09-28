@@ -14,5 +14,11 @@ module.exports = {
         peerDependencies: false,
       },
     ],
+    'jest/max-nested-describe': [
+      2,
+      {
+        max: 6,
+      },
+    ],
   },
 };

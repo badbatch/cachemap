@@ -44,13 +44,8 @@ export class LocalStorageStore implements Store {
     return Promise.resolve(true);
   }
 
-  public entries(keys?: string[]): Promise<[string, string][]> {
-    let entryKeys: string[] | undefined;
-
-    if (keys) {
-      entryKeys = keys.map(key => this._buildKey(key));
-    }
-
+  public entries(keys: string[]): Promise<[string, string][]> {
+    const entryKeys = new Set(keys.map(key => this._buildKey(key)));
     const entries: [string, string][] = [];
     const regex = new RegExp(`${this._name}-`);
 
@@ -61,15 +56,7 @@ export class LocalStorageStore implements Store {
         continue;
       }
 
-      if (entryKeys) {
-        if (entryKeys.includes(key)) {
-          const item = this._storage.getItem(key);
-
-          if (item) {
-            entries.push([key.replace(regex, ''), item]);
-          }
-        }
-      } else if (!key.endsWith('metadata')) {
+      if (entryKeys.has(key)) {
         const item = this._storage.getItem(key);
 
         if (item) {
@@ -121,7 +108,10 @@ export class LocalStorageStore implements Store {
       }
     }
 
-    return Promise.resolve(keys.length);
+    // metadata is stored in the same DB as the
+    // entries it describes, so we need to remove
+    // one entry to get actual size
+    return Promise.resolve(keys.length - 1);
   }
 
   private _buildKey(key: string): string {

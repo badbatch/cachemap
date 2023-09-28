@@ -1,4 +1,4 @@
-import type { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 
 export const isJsonValue = (value: unknown): value is JsonValue => {
   try {

@@ -1,4 +1,6 @@
-export const testData = {
+import type { PlainObject } from '../defs/index.ts';
+
+export const testData: Record<string, { body: PlainObject; url: string }> = {
   '136-7317': {
     body: { id: '136-7317' },
     url: '/rest/content/catalog/product/136-7317',

@@ -1,4 +1,4 @@
-import type { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 import { decode, encode } from './base64.ts';
 import { decrypt, encrypt } from './encryption.ts';
 

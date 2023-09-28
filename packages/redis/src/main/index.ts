@@ -6,10 +6,10 @@ import { type RedisClient, createClient } from 'redis';
 import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 
 export class RedisStore implements Store {
-  public static init(options: InitOptions): RedisStore {
+  public static init(options: InitOptions): Promise<RedisStore> {
     const { fast, maxHeapSize, mock, name, ...otherProps } = options;
     const client = mock ? fakeRedis.createClient({ ...otherProps, fast }) : createClient(otherProps);
-    return new RedisStore({ client, maxHeapSize, name });
+    return Promise.resolve(new RedisStore({ client, maxHeapSize, name }));
   }
 
   public readonly type = 'redis';
@@ -51,17 +51,15 @@ export class RedisStore implements Store {
     });
   }
 
-  public async entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, string][]> {
-    const keyset = keys?.length ? keys : options?.allKeys ?? [];
-
+  public async entries(keys: string[]): Promise<[string, string][]> {
     return new Promise((resolve: (value: [string, string][]) => void, reject: (reason: Error) => void) => {
-      this._client.mget(keyset, (error, reply) => {
+      this._client.mget(keys, (error, reply) => {
         if (error) {
           reject(error);
         } else {
           const entries: [string, string][] = [];
 
-          for (const [index, key] of keyset.entries()) {
+          for (const [index, key] of keys.entries()) {
             const replyEntry = reply[index];
 
             if (replyEntry) {
@@ -143,7 +141,10 @@ export class RedisStore implements Store {
         if (error) {
           reject(error);
         } else {
-          resolve(reply);
+          // metadata is stored in the same DB as the
+          // entries it describes, so we need to remove
+          // one entry to get actual size
+          resolve(reply - 1);
         }
       });
     });

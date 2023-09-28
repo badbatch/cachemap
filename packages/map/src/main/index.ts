@@ -1,5 +1,6 @@
 import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
-import { isNumber, isPlainObject } from 'lodash';
+import isNumber from 'lodash/isNumber.js';
+import isPlainObject from 'lodash/isPlainObject.js';
 import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 
 export class MapStore implements Store {

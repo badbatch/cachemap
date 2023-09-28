@@ -1,18 +1,12 @@
-import Core from '@cachemap/core';
-import map from '@cachemap/map';
-import redis from '@cachemap/redis';
-import { run } from '../test-runner';
+/**
+ * @jest-environment node
+ */
+import { run } from '../test-runner/index.ts';
+import { init as map } from '@cachemap/map';
+import { init as redis } from '@cachemap/redis';
 
-run({ cachemapSize: value => value, init: (options: any) => new Core(options) }, 'redis', redis, { mock: true });
-
-run(
-  {
-    cachemapSize: value => value,
-    init: (options: any) => new Core({ ...options, backupStore: true, startBackup: true }),
-  },
-  'redisBackup',
-  redis,
-  { mock: true }
-);
-
-run({ cachemapSize: value => value - 1, init: (options: any) => new Core(options) }, 'map', map);
+describe.each`
+  storeType      | store    | storeOptions      | cachemapOptions
+  ${'redisMock'} | ${redis} | ${{ mock: true }} | ${{}}
+  ${'map'}       | ${map}   | ${{}}             | ${{}}
+`('when store type is $storeType', run); // eslint-disable-line jest/valid-describe-callback

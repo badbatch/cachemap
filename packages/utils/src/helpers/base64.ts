@@ -1,5 +1,5 @@
 import { Base64 } from 'js-base64';
-import type { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 
 export const encode = (data: JsonValue) => Base64.encode(JSON.stringify(data));
 

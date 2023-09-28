@@ -68,7 +68,7 @@ export type Metadata = BaseMetadata & {
 export interface Store {
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, string][]>;
+  entries(keys: string[]): Promise<[string, string][]>;
   get(key: string): Promise<string | undefined>;
   has(key: string): Promise<boolean>;
   import(entries: [string, string][]): Promise<void>;
@@ -83,6 +83,6 @@ export interface StoreOptions {
   name: string;
 }
 
-export type StoreInit = (options: StoreOptions) => Promise<Store> | Store;
+export type StoreInit = (options: StoreOptions) => Promise<Store>;
 
 export type Tag = string | number;

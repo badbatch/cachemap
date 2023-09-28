@@ -6,6 +6,6 @@ const isDebug = DEBUG === 'true';
 module.exports = {
   ...config,
   collectCoverageFrom: ['packages/**/*.ts', ...config.collectCoverageFrom.slice(1)],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs', 'fake-indexeddb/auto'],
   ...(isDebug ? {} : { testMatch: ['**/src/**/*.test.ts'] }),
 };

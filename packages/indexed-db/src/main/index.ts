@@ -50,7 +50,7 @@ export class IndexedDBStore implements Store {
     return true;
   }
 
-  public async entries(keys?: string[]): Promise<[string, string][]> {
+  public async entries(keys: string[]): Promise<[string, string][]> {
     const tx = this._indexedDB.transaction(this._name);
     const entries: [string, string][] = [];
     let cursor = await tx.objectStore(this._name).openCursor();
@@ -58,14 +58,8 @@ export class IndexedDBStore implements Store {
     while (cursor) {
       const key = cursor.key as string;
 
-      if (keys) {
-        if (keys.includes(key)) {
-          entries.push([key, cursor.value as string]);
-        }
-      } else {
-        if (!key.endsWith('metadata')) {
-          entries.push([key, cursor.value as string]);
-        }
+      if (keys.includes(key)) {
+        entries.push([key, cursor.value as string]);
       }
 
       cursor = await cursor.continue();
@@ -116,7 +110,10 @@ export class IndexedDBStore implements Store {
     }
 
     await tx.done;
-    return keys.length;
+    // metadata is stored in the same DB as the
+    // entries it describes, so we need to remove
+    // one entry to get actual size
+    return keys.length - 1;
   }
 }
 
