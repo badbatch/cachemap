@@ -1,5 +1,5 @@
 import { type Metadata } from '@cachemap/types';
-import isPlainObject from 'lodash/isPlainObject.js';
+import { isPlainObject } from 'lodash-es';
 import {
   type Callbacks,
   type ConstructorOptions,

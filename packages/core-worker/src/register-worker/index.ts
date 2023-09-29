@@ -1,7 +1,6 @@
 import { type Core, type ExportOptions, type ImportOptions } from '@cachemap/core';
 import { constants } from '@cachemap/utils';
-import isPlainObject from 'lodash/isPlainObject.js';
-import isString from 'lodash/isString.js';
+import { isPlainObject, isString } from 'lodash-es';
 import { type CommonOptions, type FilterPropsResult, type PostMessage, type RegisterWorkerOptions } from '../types.ts';
 
 function requiresKey(type: string): boolean {

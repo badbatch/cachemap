@@ -31,11 +31,11 @@
   "peerDependencies": {
     "@babel/runtime": "<8",
     "core-js": "<4",
-    "lodash": "<5"
+    "lodash-es": "<5"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
-    "lodash": "^4.17.21",
+    "@types/lodash-es": "^4.14.191",
+    "lodash-es": "^4.17.21",
     "type-fest": "^3.10.0"
   },
   "keywords": [

@@ -1,7 +1,6 @@
 import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
 import fakeRedis from 'fakeredis';
-import isNumber from 'lodash/isNumber.js';
-import isPlainObject from 'lodash/isPlainObject.js';
+import { isNumber, isPlainObject } from 'lodash-es';
 import { type RedisClient, createClient } from 'redis';
 import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 

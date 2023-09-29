@@ -4,8 +4,7 @@ import { type Metadata, type Tag } from '@cachemap/types';
 import { ArgsError, GroupedError, constants, rehydrateMetadata } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
 import EventEmitter from 'eventemitter3';
-import isPlainObject from 'lodash/isPlainObject.js';
-import isString from 'lodash/isString.js';
+import { isPlainObject, isString } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 import {
   type ConstructorOptions,

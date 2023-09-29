@@ -30,7 +30,7 @@
     "@cachemap/map": "workspace:../map",
     "@cachemap/types": "workspace:../types",
     "@cachemap/utils": "workspace:../utils",
-    "cacheability": "^4.0.1",
+    "cacheability": "^4.0.4",
     "eventemitter3": "^4.0.7",
     "uuid": "^7.0.1"
   },
@@ -38,15 +38,15 @@
     "@babel/runtime": "<8",
     "@cachemap/core": "<6",
     "core-js": "<4",
-    "lodash": "<5"
+    "lodash-es": "<5"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
     "@cachemap/core": "workspace:../core",
-    "@types/lodash": "^4.14.191",
+    "@types/lodash-es": "^4.14.191",
     "@types/uuid": "^9.0.3",
     "core-js": "^3.27.2",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "keywords": [
     "cache",

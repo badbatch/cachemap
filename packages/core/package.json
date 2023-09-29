@@ -30,7 +30,7 @@
     "@cachemap/map": "workspace:../map",
     "@cachemap/types": "workspace:../types",
     "@cachemap/utils": "workspace:../utils",
-    "cacheability": "^4.0.1",
+    "cacheability": "^4.0.4",
     "eventemitter3": "^4.0.7",
     "md5": "^2.2.1",
     "object-sizeof": "^1.5.3"
@@ -38,14 +38,14 @@
   "peerDependencies": {
     "@babel/runtime": "<8",
     "core-js": "<4",
-    "lodash": "<5"
+    "lodash-es": "<5"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@types/lodash": "^4.14.191",
+    "@types/lodash-es": "^4.14.191",
     "@types/md5": "^2.1.33",
     "core-js": "^3.27.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "type-fest": "^3.10.0"
   },
   "keywords": [

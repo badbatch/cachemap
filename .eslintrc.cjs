@@ -1,5 +1,19 @@
 module.exports = {
   extends: ['@repodog/eslint-config'],
+  overrides: [
+    {
+      extends: ['@repodog/eslint-config/jest.cjs'],
+      files: ['tests/node/*.{spec,test}.*'],
+      rules: {
+        'jest/max-nested-describe': [
+          2,
+          {
+            max: 6,
+          },
+        ],
+      },
+    },
+  ],
   parserOptions: {
     project: ['./tsconfig.json', './packages/*/tsconfig.json'],
     tsconfigRootDir: __dirname,
@@ -12,12 +26,6 @@ module.exports = {
       {
         devDependencies: true,
         peerDependencies: false,
-      },
-    ],
-    'jest/max-nested-describe': [
-      2,
-      {
-        max: 6,
       },
     ],
   },

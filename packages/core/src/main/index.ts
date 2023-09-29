@@ -14,14 +14,7 @@ import {
 } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
 import EventEmitter from 'eventemitter3';
-import castArray from 'lodash/castArray.js';
-import get from 'lodash/get.js';
-import isArray from 'lodash/isArray.js';
-import isFunction from 'lodash/isFunction.js';
-import isNumber from 'lodash/isNumber.js';
-import isPlainObject from 'lodash/isPlainObject.js';
-import isString from 'lodash/isString.js';
-import isUndefined from 'lodash/isUndefined.js';
+import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
 import md5 from 'md5';
 import sizeof from 'object-sizeof';
 import type { JsonValue } from 'type-fest';

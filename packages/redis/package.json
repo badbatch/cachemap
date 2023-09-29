@@ -29,12 +29,12 @@
   "peerDependencies": {
     "@babel/runtime": "<8",
     "core-js": "<4",
-    "lodash": "<5"
+    "lodash-es": "<5"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
+    "@types/lodash-es": "^4.14.191",
     "@types/redis": "^2.8.16",
-    "lodash": "^4.17.21"
+    "lodash-es": "^4.17.21"
   },
   "keywords": [
     "cache",

@@ -26,12 +26,12 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "cacheability": "^4.0.1"
+    "cacheability": "^4.0.4"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
     "core-js": "^3.27.2",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "type-fest": "^3.10.0"
   },
   "keywords": [
