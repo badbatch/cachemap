@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@cachemap/types": "workspace:../types",
-    "cacheability": "^4.0.4",
+    "cacheability": "^4.0.7",
     "crypto-js": "^4.0.0",
     "js-base64": "^3.6.0"
   },

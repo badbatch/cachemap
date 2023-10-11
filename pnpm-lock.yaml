@@ -53,7 +53,7 @@ importers:
       babel-loader: ^9.1.3
       babel-plugin-codegen: ^4.1.5
       babel-plugin-macros: ^3.1.0
-      cacheability: ^4.0.4
+      cacheability: ^4.0.7
       concurrently: ^8.2.1
       core-js: ^3.27.2
       del-cli: ^3.0.0
@@ -147,7 +147,7 @@ importers:
       babel-loader: 9.1.3_a7bz5yhgcoab2comip4bcc2pf4
       babel-plugin-codegen: 4.1.5
       babel-plugin-macros: 3.1.0
-      cacheability: 4.0.4_ws6jwtngjv63vua3nfgdsmd4pq
+      cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
       concurrently: 8.2.1
       core-js: 3.32.0
       del-cli: 3.0.1
@@ -208,7 +208,7 @@ importers:
       '@cachemap/types': workspace:../types
       '@cachemap/utils': workspace:../utils
       '@types/lodash-es': ^4.14.191
-      cacheability: ^4.0.4
+      cacheability: ^4.0.7
       core-js: ^3.27.2
       eventemitter3: ^4.0.7
       lodash-es: ^4.17.21
@@ -219,7 +219,7 @@ importers:
       '@cachemap/map': link:../map
       '@cachemap/types': link:../types
       '@cachemap/utils': link:../utils
-      cacheability: 4.0.4_ws6jwtngjv63vua3nfgdsmd4pq
+      cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
       eventemitter3: 4.0.7
       ts-md5: 1.3.1
     devDependencies:
@@ -239,7 +239,7 @@ importers:
       '@cachemap/utils': workspace:../utils
       '@types/lodash-es': ^4.14.191
       '@types/uuid': ^9.0.3
-      cacheability: ^4.0.4
+      cacheability: ^4.0.7
       core-js: ^3.27.2
       eventemitter3: ^4.0.7
       lodash-es: ^4.17.21
@@ -249,7 +249,7 @@ importers:
       '@cachemap/map': link:../map
       '@cachemap/types': link:../types
       '@cachemap/utils': link:../utils
-      cacheability: 4.0.4_ws6jwtngjv63vua3nfgdsmd4pq
+      cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
       eventemitter3: 4.0.7
       uuid: 7.0.3
     devDependencies:
@@ -328,12 +328,12 @@ importers:
   packages/types:
     specifiers:
       '@babel/runtime': ^7.20.13
-      cacheability: ^4.0.4
+      cacheability: ^4.0.7
       core-js: ^3.27.2
       lodash-es: ^4.17.21
       type-fest: ^3.10.0
     dependencies:
-      cacheability: 4.0.4_ws6jwtngjv63vua3nfgdsmd4pq
+      cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
     devDependencies:
       '@babel/runtime': 7.22.10
       core-js: 3.32.0
@@ -346,7 +346,7 @@ importers:
       '@cachemap/types': workspace:../types
       '@jest/globals': ^29.3.1
       '@types/crypto-js': ^4.1.1
-      cacheability: ^4.0.4
+      cacheability: ^4.0.7
       core-js: ^3.27.2
       crypto-js: ^4.0.0
       js-base64: ^3.6.0
@@ -354,7 +354,7 @@ importers:
       type-fest: ^3.10.0
     dependencies:
       '@cachemap/types': link:../types
-      cacheability: 4.0.4_ws6jwtngjv63vua3nfgdsmd4pq
+      cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
       crypto-js: 4.1.1
       js-base64: 3.7.5
     devDependencies:
@@ -4000,11 +4000,12 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /cacheability/4.0.4_ws6jwtngjv63vua3nfgdsmd4pq:
-    resolution: {integrity: sha512-lEtR4RHl9M0zFzkBmCS30lo92ExYYKbvPKOlRhxglc2MTrpu8x2JkyiltgdaA1sRkEiAoswYkxEq4S4lR+ykWA==}
+  /cacheability/4.0.7_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-HbZHl/Ly6phi78/Cc6/OGcdkfbwtiRY8/OJWH9Yu8XBkkonu/WHHlOfpC/dxmknRC//6MPyuswyvLfb1+zeAWA==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
+      lodash-es: <5
     dependencies:
       '@babel/runtime': 7.22.10
       core-js: 3.32.0
