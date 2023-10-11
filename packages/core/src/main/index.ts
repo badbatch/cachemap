@@ -11,12 +11,12 @@ import {
   prepareGetEntry,
   prepareSetEntry,
   rehydrateMetadata,
+  sizeOf,
 } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
 import EventEmitter from 'eventemitter3';
 import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
-import md5 from 'md5';
-import sizeof from 'object-sizeof';
+import { Md5 } from 'ts-md5';
 import type { JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from '../constants.ts';
 import {
@@ -483,7 +483,7 @@ export class Core {
       return this._addRequestToQueue(constants.DELETE, key, options);
     }
 
-    const deleteKey = options.hash ? md5(key) : key;
+    const deleteKey = options.hash ? Md5.hashStr(key) : key;
     const deleted = await this._store.delete(deleteKey);
 
     if (!deleted) {
@@ -557,7 +557,7 @@ export class Core {
       return this._addRequestToQueue(constants.GET, key, options);
     }
 
-    const getKey = options.hash ? md5(key) : key;
+    const getKey = options.hash ? Md5.hashStr(key) : key;
     const value = await this._store.get(getKey);
 
     if (!value) {
@@ -582,7 +582,7 @@ export class Core {
       return this._addRequestToQueue(constants.HAS, key, options);
     }
 
-    const hasKey = options.hash ? md5(key) : key;
+    const hasKey = options.hash ? Md5.hashStr(key) : key;
     const exists = await this._store.has(hasKey);
 
     if (!exists) {
@@ -690,7 +690,7 @@ export class Core {
       return;
     }
 
-    const setKey = options.hash ? md5(key) : key;
+    const setKey = options.hash ? Md5.hashStr(key) : key;
     const processing = this._processing.includes(setKey);
 
     if (!processing) {
@@ -703,8 +703,8 @@ export class Core {
       await this._store.set(setKey, preparedSetValue);
 
       await (exists
-        ? this._updateMetadata(setKey, sizeof(preparedSetValue), cacheability, options.tag)
-        : this._addMetadata(setKey, sizeof(preparedSetValue), cacheability, options.tag));
+        ? this._updateMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag)
+        : this._addMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag));
 
       this._processed(setKey);
     } catch (error) {

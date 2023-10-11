@@ -3,3 +3,4 @@ export * from './encryption.ts';
 export * from './isJsonValue.ts';
 export * from './prepareStoreEntries.ts';
 export * from './hydrateMetadata.ts';
+export * from './sizeOf.ts';

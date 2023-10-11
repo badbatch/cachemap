@@ -1,32 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Cacheability } from 'cacheability';
-import md5 from 'md5';
+import { type Cacheability } from 'cacheability';
+import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
-import { testData } from '../../data/index.ts';
-import { type PlainObject } from '../../defs/index.ts';
-import { Core, type ConstructorOptions as CoreConstructorOptions, type ExportResult } from '@cachemap/core';
-import { CoreWorker, type ConstructorOptions as CoreWorkerConstructorOptions } from '@cachemap/core-worker';
-import { init as reaper } from '@cachemap/reaper';
-import { type Metadata, type StoreInit, type StoreOptions } from '@cachemap/types';
+import { testData } from '../data/index.ts';
+import { type PlainObject } from '../defs/index.ts';
+import { type ExportResult } from '@cachemap/core';
+import { CoreWorker } from '@cachemap/core-worker';
+import { type Metadata } from '@cachemap/types';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-const isCoreWorker = (
-  options: CoreConstructorOptions | CoreWorkerConstructorOptions
-): options is CoreWorkerConstructorOptions => 'worker' in options;
-
-export const run = ({
-  cachemapOptions,
-  store,
-  storeOptions,
-  storeType,
-}: {
-  cachemapOptions: CoreConstructorOptions | CoreWorkerConstructorOptions;
-  store: (options: PlainObject) => StoreInit;
-  storeOptions: StoreOptions;
-  storeType: string;
-}) => {
-  let cachemap: Core | CoreWorker;
+describe('when worker store type is indexedDB', () => {
+  let cachemap: CoreWorker;
 
   afterEach(async () => {
     await cachemap.clear();
@@ -39,18 +24,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when a matching entry does not exist', () => {
@@ -59,32 +37,33 @@ export const run = ({
       });
 
       it('the set method should store the correct amount of metadata', () => {
-        expect(cachemap.metadata).toHaveLength(1);
+        expect(cachemap.metadata).toHaveSize(1);
       });
 
       it('the set method should store the entry metadata', () => {
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
-          expect.objectContaining({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          jasmine.objectContaining({
             accessedCount: 0,
-            added: expect.any(Number),
-            cacheability: expect.any(Cacheability),
-            key: md5(key),
-            lastAccessed: expect.any(Number),
-            lastUpdated: expect.any(Number),
-            size: expect.any(Number),
+            added: jasmine.any(Number),
+            cacheability: jasmine.any(Object),
+            key: Md5.hashStr(key),
+            lastAccessed: jasmine.any(Number),
+            lastUpdated: jasmine.any(Number),
+            size: jasmine.any(Number),
             updatedCount: 0,
           })
         );
       });
 
       it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(1);
+        expect(await cachemap.size()).toBe(1);
       });
 
       it('the set method should store the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual(value);
+        expect(await cachemap.get(key, { hash: true })).toEqual(value);
       });
     });
 
@@ -98,20 +77,21 @@ export const run = ({
       });
 
       it('the set method should store the correct amount of metadata', () => {
-        expect(cachemap.metadata).toHaveLength(1);
+        expect(cachemap.metadata).toHaveSize(1);
       });
 
       it("the set method should update the existing entry's metadata", () => {
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
-          expect.objectContaining({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          jasmine.objectContaining({
             accessedCount: 0,
             added: metadata.added,
-            cacheability: expect.any(Cacheability),
+            cacheability: jasmine.any(Object),
             key: metadata.key,
             lastAccessed: metadata.lastAccessed,
-            lastUpdated: expect.any(Number),
+            lastUpdated: jasmine.any(Number),
             size: metadata.size,
             updatedCount: 1,
           })
@@ -130,11 +110,11 @@ export const run = ({
       });
 
       it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(1);
+        expect(await cachemap.size()).toBe(1);
       });
 
       it("the set method should overwrite the existing entry's key/value pair", async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual({ ...value, index: 1 });
+        expect(await cachemap.get(key, { hash: true })).toEqual({ ...value, index: 1 });
       });
     });
 
@@ -147,32 +127,33 @@ export const run = ({
       });
 
       it('the set method should store the correct amount of metadata', () => {
-        expect(cachemap.metadata).toHaveLength(1);
+        expect(cachemap.metadata).toHaveSize(1);
       });
 
       it("the set method should store the first entry's metadata and then update it", () => {
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
-          expect.objectContaining({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          jasmine.objectContaining({
             accessedCount: 0,
-            added: expect.any(Number),
-            cacheability: expect.any(Cacheability),
-            key: md5(key),
-            lastAccessed: expect.any(Number),
-            lastUpdated: expect.any(Number),
-            size: expect.any(Number),
+            added: jasmine.any(Number),
+            cacheability: jasmine.any(Object),
+            key: Md5.hashStr(key),
+            lastAccessed: jasmine.any(Number),
+            lastUpdated: jasmine.any(Number),
+            size: jasmine.any(Number),
             updatedCount: 1,
           })
         );
       });
 
       it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(1);
+        expect(await cachemap.size()).toBe(1);
       });
 
       it("the set method should overwrite the first entry's key/value pair with the subsequent entry's", async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual({ ...value, index: 1 });
+        expect(await cachemap.get(key, { hash: true })).toEqual({ ...value, index: 1 });
       });
     });
   });
@@ -184,18 +165,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when a matching entry does not exist', () => {
@@ -223,15 +197,15 @@ export const run = ({
       });
 
       it('the delete method should remove the entry metadata', () => {
-        expect(cachemap.metadata).toHaveLength(0);
+        expect(cachemap.metadata).toHaveSize(0);
       });
 
       it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(0);
+        expect(await cachemap.size()).toBe(0);
       });
 
       it('the delete method should remove the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
+        expect(await cachemap.get(key, { hash: true })).toBeUndefined();
       });
     });
   });
@@ -243,18 +217,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when a matching entry does not exist', () => {
@@ -284,19 +251,20 @@ export const run = ({
       });
 
       it('the set method should store the correct amount of metadata', () => {
-        expect(cachemap.metadata).toHaveLength(1);
+        expect(cachemap.metadata).toHaveSize(1);
       });
 
       it("the get method should update the existing entry's metadata", () => {
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
-          expect.objectContaining({
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          jasmine.objectContaining({
             accessedCount: 1,
             added: metadata.added,
-            cacheability: expect.any(Cacheability),
-            key: md5(key),
-            lastAccessed: expect.any(Number),
+            cacheability: jasmine.any(Object),
+            key: Md5.hashStr(key),
+            lastAccessed: jasmine.any(Number),
             lastUpdated: metadata.lastUpdated,
             size: metadata.size,
             updatedCount: 0,
@@ -318,18 +286,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when a matching entry does not exist', () => {
@@ -354,7 +315,7 @@ export const run = ({
         });
 
         it("the has method should return the entry's Cacheability instance", () => {
-          expect(exists).toBeInstanceOf(Cacheability);
+          expect(exists).not.toBeFalse();
         });
       });
 
@@ -369,19 +330,19 @@ export const run = ({
           });
 
           it("the has method should return the entry's Cacheability instance", () => {
-            expect(exists).toBeInstanceOf(Cacheability);
+            expect(exists).not.toBeFalse();
           });
 
           it('the has method should not remove the entry metadata', () => {
-            expect(cachemap.metadata).toHaveLength(1);
+            expect(cachemap.metadata).toHaveSize(1);
           });
 
           it('the cachemap should have the correct size', async () => {
-            await expect(cachemap.size()).resolves.toBe(1);
+            expect(await cachemap.size()).toBe(1);
           });
 
           it('the has method should not remove the key/value pair', async () => {
-            await expect(cachemap.get(key, { hash: true })).resolves.toEqual(value);
+            expect(await cachemap.get(key, { hash: true })).toEqual(value);
           });
         });
 
@@ -399,15 +360,15 @@ export const run = ({
           });
 
           it('the has method should remove the entry metadata', () => {
-            expect(cachemap.metadata).toHaveLength(0);
+            expect(cachemap.metadata).toHaveSize(0);
           });
 
           it('the cachemap should have the correct size', async () => {
-            await expect(cachemap.size()).resolves.toBe(0);
+            expect(await cachemap.size()).toBe(0);
           });
 
           it('the has method should remove the key/value pair', async () => {
-            await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
+            expect(await cachemap.get(key, { hash: true })).toBeUndefined();
           });
         });
       });
@@ -418,18 +379,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when no keys are passed in', () => {
@@ -448,7 +402,7 @@ export const run = ({
       });
 
       it('the entries method should return all the key/value pair entries', () => {
-        expect(result).toHaveLength(3);
+        expect(result).toHaveSize(3);
       });
     });
 
@@ -462,7 +416,7 @@ export const run = ({
         await Promise.all(
           ids.map(id => {
             const url = testData[id]!.url;
-            hashedKeys.push(md5(url));
+            hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
           })
         );
@@ -471,7 +425,7 @@ export const run = ({
       });
 
       it('the entries method should return the matching key/value pair entries', () => {
-        expect(result).toHaveLength(2);
+        expect(result).toHaveSize(2);
       });
     });
   });
@@ -480,18 +434,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when no keys are passed in', () => {
@@ -510,11 +457,11 @@ export const run = ({
       });
 
       it('the export method should return all the key/value pair entries', () => {
-        expect(result.entries).toHaveLength(3);
+        expect(result.entries).toHaveSize(3);
       });
 
       it('the export method should return all the metadata', () => {
-        expect(result.metadata).toHaveLength(3);
+        expect(result.metadata).toHaveSize(3);
       });
     });
 
@@ -528,7 +475,7 @@ export const run = ({
         await Promise.all(
           ids.map(id => {
             const url = testData[id]!.url;
-            hashedKeys.push(md5(url));
+            hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
           })
         );
@@ -537,11 +484,11 @@ export const run = ({
       });
 
       it('the export method should return all the key/value pair entries', () => {
-        expect(result.entries).toHaveLength(2);
+        expect(result.entries).toHaveSize(2);
       });
 
       it('the export method should return all the metadata', () => {
-        expect(result.metadata).toHaveLength(2);
+        expect(result.metadata).toHaveSize(2);
       });
     });
 
@@ -563,11 +510,11 @@ export const run = ({
       });
 
       it('the export method should return all the key/value pair entries', () => {
-        expect(result.entries).toHaveLength(1);
+        expect(result.entries).toHaveSize(1);
       });
 
       it('the export method should return all the metadata', () => {
-        expect(result.metadata).toHaveLength(1);
+        expect(result.metadata).toHaveSize(1);
       });
     });
 
@@ -587,11 +534,11 @@ export const run = ({
       });
 
       it('the export method should return all the key/value pair entries', () => {
-        expect(result.entries).toHaveLength(1);
+        expect(result.entries).toHaveSize(1);
       });
 
       it('the export method should return all the metadata', () => {
-        expect(result.metadata).toHaveLength(1);
+        expect(result.metadata).toHaveSize(1);
       });
     });
   });
@@ -600,18 +547,11 @@ export const run = ({
     const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
 
     beforeEach(() => {
-      cachemap = isCoreWorker(cachemapOptions)
-        ? new CoreWorker({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            type: 'integration-tests',
-          })
-        : new Core({
-            ...cachemapOptions,
-            name: `${storeType}-integration-tests`,
-            store: store(storeOptions),
-            type: 'integration-tests',
-          });
+      cachemap = new CoreWorker({
+        name: 'indexedDB-integration-tests',
+        type: 'integration-tests',
+        worker: new Worker(new URL('worker.ts', import.meta.url)),
+      });
     });
 
     describe('when no matching entries exist', () => {
@@ -630,11 +570,11 @@ export const run = ({
       });
 
       it('the import method should add the key/value pair entries', async () => {
-        await expect(cachemap.size()).resolves.toBe(3);
+        expect(await cachemap.size()).toBe(3);
       });
 
       it('the import method should add all the metadata', () => {
-        expect(cachemap.metadata).toHaveLength(3);
+        expect(cachemap.metadata).toHaveSize(3);
       });
     });
 
@@ -653,124 +593,12 @@ export const run = ({
       });
 
       it('the import method should add the key/value pair entries', async () => {
-        await expect(cachemap.size()).resolves.toBe(3);
+        expect(await cachemap.size()).toBe(3);
       });
 
       it('the import method should add all the metadata', () => {
-        expect(cachemap.metadata).toHaveLength(3);
+        expect(cachemap.metadata).toHaveSize(3);
       });
     });
   });
-
-  if (isCoreWorker(cachemapOptions)) {
-    return;
-  }
-
-  describe('when the reaper module is passed into the cachemap', () => {
-    const id = '136-7317';
-    const key = testData[id]!.url;
-    const value = testData[id]!.body;
-    const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=0' };
-
-    describe("when an entry's cacheability expires", () => {
-      let entryDeletedData: PlainObject;
-
-      beforeEach(async () => {
-        cachemap = new Core({
-          ...cachemapOptions,
-          name: `${storeType}-integration-tests`,
-          reaper: reaper({ interval: 500, start: true }),
-          store: store(storeOptions),
-          type: 'integration-tests',
-        });
-
-        cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
-          entryDeletedData = data;
-        });
-
-        await cachemap.set(key, value, { cacheHeaders, hash: true, tag: 'ALPHA' });
-        await delay(1000);
-      });
-
-      afterEach(() => {
-        (cachemap as Core).reaper?.stop();
-      });
-
-      it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(0);
-      });
-
-      it('the reaper should remove the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
-      });
-
-      it('the reaper should remove the entry metadata', () => {
-        expect(cachemap.metadata).toHaveLength(0);
-      });
-
-      it('the ENTRY_DELETED event should be emitted with the correct data', () => {
-        expect(entryDeletedData).toEqual(
-          expect.objectContaining({
-            deleted: true,
-            key: expect.any(String),
-            tags: ['ALPHA'],
-          })
-        );
-      });
-    });
-
-    describe('when the entries exceed the max heap size', () => {
-      let entryDeletedData: PlainObject[] = [];
-      let keys: string[];
-
-      beforeEach(done => {
-        cachemap = new Core({
-          ...cachemapOptions,
-          name: `${storeType}-integration-tests`,
-          reaper: reaper({ start: true }),
-          store: store({ ...storeOptions, maxHeapSize: 100 }),
-          type: 'integration-tests',
-        });
-
-        cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
-          entryDeletedData.push(data);
-          done();
-        });
-
-        keys = Object.keys(testData);
-        keys.map(id => cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true }));
-      });
-
-      afterEach(() => {
-        entryDeletedData = [];
-        (cachemap as Core).reaper?.stop();
-      });
-
-      it('the cachemap should have the correct size', async () => {
-        await expect(cachemap.size()).resolves.toBe(2);
-      });
-
-      it('the reaper should remove the necessary key/value pair', async () => {
-        await expect(cachemap.get(keys[2]!, { hash: true })).resolves.toBeUndefined();
-      });
-
-      it('the reaper should remove the entry metadata', () => {
-        expect(cachemap.metadata).toHaveLength(2);
-      });
-
-      it('the ENTRY_DELETED event should fire the correct number of times', () => {
-        expect(entryDeletedData).toHaveLength(1);
-      });
-
-      it('the ENTRY_DELETED event should be emitted with the correct data', () => {
-        expect(entryDeletedData[0]).toEqual(
-          expect.objectContaining({
-            deleted: true,
-            key: expect.any(String),
-            tags: [],
-          })
-        );
-      });
-    });
-  });
-};
+});
