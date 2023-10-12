@@ -14,7 +14,3 @@ yarn add @cachemap/core @cachemap/utils @cachemap/controller
 ## Usage
 
 Read the Cachemap [usage guide](../../README.md#usage).
-
-## Documentation
-
-Read the module API [documentation](docs/README.md).
