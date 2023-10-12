@@ -236,7 +236,6 @@ importers:
       '@babel/runtime': ^7.20.13
       '@cachemap/controller': workspace:../controller
       '@cachemap/core': workspace:../core
-      '@cachemap/map': workspace:../map
       '@cachemap/types': workspace:../types
       '@cachemap/utils': workspace:../utils
       '@types/lodash-es': ^4.14.191
@@ -248,7 +247,6 @@ importers:
       uuid: ^7.0.1
     dependencies:
       '@cachemap/controller': link:../controller
-      '@cachemap/map': link:../map
       '@cachemap/types': link:../types
       '@cachemap/utils': link:../utils
       cacheability: 4.0.7_cpufd4kosxfrlx2bfvufbqbomy
