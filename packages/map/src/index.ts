@@ -1,2 +1,2 @@
-export * from "./types";
-export { default, init, MapStore } from "./main";
+export * from './types.ts';
+export { init, MapStore } from './main/index.ts';

@@ -1,4 +1,4 @@
-export type EventData = {
+export interface EventData {
   name?: string;
   type?: string;
-};
+}

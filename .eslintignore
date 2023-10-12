@@ -1,8 +1,8 @@
-.nyc_output
-.repodog
+!.*
+.github
+.husky
 .vscode
-bundle
 coverage
-docs
+dist
 lib
 node_modules

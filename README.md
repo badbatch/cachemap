@@ -45,7 +45,7 @@ yarn add @cachemap/core @cachemap/types @cachemap/indexed-db @cachemap/reaper
 The Cachemap's multi-package structure allows you to compose your cache of the modules you need, without additional
 bloat. Start with the `@cachemap/core` package and build out from there.
 
-* [@cachemap/constants](packages/constants/README.md)
+* [@cachemap/utils](packages/utils/README.md)
 * [@cachemap/controller](packages/controller/README.md)
 * [@cachemap/core](packages/core/README.md)
 * [@cachemap/core-worker](packages/core-worker/README.md)

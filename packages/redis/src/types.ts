@@ -1,4 +1,4 @@
-import { ClientOpts, RedisClient } from "redis";
+import { type ClientOpts, type RedisClient } from 'redis';
 
 export interface ConstructorOptions {
   client: RedisClient;

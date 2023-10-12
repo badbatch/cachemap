@@ -1,28 +1,10 @@
-import {
-  CACHEMAP,
-  CLEAR,
-  DELETE,
-  ENTRIES,
-  EXPORT,
-  GET,
-  HAS,
-  IMPORT,
-  MESSAGE,
-  SET,
-  SIZE,
-  START_BACKUP,
-  START_REAPER,
-  STOP_BACKUP,
-  STOP_REAPER,
-} from "@cachemap/constants";
-import Core, { ExportOptions, ImportOptions } from "@cachemap/core";
-import { isPlainObject, isString } from "lodash";
-import { CommonOptions, FilterPropsResult, PostMessage, RegisterWorkerOptions } from "../types";
-
-const { addEventListener, postMessage } = (self as unknown) as DedicatedWorkerGlobalScope;
+import { type Core, type ExportOptions, type ImportOptions } from '@cachemap/core';
+import { constants } from '@cachemap/utils';
+import { isPlainObject, isString } from 'lodash-es';
+import { type CommonOptions, type FilterPropsResult, type PostMessage, type RegisterWorkerOptions } from '../types.ts';
 
 function requiresKey(type: string): boolean {
-  return type === DELETE || type === GET || type === HAS || type === SET;
+  return type === constants.DELETE || type === constants.GET || type === constants.HAS || type === constants.SET;
 }
 
 function filterProps({ metadata, storeType, usedHeapSize }: Core): FilterPropsResult {
@@ -33,89 +15,119 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
   const { key, keys, messageID, method, options, type, value } = message;
 
   if (requiresKey(method) && !isString(key)) {
-    return Promise.reject(new TypeError("@cachemap/core-worker expected key to be an string."));
+    throw new TypeError('@cachemap/core-worker expected key to be an string.');
   }
 
-  let result: any;
+  let result: unknown;
 
   try {
     switch (method) {
-      case CLEAR:
+      case constants.CLEAR: {
         await cachemap.clear();
         break;
-      case DELETE:
+      }
+
+      case constants.DELETE: {
         if (key) {
           result = await cachemap.delete(key, options as CommonOptions);
         }
+
         break;
-      case ENTRIES:
+      }
+
+      case constants.ENTRIES: {
         result = await cachemap.entries(keys);
         break;
-      case EXPORT:
+      }
+
+      case constants.EXPORT: {
         result = await cachemap.export(options as ExportOptions);
         break;
-      case GET:
+      }
+
+      case constants.GET: {
         if (key) {
           result = await cachemap.get(key, options as CommonOptions);
         }
+
         break;
-      case HAS:
+      }
+
+      case constants.HAS: {
         if (key) {
           result = await cachemap.has(key, options as CommonOptions);
         }
+
         break;
-      case IMPORT:
+      }
+
+      case constants.IMPORT: {
         if (options) {
           await cachemap.import(options as ImportOptions);
         }
+
         break;
-      case SET:
+      }
+
+      case constants.SET: {
         if (key) {
           await cachemap.set(key, value, options as CommonOptions);
         }
+
         break;
-      case SIZE:
+      }
+
+      case constants.SIZE: {
         result = await cachemap.size();
         break;
-      case START_REAPER:
+      }
+
+      case constants.START_REAPER: {
         cachemap.reaper?.start();
         break;
-      case STOP_REAPER:
+      }
+
+      case constants.STOP_REAPER: {
         cachemap.reaper?.stop();
         break;
-      case START_BACKUP:
+      }
+
+      case constants.START_BACKUP: {
         cachemap.startBackup();
         break;
-      case STOP_BACKUP:
+      }
+
+      case constants.STOP_BACKUP: {
         cachemap.stopBackup();
         break;
+      }
       // no default
     }
-  } catch (errors) {
-    postMessage({ errors, messageID });
+  } catch (error) {
+    self.postMessage({ errors: error, messageID });
   }
 
-  postMessage({ method, messageID, result, type, ...filterProps(cachemap) });
+  self.postMessage({ messageID, method, result, type, ...filterProps(cachemap) });
 }
 
-export default async function registerWorker({ cachemap }: RegisterWorkerOptions): Promise<void> {
-  function onMessage({ data }: MessageEvent): void {
+export function registerWorker({ cachemap }: RegisterWorkerOptions): void {
+  function onMessage({ data }: MessageEvent<PostMessage>): void {
     if (!isPlainObject(data)) {
       return;
     }
 
-    const { type } = data as PostMessage;
+    const { type } = data;
 
-    if (type !== CACHEMAP) {
+    if (type !== constants.CACHEMAP) {
       return;
     }
 
-    handleMessage(data, cachemap);
+    void handleMessage(data, cachemap);
   }
 
-  addEventListener(MESSAGE, onMessage);
+  self.addEventListener(constants.MESSAGE, onMessage);
 
-  cachemap.emitter.on(cachemap.events.ENTRY_DELETED, ({ key, deleted }: { deleted: boolean; key: string }) => {
-    postMessage({ method: cachemap.events.ENTRY_DELETED, key, deleted, type: CACHEMAP });
+  cachemap.emitter.on(cachemap.events.ENTRY_DELETED, ({ deleted, key }: { deleted: boolean; key: string }) => {
+    self.postMessage({ deleted, key, method: cachemap.events.ENTRY_DELETED, type: constants.CACHEMAP });
   });
 }

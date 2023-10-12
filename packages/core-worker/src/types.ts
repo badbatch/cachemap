@@ -1,5 +1,5 @@
-import Core, { CacheHeaders, ExportOptions, ImportOptions } from "@cachemap/core";
-import { Metadata } from "@cachemap/types";
+import { type CacheHeaders, type Core, type ExportOptions, type ImportOptions } from '@cachemap/core';
+import { type Metadata } from '@cachemap/types';
 
 export interface CommonOptions {
   cacheHeaders?: CacheHeaders;
@@ -13,20 +13,20 @@ export interface ConstructorOptions {
   worker: Worker;
 }
 
-export type PendingResolver = (value: PostMessageResultWithMeta) => void;
+export type PendingResolver<T> = (value: PostMessageResultWithMeta<T>) => void;
 
-export interface PendingData {
-  resolve: PendingResolver;
+export interface PendingData<T> {
+  resolve: PendingResolver<T>;
 }
 
-export type PendingTracker = Map<string, PendingData>;
+export type PendingTracker = Map<string, PendingData<never>>;
 
 export interface PostMessageWithoutMeta {
   key?: string;
   keys?: string[];
   method: string;
   options?: CommonOptions | ExportOptions | ImportOptions;
-  value?: any;
+  value?: unknown;
 }
 
 export interface PostMessage extends PostMessageWithoutMeta {
@@ -34,18 +34,18 @@ export interface PostMessage extends PostMessageWithoutMeta {
   type: string;
 }
 
-export interface PostMessageResultWithMeta {
+export type PostMessageResultWithMeta<T> = {
   metadata: Metadata[];
-  result?: any;
+  result: T;
   storeType: string;
   usedHeapSize: number;
-}
+};
 
-export interface PostMessageResult extends PostMessageResultWithMeta {
+export type PostMessageResult<T> = PostMessageResultWithMeta<T> & {
   messageID: string;
   method: string;
   type: string;
-}
+};
 
 export interface RegisterWorkerOptions {
   cachemap: Core;

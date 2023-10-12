@@ -1,4 +1,4 @@
-import { Metadata } from "@cachemap/types";
+import { type Metadata, type Tag } from '@cachemap/types';
 
 export interface Callbacks {
   deleteCallback: DeleteCallback;
@@ -12,7 +12,7 @@ export interface ConstructorOptions {
   start?: boolean;
 }
 
-export type DeleteCallback = (key: string, tags?: any[]) => Promise<void>;
+export type DeleteCallback = (key: string, tags?: Tag[]) => Promise<void>;
 
 export type Init = (callbacks: Callbacks) => Reaper;
 
@@ -23,7 +23,7 @@ export interface Options {
   start?: boolean;
 }
 
-export interface Reaper {
+interface Reaper {
   cull(metadata: Metadata[]): Promise<void>;
   start(): void;
   stop(): void;

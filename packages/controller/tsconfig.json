@@ -1,15 +1,11 @@
 {
-  "extends": "../tsconfig.settings.json",
-  "compilerOptions": {
-    "outDir": "lib/types",
-    "rootDir": "src"
-  },
+  "extends": "@repodog/ts-config/build.json",
   "include": [
-    "src"
+    "src/**/*"
   ],
   "references": [
     {
-      "path": "../constants"
+      "path": "../utils"
     }
   ]
 }

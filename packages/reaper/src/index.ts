@@ -1,2 +1,2 @@
-export * from "./types";
-export { default, init, Reaper } from "./main";
+export * from './types.ts';
+export { init, Reaper } from './main/index.ts';

@@ -1,179 +1,324 @@
+import { instance } from '@cachemap/controller';
+import { MapStore } from '@cachemap/map';
+import { type DehydratedMetadata, type Metadata, type Store, type Tag } from '@cachemap/types';
 import {
-  CLEAR,
-  DELETE,
-  ENTRIES,
-  GET,
-  HAS,
-  IMPORT,
-  METADATA,
-  SET,
-  SIZE,
-  START_BACKUP,
-  START_REAPER,
-  STOP_BACKUP,
-  STOP_REAPER,
-} from "@cachemap/constants";
-import controller from "@cachemap/controller";
-import { MapStore } from "@cachemap/map";
-import { Metadata, Store } from "@cachemap/types";
-import Cacheability from "cacheability";
-import EventEmitter from "eventemitter3";
-import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from "lodash";
-import md5 from "md5";
-import sizeof from "object-sizeof";
-import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from "../constants";
-import { decode, encode } from "../helpers/base64";
-import { decrypt, encrypt } from "../helpers/encryption";
-import { rehydrateMetadata } from "../helpers/rehydrate-metadata";
+  ArgsError,
+  GroupedError,
+  PositionError,
+  constants,
+  dehydrateMetadata,
+  isJsonValue,
+  prepareGetEntry,
+  prepareSetEntry,
+  rehydrateMetadata,
+  sizeOf,
+} from '@cachemap/utils';
+import { Cacheability } from 'cacheability';
+import EventEmitter from 'eventemitter3';
+import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
+import { Md5 } from 'ts-md5';
+import type { JsonValue } from 'type-fest';
+import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from '../constants.ts';
 import {
-  CacheHeaders,
-  ConstructorOptions,
-  ControllerEvent,
-  DehydratedMetadata,
-  ExportOptions,
-  ExportResult,
-  FilterByValue,
-  ImportOptions,
-  MethodName,
-  Reaper,
-  ReaperInit,
-  RequestQueue,
-} from "../types";
+  type CacheHeaders,
+  type ConstructorOptions,
+  type ControllerEvent,
+  type ExportOptions,
+  type ExportResult,
+  type FilterByValue,
+  type ImportOptions,
+  type MethodName,
+  type Reaper,
+  type ReaperInit,
+  type RequestQueue,
+} from '../types.ts';
 
 export class Core {
-  private static _sortComparator(a: Metadata, b: Metadata): number {
-    let i;
+  public events = {
+    ENTRY_DELETED: 'ENTRY_DELETED',
+  };
+
+  private static _sortComparator = (a: Metadata, b: Metadata): number => {
+    let index;
 
     if (a.accessedCount > b.accessedCount) {
-      i = -1;
+      index = -1;
     } else if (a.accessedCount < b.accessedCount) {
-      i = 1;
+      index = 1;
     } else if (a.lastAccessed > b.lastAccessed) {
-      i = -1;
+      index = -1;
     } else if (a.lastAccessed < b.lastAccessed) {
-      i = 1;
+      index = 1;
     } else if (a.lastUpdated > b.lastUpdated) {
-      i = -1;
+      index = -1;
     } else if (a.lastUpdated < b.lastUpdated) {
-      i = 1;
+      index = 1;
     } else if (a.added > b.added) {
-      i = -1;
+      index = -1;
     } else if (a.added < b.added) {
-      i = 1;
+      index = 1;
     } else if (a.size < b.size) {
-      i = -1;
+      index = -1;
     } else if (a.size > b.size) {
-      i = 1;
+      index = 1;
     } else {
-      i = 0;
+      index = 0;
     }
 
-    return i;
-  }
+    return index;
+  };
 
-  public events = {
-    ENTRY_DELETED: "ENTRY_DELETED",
+  private _handleClearEvent = ({ name, type }: ControllerEvent): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      void this._clear();
+    }
+  };
+
+  private _handleStartReaperEvent = ({ name, type }: ControllerEvent): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._reaper?.start();
+    }
+  };
+
+  private _handleStopReaperEvent = ({ name, type }: ControllerEvent): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._reaper?.stop();
+    }
+  };
+
+  private _handleStartBackupEvent = ({ name, type }: ControllerEvent): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._startBackup();
+    }
+  };
+
+  private _handleStopBackupEvent = ({ name, type }: ControllerEvent): void => {
+    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
+      this._stopBackup();
+    }
   };
 
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
   private _backupIntervalID?: NodeJS.Timer;
-  private _backupStore: Store | null = null;
+  private _backupStore?: Store;
   private _disableCacheInvalidation: boolean;
   private _emitter: EventEmitter = new EventEmitter();
   private _encryptionSecret: string | undefined;
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
   private _name: string;
-  private _persistedStore: boolean = true;
+  private _persistedStore = true;
   private _processing: string[] = [];
-  private _ready: boolean = false;
+  private _ready = false;
   private _reaper?: Reaper;
   private _requestQueue: RequestQueue = [];
   private _sharedCache: boolean;
-  private _store: Store | null = null;
+  private _store?: Store;
   private _type: string;
-  private _usedHeapSize: number = 0;
+  private _usedHeapSize = 0;
 
   constructor(options: ConstructorOptions) {
-    const errors: TypeError[] = [];
+    const errors: ArgsError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
+      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
     }
 
     if (!isString(options.name)) {
-      errors.push(new TypeError("@cachemap/core expected options.name to be a string."));
+      errors.push(new ArgsError('@cachemap/core expected options.name to be a string.'));
     }
 
     if (!isFunction(options.store)) {
-      errors.push(new TypeError("@cachemap/core expected options.store to be a function."));
+      errors.push(new ArgsError('@cachemap/core expected options.store to be a function.'));
     }
 
     if (!isString(options.type)) {
-      errors.push(new TypeError("@cachemap/core expected options.type to be a string."));
+      errors.push(new ArgsError('@cachemap/core expected options.type to be a string.'));
     }
 
-    if (errors.length) {
-      throw errors;
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core constructor argument validation errors.', errors);
     }
 
-    this._disableCacheInvalidation = options.disableCacheInvalidation ?? false;
+    const {
+      backupInterval,
+      backupStore,
+      disableCacheInvalidation = false,
+      encryptionSecret,
+      name,
+      reaper,
+      sharedCache = false,
+      sortComparator,
+      startBackup,
+      store: storeInit,
+      type,
+    } = options;
 
-    if (isString(options.encryptionSecret)) {
-      this._encryptionSecret = options.encryptionSecret;
+    this._disableCacheInvalidation = disableCacheInvalidation;
+
+    if (isString(encryptionSecret)) {
+      this._encryptionSecret = encryptionSecret;
     }
 
-    this._name = options.name;
+    this._name = name;
 
-    if (isFunction(options.reaper)) {
-      this._reaper = this._initializeReaper(options.reaper);
+    if (isFunction(reaper)) {
+      this._reaper = this._initializeReaper(reaper);
     }
 
-    this._sharedCache = options.sharedCache ?? false;
+    this._sharedCache = sharedCache;
 
-    if (isFunction(options.sortComparator)) {
-      Core._sortComparator = options.sortComparator;
+    if (isFunction(sortComparator)) {
+      Core._sortComparator = sortComparator;
     }
 
-    this._type = options.type;
+    this._type = type;
     this._addControllerEventListeners();
 
-    options.store({ name: options.name }).then(store => {
+    void Promise.resolve(storeInit({ name: name })).then(async store => {
       this._maxHeapSize = store.maxHeapSize;
 
-      if (options.backupStore) {
-        if (store.type === "map") {
-          throw new TypeError("@cachemap/core expected store.type not to be 'map' when options.backupStore is true.");
+      if (backupStore) {
+        if (store.type === 'map') {
+          throw new ArgsError("@cachemap/core expected store.type not to be 'map' when backupStore is true.");
         }
 
-        if (isNumber(options.backupInterval)) {
-          this._backupInterval = options.backupInterval;
+        if (isNumber(backupInterval)) {
+          this._backupInterval = backupInterval;
         }
 
         this._backupStore = store;
         this._persistedStore = true;
-        this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name: options.name });
-
-        this._backupStoreEntriesToStore().then(() => {
-          this._ready = true;
-          this._releaseQueuedRequests();
-
-          if (options.startBackup) {
-            this._startBackup();
-          }
-        });
-      } else {
-        this._persistedStore = store.type !== "map";
-        this._store = store;
+        this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name: name });
+        await this._backupStoreEntriesToStore();
         this._ready = true;
-        this._retreiveMetadata();
-        this._releaseQueuedRequests();
+        void this._releaseQueuedRequests();
+
+        if (startBackup) {
+          this._startBackup();
+        }
+      } else {
+        this._persistedStore = store.type !== 'map';
+        this._store = store;
+        await this._retreiveMetadataFromStore();
+        this._ready = true;
+        void this._releaseQueuedRequests();
       }
     });
   }
 
+  public async clear(): Promise<void> {
+    return this._clear();
+  }
+
+  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+    const errors: ArgsError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new ArgsError('@cachemap/core expected key to be a string.'));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core delete argument validation errors.', errors);
+    }
+
+    return this._delete(key, options);
+  }
+
   get emitter(): EventEmitter {
     return this._emitter;
+  }
+
+  public async entries<T>(keys?: string[]): Promise<[string, T][]> {
+    if (keys && !isArray(keys)) {
+      throw new ArgsError('@cachemap/core expected keys to be an array.');
+    }
+
+    return this._entries(keys);
+  }
+
+  public async export<T>(options: ExportOptions = {}): Promise<ExportResult<T>> {
+    const errors: ArgsError[] = [];
+
+    if (!isPlainObject(options)) {
+      errors.push(new ArgsError('@cachemap/core expected options to be an plain object.'));
+    }
+
+    if (options.keys && !isArray(options.keys)) {
+      errors.push(new ArgsError('@cachemap/core expected options.keys to be an array.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core export argument validation errors.', errors);
+    }
+
+    return this._export(options);
+  }
+
+  public async get<T>(key: string, options: { hash?: boolean } = {}): Promise<T | undefined> {
+    const errors: ArgsError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new ArgsError('@cachemap/core expected key to be a string.'));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core get argument validation errors.', errors);
+    }
+
+    return this._get<T>(key, options);
+  }
+
+  public async has(
+    key: string,
+    options: { deleteExpired?: boolean; hash?: boolean } = {}
+  ): Promise<false | Cacheability> {
+    const errors: ArgsError[] = [];
+
+    if (!isString(key)) {
+      errors.push(new ArgsError('@cachemap/core expected key to be a string.'));
+    }
+
+    if (!isPlainObject(options)) {
+      errors.push(new ArgsError('@cachemap/core expected opts to be a plain object.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core has argument validation errors.', errors);
+    }
+
+    return this._has(key, options);
+  }
+
+  public async import(options: ImportOptions): Promise<void> {
+    if (!isPlainObject(options)) {
+      throw new ArgsError('@cachemap/core expected options to be a plain object.');
+    }
+
+    const { entries, metadata } = options;
+    const errors: ArgsError[] = [];
+
+    if (!isArray(entries)) {
+      errors.push(new ArgsError('@cachemap/core expected entries to be an array.'));
+    }
+
+    if (!isArray(metadata)) {
+      errors.push(new ArgsError('@cachemap/core expected metadata to be an array.'));
+    }
+
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core has argument validation errors.', errors);
+    }
+
+    return this._import(options);
   }
 
   get metadata(): Metadata[] {
@@ -184,192 +329,38 @@ export class Core {
     return this._name;
   }
 
-  get reaper(): Reaper | void {
+  get reaper(): Reaper | undefined {
     return this._reaper;
-  }
-
-  get storeType(): string {
-    return this._store?.type ?? "none";
-  }
-
-  get type(): string {
-    return this._type;
-  }
-
-  get usedHeapSize(): number {
-    return this._usedHeapSize;
-  }
-
-  public async clear(): Promise<void> {
-    try {
-      return this._clear();
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
-    const errors: TypeError[] = [];
-
-    if (!isString(key)) {
-      errors.push(new TypeError("@cachemap/core expected key to be a string."));
-    }
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    try {
-      return this._delete(key, options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async entries(keys?: string[]): Promise<[string, any][]> {
-    if (keys && !isArray(keys)) {
-      return Promise.reject(new TypeError("@cachemap/core expected keys to be an array."));
-    }
-
-    try {
-      return this._entries(keys);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async export(options: ExportOptions = {}): Promise<ExportResult> {
-    const errors: TypeError[] = [];
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to be an plain object."));
-    }
-
-    if (options.keys && !isArray(options.keys)) {
-      errors.push(new TypeError("@cachemap/core expected options.keys to be an array."));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    try {
-      return this._export(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async get(key: string, options: { hash?: boolean } = {}): Promise<any> {
-    const errors: TypeError[] = [];
-
-    if (!isString(key)) {
-      errors.push(new TypeError("@cachemap/core expected key to be a string."));
-    }
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected options to be a plain object."));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    try {
-      return this._get(key, options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async has(
-    key: string,
-    options: { deleteExpired?: boolean; hash?: boolean } = {},
-  ): Promise<false | Cacheability> {
-    const errors: TypeError[] = [];
-
-    if (!isString(key)) {
-      errors.push(new TypeError("@cachemap/core expected key to be a string."));
-    }
-
-    if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    try {
-      return this._has(key, options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  public async import(options: ImportOptions): Promise<void> {
-    if (!isPlainObject(options)) {
-      return Promise.reject("@cachemap/core expected options to be a plain object.");
-    }
-
-    const { entries, metadata } = options;
-    const errors: TypeError[] = [];
-
-    if (!isArray(entries)) {
-      errors.push(new TypeError("@cachemap/core expected entries to be an array."));
-    }
-
-    if (!isArray(metadata)) {
-      errors.push(new TypeError("@cachemap/core expected metadata to be an array."));
-    }
-
-    if (errors.length) {
-      return Promise.reject(errors);
-    }
-
-    try {
-      await this._import(options);
-    } catch (error) {
-      return Promise.reject(error);
-    }
   }
 
   public async set(
     key: string,
-    value: any,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any } = {},
+    value: unknown,
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag } = {}
   ): Promise<void> {
-    const errors: TypeError[] = [];
+    const errors: ArgsError[] = [];
 
     if (!isString(key)) {
-      errors.push(new TypeError("@cachemap/core expected key to be a string."));
+      errors.push(new ArgsError('@cachemap/core expected key to be a string.'));
     }
 
     if (!isPlainObject(options)) {
-      errors.push(new TypeError("@cachemap/core expected opts to be a plain object."));
+      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
     }
 
-    if (errors.length) {
-      return Promise.reject(errors);
+    if (!isJsonValue(value)) {
+      errors.push(new ArgsError('@cachemap/core expected value to be JSON serializable.'));
     }
 
-    try {
-      return this._set(key, value, options);
-    } catch (error) {
-      return Promise.reject(error);
+    if (errors.length > 0) {
+      throw new GroupedError('@cachemap/core set argument validation errors.', errors);
     }
+
+    return this._set(key, value as JsonValue, options);
   }
 
   public async size(): Promise<number> {
-    try {
-      return this._size();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._size();
   }
 
   public startBackup(): void {
@@ -380,20 +371,27 @@ export class Core {
     this._stopBackup();
   }
 
-  private _addControllerEventListeners() {
-    this._handleClearEvent = this._handleClearEvent.bind(this);
-    this._handleStartReaperEvent = this._handleStartReaperEvent.bind(this);
-    this._handleStopReaperEvent = this._handleStopReaperEvent.bind(this);
-    this._handleStartBackupEvent = this._handleStartBackupEvent.bind(this);
-    this._handleStopBackupEvent = this._handleStopBackupEvent.bind(this);
-    controller.on(CLEAR, this._handleClearEvent);
-    controller.on(START_REAPER, this._handleStartReaperEvent);
-    controller.on(STOP_REAPER, this._handleStopReaperEvent);
-    controller.on(START_BACKUP, this._handleStartBackupEvent);
-    controller.on(STOP_BACKUP, this._handleStopBackupEvent);
+  get storeType(): string {
+    return this._store?.type ?? 'none';
   }
 
-  private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: any): Promise<void> {
+  get type(): string {
+    return this._type;
+  }
+
+  get usedHeapSize(): number {
+    return this._usedHeapSize;
+  }
+
+  private _addControllerEventListeners() {
+    instance.on(constants.CLEAR, this._handleClearEvent);
+    instance.on(constants.START_REAPER, this._handleStartReaperEvent);
+    instance.on(constants.STOP_REAPER, this._handleStopReaperEvent);
+    instance.on(constants.START_BACKUP, this._handleStartBackupEvent);
+    instance.on(constants.STOP_BACKUP, this._handleStopBackupEvent);
+  }
+
+  private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: Tag): Promise<void> {
     this._metadata.push({
       accessedCount: 0,
       added: Date.now(),
@@ -402,21 +400,16 @@ export class Core {
       lastAccessed: Date.now(),
       lastUpdated: Date.now(),
       size,
-      tags: !isUndefined(tag) ? [tag] : [],
+      tags: tag ? [tag] : [],
       updatedCount: 0,
     });
 
     this._sortMetadata();
     this._updateHeapSize();
-
-    try {
-      await this._backupMetadata();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._backupMetadata();
   }
 
-  private _addRequestToQueue<T>(methodName: MethodName, ...payload: any[]) {
+  private _addRequestToQueue<T>(methodName: MethodName, ...payload: unknown[]) {
     return new Promise((resolve: (value: T) => void) => {
       this._requestQueue.push([resolve, methodName, payload]);
     });
@@ -427,80 +420,78 @@ export class Core {
       return;
     }
 
-    try {
-      await this._store.set(METADATA, this._metadata);
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const store = this._backupStore ?? this._store;
+
+    return store.set(
+      constants.METADATA,
+      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._encryptionSecret)
+    );
   }
 
   private async _backupStoreEntriesToStore(): Promise<void> {
     if (!(this._backupStore && this._store)) {
-      return;
+      throw new PositionError(
+        '@cachemap/core expected backupStoreEntriesToStore to be called after setting the backupStore and store.'
+      );
     }
 
-    const metadata: DehydratedMetadata[] = (await this._backupStore.get(METADATA)) ?? [];
+    this._metadata = [];
+    const backupMetadata = await this._backupStore.get(constants.METADATA);
 
-    if (metadata.length) {
-      const keys = metadata.map(entry => entry.key);
-      await this._store.import(await this._backupStore.entries(undefined, { allKeys: keys }));
+    if (backupMetadata) {
+      const metadata = prepareGetEntry<DehydratedMetadata[]>(backupMetadata, this._encryptionSecret);
+
+      if (metadata.length > 0) {
+        const keys = metadata.map(entry => entry.key);
+        await this._store.import(await this._backupStore.entries(keys));
+        this._metadata = rehydrateMetadata(metadata);
+      }
     }
-
-    this._metadata = rehydrateMetadata(metadata);
   }
 
   private _calcReductionChunk(): number | undefined {
     const reductionSize = Math.round(this._maxHeapSize * 0.2);
     let chunkSize = 0;
-    let index: number | undefined;
+    let chunk: number | undefined;
 
-    for (let i = this._metadata.length - 1; i >= 0; i -= 1) {
-      chunkSize += this._metadata[i].size;
+    for (let index = this._metadata.length - 1; index >= 0; index -= 1) {
+      chunkSize += this._metadata[index]!.size;
 
       if (chunkSize > reductionSize) {
-        index = i;
+        chunk = index;
         break;
       }
     }
 
-    return index;
+    return chunk;
   }
 
-  private async _clear() {
+  private async _clear(): Promise<void> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<void>(CLEAR);
+      return this._addRequestToQueue(constants.CLEAR);
     }
 
-    try {
-      await this._store.clear();
-      this._metadata = [];
-      this._processing = [];
-      this._updateHeapSize();
-      await this._backupMetadata();
-    } catch (error) {
-      Promise.reject(error);
-    }
+    await this._store.clear();
+    this._metadata = [];
+    this._processing = [];
+    this._updateHeapSize();
+    return this._backupMetadata();
   }
 
   private async _delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<boolean>(DELETE, key, options);
+      return this._addRequestToQueue(constants.DELETE, key, options);
     }
 
-    const _key = options.hash ? md5(key) : key;
+    const deleteKey = options.hash ? Md5.hashStr(key) : key;
+    const deleted = await this._store.delete(deleteKey);
 
-    try {
-      const deleted = await this._store.delete(_key);
-
-      if (!deleted) {
-        return false;
-      }
-
-      await this._deleteMetadata(_key);
-      return true;
-    } catch (error) {
-      return Promise.reject(error);
+    if (!deleted) {
+      return false;
     }
+
+    await this._deleteMetadata(deleteKey);
+    return true;
   }
 
   private async _deleteMetadata(key: string): Promise<void> {
@@ -513,87 +504,68 @@ export class Core {
     this._metadata.splice(index, 1);
     this._sortMetadata();
     this._updateHeapSize();
-
-    try {
-      await this._backupMetadata();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._backupMetadata();
   }
 
-  private async _entries(keys?: string[]): Promise<[string, any][]> {
+  private async _entries<T>(keys?: string[]): Promise<[string, T][]> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<[string, any][]>(ENTRIES, keys);
+      return this._addRequestToQueue(constants.ENTRIES, keys);
     }
 
-    try {
-      const _keys = keys || this._metadata.map(metadata => metadata.key);
-
-      const entries = (await this._store.entries(_keys)).map(([key, data]) => [
-        key,
-        this._encryptionSecret ? decrypt(data, this._encryptionSecret) : decode(data),
-      ]) as [string, any][];
-
-      return entries;
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const entryKeys = keys ?? this._metadata.map(metadata => metadata.key);
+    const entries = await this._store.entries(entryKeys);
+    return entries.map(([key, data]) => [key, prepareGetEntry(data, this._encryptionSecret)]);
   }
 
-  private async _export(options: {
+  private async _export<T>({
+    filterByValue,
+    keys,
+    tag,
+  }: {
     filterByValue?: FilterByValue | FilterByValue[];
     keys?: string[];
-    tag?: any;
-  }): Promise<ExportResult> {
-    let keys: string[] | undefined;
+    tag?: Tag;
+  }): Promise<ExportResult<T>> {
+    let exportKeys: string[] | undefined;
     let metadata = this._metadata;
 
-    if (options.tag) {
-      metadata = this._metadata.filter(meta => meta.tags.includes(options.tag));
-      keys = metadata.map(meta => meta.key);
-    } else if (options.keys) {
-      metadata = this._metadata.filter(meta => (options.keys as string[]).includes(meta.key));
-      keys = options.keys;
+    if (tag) {
+      metadata = this._metadata.filter(meta => meta.tags.includes(tag));
+      exportKeys = metadata.map(meta => meta.key);
+    } else if (keys) {
+      metadata = this._metadata.filter(meta => keys.includes(meta.key));
+      exportKeys = keys;
     }
 
-    try {
-      let entries = await this._entries(keys);
+    let entries = await this._entries<T>(exportKeys);
 
-      if (options.filterByValue) {
-        const castFilterByValue = castArray(options.filterByValue);
+    if (filterByValue) {
+      const castFilterByValue = castArray(filterByValue);
 
-        entries = entries.filter(([, data]) =>
-          castFilterByValue.every(({ keyChain, comparator }) => get(data, keyChain) === comparator),
-        );
+      entries = entries.filter(([, data]) =>
+        castFilterByValue.every(({ comparator, keyChain }) => get(data, keyChain) === comparator)
+      );
 
-        metadata = metadata.filter(meta => entries.some(([key]) => key === meta.key));
-      }
-
-      return { entries, metadata };
-    } catch (error) {
-      return Promise.reject(error);
+      metadata = metadata.filter(meta => entries.some(([key]) => key === meta.key));
     }
+
+    return { entries, metadata };
   }
 
-  private async _get(key: string, options: { hash?: boolean }): Promise<any> {
+  private async _get<T>(key: string, options: { hash?: boolean }): Promise<T | undefined> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<any>(GET, key, options);
+      return this._addRequestToQueue(constants.GET, key, options);
     }
 
-    const _key = options.hash ? md5(key) : key;
+    const getKey = options.hash ? Md5.hashStr(key) : key;
+    const value = await this._store.get(getKey);
 
-    try {
-      const value = await this._store.get(_key);
-
-      if (!value) {
-        return undefined;
-      }
-
-      await this._updateMetadata(_key);
-      return this._encryptionSecret ? decrypt(value, this._encryptionSecret) : decode(value);
-    } catch (error) {
-      return Promise.reject(error);
+    if (!value) {
+      return;
     }
+
+    await this._updateMetadata(getKey);
+    return prepareGetEntry(value, this._encryptionSecret);
   }
 
   private _getCacheability(key: string): Cacheability | undefined {
@@ -605,59 +577,24 @@ export class Core {
     return this._metadata.find(metadata => metadata.key === key);
   }
 
-  private _handleClearEvent({ name, type }: ControllerEvent): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._clear();
-    }
-  }
-
-  private _handleStartBackupEvent({ name, type }: ControllerEvent): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._startBackup();
-    }
-  }
-
-  private _handleStartReaperEvent({ name, type }: ControllerEvent): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._reaper?.start();
-    }
-  }
-
-  private _handleStopBackupEvent({ name, type }: ControllerEvent): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._stopBackup();
-    }
-  }
-
-  private _handleStopReaperEvent({ name, type }: ControllerEvent): void {
-    if ((isString(name) && name === this._name) || (isString(type) && type === this._type)) {
-      this._reaper?.stop();
-    }
-  }
-
   private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<any>(HAS, key, options);
+      return this._addRequestToQueue(constants.HAS, key, options);
     }
 
-    const _key = options.hash ? md5(key) : key;
+    const hasKey = options.hash ? Md5.hashStr(key) : key;
+    const exists = await this._store.has(hasKey);
 
-    try {
-      const exists = await this._store.has(_key);
-
-      if (!exists) {
-        return false;
-      }
-
-      if (options.deleteExpired && this._hasCacheEntryExpired(_key)) {
-        await this.delete(_key);
-        return false;
-      }
-
-      return this._getCacheability(_key) || false;
-    } catch (error) {
-      return Promise.reject(error);
+    if (!exists) {
+      return false;
     }
+
+    if (options.deleteExpired && this._hasCacheEntryExpired(hasKey)) {
+      await this.delete(hasKey);
+      return false;
+    }
+
+    return this._getCacheability(hasKey) ?? false;
   }
 
   private _hasCacheEntryExpired(key: string): boolean {
@@ -671,44 +608,32 @@ export class Core {
 
   private async _import(options: ImportOptions): Promise<void> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<void>(IMPORT, options);
+      return this._addRequestToQueue(constants.IMPORT, options);
     }
 
     let filterd: Metadata[] = [];
 
-    if (this._metadata.length) {
+    if (this._metadata.length > 0) {
       filterd = this._metadata.filter(metadata => {
-        return !options.metadata.find(optionsMetadata => metadata.key === optionsMetadata.key);
+        return !options.metadata.some(optionsMetadata => metadata.key === optionsMetadata.key);
       });
     }
 
-    try {
-      const entries = options.entries.map(([key, data]) => [
-        key,
-        this._encryptionSecret ? encrypt(data, this._encryptionSecret) : encode(data),
-      ]) as [string, any][];
+    const entries = options.entries.map(
+      ([key, data]) => [key, prepareSetEntry(data, this._encryptionSecret)] as [string, string]
+    );
 
-      await this._store.import(entries);
-      this._metadata = rehydrateMetadata([...filterd, ...options.metadata]);
-    } catch (error) {
-      return Promise.reject(error);
-    }
-
+    await this._store.import(entries);
+    this._metadata = rehydrateMetadata([...filterd, ...options.metadata]);
     this._sortMetadata();
-
-    try {
-      await this._backupMetadata();
-    } catch (error) {
-      return Promise.reject(error);
-    }
-
+    await this._backupMetadata();
     this._updateHeapSize();
   }
 
   private _initializeReaper(reaperInit: ReaperInit): Reaper {
     return reaperInit({
-      deleteCallback: async (key: string, tags?: any[]) => {
-        this.emitter.emit(this.events.ENTRY_DELETED, { key, deleted: await this._delete(key), tags });
+      deleteCallback: async (key: string, tags?: Tag[]) => {
+        this.emitter.emit(this.events.ENTRY_DELETED, { deleted: await this._delete(key), key, tags });
       },
       metadataCallback: () => this._metadata,
     });
@@ -718,92 +643,82 @@ export class Core {
     this._processing = this._processing.filter(value => value !== key);
   }
 
-  private async _reduceHeapSize(): Promise<void> {
+  private _reduceHeapSize(): void {
     const index = this._calcReductionChunk();
 
     if (!index || !this._reaper) {
       return;
     }
 
-    this._reaper.cull(this._metadata.slice(index, this._metadata.length));
+    void this._reaper.cull(this._metadata.slice(index, this._metadata.length));
   }
 
-  private _releaseQueuedRequests() {
-    this._requestQueue.forEach(async ([resolve, methodName, payload]) => {
-      // @ts-ignore
+  private async _releaseQueuedRequests() {
+    for (const [resolve, methodName, payload] of this._requestQueue) {
+      // @ts-expect-error complicated
       resolve(await this[methodName](...payload));
-    });
+    }
 
     this._requestQueue = [];
   }
 
-  private async _retreiveMetadata(): Promise<void> {
+  private async _retreiveMetadataFromStore(): Promise<void> {
     if (!this._store || !this._persistedStore) {
       return;
     }
 
-    try {
-      const metadata: Metadata[] = await this._store.get(METADATA);
+    const metadata = await this._store.get(constants.METADATA);
 
-      if (isArray(metadata)) {
-        this._metadata = rehydrateMetadata(metadata);
-      }
-    } catch (error) {
-      return Promise.reject(error);
+    if (metadata) {
+      this._metadata = rehydrateMetadata(prepareGetEntry(metadata));
     }
   }
 
   private async _set(
     key: string,
-    value: any,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: any },
+    value: JsonValue,
+    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag }
   ): Promise<void> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<void>(SET, key, value, options);
+      return this._addRequestToQueue(constants.SET, key, value, options);
     }
 
     const cacheability = new Cacheability({ headers: options.cacheHeaders });
-    const cacheControl = cacheability.metadata.cacheControl;
+    const { cacheControl } = cacheability.metadata;
 
     if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) {
       return;
     }
 
-    const _key = options.hash ? md5(key) : key;
-    const processing = this._processing.includes(_key);
+    const setKey = options.hash ? Md5.hashStr(key) : key;
+    const processing = this._processing.includes(setKey);
 
     if (!processing) {
-      this._processing.push(_key);
+      this._processing.push(setKey);
     }
 
     try {
-      const exists = (await this._store.has(_key)) || processing;
-      value = this._encryptionSecret ? encrypt(value, this._encryptionSecret) : encode(value);
-      await this._store.set(_key, value);
+      const exists = (await this._store.has(setKey)) || processing;
+      const preparedSetValue = prepareSetEntry(value, this._encryptionSecret);
+      await this._store.set(setKey, preparedSetValue);
 
-      if (exists) {
-        await this._updateMetadata(_key, sizeof(value), cacheability, options.tag);
-      } else {
-        await this._addMetadata(_key, sizeof(value), cacheability, options.tag);
-      }
+      await (exists
+        ? this._updateMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag)
+        : this._addMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag));
 
-      this._processed(_key);
+      this._processed(setKey);
     } catch (error) {
-      this._processed(_key);
-      return Promise.reject(error);
+      this._processed(setKey);
+      throw error;
     }
   }
 
   private async _size(): Promise<number> {
     if (!this._ready || !this._store) {
-      return this._addRequestToQueue<number>(SIZE);
+      return this._addRequestToQueue(constants.SIZE);
     }
 
-    try {
-      return this._store.size();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._store.size();
   }
 
   private _sortMetadata(): void {
@@ -812,7 +727,7 @@ export class Core {
 
   private _startBackup(): void {
     this._backupIntervalID = setInterval(() => {
-      this._storeEntriesToBackupStore();
+      void this._storeEntriesToBackupStore();
     }, this._backupInterval);
   }
 
@@ -828,7 +743,8 @@ export class Core {
     }
 
     await this._backupStore.clear();
-    this._backupStore.import(await this._store.entries());
+    const keys = this._metadata.map(entry => entry.key);
+    void this._backupStore.import(await this._store.entries(keys));
   }
 
   private _updateHeapSize(): void {
@@ -839,7 +755,7 @@ export class Core {
     }
   }
 
-  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: any): Promise<void> {
+  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: Tag): Promise<void> {
     const entry = this._getMetadataEntry(key);
 
     if (!entry) {
@@ -865,13 +781,6 @@ export class Core {
 
     this._sortMetadata();
     this._updateHeapSize();
-
-    try {
-      await this._backupMetadata();
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    return this._backupMetadata();
   }
 }
-
-export default Core;

@@ -1,5 +1,5 @@
-import { BaseMetadata, Metadata, StoreInit } from "@cachemap/types";
-import { Metadata as CacheabilityMetadata } from "cacheability";
+import { type Metadata, type StoreInit, type Tag } from '@cachemap/types';
+import type { JsonValue } from 'type-fest';
 
 export interface BaseOptions {
   /**
@@ -43,6 +43,11 @@ export interface BaseOptions {
    */
   sharedCache?: boolean;
   /**
+   * The sort comparator is used to order cachemap entries by importance so the
+   * reaper knows what entries to purge first.
+   */
+  sortComparator?: (a: Metadata, b: Metadata) => number;
+  /**
    * Whether to start backing up store on initialisation. If set to false,
    * you would be triggering the backup through the controller.
    */
@@ -53,11 +58,6 @@ export interface BaseOptions {
    * instances.
    */
   type: string;
-  /**
-   * The sort comparator is used to order cachemap entries by importance so the
-   * reaper knows what entries to purge first.
-   */
-  sortComparator?(a: any, b: any): number;
 }
 
 export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
@@ -66,36 +66,33 @@ export interface ConstructorOptions extends BaseOptions {
   store: StoreInit;
 }
 
-export interface DehydratedMetadata extends BaseMetadata {
-  cacheability: { metadata: CacheabilityMetadata };
+export interface FilterByValue {
+  comparator: unknown;
+  keyChain: string;
 }
 
-export type FilterByValue = { comparator: any; keyChain: string };
-
-export type ControllerEvent = {
+export interface ControllerEvent {
   name?: string;
   type?: string;
-};
+}
 
 export interface ExportOptions {
   filterByValue?: FilterByValue | FilterByValue[];
   keys?: string[];
-  tag?: any;
+  tag?: Tag;
 }
 
-export interface ExportResult {
-  entries: [string, any][];
+export type ExportResult<T> = {
+  entries: [string, T][];
   metadata: Metadata[];
-}
+};
 
 export interface ImportOptions {
-  entries: [string, any][];
+  entries: [string, JsonValue][];
   metadata: Metadata[];
 }
 
-export interface PlainObject {
-  [key: string]: any;
-}
+export type PlainObject = Record<string, unknown>;
 
 export interface Reaper {
   cull(metadata: Metadata[]): Promise<void>;
@@ -104,12 +101,13 @@ export interface Reaper {
 }
 
 export interface ReaperCallbacks {
-  deleteCallback: (key: string, tags?: any[]) => Promise<void>;
+  deleteCallback: (key: string, tags?: Tag[]) => Promise<void>;
   metadataCallback: () => Metadata[];
 }
 
 export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 
-export type MethodName = "clear" | "delete" | "entries" | "export" | "get" | "has" | "import" | "set" | "size";
+export type MethodName = 'clear' | 'delete' | 'entries' | 'export' | 'get' | 'has' | 'import' | 'set' | 'size';
 
-export type RequestQueue<T = any> = [(value?: T) => void, MethodName, any[]][];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RequestQueue<T = any> = [(value?: T) => void, MethodName, ...unknown[]][];

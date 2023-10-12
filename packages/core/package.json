@@ -1,56 +1,54 @@
 {
   "name": "@cachemap/core",
-  "version": "4.0.4",
   "description": "The Cachemap core module.",
-  "author": "Dylan Aubrey <dylanaubrey@gmail.com>",
+  "version": "4.0.4",
+  "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
-  "bugs": {
-    "url": "https://github.com/badbatch/cachemap/issues"
-  },
   "repository": {
+    "directory": "packages/core",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
-  "main": "lib/main/index.js",
-  "module": "lib/module/index.mjs",
-  "browser": "lib/browser/index.js",
-  "types": "lib/types/index.d.ts",
-  "keywords": [
-    "cachemap",
-    "cache",
-    "core"
-  ],
+  "bugs": "https://github.com/badbatch/cachemap/issues",
+  "type": "module",
+  "main": "./dist/main/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "compile": "concurrently npm:compile:*",
-    "compile-watch": "yarn run compile:main --watch",
-    "compile:browser": "cross-env BABEL_ENV=browser rollup -c ../../rollup.config.js",
-    "compile:main": "cross-env BABEL_ENV=main babel ./src --out-dir ./lib/main --extensions \".ts\" --source-maps --config-file ../../babel.config.js",
-    "compile:module": "cross-env BABEL_ENV=module babel ./src --out-dir ./lib/module --extensions \".ts\" --out-file-extension \".mjs\" --source-maps --config-file ../../babel.config.js",
-    "compile:types": "tsc --build"
+    "build": "pnpm run clean:dist && pnpm run compile",
+    "clean:deps": "del-cli ./node_modules",
+    "clean:dist": "del-cli ./dist",
+    "compile": "pnpm run /^compile:.*/",
+    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "js-base64": "3.6.0",
-    "cacheability": "^3.0.2",
-    "crypto-js": "^4.0.0",
-    "eventemitter3": "4.0.7",
-    "md5": "^2.2.1",
-    "object-sizeof": "^1.5.3"
+    "@cachemap/controller": "workspace:../controller",
+    "@cachemap/map": "workspace:../map",
+    "@cachemap/types": "workspace:../types",
+    "@cachemap/utils": "workspace:../utils",
+    "cacheability": "^4.0.7",
+    "eventemitter3": "^4.0.7",
+    "ts-md5": "^1.3.1"
   },
   "peerDependencies": {
-    "@babel/runtime": "< 8",
-    "@cachemap/constants": ">= 4",
-    "@cachemap/controller": ">= 4",
-    "@cachemap/map": ">= 4",
-    "@cachemap/types": ">= 4",
-    "core-js": "< 4",
-    "isomorphic-fetch": "< 3",
-    "lodash": "< 5"
+    "@babel/runtime": "<8",
+    "core-js": "<4",
+    "lodash-es": "<5"
   },
   "devDependencies": {
-    "@types/md5": "^2.1.33"
-  }
+    "@babel/runtime": "^7.20.13",
+    "@types/lodash-es": "^4.14.191",
+    "core-js": "^3.27.2",
+    "lodash-es": "^4.17.21",
+    "type-fest": "^3.10.0"
+  },
+  "keywords": [
+    "cache",
+    "cachemap",
+    "core"
+  ]
 }

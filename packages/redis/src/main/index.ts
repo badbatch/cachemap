@@ -1,24 +1,19 @@
-import { Store, StoreInit, StoreOptions } from "@cachemap/types";
-import fakeRedis from "fakeredis";
-import { isNumber, isPlainObject } from "lodash";
-import { RedisClient, createClient } from "redis";
-import { ConstructorOptions, InitOptions, Options } from "../types";
+import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
+import fakeRedis from 'fakeredis';
+import { isNumber, isPlainObject } from 'lodash-es';
+import { type RedisClient, createClient } from 'redis';
+import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 
 export class RedisStore implements Store {
-  public static async init(options: InitOptions): Promise<RedisStore> {
+  public static init(options: InitOptions): Promise<RedisStore> {
     const { fast, maxHeapSize, mock, name, ...otherProps } = options;
-
-    try {
-      const client = mock ? fakeRedis.createClient({ ...otherProps, fast }) : createClient(otherProps);
-      return new RedisStore({ client, maxHeapSize, name });
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const client = mock ? fakeRedis.createClient({ ...otherProps, fast }) : createClient(otherProps);
+    return Promise.resolve(new RedisStore({ client, maxHeapSize, name }));
   }
 
-  public readonly type = "redis";
+  public readonly type = 'redis';
   private _client: RedisClient;
-  private _maxHeapSize: number = Infinity;
+  private _maxHeapSize = Number.POSITIVE_INFINITY;
   private _name: string;
 
   constructor(options: ConstructorOptions) {
@@ -31,21 +26,13 @@ export class RedisStore implements Store {
     this._name = options.name;
   }
 
-  get maxHeapSize() {
-    return this._maxHeapSize;
-  }
-
-  get name() {
-    return this._name;
-  }
-
   public async clear(): Promise<void> {
-    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this._client.flushdb(error => {
         if (error) {
           reject(error);
         } else {
-          resolve(undefined);
+          resolve();
         }
       });
     });
@@ -63,19 +50,21 @@ export class RedisStore implements Store {
     });
   }
 
-  public async entries(keys?: string[], options?: { allKeys?: string[] }): Promise<[string, any][]> {
-    const _keys = keys?.length ? keys : (options?.allKeys as string[]);
-
-    return new Promise((resolve: (value: [string, any][]) => void, reject: (reason: Error) => void) => {
-      this._client.mget(_keys, (error, reply) => {
+  public async entries(keys: string[]): Promise<[string, string][]> {
+    return new Promise((resolve: (value: [string, string][]) => void, reject: (reason: Error) => void) => {
+      this._client.mget(keys, (error, reply) => {
         if (error) {
           reject(error);
         } else {
-          const entries: [string, any][] = [];
+          const entries: [string, string][] = [];
 
-          _keys.forEach((key, index) => {
-            entries.push([key, JSON.parse(reply[index])]);
-          });
+          for (const [index, key] of keys.entries()) {
+            const replyEntry = reply[index];
+
+            if (replyEntry) {
+              entries.push([key, replyEntry]);
+            }
+          }
 
           resolve(entries);
         }
@@ -83,13 +72,13 @@ export class RedisStore implements Store {
     });
   }
 
-  public async get(key: string): Promise<any> {
-    return new Promise((resolve: (value: any) => void, reject: (reason: Error) => void) => {
+  public async get(key: string): Promise<string | undefined> {
+    return new Promise((resolve: (value: string | undefined) => void, reject: (reason: Error) => void) => {
       this._client.get(key, (error, reply) => {
         if (error) {
           reject(error);
         } else {
-          resolve(reply ? JSON.parse(reply) : reply);
+          resolve(reply ?? undefined);
         }
       });
     });
@@ -107,31 +96,39 @@ export class RedisStore implements Store {
     });
   }
 
-  public async import(entries: [string, any][]): Promise<void> {
-    const _entries: string[] = [];
+  public async import(values: [string, string][]): Promise<void> {
+    const entries: string[] = [];
 
-    entries.forEach(([key, value]) => {
-      _entries.push(key, JSON.stringify(value));
-    });
+    for (const [key, value] of values) {
+      entries.push(key, JSON.stringify(value));
+    }
 
-    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
-      this._client.mset(_entries, error => {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
+      this._client.mset(entries, error => {
         if (error) {
           reject(error);
         } else {
-          resolve(undefined);
+          resolve();
         }
       });
     });
   }
 
-  public async set(key: string, value: any): Promise<void> {
-    return new Promise((resolve: (value: undefined) => void, reject: (reason: Error) => void) => {
+  get maxHeapSize() {
+    return this._maxHeapSize;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  public async set(key: string, value: string): Promise<void> {
+    return new Promise((resolve: () => void, reject: (reason: Error) => void) => {
       this._client.set(key, JSON.stringify(value), error => {
         if (error) {
           reject(error);
         } else {
-          resolve(undefined);
+          resolve();
         }
       });
     });
@@ -143,7 +140,10 @@ export class RedisStore implements Store {
         if (error) {
           reject(error);
         } else {
-          resolve(reply);
+          // metadata is stored in the same DB as the
+          // entries it describes, so we need to remove
+          // one entry to get actual size
+          resolve(reply - 1);
         }
       });
     });
@@ -152,10 +152,8 @@ export class RedisStore implements Store {
 
 export function init(options: Options = {}): StoreInit {
   if (!isPlainObject(options)) {
-    throw new TypeError("@cachemap/redis expected options to be a plain object.");
+    throw new TypeError('@cachemap/redis expected options to be a plain object.');
   }
 
   return (storeOptions: StoreOptions) => RedisStore.init({ ...options, ...storeOptions });
 }
-
-export default init;
