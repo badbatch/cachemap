@@ -1,3 +1,13 @@
+#### 4.0.4 (2023-10-12)
+
+##### Documentation Changes
+
+*  update readmes (b49346ab)
+
+##### New Features
+
+*  migrate repo over to esmodules (#48) (106666e2)
+
 #### 4.0.4 (2023-08-13)
 
 ##### Bug Fixes
