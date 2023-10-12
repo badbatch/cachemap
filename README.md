@@ -24,20 +24,20 @@ Cachemap is structured as a [monorepo](https://github.com/lerna/lerna), so each 
 `@cachemap` scope and can be installed in a project in the same way as any other npm package.
 
 ```bash
-yarn add @cachemap/<package>
+npm add @cachemap/<package>
 ```
 
 So, for example, if you want a server cache that uses Redis you would install the packages below.
 
 ```bash
-yarn add @cachemap/core @cachemap/types @cachemap/redis
+npm add @cachemap/core @cachemap/types @cachemap/redis
 ```
 
 If, however, you want a persisted client cache that uses IndexedDB and culls stale data you would install the
 following packages.
 
 ```bash
-yarn add @cachemap/core @cachemap/types @cachemap/indexed-db @cachemap/reaper
+npm add @cachemap/core @cachemap/types @cachemap/indexed-db @cachemap/reaper
 ```
 
 ## Packages
@@ -72,11 +72,11 @@ The default export of each module is a curried function that returns an async fu
 This allows you and the Cachemap to pass configuration options into the module.
 
 ```typescript
-import Cachemap from "@cachemap/core";
-import indexedDB from "@cachemap/indexed-db";
-import reaper from "@cachemap/reaper";
+import { Core } from "@cachemap/core";
+import { init as indexedDB } from "@cachemap/indexed-db";
+import { init as reaper } from "@cachemap/reaper";
 
-const cachemap = new Cachemap({
+const cachemap = new Core({
   name: "foobar",
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
@@ -86,8 +86,7 @@ const cachemap = new Cachemap({
 
 The example above initializes a persisted cache for the browser that uses IndexedDB as its database and checks for
 stale entries every five minutes. No other configuration is required, as long as the browser supports IndexedDB you are
-good to go. For a full list of configuration options, see the `@cachemap/core`
-[documentation](packages/core/docs/README.md).
+good to go.
 
 ### Checking, getting, setting, deleting
 
@@ -128,8 +127,6 @@ useful if the original keys are long strings such as URLs or GraphQL queries.
 })();
 ```
 
-For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core/docs/README.md).
-
 ### Bulk operations
 
 Sometimes you might want to add or retrieve multiple entries at once, and this is where the `import` and `export`
@@ -152,8 +149,6 @@ embedded in the response body, from where it could be imported into the browser 
 })();
 ```
 
-For full details of each method's signature, see the `@cachemap/core` [documentation](packages/core/docs/README.md).
-
 ### Web worker
 
 To free up the browser's main thread you can run the Cachemap in a web worker. For this you need the
@@ -164,10 +159,9 @@ use in your `worker.js` file. The `CoreWorker` class method signatures are ident
 
 ```typescript
 // main.js
+import { CoreWorker } from "@cachemap/core-worker";
 
-import CachemapWorker from "@cachemap/core-worker";
-
-const cachemap = new CachemapWorker({
+const cachemap = new CoreWorker({
   name: "integration-tests",
   worker: new Worker("worker.js"),
   type: "someType",
@@ -176,13 +170,12 @@ const cachemap = new CachemapWorker({
 
 ```typescript
 // worker.js
-
-import Cachemap from "@cachemap/core";
+import { Core } from "@cachemap/core";
 import { registerWorker } from "@cachemap/core-worker";
-import indexedDB from "@cachemap/indexed-db";
-import reaper from "@cachemap/reaper";
+import { init as indexedDB } from "@cachemap/indexed-db";
+import { init as reaper } from "@cachemap/reaper";
 
-const cachemap = new Cachemap({
+const cachemap = new Core({
   name: "worker-integration-tests",
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
@@ -193,8 +186,7 @@ registerWorker({ cachemap });
 ```
 
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and
-reaper modules. For a full list of configuration options, see the `@cachemap/core-worker`
-[documentation](packages/core-worker/docs/README.md).
+reaper modules.
 
 ### Taking actions when entries are deleted
 
@@ -203,7 +195,7 @@ Each Cachemap has its own event emitter on the `emitter` property, which can be 
 includes the entry `key`, any `tags` associated with the entry and whether it was successfully `deleted`.
 
 ```typescript
-const cachemap = new Cachemap({
+const cachemap = new Core({
   name: "worker-integration-tests",
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
@@ -225,10 +217,10 @@ Each Cachemap instance is listening for these events and will action them if the
 method match the instance's.
 
 ```typescript
-import controller from "@cachewmap/controller";
+import { instance } from "@cachewmap/controller";
 
-controller.clearCaches({ type: "someType" });
-controller.stopReapers({ type: "someType" });
+instance.clearCaches({ type: "someType" });
+instance.stopReapers({ type: "someType" });
 ```
 
 ### Custom modules
