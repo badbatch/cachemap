@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@cachemap/controller": "workspace:../controller",
-    "@cachemap/map": "workspace:../map",
     "@cachemap/types": "workspace:../types",
     "@cachemap/utils": "workspace:../utils",
     "cacheability": "^4.0.7",
