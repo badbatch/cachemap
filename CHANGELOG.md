@@ -1,3 +1,10 @@
+#### 5.0.0 (2023-10-12)
+
+##### Bug Fixes
+
+*  update lock file (cb8e25c0)
+*  remove reduendant deps (6f526d9f)
+
 #### 4.0.4 (2023-10-12)
 
 ##### Documentation Changes
