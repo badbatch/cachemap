@@ -2,7 +2,11 @@ module.exports = {
   extends: ['@repodog/eslint-config'],
   overrides: [
     {
-      extends: ['@repodog/eslint-config/jest.cjs'],
+      extends: ['@repodog/eslint-config-jasmine'],
+      files: ['tests/browser/*.{spec,test}.*'],
+    },
+    {
+      extends: ['@repodog/eslint-config-jest'],
       files: ['tests/node/*.{spec,test}.*'],
       rules: {
         'jest/max-nested-describe': [

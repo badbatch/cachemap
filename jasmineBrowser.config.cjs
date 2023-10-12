@@ -1,10 +1,6 @@
+const config = require('@repodog/jasmine-browser-config');
+
 module.exports = {
-  browser: {
-    name: 'headlessChrome',
-  },
-  helpers: ['./node_modules/jasmine-expect/index.js'],
-  specDir: 'tests/browser/dist',
-  specFiles: ['index.js'],
+  ...config,
   srcDir: 'packages',
-  srcFiles: [],
 };
