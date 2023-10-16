@@ -1,3 +1,9 @@
+#### 5.0.1 (2023-10-16)
+
+##### Documentation Changes
+
+*  clarify install dependencies (4f85e61b)
+
 #### 5.0.0 (2023-10-12)
 
 ##### Bug Fixes
