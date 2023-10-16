@@ -8,7 +8,7 @@ The Cachemap Core Worker module.
 ## Installation
 
 ```bash
-yarn add @cachemap/core-worker @cachemap/core @cachemap/utils
+yarn add @cachemap/core-worker @cachemap/core
 ```
 
 ## Usage
