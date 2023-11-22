@@ -30,7 +30,7 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "cacheability": "^4.0.13"
+    "cacheability": "^4.0.14"
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",

@@ -34,7 +34,7 @@
     "@cachemap/types": "workspace:*",
     "@cachemap/utils": "workspace:*",
     "@types/uuid": "^9.0.3",
-    "cacheability": "^4.0.13",
+    "cacheability": "^4.0.14",
     "eventemitter3": "^4.0.7",
     "uuid": "^7.0.1"
   },
