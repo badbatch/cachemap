@@ -1,3 +1,10 @@
+#### 5.0.2 (2023-11-22)
+
+##### New Features
+
+*  upgrade syncpack (ba336eef)
+*  move to exports map (40ab4949)
+
 #### 5.0.1 (2023-10-16)
 
 ##### Documentation Changes
