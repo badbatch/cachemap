@@ -12,8 +12,11 @@
   },
   "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -22,14 +25,15 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/controller": "workspace:../controller",
-    "@cachemap/types": "workspace:../types",
-    "@cachemap/utils": "workspace:../utils",
-    "cacheability": "^4.0.7",
+    "@cachemap/controller": "workspace:*",
+    "@cachemap/types": "workspace:*",
+    "@cachemap/utils": "workspace:*",
+    "cacheability": "^4.0.13",
     "eventemitter3": "^4.0.7",
     "uuid": "^7.0.1"
   },
@@ -41,7 +45,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
-    "@cachemap/core": "workspace:../core",
+    "@cachemap/core": "workspace:*",
     "@types/lodash-es": "^4.14.191",
     "@types/uuid": "^9.0.3",
     "core-js": "^3.27.2",

@@ -7,6 +7,5 @@ module.exports = {
   ...config,
   collectCoverage: false,
   collectCoverageFrom: [],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.cjs'],
   ...(isDebug ? {} : { testMatch: ['<rootDir>/packages/**/*.test.ts', '<rootDir>/tests/node/index.test.ts'] }),
 };

@@ -8,8 +8,11 @@
   "repository": "badbatch/cachemap",
   "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
-  "main": "./dist/main/index.mjs",
-  "types": "./dist/types/index.d.ts",
+  "exports": {
+    "types": "./dist/types/index.d.ts",
+    "import": "./dist/esm/index.mjs",
+    "require": "./dist/cjs/index.cjs"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -18,11 +21,12 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:main": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
+    "compile:esm": "rollup -c ../../rollup.config.cjs",
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/types": "workspace:../types",
+    "@cachemap/types": "workspace:*",
     "fakeredis": "^2.0.0",
     "redis": "^3.0.2"
   },

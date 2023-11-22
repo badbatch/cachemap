@@ -118,10 +118,10 @@ export class LocalStorageStore implements Store {
   }
 }
 
-export function init(options: Options = {}): StoreInit {
+export const init = (options: Options = {}): StoreInit => {
   if (!isPlainObject(options)) {
     throw new TypeError('@cachemap/map expected options to be a plain object.');
   }
 
   return (storeOptions: StoreOptions) => LocalStorageStore.init({ ...options, ...storeOptions });
-}
+};

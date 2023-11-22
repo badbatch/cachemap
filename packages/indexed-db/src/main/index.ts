@@ -9,7 +9,7 @@ export class IndexedDBStore implements Store {
     const objectStoreName = options.name;
 
     const indexedDB = await openDB(databaseName, 1, {
-      upgrade(database: IDBPDatabase) {
+      upgrade: (database: IDBPDatabase) => {
         database.createObjectStore(objectStoreName);
       },
     });
@@ -116,10 +116,10 @@ export class IndexedDBStore implements Store {
   }
 }
 
-export function init(options: Options = {}): StoreInit {
+export const init = (options: Options = {}): StoreInit => {
   if (!isPlainObject(options)) {
     throw new TypeError('@cachemap/indexedDB expected options to be a plain object.');
   }
 
   return (storeOptions: StoreOptions) => IndexedDBStore.init({ ...options, ...storeOptions });
-}
+};

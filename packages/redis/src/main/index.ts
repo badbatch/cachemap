@@ -150,10 +150,10 @@ export class RedisStore implements Store {
   }
 }
 
-export function init(options: Options = {}): StoreInit {
+export const init = (options: Options = {}): StoreInit => {
   if (!isPlainObject(options)) {
     throw new TypeError('@cachemap/redis expected options to be a plain object.');
   }
 
   return (storeOptions: StoreOptions) => RedisStore.init({ ...options, ...storeOptions });
-}
+};

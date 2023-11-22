@@ -3,15 +3,15 @@ import { constants } from '@cachemap/utils';
 import { isPlainObject, isString } from 'lodash-es';
 import { type CommonOptions, type FilterPropsResult, type PostMessage, type RegisterWorkerOptions } from '../types.ts';
 
-function requiresKey(type: string): boolean {
+const requiresKey = (type: string): boolean => {
   return type === constants.DELETE || type === constants.GET || type === constants.HAS || type === constants.SET;
-}
+};
 
-function filterProps({ metadata, storeType, usedHeapSize }: Core): FilterPropsResult {
+const filterProps = ({ metadata, storeType, usedHeapSize }: Core): FilterPropsResult => {
   return { metadata, storeType, usedHeapSize };
-}
+};
 
-export async function handleMessage(message: PostMessage, cachemap: Core): Promise<void> {
+export const handleMessage = async (message: PostMessage, cachemap: Core): Promise<void> => {
   const { key, keys, messageID, method, options, type, value } = message;
 
   if (requiresKey(method) && !isString(key)) {
@@ -108,10 +108,10 @@ export async function handleMessage(message: PostMessage, cachemap: Core): Promi
   }
 
   self.postMessage({ messageID, method, result, type, ...filterProps(cachemap) });
-}
+};
 
-export function registerWorker({ cachemap }: RegisterWorkerOptions): void {
-  function onMessage({ data }: MessageEvent<PostMessage>): void {
+export const registerWorker = ({ cachemap }: RegisterWorkerOptions): void => {
+  const onMessage = ({ data }: MessageEvent<PostMessage>): void => {
     if (!isPlainObject(data)) {
       return;
     }
@@ -123,11 +123,11 @@ export function registerWorker({ cachemap }: RegisterWorkerOptions): void {
     }
 
     void handleMessage(data, cachemap);
-  }
+  };
 
   self.addEventListener(constants.MESSAGE, onMessage);
 
   cachemap.emitter.on(cachemap.events.ENTRY_DELETED, ({ deleted, key }: { deleted: boolean; key: string }) => {
     self.postMessage({ deleted, key, method: cachemap.events.ENTRY_DELETED, type: constants.CACHEMAP });
   });
-}
+};
