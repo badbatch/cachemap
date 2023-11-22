@@ -30,7 +30,7 @@ importers:
       '@commitlint/prompt-cli': ^17.3.0
       '@jest/globals': ^29.3.1
       '@repodog/babel-config': ^1.1.11
-      '@repodog/cli': ^1.2.3
+      '@repodog/cli': ^1.2.4
       '@repodog/commitlint-config': ^1.1.6
       '@repodog/eslint-config': ^1.1.17
       '@repodog/eslint-config-jasmine': ^1.1.10
@@ -40,7 +40,7 @@ importers:
       '@repodog/markdownlint-config': ^1.1.4
       '@repodog/prettier-config': ^1.1.4
       '@repodog/rollup-config': ^1.1.8
-      '@repodog/syncpack-config': ^1.2.1
+      '@repodog/syncpack-config': ^1.2.2
       '@repodog/ts-config': ^1.1.6
       '@repodog/webpack-config': ^0.0.3
       '@rollup/plugin-babel': ^6.0.4
@@ -76,6 +76,7 @@ importers:
       eslint-plugin-sort-keys-fix: ^1.1.2
       eslint-plugin-typescript-sort-keys: ^2.3.0
       eslint-plugin-unicorn: ^46.0.1
+      fast-check: ^3.14.0
       generate-changelog: ^1.8.0
       glob: ^10.3.10
       husky: ^8.0.3
@@ -95,7 +96,7 @@ importers:
       rollup-plugin-sourcemaps: ^0.6.3
       source-map-loader: ^4.0.1
       suppress-experimental-warnings: ^1.1.3
-      syncpack: ^9.8.6
+      syncpack: ^12.0.0-alpha.0
       ts-md5: ^1.3.1
       type-fest: ^3.10.0
       typescript: ^5.0.3
@@ -128,7 +129,7 @@ importers:
       '@commitlint/prompt-cli': 17.7.1
       '@jest/globals': 29.6.2
       '@repodog/babel-config': 1.1.11_osvumdro5ccxxmvyx74cahfdga
-      '@repodog/cli': 1.2.3
+      '@repodog/cli': 1.2.4
       '@repodog/commitlint-config': 1.1.6_hyhtb74ripjpwgywiphbl47bje
       '@repodog/eslint-config': 1.1.17_2zhfqdvmjp3m3cpjpika3odr6m
       '@repodog/eslint-config-jasmine': 1.1.10_yxughnei4d2uzjpsyzfdg3jfwu
@@ -138,7 +139,7 @@ importers:
       '@repodog/markdownlint-config': 1.1.5_markdownlint-cli@0.32.2
       '@repodog/prettier-config': 1.1.5_prettier@2.8.8
       '@repodog/rollup-config': 1.1.8_ng2oq4gwaso2ahhxcu7cxwmzmi
-      '@repodog/syncpack-config': 1.2.1_syncpack@9.8.6
+      '@repodog/syncpack-config': 1.2.2_syncpack@12.0.0-alpha.0
       '@repodog/ts-config': 1.1.6_typescript@5.1.6
       '@repodog/webpack-config': 0.0.3_uvlouv2jjo6da2fuagztbzcw2a
       '@rollup/plugin-babel': 6.0.4_ikr4qeb4d7cdau4a3fyumwmeii
@@ -174,6 +175,7 @@ importers:
       eslint-plugin-sort-keys-fix: 1.1.2
       eslint-plugin-typescript-sort-keys: 2.3.0_dhbftgwluaf2pse3xeibjbv2du
       eslint-plugin-unicorn: 46.0.1_eslint@8.47.0
+      fast-check: 3.14.0
       generate-changelog: 1.8.0
       glob: 10.3.10
       husky: 8.0.3
@@ -193,7 +195,7 @@ importers:
       rollup-plugin-sourcemaps: 0.6.3_vgckzboc7n5k66gptbvmn6saie
       source-map-loader: 4.0.1_webpack@5.88.2
       suppress-experimental-warnings: 1.1.17
-      syncpack: 9.8.6
+      syncpack: 12.0.0-alpha.0_ehoawzwlcmpnc3v7w6sar3vpk4
       ts-md5: 1.3.1
       type-fest: 3.13.1
       typescript: 5.1.6
@@ -202,11 +204,16 @@ importers:
 
   packages/controller:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/utils': workspace:*
+      core-js: ^3.27.2
       eventemitter3: ^4.0.7
     dependencies:
       '@cachemap/utils': link:../utils
       eventemitter3: 4.0.7
+    devDependencies:
+      '@babel/runtime': 7.22.10
+      core-js: 3.32.0
 
   packages/core:
     specifiers:
@@ -230,12 +237,12 @@ importers:
       cacheability: 4.0.13_cpufd4kosxfrlx2bfvufbqbomy
       eventemitter3: 4.0.7
       ts-md5: 1.3.1
+      type-fest: 3.13.1
     devDependencies:
       '@babel/runtime': 7.22.10
       '@types/lodash-es': 4.17.9
       core-js: 3.32.0
       lodash-es: 4.17.21
-      type-fest: 3.13.1
 
   packages/core-worker:
     specifiers:
@@ -255,6 +262,7 @@ importers:
       '@cachemap/controller': link:../controller
       '@cachemap/types': link:../types
       '@cachemap/utils': link:../utils
+      '@types/uuid': 9.0.3
       cacheability: 4.0.13_cpufd4kosxfrlx2bfvufbqbomy
       eventemitter3: 4.0.7
       uuid: 7.0.3
@@ -262,89 +270,108 @@ importers:
       '@babel/runtime': 7.22.10
       '@cachemap/core': link:../core
       '@types/lodash-es': 4.17.9
-      '@types/uuid': 9.0.3
       core-js: 3.32.0
       lodash-es: 4.17.21
 
   packages/indexed-db:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/types': workspace:*
       '@types/lodash-es': ^4.14.191
+      core-js: ^3.27.2
       idb: ^5.0.1
       lodash-es: ^4.17.21
     dependencies:
       '@cachemap/types': link:../types
       idb: 5.0.8
     devDependencies:
+      '@babel/runtime': 7.22.10
       '@types/lodash-es': 4.17.9
+      core-js: 3.32.0
       lodash-es: 4.17.21
 
   packages/local-storage:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/types': workspace:*
       '@types/lodash-es': ^4.14.191
+      core-js: ^3.27.2
       lodash-es: ^4.17.21
     dependencies:
       '@cachemap/types': link:../types
     devDependencies:
+      '@babel/runtime': 7.22.10
       '@types/lodash-es': 4.17.9
+      core-js: 3.32.0
       lodash-es: 4.17.21
 
   packages/map:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/types': workspace:*
       '@types/lodash-es': ^4.14.191
+      core-js: ^3.27.2
       lodash-es: ^4.17.21
       type-fest: ^3.10.0
     dependencies:
       '@cachemap/types': link:../types
-    devDependencies:
-      '@types/lodash-es': 4.17.9
-      lodash-es: 4.17.21
       type-fest: 3.13.1
+    devDependencies:
+      '@babel/runtime': 7.22.10
+      '@types/lodash-es': 4.17.9
+      core-js: 3.32.0
+      lodash-es: 4.17.21
 
   packages/reaper:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/types': workspace:*
       '@types/lodash-es': ^4.14.191
+      core-js: ^3.27.2
       lodash-es: ^4.17.21
     dependencies:
       '@cachemap/types': link:../types
     devDependencies:
+      '@babel/runtime': 7.22.10
       '@types/lodash-es': 4.17.9
+      core-js: 3.32.0
       lodash-es: 4.17.21
 
   packages/redis:
     specifiers:
+      '@babel/runtime': ^7.20.13
       '@cachemap/types': workspace:*
       '@types/lodash-es': ^4.14.191
       '@types/redis': ^2.8.16
+      core-js: ^3.27.2
       fakeredis: ^2.0.0
       lodash-es: ^4.17.21
       redis: ^3.0.2
     dependencies:
       '@cachemap/types': link:../types
+      '@types/redis': 2.8.32
       fakeredis: 2.0.0
       redis: 3.1.2
     devDependencies:
+      '@babel/runtime': 7.22.10
       '@types/lodash-es': 4.17.9
-      '@types/redis': 2.8.32
+      core-js: 3.32.0
       lodash-es: 4.17.21
 
   packages/types:
     specifiers:
       '@babel/runtime': ^7.20.13
+      '@types/lodash-es': ^4.14.191
       cacheability: ^4.0.13
       core-js: ^3.27.2
       lodash-es: ^4.17.21
-      type-fest: ^3.10.0
     dependencies:
       cacheability: 4.0.13_cpufd4kosxfrlx2bfvufbqbomy
     devDependencies:
       '@babel/runtime': 7.22.10
+      '@types/lodash-es': 4.17.9
       core-js: 3.32.0
       lodash-es: 4.17.21
-      type-fest: 3.13.1
 
   packages/utils:
     specifiers:
@@ -352,6 +379,7 @@ importers:
       '@cachemap/types': workspace:*
       '@jest/globals': ^29.3.1
       '@types/crypto-js': ^4.1.1
+      '@types/lodash-es': ^4.14.191
       cacheability: ^4.0.13
       core-js: ^3.27.2
       crypto-js: ^4.0.0
@@ -360,16 +388,17 @@ importers:
       type-fest: ^3.10.0
     dependencies:
       '@cachemap/types': link:../types
+      '@types/crypto-js': 4.1.1
       cacheability: 4.0.13_cpufd4kosxfrlx2bfvufbqbomy
       crypto-js: 4.1.1
       js-base64: 3.7.5
+      type-fest: 3.13.1
     devDependencies:
       '@babel/runtime': 7.22.10
       '@jest/globals': 29.7.0
-      '@types/crypto-js': 4.1.1
+      '@types/lodash-es': 4.17.9
       core-js: 3.32.0
       lodash-es: 4.17.21
-      type-fest: 3.13.1
 
 packages:
 
@@ -1897,8 +1926,8 @@ packages:
       '@commitlint/types': 17.4.4
       '@types/node': 20.4.7
       chalk: 4.1.2
-      cosmiconfig: 8.2.0
-      cosmiconfig-typescript-loader: 4.4.0_mrt2wnih5zjrgf7emf6zukdxaq
+      cosmiconfig: 8.3.6_typescript@5.1.6
+      cosmiconfig-typescript-loader: 4.4.0_hbr7a3xjl7wguq57tdxjgxf24y
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -2014,6 +2043,24 @@ packages:
   /@discoveryjs/json-ext/0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
     engines: {node: '>=10.0.0'}
+    dev: true
+
+  /@effect/match/0.40.0_effect@2.0.0-next.48:
+    resolution: {integrity: sha512-1v2UpVxbUybx6zmN0R1uraRkCju15xLmHquoNQxPFGrQABq2dRI0nSsVM+/yibggUnQ9QAEx2MxQ6xdrQR+8hg==}
+    peerDependencies:
+      effect: 2.0.0-next.47
+    dependencies:
+      effect: 2.0.0-next.48
+    dev: true
+
+  /@effect/schema/0.43.0_bvtirqxanx7zv76b5sums5ecym:
+    resolution: {integrity: sha512-MvWDyS1u/+X7DYQdhnN/Tu0/NwTlFx2/XgR9+JVrX7hQOzH01li6463rohfiH+NYxx3aruAqA1Oz5MSOCB7hnA==}
+    peerDependencies:
+      effect: 2.0.0-next.48
+      fast-check: ^3.13.1
+    dependencies:
+      effect: 2.0.0-next.48
+      fast-check: 3.14.0
     dev: true
 
   /@eslint-community/eslint-utils/4.4.0_eslint@8.47.0:
@@ -2588,14 +2635,14 @@ packages:
       babel-plugin-macros: 3.1.0
     dev: true
 
-  /@repodog/cli-cut/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-Wg5wfHe/qFWuNPabfIJfJApHfKWJvqvkueJFIeGcJBA589DR+v/wUE6tvTShcUGX8lDp178MFvUyuwJj1/sJag==}
+  /@repodog/cli-cut/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-J+2fMGdb9swK9QPr+aIpeF7dlqyM2XhrvjxUu1jkeu0+rjq9CrVbcWrX2BypaC8VdNGIM4YLWQkHsn/eO8UC/g==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       semver: 7.5.4
@@ -2605,16 +2652,16 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-new/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-KCPxQoIPrCEd2aArsUXzlo/cLK6V2t3ru398aVhX4+Ze4Se8VxLENSWn8uaOD/oIhJF8hw+eYASDqfGf/y8MxQ==}
+  /@repodog/cli-new/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-nry9VZJdSB/OjpV8CcX93l46E6YLZGW24c8rdo60f9zghOPMfDD8Vq1N/DL6imRy8AKr5qjkqw8jzuLD6fWR/g==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
       lodash-es: <5
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-setup': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-setup': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       enquirer: 2.4.1
@@ -2626,14 +2673,14 @@ packages:
       - supports-color
     dev: true
 
-  /@repodog/cli-postinstall/0.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-pB1qkIqBj9kwb+JbWk6Pv1T+T0DsxL2QueikxW19YKlVmtid1BHDVjpiVPw5ocoen+285aIRyDPD+BBXvvqI6w==}
+  /@repodog/cli-postinstall/0.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-funUUcAmLxR3F1i9dv9mZvr5QoODpvbNQ6JnAYKEvquysQkEqkaC6qh4WgMayfif9z2l9P4aML/8FFywI920SQ==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       package-json: 8.1.1
@@ -2643,14 +2690,14 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-publish/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-932Z0EORfcL1UqBAoF3P6ZKrlaT5oyzUzFeUNJROugL3mAMy/aY6e76jWKwCQN6KvlVXYBCKo3DN13YYM2tHtg==}
+  /@repodog/cli-publish/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-Sta+jj1twYVc3URUQ+8MBUtMtj31aarfz3V2sYcuk1kchSxNSYUErszOE2MYgIuMpdjo8Bsoir/XL3VIqi69XQ==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       semver: 7.5.4
@@ -2660,14 +2707,14 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-setup/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-IaHSk3qM/kvx30byA3lvAL3+zrn43ksDj5Qz1bwTP8b3LkqviodNWg0gnvx+95uctlP4tlyI1/kEoBVwxNqkAg==}
+  /@repodog/cli-setup/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-nm5xZaHEJIa6sNRAbtuEVUNBYuWyvL4ZeVZht3095Ur2OezUSjjxbxgIzphYFvx7oIQBQeO45cWk8gzLAM/LYg==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       enquirer: 2.4.1
@@ -2677,8 +2724,8 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli-utils/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-VnD8GJd3VNrf1d9dMX0n4xcrZNHf+g+aX4wxcX6nOLGKqZ6uzI3Pc8Y9L59dzPds/B91IRBu7ah0uVC2yti6uQ==}
+  /@repodog/cli-utils/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-Dd5D1g5sq3/eoekMgSRdMkTtrtX40igoRO4D7qtx4fnLn3vXlJLVnDk74wNDYRhz5tAkNvi33o4NmXTDyhmPxw==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
@@ -2694,14 +2741,14 @@ packages:
       shelljs: 0.8.5
     dev: true
 
-  /@repodog/cli-write/1.2.3_cpufd4kosxfrlx2bfvufbqbomy:
-    resolution: {integrity: sha512-P/QEEFePmmtUiRYLzbzxL5mEc3UxcKkI7kKBjTULQRq1v0+l80Ru3Z477+/qZOKlliAOOCjMiZod3eHjhyRbbA==}
+  /@repodog/cli-write/1.2.4_cpufd4kosxfrlx2bfvufbqbomy:
+    resolution: {integrity: sha512-pJAthPYl/KNB3ja4LLG8zxMdPv6Wl6bgpWe/4oYcx0+Z6EACfVO39O2lh36gpGaCTcuaPxZZXctRVbmKZhU0LQ==}
     peerDependencies:
       '@babel/runtime': <8
       core-js: <4
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-utils': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-utils': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       dotenv: 16.3.1
@@ -2713,18 +2760,18 @@ packages:
       - lodash-es
     dev: true
 
-  /@repodog/cli/1.2.3:
-    resolution: {integrity: sha512-6NAffHF31KuofZrHZAGjlwdl0kebsJN2DiH/oWI3tlVAlnHUk8imD1DDA4NxMTTxe5ttKL+dgAr7HahL1PwAfQ==}
+  /@repodog/cli/1.2.4:
+    resolution: {integrity: sha512-A6DbpZUH47PhbRExZb5oW94gGLm7VJv6sAWuOat95OHmYpKs+B4sML6mQH2fAFeEN0r6oi+CCGre84IdUFsvTQ==}
     engines: {node: ^18.13.0}
     hasBin: true
     dependencies:
       '@babel/runtime': 7.22.10
-      '@repodog/cli-cut': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-new': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-postinstall': 0.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-publish': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-setup': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
-      '@repodog/cli-write': 1.2.3_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-cut': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-new': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-postinstall': 0.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-publish': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-setup': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
+      '@repodog/cli-write': 1.2.4_cpufd4kosxfrlx2bfvufbqbomy
       ansi-colors: 4.1.3
       core-js: 3.32.0
       jiti: 1.21.0
@@ -2878,12 +2925,12 @@ packages:
       rollup-plugin-sourcemaps: 0.6.3_vgckzboc7n5k66gptbvmn6saie
     dev: true
 
-  /@repodog/syncpack-config/1.2.1_syncpack@9.8.6:
-    resolution: {integrity: sha512-mNjdp/enQIVtZlhc3zE8kqZ0XzE1YN6L2jQay+jW4jQ7xGSBgf5m3WBBn6ZIpXuwuYoH6FpsrEN+YCWBfKWmKw==}
+  /@repodog/syncpack-config/1.2.2_syncpack@12.0.0-alpha.0:
+    resolution: {integrity: sha512-jzqZ0+RQUbRGUeWqUXJCuyJM+0FkP1a5JRNnj9AW2A22HNn0IuD364YvdPDBbB/+HOcQD+0uG1IzVJz3+HLWkA==}
     peerDependencies:
-      syncpack: <10
+      syncpack: <13
     dependencies:
-      syncpack: 9.8.6
+      syncpack: 12.0.0-alpha.0_ehoawzwlcmpnc3v7w6sar3vpk4
     dev: true
 
   /@repodog/ts-config/1.1.6_typescript@5.1.6:
@@ -3113,7 +3160,7 @@ packages:
 
   /@types/crypto-js/4.1.1:
     resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
-    dev: true
+    dev: false
 
   /@types/eslint-scope/3.7.5:
     resolution: {integrity: sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==}
@@ -3234,7 +3281,6 @@ packages:
 
   /@types/node/18.17.5:
     resolution: {integrity: sha512-xNbS75FxH6P4UXTPUJp/zNPq6/xsfdJKussCWNOnz4aULWIRwMgP1LgaB5RiBnMX1DPCYenuqGZfnIAx5mbFLA==}
-    dev: true
 
   /@types/node/20.4.7:
     resolution: {integrity: sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==}
@@ -3252,7 +3298,7 @@ packages:
     resolution: {integrity: sha512-7jkMKxcGq9p242exlbsVzuJb57KqHRhNl4dHoQu2Y5v9bCAbtIXXH0R3HleSQW4CTOqpHIYUW3t6tpUj4BVQ+w==}
     dependencies:
       '@types/node': 18.17.5
-    dev: true
+    dev: false
 
   /@types/resolve/1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -3272,7 +3318,7 @@ packages:
 
   /@types/uuid/9.0.3:
     resolution: {integrity: sha512-taHQQH/3ZyI3zP8M/puluDEIEvtQHVYcC6y3N8ijFtAd28+Ey/G4sg1u2gB01S8MwybLOKAp9/yCMu/uR5l3Ug==}
-    dev: true
+    dev: false
 
   /@types/yargs-parser/21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -4144,6 +4190,12 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  /builtins/5.0.1:
+    resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
+    dependencies:
+      semver: 7.5.4
+    dev: true
+
   /bytes/3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
     engines: {node: '>= 0.8'}
@@ -4424,6 +4476,11 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
+  /commander/11.0.0:
+    resolution: {integrity: sha512-9HMlXtt/BNoYr8ooyjjNRdIilOTkVJXB+GhxMTtOKwk0R4j4lS4NpjuqmRxroBfnfTSHQIHQB7wryHhXarNjmQ==}
+    engines: {node: '>=16'}
+    dev: true
+
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
     dev: true
@@ -4555,7 +4612,7 @@ packages:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
     dev: true
 
-  /cosmiconfig-typescript-loader/4.4.0_mrt2wnih5zjrgf7emf6zukdxaq:
+  /cosmiconfig-typescript-loader/4.4.0_hbr7a3xjl7wguq57tdxjgxf24y:
     resolution: {integrity: sha512-BabizFdC3wBHhbI4kJh0VkQP9GkBfoHPydD0COMce1nJ1kJAB3F2TmJ/I7diULBKtmEWSwEbuN/KDtgnmUUVmw==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
@@ -4565,7 +4622,7 @@ packages:
       typescript: '>=4'
     dependencies:
       '@types/node': 20.4.7
-      cosmiconfig: 8.2.0
+      cosmiconfig: 8.3.6_typescript@5.1.6
       ts-node: 10.9.1_dvq55o6ihfzbtkatyu52wpt2ee
       typescript: 5.1.6
     dev: true
@@ -4581,24 +4638,20 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /cosmiconfig/8.1.3:
-    resolution: {integrity: sha512-/UkO2JKI18b5jVMJUp0lvKFMpa/Gye+ZgZjKD+DGEN9y7NRcf/nK1A0sp67ONmKtnDCNMS44E6jrk0Yc3bDuUw==}
+  /cosmiconfig/8.3.6_typescript@5.1.6:
+    resolution: {integrity: sha512-kcZ6+W5QzcJ3P1Mt+83OUv/oHFqZHIx8DuxG6eZ5RGMERoLqp4BuGjhHLYGK+Kf5XVkQvqBSmAy/nGWN3qDgEA==}
     engines: {node: '>=14'}
+    peerDependencies:
+      typescript: '>=4.9.5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
       path-type: 4.0.0
-    dev: true
-
-  /cosmiconfig/8.2.0:
-    resolution: {integrity: sha512-3rTMnFJA1tCOPwRxtgF4wd7Ab2qvDbL8jX+3smjIbS4HlZBagTlpERbdN7iAbWlrfxE3M8c27kTwTawQ7st+OQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      import-fresh: 3.3.0
-      js-yaml: 4.1.0
-      parse-json: 5.2.0
-      path-type: 4.0.0
+      typescript: 5.1.6
     dev: true
 
   /create-require/1.1.1:
@@ -4891,6 +4944,10 @@ packages:
 
   /ee-first/1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
+    dev: true
+
+  /effect/2.0.0-next.48:
+    resolution: {integrity: sha512-vwMIl39m8fMBeXoGIdSwMi2lrg7NltyrGMK0N/liGDl7G9LXvERKOCipNcobSIGO0V7hjaXEWgL6W/KEWEww+g==}
     dev: true
 
   /ejs/3.1.9:
@@ -5580,6 +5637,13 @@ packages:
       redis: 2.6.0-0
     dev: false
 
+  /fast-check/3.14.0:
+    resolution: {integrity: sha512-9Z0zqASzDNjXBox/ileV/fd+4P+V/f3o4shM6QawvcdLFh8yjPG4h5BrHUZ8yzY6amKGDTAmRMyb/JZqe+dCgw==}
+    engines: {node: '>=8.0.0'}
+    dependencies:
+      pure-rand: 6.0.2
+    dev: true
+
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
     dev: true
@@ -6142,6 +6206,13 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       lru-cache: 6.0.0
+    dev: true
+
+  /hosted-git-info/7.0.1:
+    resolution: {integrity: sha512-+K84LB1DYwMHoHSgaOY/Jfhw3ucPmSET5v98Ke/HdNSw4a0UktWzyW1mjhjpuxxTqOOsfWT/7iVshHmVZ4IpOA==}
+    engines: {node: ^16.14.0 || >=18.0.0}
+    dependencies:
+      lru-cache: 10.0.1
     dev: true
 
   /html-encoding-sniffer/3.0.0:
@@ -7910,13 +7981,6 @@ packages:
       brace-expansion: 2.0.1
     dev: true
 
-  /minimatch/6.2.0:
-    resolution: {integrity: sha512-sauLxniAmvnhhRjFwPNnJKaPFYyddAgbYdeUpHULtCT/GhzdCx/MDNy+Y40lBxTQUrMzDE8e0S43Z5uqfO0REg==}
-    engines: {node: '>=10'}
-    dependencies:
-      brace-expansion: 2.0.1
-    dev: true
-
   /minimatch/9.0.3:
     resolution: {integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==}
     engines: {node: '>=16 || 14 >=14.17'}
@@ -8016,6 +8080,16 @@ packages:
   /normalize-url/8.0.0:
     resolution: {integrity: sha512-uVFpKhj5MheNBJRTiMZ9pE/7hD1QTeEvugSJW/OmLzAp78PB5O6adfMNTvmfKhXBkvCzC+rqifWcVYpGFwTjnw==}
     engines: {node: '>=14.16'}
+    dev: true
+
+  /npm-package-arg/11.0.1:
+    resolution: {integrity: sha512-M7s1BD4NxdAvBKUPqqRW957Xwcl/4Zvo8Aj+ANrzvIPzGJZElrH7Z//rSaec2ORcND6FHHLnZeY8qgTpXDMFQQ==}
+    engines: {node: ^16.14.0 || >=18.0.0}
+    dependencies:
+      hosted-git-info: 7.0.1
+      proc-log: 3.0.0
+      semver: 7.5.4
+      validate-npm-package-name: 5.0.0
     dev: true
 
   /npm-run-path/4.0.1:
@@ -8386,6 +8460,11 @@ packages:
       '@jest/schemas': 29.6.3
       ansi-styles: 5.2.0
       react-is: 18.2.0
+    dev: true
+
+  /proc-log/3.0.0:
+    resolution: {integrity: sha512-++Vn7NS4Xf9NacaU9Xq3URUuqZETPsf8L4j5/ckhaRYsfPeRyzGw+iDjFhV/Jr3uNmTvvddEJFWh5R1gRgUH8A==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dev: true
 
   /process-nextick-args/2.0.1:
@@ -8945,14 +9024,6 @@ packages:
     hasBin: true
     dev: true
 
-  /semver/7.5.0:
-    resolution: {integrity: sha512-+XC0AD/R7Q2mPSRuy2Id0+CGTZ98+8f+KvwirxOKIEyid+XSx6HbC63p+O4IndTHuX5Z+JxQ0TghCkO5Cg/2HA==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-    dev: true
-
   /semver/7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
     engines: {node: '>=10'}
@@ -9360,21 +9431,30 @@ packages:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
     dev: true
 
-  /syncpack/9.8.6:
-    resolution: {integrity: sha512-4S4cUoKK9WenA/Wdk9GvlekzPR9PxC7sqcsUIsK4ypsa/pIYv8Ju1vxGNvp6Y1yI2S9EdCk0QJsB3/wRB8XYVw==}
-    engines: {node: '>=14'}
+  /syncpack/12.0.0-alpha.0_ehoawzwlcmpnc3v7w6sar3vpk4:
+    resolution: {integrity: sha512-ZqrE+WtdgQGH2bVJpWzN6dfQwT4NIm0d6mlwj3txUCp0zxDst4RrqUjtPwJGoe5OEdbrAQQKVuc1JnKrTfEwGw==}
+    engines: {node: '>=16'}
     hasBin: true
     dependencies:
+      '@effect/match': 0.40.0_effect@2.0.0-next.48
+      '@effect/schema': 0.43.0_bvtirqxanx7zv76b5sums5ecym
       chalk: 4.1.2
-      commander: 10.0.1
-      cosmiconfig: 8.1.3
-      fs-extra: 11.1.1
-      glob: 8.1.0
-      minimatch: 6.2.0
+      commander: 11.0.0
+      cosmiconfig: 8.3.6_typescript@5.1.6
+      effect: 2.0.0-next.48
+      enquirer: 2.4.1
+      globby: 11.1.0
+      minimatch: 9.0.3
+      npm-package-arg: 11.0.1
+      ora: 5.4.1
+      prompts: 2.4.2
       read-yaml-file: 2.1.0
-      semver: 7.5.0
+      semver: 7.5.4
       tightrope: 0.1.0
-      zod: 3.21.4
+      ts-toolbelt: 9.6.0
+    transitivePeerDependencies:
+      - fast-check
+      - typescript
     dev: true
 
   /tapable/2.2.1:
@@ -9554,6 +9634,10 @@ packages:
       yn: 3.1.1
     dev: true
 
+  /ts-toolbelt/9.6.0:
+    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
+    dev: true
+
   /tsconfig-paths/3.14.2:
     resolution: {integrity: sha512-o/9iXgCYc5L/JxCHPe3Hvh8Q/2xm5Z+p18PESBU6Ff33695QnCHBEjcytY2q19ua7Mbl/DavtBOLq+oG0RCL+g==}
     dependencies:
@@ -9626,7 +9710,6 @@ packages:
   /type-fest/3.13.1:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
-    dev: true
 
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
@@ -9807,6 +9890,13 @@ packages:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /validate-npm-package-name/5.0.0:
+    resolution: {integrity: sha512-YuKoXDAhBYxY7SfOKxHBDoSyENFeW5VvIIQp2TGQuit8gpK6MnWaQelBKxso72DoxTZfZdcP3W90LqpSkgPzLQ==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    dependencies:
+      builtins: 5.0.1
     dev: true
 
   /vary/1.1.2:
@@ -10134,8 +10224,4 @@ packages:
   /yocto-queue/1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
-    dev: true
-
-  /zod/3.21.4:
-    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: true

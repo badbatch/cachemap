@@ -30,7 +30,8 @@
     "compile:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cachemap/types": "workspace:*"
+    "@cachemap/types": "workspace:*",
+    "type-fest": "^3.10.0"
   },
   "peerDependencies": {
     "@babel/runtime": "<8",
@@ -38,9 +39,10 @@
     "lodash-es": "<5"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.20.13",
     "@types/lodash-es": "^4.14.191",
-    "lodash-es": "^4.17.21",
-    "type-fest": "^3.10.0"
+    "core-js": "^3.27.2",
+    "lodash-es": "^4.17.21"
   },
   "keywords": [
     "Map",

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@cachemap/types": "workspace:*",
+    "@types/redis": "^2.8.16",
     "fakeredis": "^2.0.0",
     "redis": "^3.0.2"
   },
@@ -36,8 +37,9 @@
     "lodash-es": "<5"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.20.13",
     "@types/lodash-es": "^4.14.191",
-    "@types/redis": "^2.8.16",
+    "core-js": "^3.27.2",
     "lodash-es": "^4.17.21"
   },
   "keywords": [

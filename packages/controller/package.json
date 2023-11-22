@@ -37,6 +37,10 @@
     "@babel/runtime": "<8",
     "core-js": "<4"
   },
+  "devDependencies": {
+    "@babel/runtime": "^7.20.13",
+    "core-js": "^3.27.2"
+  },
   "keywords": [
     "cache",
     "cachemap"

@@ -33,6 +33,7 @@
     "@cachemap/controller": "workspace:*",
     "@cachemap/types": "workspace:*",
     "@cachemap/utils": "workspace:*",
+    "@types/uuid": "^9.0.3",
     "cacheability": "^4.0.13",
     "eventemitter3": "^4.0.7",
     "uuid": "^7.0.1"
@@ -47,7 +48,6 @@
     "@babel/runtime": "^7.20.13",
     "@cachemap/core": "workspace:*",
     "@types/lodash-es": "^4.14.191",
-    "@types/uuid": "^9.0.3",
     "core-js": "^3.27.2",
     "lodash-es": "^4.17.21"
   },
