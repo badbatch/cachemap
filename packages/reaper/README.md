@@ -8,7 +8,7 @@ The Cachemap reaper module.
 ## Installation
 
 ```bash
-yarn add @cachemap/reaper
+npm add @cachemap/reaper
 ```
 
 ## Usage

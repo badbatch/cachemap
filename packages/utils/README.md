@@ -8,7 +8,7 @@ The Cachemap utils module.
 ## Installation
 
 ```bash
-yarn add @cachemap/utils
+npm add @cachemap/utils
 ```
 
 ## Usage

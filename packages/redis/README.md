@@ -8,7 +8,7 @@ The Cachemap Redis module.
 ## Installation
 
 ```bash
-yarn add @cachemap/redis
+npm add @cachemap/redis
 ```
 
 ## Usage

@@ -8,7 +8,7 @@ The Cachemap IndexedDB module.
 ## Installation
 
 ```bash
-yarn add @cachemap/indexed-db
+npm add @cachemap/indexed-db
 ```
 
 ## Usage

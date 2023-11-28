@@ -8,7 +8,7 @@ The Cachemap types module.
 ## Installation
 
 ```bash
-yarn add @cachemap/types
+npm add @cachemap/types
 ```
 
 ## Usage

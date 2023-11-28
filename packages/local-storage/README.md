@@ -8,7 +8,7 @@ The Cachemap LocalStorage module.
 ## Installation
 
 ```bash
-yarn add @cachemap/local-storage
+npm add @cachemap/local-storage
 ```
 
 ## Usage

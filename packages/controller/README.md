@@ -8,7 +8,7 @@ The Cachemap controller module.
 ## Installation
 
 ```bash
-yarn add @cachemap/controller
+npm add @cachemap/controller
 ```
 
 ## Usage

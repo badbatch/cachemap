@@ -8,7 +8,7 @@ The Cachemap Map module.
 ## Installation
 
 ```bash
-yarn add @cachemap/map
+npm add @cachemap/map
 ```
 
 ## Usage
