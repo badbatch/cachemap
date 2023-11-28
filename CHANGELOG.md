@@ -1,3 +1,9 @@
+#### 5.0.4 (2023-11-28)
+
+##### Bug Fixes
+
+*  update installation examples to npm (e470eb34)
+
 #### 5.0.3 (2023-11-22)
 
 ##### Chores
