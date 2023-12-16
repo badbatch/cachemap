@@ -1,3 +1,13 @@
+#### 5.0.5 (2023-12-16)
+
+##### Bug Fixes
+
+*  pnppm version in pipeline (06473ba1)
+
+##### Refactors
+
+*  better support esm and cjs (a9804560)
+
 #### 5.0.4 (2023-11-28)
 
 ##### Bug Fixes
