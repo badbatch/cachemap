@@ -682,7 +682,10 @@ describe.each`
           });
 
           keys = Object.keys(testData);
-          keys.map(id => cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true }));
+
+          for (const _id of keys) {
+            void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hash: true });
+          }
         });
       });
 

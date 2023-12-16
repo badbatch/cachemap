@@ -12,8 +12,14 @@
   },
   "bugs": "https://github.com/badbatch/cachemap/issues",
   "type": "module",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.mjs",
+  "types": "./dist/types/cjs/index.d.cts",
   "exports": {
-    "types": "./dist/types/index.d.ts",
+    "types": {
+      "import": "./dist/types/esm/index.d.ts",
+      "require": "./dist/types/cjs/index.d.cts"
+    },
     "import": "./dist/esm/index.mjs",
     "require": "./dist/cjs/index.cjs"
   },
@@ -27,12 +33,12 @@
     "compile": "pnpm run /^compile:.*/",
     "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
     "compile:esm": "rollup -c ../../rollup.config.cjs",
-    "compile:types": "tsc --project ./tsconfig.build.json"
+    "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
     "@cachemap/types": "workspace:*",
     "@types/crypto-js": "^4.1.1",
-    "cacheability": "^4.0.14",
+    "cacheability": "^4.0.18",
     "crypto-js": "^4.0.0",
     "js-base64": "^3.6.0",
     "type-fest": "^3.10.0"
@@ -47,6 +53,7 @@
     "@jest/globals": "^29.3.1",
     "@types/lodash-es": "^4.14.191",
     "core-js": "^3.27.2",
+    "cts-types": "^0.0.4",
     "lodash-es": "^4.17.21"
   },
   "keywords": [
