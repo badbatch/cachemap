@@ -39,7 +39,7 @@
     "@cachemap/types": "workspace:*",
     "@types/crypto-js": "^4.1.1",
     "cacheability": "^4.0.18",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.2.0",
     "js-base64": "^3.6.0",
     "type-fest": "^3.10.0"
   },
