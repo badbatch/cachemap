@@ -1,3 +1,10 @@
+#### 5.0.6 (2023-12-28)
+
+##### Bug Fixes
+
+*  add whitespace to package.json (c96d3310)
+*  add and update del-cli and rename files (c5b3b76a)
+
 #### 5.0.5 (2023-12-16)
 
 ##### Bug Fixes
