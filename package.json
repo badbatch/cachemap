@@ -92,7 +92,7 @@
     "cacheability": "^4.0.18",
     "concurrently": "^8.2.1",
     "core-js": "^3.27.2",
-    "del-cli": "^3.0.0",
+    "del-cli": "^5.1.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.2",

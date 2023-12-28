@@ -2,8 +2,8 @@
 import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
-import { testData } from '../data/index.ts';
-import { type PlainObject } from '../defs/index.ts';
+import { testData } from '../data.ts';
+import { type PlainObject } from '../types.ts';
 import { type ExportResult } from '@cachemap/core';
 import { CoreWorker } from '@cachemap/core-worker';
 import { type Metadata } from '@cachemap/types';

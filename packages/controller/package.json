@@ -46,7 +46,8 @@
   "devDependencies": {
     "@babel/runtime": "^7.20.13",
     "core-js": "^3.27.2",
-    "cts-types": "^0.0.4"
+    "cts-types": "^0.0.4",
+    "del-cli": "^5.1.0"
   },
   "keywords": [
     "cache",
