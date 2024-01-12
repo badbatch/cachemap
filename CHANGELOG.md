@@ -1,3 +1,16 @@
+#### 5.0.7 (2024-01-12)
+
+##### Chores
+
+*  upgrade deps (419eea81)
+* **deps-dev:**  bump @babel/traverse from 7.22.10 to 7.23.6 (#50) (0a73fea6)
+* **deps:**  bump crypto-js from 4.1.1 to 4.2.0 (#49) (3fc4b6ab)
+
+##### Bug Fixes
+
+*  update package lock (c5d83bf5)
+*  remove deps (3addd612)
+
 #### 5.0.6 (2023-12-28)
 
 ##### Bug Fixes
