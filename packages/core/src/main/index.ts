@@ -238,7 +238,19 @@ export class Core {
       throw new ArgsError('@cachemap/core expected keys to be an array.');
     }
 
-    return this._entries(keys);
+    const entries = await this._entries<T>(keys);
+
+    return entries.sort(([a], [b]) => {
+      if (a < b) {
+        return -1;
+      }
+
+      if (a > b) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
   public async export<T>(options: ExportOptions = {}): Promise<ExportResult<T>> {
@@ -256,7 +268,32 @@ export class Core {
       throw new GroupedError('@cachemap/core export argument validation errors.', errors);
     }
 
-    return this._export(options);
+    const { entries, metadata } = await this._export<T>(options);
+
+    return {
+      entries: entries.sort(([a], [b]) => {
+        if (a < b) {
+          return -1;
+        }
+
+        if (a > b) {
+          return 1;
+        }
+
+        return 0;
+      }),
+      metadata: metadata.sort((a, b) => {
+        if (a.key < b.key) {
+          return -1;
+        }
+
+        if (a.key > b.key) {
+          return 1;
+        }
+
+        return 0;
+      }),
+    };
   }
 
   public async get<T>(key: string, options: { hash?: boolean } = {}): Promise<T | undefined> {
