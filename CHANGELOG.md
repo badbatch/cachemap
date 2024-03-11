@@ -1,3 +1,9 @@
+#### 5.0.8 (2024-03-11)
+
+##### New Features
+
+*  sort entries and metadata by key when exported (d770474d)
+
 #### 5.0.7 (2024-01-12)
 
 ##### Chores
