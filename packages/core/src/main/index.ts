@@ -17,7 +17,7 @@ import { Cacheability } from 'cacheability';
 import EventEmitter from 'eventemitter3';
 import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
 import { Md5 } from 'ts-md5';
-import type { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from '../constants.ts';
 import {
   type CacheHeaders,
@@ -99,7 +99,7 @@ export class Core {
   };
 
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
-  private _backupIntervalID?: NodeJS.Timer;
+  private _backupIntervalID?: NodeJS.Timeout;
   private _backupStore?: Store;
   private _disableCacheInvalidation: boolean;
   private _emitter: EventEmitter = new EventEmitter();

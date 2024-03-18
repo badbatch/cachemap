@@ -1,5 +1,5 @@
 import { isObjectLike, isRegExp, isTypedArray } from 'lodash-es';
-import type { TypedArray } from 'type-fest';
+import { type TypedArray } from 'type-fest';
 
 const ECMA_SIZES = {
   BOOLEAN: 4,

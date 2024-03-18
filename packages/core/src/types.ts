@@ -1,5 +1,5 @@
 import { type Metadata, type StoreInit, type Tag } from '@cachemap/types';
-import type { JsonValue } from 'type-fest';
+import { type JsonValue } from 'type-fest';
 
 export interface BaseOptions {
   /**

@@ -163,6 +163,7 @@ export class CoreWorker {
   }
 
   public async import(options: ImportOptions): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { result, ...rest } = await this._postMessage({ method: constants.IMPORT, options });
     this._setProps(rest);
   }

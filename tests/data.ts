@@ -1,4 +1,4 @@
-import type { PlainObject } from './types.ts';
+import { type PlainObject } from './types.ts';
 
 export const testData: Record<string, { body: PlainObject; url: string }> = {
   '136-7317': {

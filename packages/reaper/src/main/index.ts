@@ -12,7 +12,7 @@ import {
 export class Reaper {
   private _deleteCallback: DeleteCallback;
   private _interval: number;
-  private _intervalID?: NodeJS.Timer;
+  private _intervalID?: NodeJS.Timeout;
   private _metadataCallback: MetadataCallback;
 
   constructor(options: ConstructorOptions) {
