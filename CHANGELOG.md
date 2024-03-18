@@ -1,3 +1,13 @@
+#### 5.1.0 (2024-03-18)
+
+##### Chores
+
+* **cachemap:**  upgrade deps and fix issues (456b28e3)
+
+##### New Features
+
+* **web-storage:**  change local storage package to web storage (c14f53bc)
+
 #### 5.0.8 (2024-03-11)
 
 ##### New Features
