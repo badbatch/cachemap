@@ -6,4 +6,5 @@ export interface InitOptions extends Options {
 
 export interface Options {
   maxHeapSize?: number;
+  storageType?: 'local' | 'session';
 }

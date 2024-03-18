@@ -1,12 +1,12 @@
 {
-  "name": "@cachemap/local-storage",
-  "description": "The Cachemap LocalStorage module.",
+  "name": "@cachemap/web-storage",
+  "description": "The Cachemap web storage module.",
   "version": "5.0.6",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
   "repository": {
-    "directory": "packages/local-storage",
+    "directory": "packages/web-storage",
     "type": "git",
     "url": "https://github.com/badbatch/cachemap"
   },
@@ -55,6 +55,7 @@
   },
   "keywords": [
     "LocalStorage",
+    "SessionStorage",
     "cache",
     "cachemap"
   ]

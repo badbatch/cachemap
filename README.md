@@ -1,6 +1,6 @@
 # cachemap
 
-An extensible, isomorphic cache with modules to interface with Redis, LocalStorage, IndexedDB and an in-memory Map.
+An extensible, isomorphic cache with modules to interface with Redis, web storage, IndexedDB and an in-memory Map.
 
 [![build-and-deploy](https://github.com/badbatch/cachemap/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/badbatch/cachemap/actions/workflows/build-and-deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -8,7 +8,7 @@ An extensible, isomorphic cache with modules to interface with Redis, LocalStora
 ## Summary
 
 * Use Redis or an in-memory Map on the server.
-* Use LocalStorage, IndexedDB or an in-memory Map on the client.
+* Use LocalStorage, SessionStorage, IndexedDB or an in-memory Map on the client.
 * Extend with custom modules to interface with key/value databases of your choosing.
 * Transfer entries from one Cachemap to another.
 * Store entries alongside cache-control directives, etags and uuids.
@@ -46,7 +46,7 @@ The Cachemap's multi-package structure allows you to compose your cache of the m
 * [@cachemap/core](packages/core/README.md)
 * [@cachemap/core-worker](packages/core-worker/README.md)
 * [@cachemap/indexed-db](packages/indexed-db/README.md)
-* [@cachemap/local-storage](packages/local-storage/README.md)
+* [@cachemap/web-storage](packages/web-storage/README.md)
 * [@cachemap/map](packages/map/README.md)
 * [@cachemap/reaper](packages/reaper/README.md)
 * [@cachemap/redis](packages/redis/README.md)

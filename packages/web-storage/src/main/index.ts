@@ -2,12 +2,12 @@ import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
 import { isNumber, isPlainObject } from 'lodash-es';
 import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 
-export class LocalStorageStore implements Store {
-  public static init(options: InitOptions): Promise<LocalStorageStore> {
-    return Promise.resolve(new LocalStorageStore(options));
+export class WebStorageStore implements Store {
+  public static init(options: InitOptions): Promise<WebStorageStore> {
+    return Promise.resolve(new WebStorageStore(options));
   }
 
-  public readonly type = 'localStorage';
+  public readonly type = 'webStorage';
   private _maxHeapSize = 4_194_304;
   private _name: string;
   private _storage: Storage = window.localStorage;
@@ -18,6 +18,10 @@ export class LocalStorageStore implements Store {
     }
 
     this._name = options.name;
+
+    if (options.storageType === 'session') {
+      this._storage = window.sessionStorage;
+    }
   }
 
   public clear(): Promise<void> {
@@ -123,5 +127,5 @@ export const init = (options: Options = {}): StoreInit => {
     throw new TypeError('@cachemap/map expected options to be a plain object.');
   }
 
-  return (storeOptions: StoreOptions) => LocalStorageStore.init({ ...options, ...storeOptions });
+  return (storeOptions: StoreOptions) => WebStorageStore.init({ ...options, ...storeOptions });
 };

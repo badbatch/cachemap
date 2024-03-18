@@ -6,10 +6,10 @@ import { testData } from '../data.ts';
 import { type PlainObject } from '../types.ts';
 import { type ConstructorOptions, Core, type ExportResult } from '@cachemap/core';
 import { init as indexedDB } from '@cachemap/indexed-db';
-import { init as localStorage } from '@cachemap/local-storage';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
 import { type Metadata, type StoreInit, type StoreOptions } from '@cachemap/types';
+import { init as webStorage } from '@cachemap/web-storage';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -24,11 +24,11 @@ const testCases = [
   { cachemapOptions: {}, store: indexedDB, storeOptions: {}, storeType: 'indexedDB' },
   {
     cachemapOptions: { backupStore: true, startBackup: true, storeOptions: {} },
-    store: localStorage,
+    store: webStorage,
     storeOptions: {},
-    storeType: 'localStorageWithBackup',
+    storeType: 'webStorageWithBackup',
   },
-  { cachemapOptions: {}, store: localStorage, storeOptions: {}, storeType: 'localStorage' },
+  { cachemapOptions: {}, store: webStorage, storeOptions: {}, storeType: 'webStorage' },
   { cachemapOptions: {}, store: map, storeOptions: {}, storeType: 'map' },
 ] as TestCase[];
 
