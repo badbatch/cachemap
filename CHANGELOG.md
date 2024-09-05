@@ -1,3 +1,11 @@
+#### 5.2.0 (2024-09-05)
+
+##### Refactors
+
+* **cachemap:**
+  *  reexport types and utils from core (b7fec698)
+  *  change hash to hashKey and introduce valueFormatting (d5a540fb)
+
 #### 5.1.0 (2024-03-18)
 
 ##### Chores
