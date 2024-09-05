@@ -5,12 +5,10 @@ import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { testData } from '../data.ts';
 import { type PlainObject } from '../types.ts';
-import { Core, type ExportResult } from '@cachemap/core';
+import { Core, type ExportResult, type Metadata, type StoreInit, type StoreOptions, ValueFormat } from '@cachemap/core';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
 import { init as redis } from '@cachemap/redis';
-import { type Metadata, type StoreInit, type StoreOptions } from '@cachemap/types';
-import { ValueFormat } from '@cachemap/utils';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

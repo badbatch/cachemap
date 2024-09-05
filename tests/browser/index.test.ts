@@ -4,11 +4,18 @@ import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { testData } from '../data.ts';
 import { type PlainObject } from '../types.ts';
-import { type ConstructorOptions, Core, type ExportResult } from '@cachemap/core';
+import {
+  type ConstructorOptions,
+  Core,
+  type ExportResult,
+  type Metadata,
+  type StoreInit,
+  type StoreOptions,
+  ValueFormat,
+} from '@cachemap/core';
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
-import { type Metadata, type StoreInit, type StoreOptions } from '@cachemap/types';
 import { init as webStorage } from '@cachemap/web-storage';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -52,6 +59,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -194,6 +202,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -247,6 +256,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -317,6 +327,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -411,6 +422,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -467,6 +479,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -581,6 +594,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           name: `${storeType}-integration-tests`,
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
       });
 
@@ -648,6 +662,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             reaper: reaper({ interval: 500, start: true }),
             store: store(storeOptions),
             type: 'integration-tests',
+            valueFormatting: ValueFormat.Base64,
           });
 
           cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
@@ -698,6 +713,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               reaper: reaper({ start: true }),
               store: store({ ...storeOptions, maxHeapSize: 100 }),
               type: 'integration-tests',
+              valueFormatting: ValueFormat.Base64,
             });
 
             cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {

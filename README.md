@@ -10,6 +10,7 @@ An extensible, isomorphic cache with modules to interface with Redis, web storag
 * Use Redis or an in-memory Map on the server.
 * Use LocalStorage, SessionStorage, IndexedDB or an in-memory Map on the client.
 * Extend with custom modules to interface with key/value databases of your choosing.
+* Save data as string, base64 encoded or encrypted.
 * Transfer entries from one Cachemap to another.
 * Store entries alongside cache-control directives, etags and uuids.
 * Cache-control directives used to derive whether entries are fresh or stale.
@@ -64,7 +65,7 @@ The Cachemap is initialized using the traditional class constructor. Any modules
 The default export of each module is a curried function that returns an async function that initializes the module. This allows you and the Cachemap to pass configuration options into the module.
 
 ```typescript
-import { Core } from '@cachemap/core';
+import { Core, ValueFormat } from '@cachemap/core';
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as reaper } from '@cachemap/reaper';
 
@@ -73,6 +74,7 @@ const cachemap = new Core({
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
   type: 'someType',
+  valueFormatting: ValueFormat.Base64,
 });
 ```
 
@@ -146,7 +148,7 @@ const cachemap = new CoreWorker({
 
 ```typescript
 // worker.js
-import { Core } from '@cachemap/core';
+import { Core, ValueFormat } from '@cachemap/core';
 import { registerWorker } from '@cachemap/core-worker';
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as reaper } from '@cachemap/reaper';
@@ -156,6 +158,7 @@ const cachemap = new Core({
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
   type: 'someType',
+  valueFormatting: ValueFormat.Base64,
 });
 
 registerWorker({ cachemap });
@@ -173,6 +176,7 @@ const cachemap = new Core({
   reaper: reaper({ interval: 300000 }),
   store: indexedDB(),
   type: 'someType',
+  valueFormatting: ValueFormat.Base64,
 });
 
 cachemap.emitter.on(cachemap.events.ENTRY_DELETED, data => {
