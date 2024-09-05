@@ -1,4 +1,5 @@
 import { type Metadata, type StoreInit, type Tag } from '@cachemap/types';
+import { type ValueFormat } from '@cachemap/utils';
 import { type JsonValue } from 'type-fest';
 
 export interface BaseOptions {
@@ -58,6 +59,11 @@ export interface BaseOptions {
    * instances.
    */
   type: string;
+  /**
+   * The format the value is written into storage.
+   * Default is ValueFormat.String
+   */
+  valueFormatting?: ValueFormat;
 }
 
 export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };

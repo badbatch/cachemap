@@ -10,6 +10,7 @@ import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
 import { init as redis } from '@cachemap/redis';
 import { type Metadata, type StoreInit, type StoreOptions } from '@cachemap/types';
+import { ValueFormat } from '@cachemap/utils';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -41,12 +42,13 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
     describe('when a matching entry does not exist', () => {
       beforeEach(async () => {
-        await cachemap.set(key, value, { cacheHeaders, hash: true });
+        await cachemap.set(key, value, { cacheHeaders, hashKey: true });
       });
 
       it('the set method should store the correct amount of metadata', () => {
@@ -75,7 +77,7 @@ describe.each`
       });
 
       it('the set method should store the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual(value);
+        await expect(cachemap.get(key, { hashKey: true })).resolves.toEqual(value);
       });
     });
 
@@ -83,9 +85,9 @@ describe.each`
       let metadata: Metadata;
 
       beforeEach(async () => {
-        await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true });
+        await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true });
         metadata = { ...cachemap.metadata[0]! };
-        await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hash: true });
+        await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true });
       });
 
       it('the set method should store the correct amount of metadata', () => {
@@ -125,15 +127,15 @@ describe.each`
       });
 
       it("the set method should overwrite the existing entry's key/value pair", async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual({ ...value, index: 1 });
+        await expect(cachemap.get(key, { hashKey: true })).resolves.toEqual({ ...value, index: 1 });
       });
     });
 
     describe('when the same key is added twice in quick succession', () => {
       beforeEach(async () => {
         await Promise.all([
-          cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true }),
-          cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hash: true }),
+          cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true }),
+          cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true }),
         ]);
       });
 
@@ -163,7 +165,7 @@ describe.each`
       });
 
       it("the set method should overwrite the first entry's key/value pair with the subsequent entry's", async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toEqual({ ...value, index: 1 });
+        await expect(cachemap.get(key, { hashKey: true })).resolves.toEqual({ ...value, index: 1 });
       });
     });
   });
@@ -179,6 +181,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -186,7 +189,7 @@ describe.each`
       let deleted: boolean;
 
       beforeEach(async () => {
-        deleted = await cachemap.delete(key, { hash: true });
+        deleted = await cachemap.delete(key, { hashKey: true });
       });
 
       it('the delete method should return false', () => {
@@ -198,8 +201,8 @@ describe.each`
       let deleted: boolean;
 
       beforeEach(async () => {
-        await cachemap.set(key, value, { cacheHeaders, hash: true });
-        deleted = await cachemap.delete(key, { hash: true });
+        await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+        deleted = await cachemap.delete(key, { hashKey: true });
       });
 
       it('the delete method should return true', () => {
@@ -215,7 +218,7 @@ describe.each`
       });
 
       it('the delete method should remove the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
+        await expect(cachemap.get(key, { hashKey: true })).resolves.toBeUndefined();
       });
     });
   });
@@ -231,6 +234,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -238,7 +242,7 @@ describe.each`
       let entry: unknown;
 
       beforeEach(async () => {
-        entry = await cachemap.get(key, { hash: true });
+        entry = await cachemap.get(key, { hashKey: true });
       });
 
       it('the get method should return undefined', () => {
@@ -251,9 +255,9 @@ describe.each`
       let entry: unknown;
 
       beforeEach(async () => {
-        await cachemap.set(key, value, { cacheHeaders, hash: true });
+        await cachemap.set(key, value, { cacheHeaders, hashKey: true });
         metadata = { ...cachemap.metadata[0]! };
-        entry = await cachemap.get(key, { hash: true });
+        entry = await cachemap.get(key, { hashKey: true });
       });
 
       it('the get method should return the entry value', () => {
@@ -299,6 +303,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -306,7 +311,7 @@ describe.each`
       let exists: boolean | Cacheability;
 
       beforeEach(async () => {
-        exists = await cachemap.has(key, { hash: true });
+        exists = await cachemap.has(key, { hashKey: true });
       });
 
       it('the has method should return false', () => {
@@ -319,8 +324,8 @@ describe.each`
         let exists: boolean | Cacheability;
 
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
-          exists = await cachemap.has(key, { hash: true });
+          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+          exists = await cachemap.has(key, { hashKey: true });
         });
 
         it("the has method should return the entry's Cacheability instance", () => {
@@ -333,9 +338,9 @@ describe.each`
           let exists: boolean | Cacheability;
 
           beforeEach(async () => {
-            await cachemap.set(key, value, { cacheHeaders, hash: true });
+            await cachemap.set(key, value, { cacheHeaders, hashKey: true });
             await delay(1000);
-            exists = await cachemap.has(key, { hash: true });
+            exists = await cachemap.has(key, { hashKey: true });
           });
 
           it("the has method should return the entry's Cacheability instance", () => {
@@ -351,7 +356,7 @@ describe.each`
           });
 
           it('the has method should not remove the key/value pair', async () => {
-            await expect(cachemap.get(key, { hash: true })).resolves.toEqual(value);
+            await expect(cachemap.get(key, { hashKey: true })).resolves.toEqual(value);
           });
         });
 
@@ -359,9 +364,9 @@ describe.each`
           let exists: boolean | Cacheability;
 
           beforeEach(async () => {
-            await cachemap.set(key, value, { cacheHeaders, hash: true });
+            await cachemap.set(key, value, { cacheHeaders, hashKey: true });
             await delay(1000);
-            exists = await cachemap.has(key, { deleteExpired: true, hash: true });
+            exists = await cachemap.has(key, { deleteExpired: true, hashKey: true });
           });
 
           it('the has method should return false', () => {
@@ -377,7 +382,7 @@ describe.each`
           });
 
           it('the has method should remove the key/value pair', async () => {
-            await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
+            await expect(cachemap.get(key, { hashKey: true })).resolves.toBeUndefined();
           });
         });
       });
@@ -392,6 +397,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -403,7 +409,7 @@ describe.each`
 
         await Promise.all(
           keys.map(id => {
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -426,7 +432,7 @@ describe.each`
           ids.map(id => {
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
-            return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -447,6 +453,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -458,7 +465,7 @@ describe.each`
 
         await Promise.all(
           keys.map(id => {
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -485,7 +492,7 @@ describe.each`
           ids.map(id => {
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
-            return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -511,7 +518,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             const tag = tags.pop();
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true, tag });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
           })
         );
 
@@ -535,7 +542,7 @@ describe.each`
 
         await Promise.all(
           keys.map(id => {
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -560,6 +567,7 @@ describe.each`
         name: `${storeType}-integration-tests`,
         store: store(storeOptions),
         type: 'integration-tests',
+        valueFormatting: ValueFormat.Base64,
       });
     });
 
@@ -569,7 +577,7 @@ describe.each`
 
         await Promise.all(
           keys.map(id => {
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -593,7 +601,7 @@ describe.each`
 
         await Promise.all(
           keys.map(id => {
-            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+            return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
           })
         );
 
@@ -626,13 +634,14 @@ describe.each`
           reaper: reaper({ interval: 500, start: true }),
           store: store(storeOptions),
           type: 'integration-tests',
+          valueFormatting: ValueFormat.Base64,
         });
 
         cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
           entryDeletedData = data;
         });
 
-        await cachemap.set(key, value, { cacheHeaders, hash: true, tag: 'ALPHA' });
+        await cachemap.set(key, value, { cacheHeaders, hashKey: true, tag: 'ALPHA' });
         await delay(1000);
       });
 
@@ -645,7 +654,7 @@ describe.each`
       });
 
       it('the reaper should remove the key/value pair', async () => {
-        await expect(cachemap.get(key, { hash: true })).resolves.toBeUndefined();
+        await expect(cachemap.get(key, { hashKey: true })).resolves.toBeUndefined();
       });
 
       it('the reaper should remove the entry metadata', () => {
@@ -674,6 +683,7 @@ describe.each`
             reaper: reaper({ start: true }),
             store: store({ ...storeOptions, maxHeapSize: 100 }),
             type: 'integration-tests',
+            valueFormatting: ValueFormat.Base64,
           });
 
           cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
@@ -684,7 +694,7 @@ describe.each`
           keys = Object.keys(testData);
 
           for (const _id of keys) {
-            void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hash: true });
+            void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hashKey: true });
           }
         });
       });
@@ -699,7 +709,7 @@ describe.each`
       });
 
       it('the reaper should remove the necessary key/value pair', async () => {
-        await expect(cachemap.get(keys[2]!, { hash: true })).resolves.toBeUndefined();
+        await expect(cachemap.get(keys[2]!, { hashKey: true })).resolves.toBeUndefined();
       });
 
       it('the reaper should remove the entry metadata', () => {

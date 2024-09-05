@@ -5,6 +5,7 @@ import {
   ArgsError,
   GroupedError,
   PositionError,
+  ValueFormat,
   constants,
   dehydrateMetadata,
   isJsonValue,
@@ -116,6 +117,7 @@ export class Core {
   private _store?: Store;
   private _type: string;
   private _usedHeapSize = 0;
+  private _valueFormatting: ValueFormat = ValueFormat.String;
 
   constructor(options: ConstructorOptions) {
     const errors: ArgsError[] = [];
@@ -136,6 +138,12 @@ export class Core {
       errors.push(new ArgsError('@cachemap/core expected options.type to be a string.'));
     }
 
+    if (options.valueFormatting === ValueFormat.Ecrypt && !options.encryptionSecret) {
+      errors.push(
+        new ArgsError('@cachemap/core expected encryptionSecret to be set when valueFormatting is "encrypt"')
+      );
+    }
+
     if (errors.length > 0) {
       throw new GroupedError('@cachemap/core constructor argument validation errors.', errors);
     }
@@ -152,9 +160,14 @@ export class Core {
       startBackup,
       store: storeInit,
       type,
+      valueFormatting,
     } = options;
 
     this._disableCacheInvalidation = disableCacheInvalidation;
+
+    if (valueFormatting) {
+      this._valueFormatting = valueFormatting;
+    }
 
     if (isString(encryptionSecret)) {
       this._encryptionSecret = encryptionSecret;
@@ -211,7 +224,7 @@ export class Core {
     return this._clear();
   }
 
-  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+  public async delete(key: string, options: { hashKey?: boolean } = {}): Promise<boolean> {
     const errors: ArgsError[] = [];
 
     if (!isString(key)) {
@@ -296,7 +309,7 @@ export class Core {
     };
   }
 
-  public async get<T>(key: string, options: { hash?: boolean } = {}): Promise<T | undefined> {
+  public async get<T>(key: string, options: { hashKey?: boolean } = {}): Promise<T | undefined> {
     const errors: ArgsError[] = [];
 
     if (!isString(key)) {
@@ -316,7 +329,7 @@ export class Core {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean; hash?: boolean } = {}
+    options: { deleteExpired?: boolean; hashKey?: boolean } = {}
   ): Promise<false | Cacheability> {
     const errors: ArgsError[] = [];
 
@@ -373,7 +386,7 @@ export class Core {
   public async set(
     key: string,
     value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag } = {}
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {}
   ): Promise<void> {
     const errors: ArgsError[] = [];
 
@@ -461,7 +474,7 @@ export class Core {
 
     return store.set(
       constants.METADATA,
-      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._encryptionSecret)
+      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._valueFormatting, this._encryptionSecret)
     );
   }
 
@@ -476,7 +489,11 @@ export class Core {
     const backupMetadata = await this._backupStore.get(constants.METADATA);
 
     if (backupMetadata) {
-      const metadata = prepareGetEntry<DehydratedMetadata[]>(backupMetadata, this._encryptionSecret);
+      const metadata = prepareGetEntry<DehydratedMetadata[]>(
+        backupMetadata,
+        this._valueFormatting,
+        this._encryptionSecret
+      );
 
       if (metadata.length > 0) {
         const keys = metadata.map(entry => entry.key);
@@ -515,12 +532,12 @@ export class Core {
     return this._backupMetadata();
   }
 
-  private async _delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+  private async _delete(key: string, options: { hashKey?: boolean } = {}): Promise<boolean> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.DELETE, key, options);
     }
 
-    const deleteKey = options.hash ? Md5.hashStr(key) : key;
+    const deleteKey = options.hashKey ? Md5.hashStr(key) : key;
     const deleted = await this._store.delete(deleteKey);
 
     if (!deleted) {
@@ -551,7 +568,7 @@ export class Core {
 
     const entryKeys = keys ?? this._metadata.map(metadata => metadata.key);
     const entries = await this._store.entries(entryKeys);
-    return entries.map(([key, data]) => [key, prepareGetEntry(data, this._encryptionSecret)]);
+    return entries.map(([key, data]) => [key, prepareGetEntry(data, this._valueFormatting, this._encryptionSecret)]);
   }
 
   private async _export<T>({
@@ -589,12 +606,12 @@ export class Core {
     return { entries, metadata };
   }
 
-  private async _get<T>(key: string, options: { hash?: boolean }): Promise<T | undefined> {
+  private async _get<T>(key: string, options: { hashKey?: boolean }): Promise<T | undefined> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.GET, key, options);
     }
 
-    const getKey = options.hash ? Md5.hashStr(key) : key;
+    const getKey = options.hashKey ? Md5.hashStr(key) : key;
     const value = await this._store.get(getKey);
 
     if (!value) {
@@ -602,7 +619,7 @@ export class Core {
     }
 
     await this._updateMetadata(getKey);
-    return prepareGetEntry(value, this._encryptionSecret);
+    return prepareGetEntry(value, this._valueFormatting, this._encryptionSecret);
   }
 
   private _getCacheability(key: string): Cacheability | undefined {
@@ -614,12 +631,15 @@ export class Core {
     return this._metadata.find(metadata => metadata.key === key);
   }
 
-  private async _has(key: string, options: { deleteExpired?: boolean; hash?: boolean }): Promise<false | Cacheability> {
+  private async _has(
+    key: string,
+    options: { deleteExpired?: boolean; hashKey?: boolean }
+  ): Promise<false | Cacheability> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.HAS, key, options);
     }
 
-    const hasKey = options.hash ? Md5.hashStr(key) : key;
+    const hasKey = options.hashKey ? Md5.hashStr(key) : key;
     const exists = await this._store.has(hasKey);
 
     if (!exists) {
@@ -657,7 +677,7 @@ export class Core {
     }
 
     const entries = options.entries.map(
-      ([key, data]) => [key, prepareSetEntry(data, this._encryptionSecret)] as [string, string]
+      ([key, data]) => [key, prepareSetEntry(data, this._valueFormatting, this._encryptionSecret)] as [string, string]
     );
 
     await this._store.import(entries);
@@ -707,14 +727,14 @@ export class Core {
     const metadata = await this._store.get(constants.METADATA);
 
     if (metadata) {
-      this._metadata = rehydrateMetadata(prepareGetEntry(metadata));
+      this._metadata = rehydrateMetadata(prepareGetEntry(metadata, this._valueFormatting, this._encryptionSecret));
     }
   }
 
   private async _set(
     key: string,
     value: JsonValue,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag }
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag }
   ): Promise<void> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.SET, key, value, options);
@@ -727,7 +747,7 @@ export class Core {
       return;
     }
 
-    const setKey = options.hash ? Md5.hashStr(key) : key;
+    const setKey = options.hashKey ? Md5.hashStr(key) : key;
     const processing = this._processing.includes(setKey);
 
     if (!processing) {
@@ -736,7 +756,7 @@ export class Core {
 
     try {
       const exists = (await this._store.has(setKey)) || processing;
-      const preparedSetValue = prepareSetEntry(value, this._encryptionSecret);
+      const preparedSetValue = prepareSetEntry(value, this._valueFormatting, this._encryptionSecret);
       await this._store.set(setKey, preparedSetValue);
 
       await (exists

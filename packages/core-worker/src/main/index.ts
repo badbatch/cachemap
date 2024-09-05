@@ -120,7 +120,7 @@ export class CoreWorker {
     this._setProps(response);
   }
 
-  public async delete(key: string, options: { hash?: boolean } = {}): Promise<boolean> {
+  public async delete(key: string, options: { hashKey?: boolean } = {}): Promise<boolean> {
     const { result, ...rest } = await this._postMessage<boolean>({ key, method: constants.DELETE, options });
     this._setProps(rest);
     return result;
@@ -142,7 +142,7 @@ export class CoreWorker {
     return { entries: result.entries, metadata: rehydrateMetadata(result.metadata) };
   }
 
-  public async get<T>(key: string, options: { hash?: boolean } = {}): Promise<T | undefined> {
+  public async get<T>(key: string, options: { hashKey?: boolean } = {}): Promise<T | undefined> {
     const { result, ...rest } = await this._postMessage<T | undefined>({ key, method: constants.GET, options });
     this._setProps(rest);
     return result;
@@ -150,7 +150,7 @@ export class CoreWorker {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean; hash?: boolean } = {}
+    options: { deleteExpired?: boolean; hashKey?: boolean } = {}
   ): Promise<false | Cacheability> {
     const { result, ...rest } = await this._postMessage<false | Cacheability>({
       key,
@@ -179,7 +179,7 @@ export class CoreWorker {
   public async set(
     key: string,
     value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hash?: boolean; tag?: Tag } = {}
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {}
   ): Promise<void> {
     const response = await this._postMessage({ key, method: constants.SET, options, value });
     this._setProps(response);

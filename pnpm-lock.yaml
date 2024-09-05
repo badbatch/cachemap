@@ -68,6 +68,9 @@ importers:
       '@cachemap/types':
         specifier: workspace:*
         version: link:packages/types
+      '@cachemap/utils':
+        specifier: workspace:*
+        version: link:packages/utils
       '@cachemap/web-storage':
         specifier: workspace:*
         version: link:packages/web-storage

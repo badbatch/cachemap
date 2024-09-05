@@ -4,7 +4,7 @@ import { type Metadata } from '@cachemap/types';
 export interface CommonOptions {
   cacheHeaders?: CacheHeaders;
   deleteExpired?: boolean;
-  hash?: boolean;
+  hashKey?: boolean;
 }
 
 export interface ConstructorOptions {

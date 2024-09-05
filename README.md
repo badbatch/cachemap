@@ -86,7 +86,7 @@ An important `set` option is `cacheHeaders`. This takes a Headers instance or a 
 
 Another important `set` option is `tag`. This allows you to store an arbitrary identifier against an entry, like a request or session ID. These identifiers can come in handy, for example, if you want to export all entries added during a particular request.
 
-All four methods have a `hash` option that runs the key through `md5` to create a short unique string, which can be useful if the original keys are long strings such as URLs or GraphQL queries.
+All four methods have a `hashKey` option that runs the key through `md5` to create a short unique string, which can be useful if the original keys are long strings such as URLs or GraphQL queries.
 
 ```typescript
 (async () => {
@@ -94,17 +94,17 @@ All four methods have a `hash` option that runs the key through `md5` to create 
   const value = { email: 'foobar@example.com', id: '12345', name: 'foobar' };
   const cacheHeaders = { cacheControl: 'private, max-age=60' };
 
-  await cachemap.set(key, value, { cacheHeaders, hash: true });
+  await cachemap.set(key, value, { cacheHeaders, hashKey: true });
   // returns undefined
 
-  const cacheability = await cachemap.has(key, { hash: true });
+  const cacheability = await cachemap.has(key, { hashKey: true });
   // returns an instance of the Cacheability module, which includes the
   // cache-control directives and the TTL calculated from the directives
 
-  const entry = await cachemap.get(key, { hash: true });
+  const entry = await cachemap.get(key, { hashKey: true });
   // returns { email: 'foobar@example.com', id: '12345', name: 'foobar' }
 
-  const deleted = await cachemap.delete(key, { hash: true });
+  const deleted = await cachemap.delete(key, { hashKey: true });
   // returns true
 })();
 ```

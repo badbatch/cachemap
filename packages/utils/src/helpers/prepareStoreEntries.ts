@@ -1,9 +1,66 @@
 import { type JsonValue } from 'type-fest';
+import { ValueFormat } from '../enums.ts';
 import { decode, encode } from './base64.ts';
 import { decrypt, encrypt } from './encryption.ts';
 
-export const prepareGetEntry = <T>(value: string, encryptionSecret?: string) =>
-  (encryptionSecret ? decrypt(value, encryptionSecret) : decode(value)) as T;
+export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, encryptionSecret?: string) => {
+  let getEntry: JsonValue | undefined;
 
-export const prepareSetEntry = (value: JsonValue, encryptionSecret?: string) =>
-  encryptionSecret ? encrypt(value, encryptionSecret) : encode(value);
+  switch (true) {
+    case valueFormatting === ValueFormat.String: {
+      getEntry = JSON.parse(value) as JsonValue;
+      break;
+    }
+
+    case valueFormatting === ValueFormat.Base64: {
+      getEntry = decode(value);
+      break;
+    }
+
+    case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
+      getEntry = decrypt(value, encryptionSecret!);
+      break;
+    }
+
+    default: {
+      console.warn(
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.'
+      );
+
+      getEntry = JSON.parse(value) as JsonValue;
+    }
+  }
+
+  return getEntry as T;
+};
+
+export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, encryptionSecret?: string) => {
+  let setEntry: string;
+
+  switch (true) {
+    case valueFormatting === ValueFormat.String: {
+      setEntry = JSON.stringify(value);
+      break;
+    }
+
+    case valueFormatting === ValueFormat.Base64: {
+      setEntry = encode(value);
+      break;
+    }
+
+    case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
+      setEntry = encrypt(value, encryptionSecret!);
+      break;
+    }
+
+    default: {
+      console.warn(
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.'
+      );
+
+      setEntry = JSON.stringify(value);
+    }
+  }
+
+  return setEntry;
+};

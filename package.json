@@ -54,6 +54,7 @@
     "@cachemap/reaper": "workspace:*",
     "@cachemap/redis": "workspace:*",
     "@cachemap/types": "workspace:*",
+    "@cachemap/utils": "workspace:*",
     "@cachemap/web-storage": "workspace:*",
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",

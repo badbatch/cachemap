@@ -57,7 +57,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
       describe('when a matching entry does not exist', () => {
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
         });
 
         it('the set method should store the correct amount of metadata', () => {
@@ -87,7 +87,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it('the set method should store the key/value pair', async () => {
-          expect(await cachemap.get(key, { hash: true })).toEqual(value);
+          expect(await cachemap.get(key, { hashKey: true })).toEqual(value);
         });
       });
 
@@ -95,9 +95,9 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let metadata: Metadata;
 
         beforeEach(async () => {
-          await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true });
+          await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true });
           metadata = { ...cachemap.metadata[0]! };
-          await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hash: true });
+          await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true });
         });
 
         it('the set method should store the correct amount of metadata', () => {
@@ -138,15 +138,15 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it("the set method should overwrite the existing entry's key/value pair", async () => {
-          expect(await cachemap.get(key, { hash: true })).toEqual({ ...value, index: 1 });
+          expect(await cachemap.get(key, { hashKey: true })).toEqual({ ...value, index: 1 });
         });
       });
 
       describe('when the same key is added twice in quick succession', () => {
         beforeEach(async () => {
           await Promise.all([
-            cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hash: true }),
-            cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hash: true }),
+            cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true }),
+            cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true }),
           ]);
         });
 
@@ -177,7 +177,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it("the set method should overwrite the first entry's key/value pair with the subsequent entry's", async () => {
-          expect(await cachemap.get(key, { hash: true })).toEqual({ ...value, index: 1 });
+          expect(await cachemap.get(key, { hashKey: true })).toEqual({ ...value, index: 1 });
         });
       });
     });
@@ -201,7 +201,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let deleted: boolean;
 
         beforeEach(async () => {
-          deleted = await cachemap.delete(key, { hash: true });
+          deleted = await cachemap.delete(key, { hashKey: true });
         });
 
         it('the delete method should return false', () => {
@@ -213,8 +213,8 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let deleted: boolean;
 
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
-          deleted = await cachemap.delete(key, { hash: true });
+          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+          deleted = await cachemap.delete(key, { hashKey: true });
         });
 
         it('the delete method should return true', () => {
@@ -230,7 +230,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it('the delete method should remove the key/value pair', async () => {
-          expect(await cachemap.get(key, { hash: true })).toBeUndefined();
+          expect(await cachemap.get(key, { hashKey: true })).toBeUndefined();
         });
       });
     });
@@ -254,7 +254,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let entry: unknown;
 
         beforeEach(async () => {
-          entry = await cachemap.get(key, { hash: true });
+          entry = await cachemap.get(key, { hashKey: true });
         });
 
         it('the get method should return undefined', () => {
@@ -267,9 +267,9 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let entry: unknown;
 
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hash: true });
+          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
           metadata = { ...cachemap.metadata[0]! };
-          entry = await cachemap.get(key, { hash: true });
+          entry = await cachemap.get(key, { hashKey: true });
         });
 
         it('the get method should return the entry value', () => {
@@ -324,7 +324,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let exists: boolean | Cacheability;
 
         beforeEach(async () => {
-          exists = await cachemap.has(key, { hash: true });
+          exists = await cachemap.has(key, { hashKey: true });
         });
 
         it('the has method should return false', () => {
@@ -337,8 +337,8 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           let exists: boolean | Cacheability;
 
           beforeEach(async () => {
-            await cachemap.set(key, value, { cacheHeaders, hash: true });
-            exists = await cachemap.has(key, { hash: true });
+            await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+            exists = await cachemap.has(key, { hashKey: true });
           });
 
           it("the has method should return the entry's Cacheability instance", () => {
@@ -351,9 +351,9 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             let exists: boolean | Cacheability;
 
             beforeEach(async () => {
-              await cachemap.set(key, value, { cacheHeaders, hash: true });
+              await cachemap.set(key, value, { cacheHeaders, hashKey: true });
               await delay(1000);
-              exists = await cachemap.has(key, { hash: true });
+              exists = await cachemap.has(key, { hashKey: true });
             });
 
             it("the has method should return the entry's Cacheability instance", () => {
@@ -369,7 +369,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             });
 
             it('the has method should not remove the key/value pair', async () => {
-              expect(await cachemap.get(key, { hash: true })).toEqual(value);
+              expect(await cachemap.get(key, { hashKey: true })).toEqual(value);
             });
           });
 
@@ -377,9 +377,9 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             let exists: boolean | Cacheability;
 
             beforeEach(async () => {
-              await cachemap.set(key, value, { cacheHeaders, hash: true });
+              await cachemap.set(key, value, { cacheHeaders, hashKey: true });
               await delay(1000);
-              exists = await cachemap.has(key, { deleteExpired: true, hash: true });
+              exists = await cachemap.has(key, { deleteExpired: true, hashKey: true });
             });
 
             it('the has method should return false', () => {
@@ -395,7 +395,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             });
 
             it('the has method should remove the key/value pair', async () => {
-              expect(await cachemap.get(key, { hash: true })).toBeUndefined();
+              expect(await cachemap.get(key, { hashKey: true })).toBeUndefined();
             });
           });
         });
@@ -422,7 +422,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -445,7 +445,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             ids.map(id => {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
-              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -478,7 +478,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -505,7 +505,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             ids.map(id => {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
-              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -531,7 +531,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               const tag = tags.pop();
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true, tag });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
             })
           );
 
@@ -555,7 +555,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -590,7 +590,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -614,7 +614,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hash: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
             })
           );
 
@@ -654,7 +654,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             entryDeletedData = data;
           });
 
-          await cachemap.set(key, value, { cacheHeaders, hash: true, tag: 'ALPHA' });
+          await cachemap.set(key, value, { cacheHeaders, hashKey: true, tag: 'ALPHA' });
           await delay(1000);
         });
 
@@ -667,7 +667,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it('the reaper should remove the key/value pair', async () => {
-          expect(await cachemap.get(key, { hash: true })).toBeUndefined();
+          expect(await cachemap.get(key, { hashKey: true })).toBeUndefined();
         });
 
         it('the reaper should remove the entry metadata', () => {
@@ -708,7 +708,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             keys = Object.keys(testData);
 
             for (const _id of keys) {
-              void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hash: true });
+              void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hashKey: true });
             }
           });
         });
@@ -723,7 +723,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         });
 
         it('the reaper should remove the necessary key/value pair', async () => {
-          expect(await cachemap.get(keys[2]!, { hash: true })).toBeUndefined();
+          expect(await cachemap.get(keys[2]!, { hashKey: true })).toBeUndefined();
         });
 
         it('the reaper should remove the entry metadata', () => {
