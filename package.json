@@ -106,5 +106,12 @@
     "localstorage",
     "map",
     "redis"
-  ]
+  ],
+  "pnpm": {
+    "overrides": {
+      "braces": ">=3.0.3",
+      "micromatch": ">=4.0.8",
+      "ws": ">=8.17.1"
+    }
+  }
 }
