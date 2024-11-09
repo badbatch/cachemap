@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.2.1 (2024-11-09)
+
+### Bug Fixes
+
+* **cachemap:**  vulnerabilities (6f7f0134)
+
+### Refactors
+
+* **cachemap:**  update repodog deps (befb9a72)
+
 ## 5.2.0 (2024-09-05)
 
 ### Refactors
