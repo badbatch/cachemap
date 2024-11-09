@@ -39,24 +39,17 @@
   },
   "dependencies": {
     "@cachemap/types": "workspace:*",
-    "idb": "^5.0.1"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "lodash-es": "<5"
-  },
-  "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
+    "core-js": "^3.39.0",
+    "idb": "^8.0.0",
     "lodash-es": "^4.17.21"
   },
+  "devDependencies": {
+    "cts-types": "^0.0.7",
+    "del-cli": "^6.0.0"
+  },
   "keywords": [
-    "IndexedDB",
     "cache",
-    "cachemap"
+    "cachemap",
+    "IndexedDB"
   ]
 }

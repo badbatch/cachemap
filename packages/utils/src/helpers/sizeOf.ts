@@ -39,6 +39,8 @@ const utf16leToBytes = (value: string) => {
   const byteArray = [];
 
   for (let index = 0; index < value.length; ++index) {
+    // Based on surrounding code, this cannot be undefined.
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     c = value.codePointAt(index)!;
     hi = c >> 8;
     lo = c % 256;
@@ -53,6 +55,8 @@ const sizeComplexObject = (obj: object) => {
 
   try {
     if (isTypedArray(obj)) {
+      // isTypedArray does not support type guard.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const typedArray = obj as TypedArray;
       return typedArray.length * typedArray.BYTES_PER_ELEMENT;
     }
@@ -69,6 +73,8 @@ const sizeComplexObject = (obj: object) => {
 
     visitor(convertedObj, (value: unknown) => {
       if (isTypedArray(value)) {
+        // isTypedArray does not support type guard.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const typedArray = value as TypedArray;
         totalSize += typedArray.length * typedArray.BYTES_PER_ELEMENT;
         return false;
@@ -111,7 +117,7 @@ const sizeSimpleType = (value: unknown) => {
       }
 
       case typeof stackEntry === 'string': {
-        bytes += utf16leToBytes(stackEntry as string).length;
+        bytes += utf16leToBytes(stackEntry).length;
         break;
       }
 
@@ -121,22 +127,30 @@ const sizeSimpleType = (value: unknown) => {
       }
 
       case typeof stackEntry === 'symbol': {
+        // Based on surrounding code, value will be a symbol.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         const castValue = value as symbol;
+        // Based on surrounding code, value will not be undefined.
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const isGlobalSymbol = Symbol.keyFor(castValue)!;
 
         bytes += isGlobalSymbol
-          ? Symbol.keyFor(castValue)!.length * ECMA_SIZES.STRING
+          ? // Based on surrounding code, value will not be undefined.
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            Symbol.keyFor(castValue)!.length * ECMA_SIZES.STRING
           : (castValue.toString().length - 8) * ECMA_SIZES.STRING;
 
         break;
       }
 
       case typeof stackEntry === 'bigint': {
-        bytes += (stackEntry as bigint).toString().length;
+        bytes += stackEntry.toString().length;
         break;
       }
 
       case typeof stackEntry === 'function': {
+        // typescript is not deriving type of stack entry from case.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         bytes += (stackEntry as () => unknown).toString().length;
         break;
       }
@@ -147,11 +161,11 @@ const sizeSimpleType = (value: unknown) => {
       }
 
       case value instanceof RegExp: {
-        return (value as RegExp).toString().length;
+        return value.toString().length;
       }
 
       case stackEntry !== null && typeof stackEntry === 'object' && !objectList.includes(stackEntry): {
-        const castStackEntry = stackEntry as object;
+        const castStackEntry = stackEntry;
         objectList.push(castStackEntry);
 
         for (const index in castStackEntry) {
@@ -168,4 +182,6 @@ const sizeSimpleType = (value: unknown) => {
 };
 
 export const sizeOf = (value: unknown) =>
+  // isObjectLike does not support type guard.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   isObjectLike(value) && !isRegExp(value) ? sizeComplexObject(value as object) : sizeSimpleType(value);

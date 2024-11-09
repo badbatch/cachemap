@@ -15,7 +15,7 @@ import {
   sizeOf,
 } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
-import EventEmitter from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
@@ -102,22 +102,22 @@ export class Core {
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
   private _backupIntervalID?: NodeJS.Timeout;
   private _backupStore?: Store;
-  private _disableCacheInvalidation: boolean;
+  private readonly _disableCacheInvalidation: boolean;
   private _emitter: EventEmitter = new EventEmitter();
-  private _encryptionSecret: string | undefined;
+  private readonly _encryptionSecret: string | undefined;
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
-  private _name: string;
+  private readonly _name: string;
   private _persistedStore = true;
   private _processing: string[] = [];
   private _ready = false;
-  private _reaper?: Reaper;
+  private readonly _reaper?: Reaper;
   private _requestQueue: RequestQueue = [];
-  private _sharedCache: boolean;
+  private readonly _sharedCache: boolean;
   private _store?: Store;
-  private _type: string;
+  private readonly _type: string;
   private _usedHeapSize = 0;
-  private _valueFormatting: ValueFormat = ValueFormat.String;
+  private readonly _valueFormatting: ValueFormat = ValueFormat.String;
 
   constructor(options: ConstructorOptions) {
     const errors: ArgsError[] = [];
@@ -140,7 +140,7 @@ export class Core {
 
     if (options.valueFormatting === ValueFormat.Ecrypt && !options.encryptionSecret) {
       errors.push(
-        new ArgsError('@cachemap/core expected encryptionSecret to be set when valueFormatting is "encrypt"')
+        new ArgsError('@cachemap/core expected encryptionSecret to be set when valueFormatting is "encrypt"'),
       );
     }
 
@@ -188,7 +188,7 @@ export class Core {
     this._type = type;
     this._addControllerEventListeners();
 
-    void Promise.resolve(storeInit({ name: name })).then(async store => {
+    void Promise.resolve(storeInit({ name })).then(async store => {
       this._maxHeapSize = store.maxHeapSize;
 
       if (backupStore) {
@@ -202,7 +202,7 @@ export class Core {
 
         this._backupStore = store;
         this._persistedStore = true;
-        this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name: name });
+        this._store = new MapStore({ maxHeapSize: store.maxHeapSize, name });
         await this._backupStoreEntriesToStore();
         this._ready = true;
         void this._releaseQueuedRequests();
@@ -329,7 +329,7 @@ export class Core {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean; hashKey?: boolean } = {}
+    options: { deleteExpired?: boolean; hashKey?: boolean } = {},
   ): Promise<false | Cacheability> {
     const errors: ArgsError[] = [];
 
@@ -386,7 +386,7 @@ export class Core {
   public async set(
     key: string,
     value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {}
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {},
   ): Promise<void> {
     const errors: ArgsError[] = [];
 
@@ -406,6 +406,8 @@ export class Core {
       throw new GroupedError('@cachemap/core set argument validation errors.', errors);
     }
 
+    // typescript not deriving value is JsonValue from above type guard.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return this._set(key, value as JsonValue, options);
   }
 
@@ -474,14 +476,16 @@ export class Core {
 
     return store.set(
       constants.METADATA,
-      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._valueFormatting, this._encryptionSecret)
+      // metadata is serializable as JSON.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._valueFormatting, this._encryptionSecret),
     );
   }
 
   private async _backupStoreEntriesToStore(): Promise<void> {
     if (!(this._backupStore && this._store)) {
       throw new PositionError(
-        '@cachemap/core expected backupStoreEntriesToStore to be called after setting the backupStore and store.'
+        '@cachemap/core expected backupStoreEntriesToStore to be called after setting the backupStore and store.',
       );
     }
 
@@ -492,7 +496,7 @@ export class Core {
       const metadata = prepareGetEntry<DehydratedMetadata[]>(
         backupMetadata,
         this._valueFormatting,
-        this._encryptionSecret
+        this._encryptionSecret,
       );
 
       if (metadata.length > 0) {
@@ -509,6 +513,8 @@ export class Core {
     let chunk: number | undefined;
 
     for (let index = this._metadata.length - 1; index >= 0; index -= 1) {
+      // Based on surrounding code context, this cannot be undefined.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       chunkSize += this._metadata[index]!.size;
 
       if (chunkSize > reductionSize) {
@@ -597,7 +603,7 @@ export class Core {
       const castFilterByValue = castArray(filterByValue);
 
       entries = entries.filter(([, data]) =>
-        castFilterByValue.every(({ comparator, keyChain }) => get(data, keyChain) === comparator)
+        castFilterByValue.every(({ comparator, keyChain }) => get(data, keyChain) === comparator),
       );
 
       metadata = metadata.filter(meta => entries.some(([key]) => key === meta.key));
@@ -633,7 +639,7 @@ export class Core {
 
   private async _has(
     key: string,
-    options: { deleteExpired?: boolean; hashKey?: boolean }
+    options: { deleteExpired?: boolean; hashKey?: boolean },
   ): Promise<false | Cacheability> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.HAS, key, options);
@@ -668,20 +674,22 @@ export class Core {
       return this._addRequestToQueue(constants.IMPORT, options);
     }
 
-    let filterd: Metadata[] = [];
+    let filtered: Metadata[] = [];
 
     if (this._metadata.length > 0) {
-      filterd = this._metadata.filter(metadata => {
+      filtered = this._metadata.filter(metadata => {
         return !options.metadata.some(optionsMetadata => metadata.key === optionsMetadata.key);
       });
     }
 
     const entries = options.entries.map(
-      ([key, data]) => [key, prepareSetEntry(data, this._valueFormatting, this._encryptionSecret)] as [string, string]
+      // typescript is not seeing this as a string tuple.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      ([key, data]) => [key, prepareSetEntry(data, this._valueFormatting, this._encryptionSecret)] as [string, string],
     );
 
     await this._store.import(entries);
-    this._metadata = rehydrateMetadata([...filterd, ...options.metadata]);
+    this._metadata = rehydrateMetadata([...filtered, ...options.metadata]);
     this._sortMetadata();
     await this._backupMetadata();
     this._updateHeapSize();
@@ -707,7 +715,7 @@ export class Core {
       return;
     }
 
-    void this._reaper.cull(this._metadata.slice(index, this._metadata.length));
+    void this._reaper.cull(this._metadata.slice(index));
   }
 
   private async _releaseQueuedRequests() {
@@ -734,7 +742,7 @@ export class Core {
   private async _set(
     key: string,
     value: JsonValue,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag }
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag },
   ): Promise<void> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.SET, key, value, options);

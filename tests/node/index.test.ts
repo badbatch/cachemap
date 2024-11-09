@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it, jest } from '@jest/globals';
 import { Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
@@ -8,13 +7,15 @@ import { type PlainObject } from '../types.ts';
 import { Core, type ExportResult, type Metadata, type StoreInit, type StoreOptions, ValueFormat } from '@cachemap/core';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
-import { init as redis } from '@cachemap/redis';
 
+jest.unstable_mockModule('redis', () => jest.requireActual('redis-mock'));
+
+const { init: redis } = await import('@cachemap/redis');
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe.each`
   storeType      | store    | storeOptions
-  ${'redisMock'} | ${redis} | ${{ mock: true }}
+  ${'redisMock'} | ${redis} | ${{}}
   ${'map'}       | ${map}   | ${{}}
 `('when store type is $storeType', args => {
   const { store, storeOptions, storeType } = args as {
@@ -66,7 +67,7 @@ describe.each`
             lastUpdated: expect.any(Number),
             size: expect.any(Number),
             updatedCount: 0,
-          })
+          }),
         );
       });
 
@@ -105,7 +106,7 @@ describe.each`
             lastUpdated: expect.any(Number),
             size: metadata.size,
             updatedCount: 1,
-          })
+          }),
         );
       });
 
@@ -154,7 +155,7 @@ describe.each`
             lastUpdated: expect.any(Number),
             size: expect.any(Number),
             updatedCount: 1,
-          })
+          }),
         );
       });
 
@@ -279,7 +280,7 @@ describe.each`
             lastUpdated: metadata.lastUpdated,
             size: metadata.size,
             updatedCount: 0,
-          })
+          }),
         );
       });
 
@@ -408,7 +409,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.entries();
@@ -431,7 +432,7 @@ describe.each`
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.entries(hashedKeys.slice(0, 2));
@@ -464,7 +465,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export();
@@ -491,7 +492,7 @@ describe.each`
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
@@ -517,7 +518,7 @@ describe.each`
           keys.map(id => {
             const tag = tags.pop();
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
-          })
+          }),
         );
 
         result = await cachemap.export({ tag: 'alfa' });
@@ -541,7 +542,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
@@ -576,7 +577,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         const exported = await cachemap.export<JsonValue>();
@@ -600,7 +601,7 @@ describe.each`
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         const exported = await cachemap.export<JsonValue>();
@@ -665,7 +666,7 @@ describe.each`
             deleted: true,
             key: expect.any(String),
             tags: ['ALPHA'],
-          })
+          }),
         );
       });
     });
@@ -724,7 +725,7 @@ describe.each`
             deleted: true,
             key: expect.any(String),
             tags: [],
-          })
+          }),
         );
       });
     });

@@ -39,24 +39,18 @@
   },
   "dependencies": {
     "@cachemap/types": "workspace:*",
-    "type-fest": "^3.10.0"
-  },
-  "peerDependencies": {
-    "@babel/runtime": "<8",
-    "core-js": "<4",
-    "lodash-es": "<5"
+    "@types/lodash-es": "^4.17.12",
+    "core-js": "^3.39.0",
+    "lodash-es": "^4.17.21",
+    "type-fest": "^4.26.1"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "lodash-es": "^4.17.21"
+    "cts-types": "^0.0.7",
+    "del-cli": "^6.0.0"
   },
   "keywords": [
-    "Map",
     "cache",
-    "cachemap"
+    "cachemap",
+    "Map"
   ]
 }

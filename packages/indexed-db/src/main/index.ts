@@ -22,8 +22,8 @@ export class IndexedDBStore implements Store {
 
   public readonly type = 'indexedDB';
   private _indexedDB: IDBPDatabase;
-  private _maxHeapSize = 4_194_304;
-  private _name: string;
+  private readonly _maxHeapSize: number = 4_194_304;
+  private readonly _name: string;
 
   constructor(options: ConstructorOptions) {
     this._indexedDB = options.indexedDB;
@@ -55,9 +55,13 @@ export class IndexedDBStore implements Store {
     let cursor = await tx.objectStore(this._name).openCursor();
 
     while (cursor) {
+      // Although it can be other values, it is a string here.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const key = cursor.key as string;
 
       if (keys.includes(key)) {
+        // cursor.value is any type.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         entries.push([key, cursor.value as string]);
       }
 
@@ -70,6 +74,8 @@ export class IndexedDBStore implements Store {
 
   public async get(key: string): Promise<string | undefined> {
     const tx = this._indexedDB.transaction(this._name);
+    // get return value is any type.
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return tx.objectStore(this._name).get(key) as Promise<string | undefined>;
   }
 

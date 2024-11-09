@@ -1,20 +1,19 @@
 import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
-import fakeRedis from 'fakeredis';
 import { isNumber, isPlainObject } from 'lodash-es';
 import { type RedisClient, createClient } from 'redis';
 import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
 
 export class RedisStore implements Store {
   public static init(options: InitOptions): Promise<RedisStore> {
-    const { fast, maxHeapSize, mock, name, ...otherProps } = options;
-    const client = mock ? fakeRedis.createClient({ ...otherProps, fast }) : createClient(otherProps);
+    const { maxHeapSize, name, ...otherProps } = options;
+    const client = createClient(otherProps);
     return Promise.resolve(new RedisStore({ client, maxHeapSize, name }));
   }
 
   public readonly type = 'redis';
   private _client: RedisClient;
-  private _maxHeapSize = Number.POSITIVE_INFINITY;
-  private _name: string;
+  private readonly _maxHeapSize: number = Number.POSITIVE_INFINITY;
+  private readonly _name: string;
 
   constructor(options: ConstructorOptions) {
     this._client = options.client;

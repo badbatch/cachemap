@@ -8,8 +8,8 @@ export class WebStorageStore implements Store {
   }
 
   public readonly type = 'webStorage';
-  private _maxHeapSize = 4_194_304;
-  private _name: string;
+  private readonly _maxHeapSize: number = 4_194_304;
+  private readonly _name: string;
   private _storage: Storage = window.localStorage;
 
   constructor(options: ConstructorOptions) {

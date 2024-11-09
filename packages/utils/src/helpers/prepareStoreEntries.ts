@@ -8,6 +8,8 @@ export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, 
 
   switch (true) {
     case valueFormatting === ValueFormat.String: {
+      // JSON.parse returns any type.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       getEntry = JSON.parse(value) as JsonValue;
       break;
     }
@@ -18,19 +20,23 @@ export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, 
     }
 
     case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
-      getEntry = decrypt(value, encryptionSecret!);
+      getEntry = decrypt(value, encryptionSecret);
       break;
     }
 
     default: {
       console.warn(
-        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.'
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.',
       );
 
+      // JSON.parse returns any type.
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       getEntry = JSON.parse(value) as JsonValue;
     }
   }
 
+  // Most straight forward way to allow return value to be typed.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return getEntry as T;
 };
 
@@ -49,13 +55,13 @@ export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, 
     }
 
     case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
-      setEntry = encrypt(value, encryptionSecret!);
+      setEntry = encrypt(value, encryptionSecret);
       break;
     }
 
     default: {
       console.warn(
-        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.'
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.',
       );
 
       setEntry = JSON.stringify(value);

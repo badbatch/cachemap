@@ -3,7 +3,7 @@ import { type CacheHeaders, type ExportOptions, type ExportResult, type ImportOp
 import { type Metadata, type Tag } from '@cachemap/types';
 import { ArgsError, GroupedError, constants, rehydrateMetadata } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
-import EventEmitter from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import { isPlainObject, isString } from 'lodash-es';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -78,10 +78,10 @@ export class CoreWorker {
 
   private _emitter: EventEmitter = new EventEmitter();
   private _metadata: Metadata[] = [];
-  private _name: string;
+  private readonly _name: string;
   private _pending: PendingTracker = new Map();
   private _storeType: string | undefined;
-  private _type: string;
+  private readonly _type: string;
   private _usedHeapSize = 0;
   private _worker: Worker;
 
@@ -150,7 +150,7 @@ export class CoreWorker {
 
   public async has(
     key: string,
-    options: { deleteExpired?: boolean; hashKey?: boolean } = {}
+    options: { deleteExpired?: boolean; hashKey?: boolean } = {},
   ): Promise<false | Cacheability> {
     const { result, ...rest } = await this._postMessage<false | Cacheability>({
       key,
@@ -163,6 +163,7 @@ export class CoreWorker {
   }
 
   public async import(options: ImportOptions): Promise<void> {
+    // Only care about everything other than result here.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { result, ...rest } = await this._postMessage({ method: constants.IMPORT, options });
     this._setProps(rest);
@@ -179,7 +180,7 @@ export class CoreWorker {
   public async set(
     key: string,
     value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {}
+    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {},
   ): Promise<void> {
     const response = await this._postMessage({ key, method: constants.SET, options, value });
     this._setProps(response);

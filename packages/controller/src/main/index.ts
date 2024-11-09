@@ -1,5 +1,5 @@
 import { ArgsError, constants } from '@cachemap/utils';
-import EventEmitter from 'eventemitter3';
+import { EventEmitter } from 'eventemitter3';
 import { validateArgs } from '../helpers/validateArgs.ts';
 import { type EventData } from '../types.ts';
 

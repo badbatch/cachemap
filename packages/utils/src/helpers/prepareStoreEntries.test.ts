@@ -28,8 +28,8 @@ describe('prepareGetEntry', () => {
         prepareGetEntry(
           CryptoJS.AES.encrypt(JSON.stringify(payload), 'secret').toString(),
           ValueFormat.Ecrypt,
-          'secret'
-        )
+          'secret',
+        ),
       ).toEqual(payload);
     });
   });
@@ -54,7 +54,7 @@ describe('prepareGetEntry', () => {
       prepareGetEntry(JSON.stringify(payload), ValueFormat.Ecrypt);
 
       expect(console.warn).toHaveBeenCalledWith(
-        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.'
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.',
       );
     });
   });
@@ -64,7 +64,7 @@ describe('prepareSetEntry', () => {
   describe('when valueFormattingx is ValueFormat.String', () => {
     it('should JSON.stringify the value', () => {
       expect(prepareSetEntry(payload, ValueFormat.String)).toMatchInlineSnapshot(
-        `"{"alpha":"bravo","charlie":["delta"]}"`
+        `"{"alpha":"bravo","charlie":["delta"]}"`,
       );
     });
   });
@@ -72,7 +72,7 @@ describe('prepareSetEntry', () => {
   describe('when valueFormattingx is ValueFormat.Base64', () => {
     it('should JSON.stringify and base64 encode the value', () => {
       expect(prepareSetEntry(payload, ValueFormat.Base64)).toMatchInlineSnapshot(
-        `"eyJhbHBoYSI6ImJyYXZvIiwiY2hhcmxpZSI6WyJkZWx0YSJdfQ=="`
+        `"eyJhbHBoYSI6ImJyYXZvIiwiY2hhcmxpZSI6WyJkZWx0YSJdfQ=="`,
       );
     });
   });
@@ -97,7 +97,7 @@ describe('prepareSetEntry', () => {
 
     it('should JSON.stringify the value', () => {
       expect(prepareSetEntry(payload, ValueFormat.Ecrypt)).toMatchInlineSnapshot(
-        `"{"alpha":"bravo","charlie":["delta"]}"`
+        `"{"alpha":"bravo","charlie":["delta"]}"`,
       );
     });
 
@@ -105,7 +105,7 @@ describe('prepareSetEntry', () => {
       prepareSetEntry(payload, ValueFormat.Ecrypt);
 
       expect(console.warn).toHaveBeenCalledWith(
-        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.'
+        '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.',
       );
     });
   });

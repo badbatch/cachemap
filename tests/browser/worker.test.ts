@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
@@ -43,6 +42,7 @@ describe('when worker store type is indexedDB', () => {
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
+          // Not an issue for test file.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           jasmine.objectContaining({
             accessedCount: 0,
@@ -53,7 +53,7 @@ describe('when worker store type is indexedDB', () => {
             lastUpdated: jasmine.any(Number),
             size: jasmine.any(Number),
             updatedCount: 0,
-          })
+          }),
         );
       });
 
@@ -83,6 +83,7 @@ describe('when worker store type is indexedDB', () => {
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
+          // Not an issue for test file.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           jasmine.objectContaining({
             accessedCount: 0,
@@ -93,7 +94,7 @@ describe('when worker store type is indexedDB', () => {
             lastUpdated: jasmine.any(Number),
             size: metadata.size,
             updatedCount: 1,
-          })
+          }),
         );
       });
 
@@ -133,6 +134,7 @@ describe('when worker store type is indexedDB', () => {
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
+          // Not an issue for test file.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           jasmine.objectContaining({
             accessedCount: 0,
@@ -143,7 +145,7 @@ describe('when worker store type is indexedDB', () => {
             lastUpdated: jasmine.any(Number),
             size: jasmine.any(Number),
             updatedCount: 1,
-          })
+          }),
         );
       });
 
@@ -257,6 +259,7 @@ describe('when worker store type is indexedDB', () => {
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
+          // Not an issue for test file.
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           jasmine.objectContaining({
             accessedCount: 1,
@@ -267,7 +270,7 @@ describe('when worker store type is indexedDB', () => {
             lastUpdated: metadata.lastUpdated,
             size: metadata.size,
             updatedCount: 0,
-          })
+          }),
         );
       });
 
@@ -394,7 +397,7 @@ describe('when worker store type is indexedDB', () => {
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.entries();
@@ -417,7 +420,7 @@ describe('when worker store type is indexedDB', () => {
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.entries(hashedKeys.slice(0, 2));
@@ -449,7 +452,7 @@ describe('when worker store type is indexedDB', () => {
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export();
@@ -476,7 +479,7 @@ describe('when worker store type is indexedDB', () => {
             const url = testData[id]!.url;
             hashedKeys.push(Md5.hashStr(url));
             return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
@@ -502,7 +505,7 @@ describe('when worker store type is indexedDB', () => {
           keys.map(id => {
             const tag = tags.pop();
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
-          })
+          }),
         );
 
         result = await cachemap.export({ tag: 'alfa' });
@@ -526,7 +529,7 @@ describe('when worker store type is indexedDB', () => {
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
@@ -560,7 +563,7 @@ describe('when worker store type is indexedDB', () => {
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         const exported = await cachemap.export<JsonValue>();
@@ -584,7 +587,7 @@ describe('when worker store type is indexedDB', () => {
         await Promise.all(
           keys.map(id => {
             return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-          })
+          }),
         );
 
         const exported = await cachemap.export<JsonValue>();

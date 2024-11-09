@@ -38,15 +38,14 @@
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
-    "cacheability": "^4.0.20"
+    "@types/lodash-es": "^4.17.12",
+    "cacheability": "^4.0.26",
+    "core-js": "^3.39.0",
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.20.13",
-    "@types/lodash-es": "^4.14.191",
-    "core-js": "^3.27.2",
-    "cts-types": "^0.0.6",
-    "del-cli": "^5.1.0",
-    "lodash-es": "^4.17.21"
+    "cts-types": "^0.0.7",
+    "del-cli": "^6.0.0"
   },
   "keywords": [
     "cache",

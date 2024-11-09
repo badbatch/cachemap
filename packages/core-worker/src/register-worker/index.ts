@@ -29,6 +29,9 @@ export const handleMessage = async (message: PostMessage, cachemap: Core): Promi
 
       case constants.DELETE: {
         if (key) {
+          // Due to common entry point, options can be one of several,
+          // so casting is necessary.
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           result = await cachemap.delete(key, options as CommonOptions);
         }
 
@@ -41,12 +44,18 @@ export const handleMessage = async (message: PostMessage, cachemap: Core): Promi
       }
 
       case constants.EXPORT: {
+        // Due to common entry point, options can be one of several,
+        // so casting is necessary.
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         result = await cachemap.export(options as ExportOptions);
         break;
       }
 
       case constants.GET: {
         if (key) {
+          // Due to common entry point, options can be one of several,
+          // so casting is necessary.
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           result = await cachemap.get(key, options as CommonOptions);
         }
 
@@ -55,6 +64,9 @@ export const handleMessage = async (message: PostMessage, cachemap: Core): Promi
 
       case constants.HAS: {
         if (key) {
+          // Due to common entry point, options can be one of several,
+          // so casting is necessary.
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           result = await cachemap.has(key, options as CommonOptions);
         }
 
@@ -63,6 +75,9 @@ export const handleMessage = async (message: PostMessage, cachemap: Core): Promi
 
       case constants.IMPORT: {
         if (options) {
+          // Due to common entry point, options can be one of several,
+          // so casting is necessary.
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           await cachemap.import(options as ImportOptions);
         }
 
@@ -71,6 +86,9 @@ export const handleMessage = async (message: PostMessage, cachemap: Core): Promi
 
       case constants.SET: {
         if (key) {
+          // Due to common entry point, options can be one of several,
+          // so casting is necessary.
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
           await cachemap.set(key, value, options as CommonOptions);
         }
 

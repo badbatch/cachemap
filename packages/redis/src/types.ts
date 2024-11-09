@@ -11,7 +11,5 @@ export interface InitOptions extends Options {
 }
 
 export interface Options extends ClientOpts {
-  fast?: boolean;
   maxHeapSize?: number;
-  mock?: boolean;
 }

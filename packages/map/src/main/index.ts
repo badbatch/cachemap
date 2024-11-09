@@ -9,8 +9,8 @@ export class MapStore implements Store {
 
   public readonly type = 'map';
   private _map = new Map<string, string>();
-  private _maxHeapSize = 5_242_880;
-  private _name: string;
+  private readonly _maxHeapSize: number = 5_242_880;
+  private readonly _name: string;
 
   constructor(options: ConstructorOptions) {
     if (isNumber(options.maxHeapSize)) {

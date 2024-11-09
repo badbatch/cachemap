@@ -65,7 +65,7 @@ describe('sizeOf', () => {
 
   describe('when a function is passed in', () => {
     it('should return the correct value', () => {
-      expect(sizeOf(addNumbers)).toBe(23);
+      expect(sizeOf(addNumbers)).toBe(21);
     });
   });
 
@@ -117,7 +117,6 @@ describe('sizeOf', () => {
 
     describe('when the array has undefined entries', () => {
       it('should return 0', () => {
-        // eslint-disable-next-line unicorn/no-useless-undefined
         expect(sizeOf([undefined])).toBe(0);
       });
     });
@@ -155,7 +154,7 @@ describe('sizeOf', () => {
 
     describe('when the array has function entries', () => {
       it('should return the correct value', () => {
-        expect(sizeOf([addNumbers])).toBe(23);
+        expect(sizeOf([addNumbers])).toBe(21);
       });
     });
 
@@ -178,7 +177,7 @@ describe('sizeOf', () => {
       });
     });
 
-    describe('when the array has map entries', () => {
+    describe('when the array has set entries', () => {
       it('should return the correct value', () => {
         const set = new Set(['a', 'b', 'c']);
         expect(sizeOf([set])).toBe(10);
@@ -222,7 +221,6 @@ describe('sizeOf', () => {
 
     describe('when the object has undefined value', () => {
       it('should return 0', () => {
-        // eslint-disable-next-line unicorn/no-useless-undefined
         const obj = { 1: undefined };
         expect(sizeOf(obj)).toBe(4);
       });
@@ -267,7 +265,7 @@ describe('sizeOf', () => {
     describe('when the object has function value', () => {
       it('should return the correct value', () => {
         const obj = { 1: addNumbers };
-        expect(sizeOf(obj)).toBe(27);
+        expect(sizeOf(obj)).toBe(25);
       });
     });
 
@@ -293,7 +291,7 @@ describe('sizeOf', () => {
       });
     });
 
-    describe('when the object has map value', () => {
+    describe('when the object has set value', () => {
       it('should return the correct value', () => {
         const set = new Set(['a', 'b', 'c']);
         const obj = { 1: set };
@@ -330,7 +328,7 @@ describe('sizeOf', () => {
     `('when the typed array is $TypedArray.name', ({ TypedArray, expected }) => {
       it('should return the correct value', () => {
         // @ts-expect-error 'TypedArray' is of type 'unknown'
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
         expect(sizeOf(new TypedArray([1, 2, 3, 4, 5]))).toBe(expected);
       });
     });

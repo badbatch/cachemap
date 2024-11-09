@@ -10,10 +10,10 @@ import {
 } from '../types.ts';
 
 export class Reaper {
-  private _deleteCallback: DeleteCallback;
-  private _interval: number;
+  private readonly _deleteCallback: DeleteCallback;
+  private readonly _interval: number;
   private _intervalID?: NodeJS.Timeout;
-  private _metadataCallback: MetadataCallback;
+  private readonly _metadataCallback: MetadataCallback;
 
   constructor(options: ConstructorOptions) {
     const { deleteCallback, interval = 60_000, metadataCallback, start = false } = options;

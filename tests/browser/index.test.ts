@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
@@ -76,6 +75,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           const metadata = cachemap.metadata[0]!;
 
           expect(metadata).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               accessedCount: 0,
@@ -86,7 +86,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               lastUpdated: jasmine.any(Number),
               size: jasmine.any(Number),
               updatedCount: 0,
-            })
+            }),
           );
         });
 
@@ -116,6 +116,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           const updatedMetadata = cachemap.metadata[0]!;
 
           expect(updatedMetadata).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               accessedCount: 0,
@@ -126,7 +127,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               lastUpdated: jasmine.any(Number),
               size: metadata.size,
               updatedCount: 1,
-            })
+            }),
           );
         });
 
@@ -166,6 +167,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           const metadata = cachemap.metadata[0]!;
 
           expect(metadata).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               accessedCount: 0,
@@ -176,7 +178,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               lastUpdated: jasmine.any(Number),
               size: jasmine.any(Number),
               updatedCount: 1,
-            })
+            }),
           );
         });
 
@@ -294,6 +296,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           const updatedMetadata = cachemap.metadata[0]!;
 
           expect(updatedMetadata).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               accessedCount: 1,
@@ -304,7 +307,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               lastUpdated: metadata.lastUpdated,
               size: metadata.size,
               updatedCount: 0,
-            })
+            }),
           );
         });
 
@@ -435,7 +438,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           result = await cachemap.entries();
@@ -458,7 +461,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
               return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           result = await cachemap.entries(hashedKeys.slice(0, 2));
@@ -492,7 +495,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           result = await cachemap.export();
@@ -519,7 +522,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
               return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
@@ -545,7 +548,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             keys.map(id => {
               const tag = tags.pop();
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
-            })
+            }),
           );
 
           result = await cachemap.export({ tag: 'alfa' });
@@ -569,7 +572,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
@@ -605,7 +608,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           const exported = await cachemap.export<JsonValue>();
@@ -629,7 +632,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
-            })
+            }),
           );
 
           const exported = await cachemap.export<JsonValue>();
@@ -691,12 +694,13 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
         it('the ENTRY_DELETED event should be emitted with the correct data', () => {
           expect(entryDeletedData).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               deleted: true,
               key: jasmine.any(String),
               tags: ['ALPHA'],
-            })
+            }),
           );
         });
       });
@@ -752,12 +756,13 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
         it('the ENTRY_DELETED event should be emitted with the correct data', () => {
           expect(entryDeletedData[0]).toEqual(
+            // Not an issue for test file.
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             jasmine.objectContaining({
               deleted: true,
               key: jasmine.any(String),
               tags: [],
-            })
+            }),
           );
         });
       });
