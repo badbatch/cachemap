@@ -41,7 +41,7 @@
     "@cachemap/types": "workspace:*",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash-es": "^4.17.12",
-    "cacheability": "^4.0.26",
+    "cacheability": "^4.0.27",
     "core-js": "^3.39.0",
     "crypto-js": "^4.2.0",
     "js-base64": "^3.7.7",

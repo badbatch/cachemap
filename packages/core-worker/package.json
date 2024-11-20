@@ -43,7 +43,7 @@
     "@cachemap/utils": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/uuid": "^10.0.0",
-    "cacheability": "^4.0.26",
+    "cacheability": "^4.0.27",
     "eventemitter3": "^5.0.1",
     "lodash-es": "^4.17.21",
     "uuid": "^11.0.2"
