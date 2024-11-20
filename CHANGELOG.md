@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.2 (2024-11-20)
+
+### Bug Fixes
+
+* **cachemap:**  remove postinstall script (1f81a504)
+
 ## 5.2.1 (2024-11-09)
 
 ### Bug Fixes
