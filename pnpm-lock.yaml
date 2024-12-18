@@ -261,9 +261,6 @@ importers:
 
   packages/core-worker:
     dependencies:
-      '@babel/runtime':
-        specifier: <8
-        version: 7.26.0
       '@cachemap/controller':
         specifier: workspace:*
         version: link:../controller
@@ -283,7 +280,7 @@ importers:
         specifier: ^4.0.27
         version: 4.0.27
       core-js:
-        specifier: <4
+        specifier: ^3.39.0
         version: 3.39.0
       eventemitter3:
         specifier: ^5.0.1
@@ -5402,6 +5399,7 @@ snapshots:
   '@babel/runtime@7.26.0':
     dependencies:
       regenerator-runtime: 0.14.1
+    optional: true
 
   '@babel/template@7.22.15':
     dependencies:
@@ -9635,7 +9633,8 @@ snapshots:
       redis-errors: 1.2.0
       redis-parser: 3.0.0
 
-  regenerator-runtime@0.14.1: {}
+  regenerator-runtime@0.14.1:
+    optional: true
 
   regexp-tree@0.1.27: {}
 
