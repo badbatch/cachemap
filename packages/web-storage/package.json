@@ -47,6 +47,9 @@
     "cts-types": "^0.0.7",
     "del-cli": "^6.0.0"
   },
+  "imports": {
+    "#*": "./src/*"
+  },
   "keywords": [
     "cache",
     "cachemap",

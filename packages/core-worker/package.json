@@ -44,20 +44,21 @@
     "@types/lodash-es": "^4.17.12",
     "@types/uuid": "^10.0.0",
     "cacheability": "^4.0.27",
+    "core-js": "^3.39.0",
     "eventemitter3": "^5.0.1",
     "lodash-es": "^4.17.21",
     "uuid": "^11.0.2"
   },
   "peerDependencies": {
-    "@babel/runtime": "<8",
-    "@cachemap/core": "<6",
-    "core-js": "<4",
-    "lodash-es": "<5"
+    "@cachemap/core": "workspace:*"
   },
   "devDependencies": {
     "@cachemap/core": "workspace:*",
     "cts-types": "^0.0.7",
     "del-cli": "^6.0.0"
+  },
+  "imports": {
+    "#*": "./src/*"
   },
   "keywords": [
     "cache",
