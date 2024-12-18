@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.3 (2024-12-18)
+
+### New Features
+
+* **cachemap:**  add import alias and fix deps in core-worker (e6adf1ce)
+
+### Bug Fixes
+
+* **cachemap:**
+  * revert one vulnerability fix as it breaks tests (62f17114)
+  * lock file (87992270)
+  * sort vulnerabilities (2aa1f63a)
+  * package lock (36b4ec17)
+
 ## 5.2.2 (2024-11-20)
 
 ### Bug Fixes

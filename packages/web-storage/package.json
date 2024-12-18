@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/web-storage",
   "description": "The Cachemap web storage module.",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "author": "Dylan Aubrey",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
