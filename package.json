@@ -113,7 +113,6 @@
       "braces": ">=3.0.3",
       "cross-spawn": ">=7.0.5",
       "micromatch": ">=4.0.8",
-      "path-to-regexp": ">=0.1.12",
       "ws": ">=8.17.1"
     }
   }
