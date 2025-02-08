@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.5 (2025-02-08)
+
+### Refactors
+
+* **core-worker:**  make callback promisable (ba7aa825)
+
 ## 5.2.4 (2025-02-08)
 
 ### Chores
