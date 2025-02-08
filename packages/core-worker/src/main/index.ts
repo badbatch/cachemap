@@ -11,6 +11,7 @@ import {
   type FilterPropsResult,
   type PendingResolver,
   type PendingTracker,
+  type PostMessage,
   type PostMessageResult,
   type PostMessageResultWithMeta,
   type PostMessageWithoutMeta,
@@ -77,13 +78,14 @@ export class CoreWorker {
   };
 
   private _emitter: EventEmitter = new EventEmitter();
+  private _messageQueue: PostMessage[] = [];
   private _metadata: Metadata[] = [];
   private readonly _name: string;
   private _pending: PendingTracker = new Map();
   private _storeType: string | undefined;
   private readonly _type: string;
   private _usedHeapSize = 0;
-  private _worker: Worker;
+  private _worker: Worker | undefined;
 
   constructor(options: ConstructorOptions) {
     const errors: ArgsError[] = [];
@@ -110,9 +112,24 @@ export class CoreWorker {
 
     this._name = options.name;
     this._type = options.type;
-    this._worker = options.worker;
-    this._addControllerEventListeners();
-    this._addEventListener();
+
+    if (typeof options.worker === 'function') {
+      options
+        .worker()
+        .then(worker => {
+          this._worker = worker;
+          this._addControllerEventListeners();
+          this._addEventListener();
+          this._releaseMessageQueue();
+        })
+        .catch((error: unknown) => {
+          throw error;
+        });
+    } else {
+      this._worker = options.worker;
+      this._addControllerEventListeners();
+      this._addEventListener();
+    }
   }
 
   public async clear(): Promise<void> {
@@ -213,6 +230,10 @@ export class CoreWorker {
   }
 
   private _addEventListener(): void {
+    if (!this._worker) {
+      throw new Error('A worker is required for the CoreWorker to work correctly.');
+    }
+
     this._worker.addEventListener(constants.MESSAGE, this._onMessage);
   }
 
@@ -220,14 +241,32 @@ export class CoreWorker {
     const messageID = uuidv4();
 
     return new Promise((resolve: PendingResolver<T>) => {
-      this._worker.postMessage({
-        ...message,
-        messageID,
-        type: constants.CACHEMAP,
-      });
+      if (this._worker) {
+        this._worker.postMessage({
+          ...message,
+          messageID,
+          type: constants.CACHEMAP,
+        });
+      } else {
+        this._messageQueue.push({
+          ...message,
+          messageID,
+          type: constants.CACHEMAP,
+        });
+      }
 
       this._pending.set(messageID, { resolve });
     });
+  }
+
+  private _releaseMessageQueue(): void {
+    if (!this._worker) {
+      throw new Error('A worker is required for the CoreWorker to work correctly.');
+    }
+
+    for (const message of this._messageQueue) {
+      this._worker.postMessage(message);
+    }
   }
 
   private _setProps({ metadata, storeType, usedHeapSize }: FilterPropsResult): void {
