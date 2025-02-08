@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.6 (2025-02-08)
+
+### New Features
+
+* **core-worker:**  add worker setter (8ccd18fe)
+
 ## 5.2.5 (2025-02-08)
 
 ### Refactors
