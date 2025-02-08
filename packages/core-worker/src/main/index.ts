@@ -102,7 +102,7 @@ export class CoreWorker {
       errors.push(new ArgsError('@cachemap/core-worker expected options.type to be a string.'));
     }
 
-    if (!(options.worker instanceof Worker)) {
+    if (!('worker' in options)) {
       errors.push(new ArgsError('@cachemap/core-worker expected options.worker to be an instance of a Worker.'));
     }
 
@@ -114,8 +114,7 @@ export class CoreWorker {
     this._type = options.type;
 
     if (typeof options.worker === 'function') {
-      options
-        .worker()
+      Promise.resolve(options.worker())
         .then(worker => {
           this._worker = worker;
           this._addControllerEventListeners();

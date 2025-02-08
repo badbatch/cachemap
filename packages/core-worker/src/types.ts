@@ -10,7 +10,7 @@ export interface CommonOptions {
 export interface ConstructorOptions {
   name: string;
   type: string;
-  worker: Worker | (() => Promise<Worker>);
+  worker: Worker | (() => Worker | Promise<Worker>);
 }
 
 export type PendingResolver<T> = (value: PostMessageResultWithMeta<T>) => void;
