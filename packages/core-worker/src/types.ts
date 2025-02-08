@@ -8,9 +8,14 @@ export interface CommonOptions {
 }
 
 export interface ConstructorOptions {
+  /**
+   * Must be passed in as true if you are going to
+   * initialise the worker after the constructor.
+   */
+  lazyWorkerInit?: boolean;
   name: string;
   type: string;
-  worker: Worker | (() => Worker | Promise<Worker>);
+  worker?: Worker | (() => Worker | Promise<Worker>);
 }
 
 export type PendingResolver<T> = (value: PostMessageResultWithMeta<T>) => void;

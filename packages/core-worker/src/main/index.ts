@@ -102,7 +102,7 @@ export class CoreWorker {
       errors.push(new ArgsError('@cachemap/core-worker expected options.type to be a string.'));
     }
 
-    if (!('worker' in options)) {
+    if (!options.lazyWorkerInit && !('worker' in options)) {
       errors.push(new ArgsError('@cachemap/core-worker expected options.worker to be an instance of a Worker.'));
     }
 
@@ -124,7 +124,7 @@ export class CoreWorker {
         .catch((error: unknown) => {
           throw error;
         });
-    } else {
+    } else if (options.worker) {
       this._worker = options.worker;
       this._addControllerEventListeners();
       this._addEventListener();
@@ -218,6 +218,13 @@ export class CoreWorker {
 
   get usedHeapSize(): number {
     return this._usedHeapSize;
+  }
+
+  set worker(worker: Worker) {
+    this._worker = worker;
+    this._addControllerEventListeners();
+    this._addEventListener();
+    this._releaseMessageQueue();
   }
 
   private _addControllerEventListeners() {
