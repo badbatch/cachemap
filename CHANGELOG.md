@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.2.4 (2025-02-08)
+
+### Chores
+
+* **cachemap:**  disable test (1bc792d1)
+
+### New Features
+
+* **core-worker:**  lazy load worker (b49bb31a)
+
+### Bug Fixes
+
+* **cachemap:**  disable correct test (811ede3d)
+
 ## 5.2.3 (2024-12-18)
 
 ### New Features
