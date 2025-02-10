@@ -270,7 +270,10 @@ export class CoreWorker {
       throw new Error('A worker is required for the CoreWorker to work correctly.');
     }
 
-    for (const message of this._messageQueue) {
+    const messageQueue = this._messageQueue;
+    this._messageQueue = [];
+
+    for (const message of messageQueue) {
       this._worker.postMessage(message);
     }
   }
