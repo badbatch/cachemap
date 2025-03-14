@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.2.7 (2025-03-14)
+
+### Bug Fixes
+
+* **core-worker:**
+  * minor update (d697aec2)
+  * message queue release (084208ff)
+
 ## 5.2.6 (2025-02-08)
 
 ### New Features
