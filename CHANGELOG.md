@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.10 (2025-05-28)
+
+### Refactors
+
+* **root:**  update jasmine test config (7dc77ef3)
+
 ## 5.2.9 (2025-05-28)
 
 ### Bug Fixes
