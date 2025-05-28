@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.9 (2025-05-28)
+
+### Bug Fixes
+
+* **root:**  vulnerabilities (4fbe9d18)
+
 ## 5.2.8 (2025-05-28)
 
 ### Chores
