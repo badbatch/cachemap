@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.2.8 (2025-05-28)
+
+### Chores
+
+* **deps:**  bump @babel/runtime (#54) (96157b5b)
+
+### Bug Fixes
+
+* **root:**
+  * update packge json (ae607b28)
+  * vulnerabilities (0549324b)
+
+### Other Changes
+
+* **root:**  vulnerabilities" (ad06b3d6)
+
 ## 5.2.7 (2025-03-14)
 
 ### Bug Fixes
