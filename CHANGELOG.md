@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.11 (2025-06-13)
+
+### Chores
+
+* **root:**  minor update (e85ed80e)
+
 ## 5.2.10 (2025-05-28)
 
 ### Refactors

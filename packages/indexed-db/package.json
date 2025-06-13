@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/indexed-db",
   "description": "The Cachemap IndexedDB module.",
-  "version": "5.0.9",
+  "version": "5.0.10",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
