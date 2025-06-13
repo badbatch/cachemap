@@ -2,7 +2,7 @@
   "name": "@cachemap/redis",
   "description": "The Cachemap Redis module.",
   "version": "5.0.9",
-  "author": "Dylan Aubrey",
+  "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
   "repository": "badbatch/cachemap",

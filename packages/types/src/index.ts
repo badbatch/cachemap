@@ -60,7 +60,7 @@ export type Metadata = BaseMetadata & {
   /**
    * The cache information of the corresponding
    * data entry, which uses the [Cacheability
-   * module](https://github.com/dylanaubrey/cacheability).
+   * module](https://github.com/badbatch/cacheability).
    */
   cacheability: Cacheability;
 };
