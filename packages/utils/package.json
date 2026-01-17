@@ -15,6 +15,9 @@
   "main": "./dist/cjs/index.cjs",
   "module": "./dist/esm/index.mjs",
   "types": "./dist/types/cjs/index.d.cts",
+  "imports": {
+    "#*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": {
@@ -33,28 +36,25 @@
     "clean:deps": "del-cli ./node_modules",
     "clean:dist": "del-cli ./dist",
     "compile": "pnpm run /^compile:.*/",
-    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.cjs",
-    "compile:esm": "rollup -c ../../rollup.config.cjs",
+    "compile:cjs": "MODULE_SYSTEM=cjs rollup -c ../../rollup.config.mjs",
+    "compile:esm": "rollup -c ../../rollup.config.mjs",
     "compile:types": "tsc --project ./tsconfig.build.json && cts-types build dist/types/esm dist/types/cjs"
   },
   "dependencies": {
     "@cachemap/types": "workspace:*",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash-es": "^4.17.12",
-    "cacheability": "^4.0.27",
-    "core-js": "^3.39.0",
+    "cacheability": "^4.0.30",
+    "core-js": "^3.47.0",
     "crypto-js": "^4.2.0",
-    "js-base64": "^3.7.7",
-    "lodash-es": "^4.17.21",
-    "type-fest": "^4.26.1"
+    "js-base64": "^3.7.8",
+    "lodash-es": "^4.17.22",
+    "type-fest": "^5.4.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "cts-types": "^0.0.7",
-    "del-cli": "^6.0.0"
-  },
-  "imports": {
-    "#*": "./src/*"
+    "cts-types": "^0.0.10",
+    "del-cli": "^7.0.0"
   },
   "keywords": [
     "cache",

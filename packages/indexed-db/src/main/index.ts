@@ -90,11 +90,11 @@ export class IndexedDBStore implements Store {
     await tx.done;
   }
 
-  get maxHeapSize() {
+  get maxHeapSize(): number {
     return this._maxHeapSize;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
 

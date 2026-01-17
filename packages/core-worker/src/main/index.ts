@@ -227,7 +227,7 @@ export class CoreWorker {
     this._releaseMessageQueue();
   }
 
-  private _addControllerEventListeners() {
+  private _addControllerEventListeners(): void {
     instance.on(constants.CLEAR, this._handleClearEvent);
     instance.on(constants.START_REAPER, this._handleStartReaperEvent);
     instance.on(constants.STOP_REAPER, this._handleStopReaperEvent);
@@ -280,11 +280,7 @@ export class CoreWorker {
 
   private _setProps({ metadata, storeType, usedHeapSize }: FilterPropsResult): void {
     this._metadata = rehydrateMetadata(metadata);
-
-    if (!this._storeType) {
-      this._storeType = storeType;
-    }
-
+    this._storeType ??= storeType;
     this._usedHeapSize = usedHeapSize;
   }
 }

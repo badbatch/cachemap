@@ -10,7 +10,7 @@ export class WebStorageStore implements Store {
   public readonly type = 'webStorage';
   private readonly _maxHeapSize: number = 4_194_304;
   private readonly _name: string;
-  private _storage: Storage = window.localStorage;
+  private _storage: Storage = globalThis.localStorage;
 
   constructor(options: ConstructorOptions) {
     if (isNumber(options.maxHeapSize)) {
@@ -20,7 +20,7 @@ export class WebStorageStore implements Store {
     this._name = options.name;
 
     if (options.storageType === 'session') {
-      this._storage = window.sessionStorage;
+      this._storage = globalThis.sessionStorage;
     }
   }
 
@@ -87,11 +87,11 @@ export class WebStorageStore implements Store {
     return Promise.resolve();
   }
 
-  get maxHeapSize() {
+  get maxHeapSize(): number {
     return this._maxHeapSize;
   }
 
-  get name() {
+  get name(): string {
     return this._name;
   }
 

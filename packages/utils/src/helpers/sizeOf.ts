@@ -17,7 +17,7 @@ const convertToObject = (obj: Map<unknown, unknown> | Set<unknown>): object => {
   return [...obj];
 };
 
-const visitor = (obj: object, callback: (value: unknown) => object | false | undefined) => {
+const visitor = (obj: object, callback: (value: unknown) => object | false | undefined): void => {
   for (const key of Object.keys(obj)) {
     // @ts-expect-error 'string' can't be used to index type '{}'
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -34,7 +34,7 @@ const visitor = (obj: object, callback: (value: unknown) => object | false | und
   }
 };
 
-const utf16leToBytes = (value: string) => {
+const utf16leToBytes = (value: string): number[] => {
   let c: number, hi: number, lo: number;
   const byteArray = [];
 
@@ -50,7 +50,7 @@ const utf16leToBytes = (value: string) => {
   return byteArray;
 };
 
-const sizeComplexObject = (obj: object) => {
+const sizeComplexObject = (obj: object): number => {
   let totalSize = 0;
 
   try {
@@ -102,7 +102,7 @@ const sizeComplexObject = (obj: object) => {
   return totalSize;
 };
 
-const sizeSimpleType = (value: unknown) => {
+const sizeSimpleType = (value: unknown): number => {
   const objectList: object[] = [];
   const stack = [value];
   let bytes = 0;
@@ -181,7 +181,7 @@ const sizeSimpleType = (value: unknown) => {
   return bytes;
 };
 
-export const sizeOf = (value: unknown) =>
+export const sizeOf = (value: unknown): number =>
   // isObjectLike does not support type guard.
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   isObjectLike(value) && !isRegExp(value) ? sizeComplexObject(value as object) : sizeSimpleType(value);

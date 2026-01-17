@@ -2,11 +2,11 @@ import { describe, expect, it, jest } from '@jest/globals';
 import { Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
-import { testData } from '../data.ts';
-import { type PlainObject } from '../types.ts';
 import { Core, type ExportResult, type Metadata, type StoreInit, type StoreOptions, ValueFormat } from '@cachemap/core';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
+import { testData } from '../data.ts';
+import { type PlainObject } from '../types.ts';
 
 jest.unstable_mockModule('redis', () => jest.requireActual('redis-mock'));
 

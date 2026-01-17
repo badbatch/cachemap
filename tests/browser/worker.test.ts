@@ -1,10 +1,10 @@
 import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
-import { testData } from '../data.ts';
-import { type PlainObject } from '../types.ts';
 import { type ExportResult, type Metadata } from '@cachemap/core';
 import { CoreWorker } from '@cachemap/core-worker';
+import { testData } from '../data.ts';
+import { type PlainObject } from '../types.ts';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

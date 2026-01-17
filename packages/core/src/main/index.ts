@@ -435,7 +435,7 @@ export class Core {
     return this._usedHeapSize;
   }
 
-  private _addControllerEventListeners() {
+  private _addControllerEventListeners(): void {
     instance.on(constants.CLEAR, this._handleClearEvent);
     instance.on(constants.START_REAPER, this._handleStartReaperEvent);
     instance.on(constants.STOP_REAPER, this._handleStopReaperEvent);
@@ -461,7 +461,7 @@ export class Core {
     return this._backupMetadata();
   }
 
-  private _addRequestToQueue<T>(methodName: MethodName, ...payload: unknown[]) {
+  private _addRequestToQueue<T>(methodName: MethodName, ...payload: unknown[]): Promise<T> {
     return new Promise((resolve: (value: T) => void) => {
       this._requestQueue.push([resolve, methodName, payload]);
     });
@@ -718,7 +718,7 @@ export class Core {
     void this._reaper.cull(this._metadata.slice(index));
   }
 
-  private async _releaseQueuedRequests() {
+  private async _releaseQueuedRequests(): Promise<void> {
     for (const [resolve, methodName, payload] of this._requestQueue) {
       // @ts-expect-error complicated
       resolve(await this[methodName](...payload));

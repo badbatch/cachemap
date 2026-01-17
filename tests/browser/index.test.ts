@@ -1,8 +1,6 @@
 import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
-import { testData } from '../data.ts';
-import { type PlainObject } from '../types.ts';
 import {
   type ConstructorOptions,
   Core,
@@ -16,6 +14,8 @@ import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as map } from '@cachemap/map';
 import { init as reaper } from '@cachemap/reaper';
 import { init as webStorage } from '@cachemap/web-storage';
+import { testData } from '../data.ts';
+import { type PlainObject } from '../types.ts';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 

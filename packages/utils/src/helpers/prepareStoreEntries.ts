@@ -3,7 +3,7 @@ import { ValueFormat } from '../enums.ts';
 import { decode, encode } from './base64.ts';
 import { decrypt, encrypt } from './encryption.ts';
 
-export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, encryptionSecret?: string) => {
+export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, encryptionSecret?: string): T => {
   let getEntry: JsonValue | undefined;
 
   switch (true) {
@@ -40,7 +40,7 @@ export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, 
   return getEntry as T;
 };
 
-export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, encryptionSecret?: string) => {
+export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, encryptionSecret?: string): string => {
   let setEntry: string;
 
   switch (true) {
