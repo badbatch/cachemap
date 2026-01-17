@@ -15,6 +15,12 @@ export type BaseMetadata = {
   added: number;
 
   /**
+   * A property to store any custom metadata. The data must
+   * be JSON serializable.
+   */
+  extensions?: Record<string, unknown>;
+
+  /**
    * The key the corresponding data entry was stored
    * against.
    */

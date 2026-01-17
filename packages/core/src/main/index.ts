@@ -21,7 +21,6 @@ import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from '../constants.ts';
 import {
-  type CacheHeaders,
   type ConstructorOptions,
   type ControllerEvent,
   type ExportOptions,
@@ -32,6 +31,7 @@ import {
   type Reaper,
   type ReaperInit,
   type RequestQueue,
+  type SetOptions,
 } from '../types.ts';
 
 export class Core {
@@ -383,11 +383,7 @@ export class Core {
     return this._reaper;
   }
 
-  public async set(
-    key: string,
-    value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {},
-  ): Promise<void> {
+  public async set(key: string, value: unknown, options: SetOptions = {}): Promise<void> {
     const errors: ArgsError[] = [];
 
     if (!isString(key)) {
@@ -443,11 +439,18 @@ export class Core {
     instance.on(constants.STOP_BACKUP, this._handleStopBackupEvent);
   }
 
-  private async _addMetadata(key: string, size: number, cacheability: Cacheability, tag?: Tag): Promise<void> {
+  private async _addMetadata(
+    key: string,
+    size: number,
+    cacheability: Cacheability,
+    tag?: Tag,
+    extensions?: Record<string, unknown>,
+  ): Promise<void> {
     this._metadata.push({
       accessedCount: 0,
       added: Date.now(),
       cacheability,
+      extensions,
       key,
       lastAccessed: Date.now(),
       lastUpdated: Date.now(),
@@ -739,11 +742,7 @@ export class Core {
     }
   }
 
-  private async _set(
-    key: string,
-    value: JsonValue,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag },
-  ): Promise<void> {
+  private async _set(key: string, value: JsonValue, options: SetOptions): Promise<void> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.SET, key, value, options);
     }
@@ -768,8 +767,8 @@ export class Core {
       await this._store.set(setKey, preparedSetValue);
 
       await (exists
-        ? this._updateMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag)
-        : this._addMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag));
+        ? this._updateMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions)
+        : this._addMetadata(setKey, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions));
 
       this._processed(setKey);
     } catch (error) {
@@ -820,7 +819,13 @@ export class Core {
     }
   }
 
-  private async _updateMetadata(key: string, size?: number, cacheability?: Cacheability, tag?: Tag): Promise<void> {
+  private async _updateMetadata(
+    key: string,
+    size?: number,
+    cacheability?: Cacheability,
+    tag?: Tag,
+    extensions?: Record<string, unknown>,
+  ): Promise<void> {
     const entry = this._getMetadataEntry(key);
 
     if (!entry) {
@@ -842,6 +847,10 @@ export class Core {
 
     if (!isUndefined(tag)) {
       entry.tags.push(tag);
+    }
+
+    if (extensions) {
+      entry.extensions = Object.assign(entry.extensions ?? {}, extensions);
     }
 
     this._sortMetadata();

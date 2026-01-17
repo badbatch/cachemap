@@ -117,3 +117,10 @@ export type MethodName = 'clear' | 'delete' | 'entries' | 'export' | 'get' | 'ha
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RequestQueue<T = any> = [(value?: T) => void, MethodName, ...unknown[]][];
+
+export type SetOptions = {
+  cacheHeaders?: CacheHeaders;
+  extensions?: Record<string, unknown>;
+  hashKey?: boolean;
+  tag?: Tag;
+};
