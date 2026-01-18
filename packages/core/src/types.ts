@@ -1,5 +1,6 @@
 import { type Metadata, type StoreInit, type Tag } from '@cachemap/types';
 import { type ValueFormat } from '@cachemap/utils';
+import { type CacheabilityArgs } from 'cacheability';
 import { type JsonValue } from 'type-fest';
 
 export interface BaseOptions {
@@ -66,8 +67,6 @@ export interface BaseOptions {
   valueFormatting?: ValueFormat;
 }
 
-export type CacheHeaders = Headers | { cacheControl?: string; etag?: string };
-
 export interface ConstructorOptions extends BaseOptions {
   store: StoreInit;
 }
@@ -119,7 +118,7 @@ export type MethodName = 'clear' | 'delete' | 'entries' | 'export' | 'get' | 'ha
 export type RequestQueue<T = any> = [(value?: T) => void, MethodName, ...unknown[]][];
 
 export type SetOptions = {
-  cacheHeaders?: CacheHeaders;
+  cacheOptions?: CacheabilityArgs;
   extensions?: Record<string, unknown>;
   hashKey?: boolean;
   tag?: Tag;

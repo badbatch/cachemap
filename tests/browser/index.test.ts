@@ -50,7 +50,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       const id = '136-7317';
       const key = testData[id]!.url;
       const value = testData[id]!.body;
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -64,7 +64,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
       describe('when a matching entry does not exist', () => {
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+          await cachemap.set(key, value, { cacheOptions, hashKey: true });
         });
 
         it('the set method should store the correct amount of metadata', () => {
@@ -103,9 +103,9 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let metadata: Metadata;
 
         beforeEach(async () => {
-          await cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true });
+          await cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
           metadata = { ...cachemap.metadata[0]! };
-          await cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true });
+          await cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         });
 
         it('the set method should store the correct amount of metadata', () => {
@@ -154,8 +154,8 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       describe('when the same key is added twice in quick succession', () => {
         beforeEach(async () => {
           await Promise.all([
-            cachemap.set(key, { ...value, index: 0 }, { cacheHeaders, hashKey: true }),
-            cachemap.set(key, { ...value, index: 1 }, { cacheHeaders, hashKey: true }),
+            cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true }),
+            cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true }),
           ]);
         });
 
@@ -196,7 +196,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       const id = '136-7317';
       const key = testData[id]!.url;
       const value = testData[id]!.body;
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -224,7 +224,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let deleted: boolean;
 
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+          await cachemap.set(key, value, { cacheOptions, hashKey: true });
           deleted = await cachemap.delete(key, { hashKey: true });
         });
 
@@ -250,7 +250,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       const id = '136-7317';
       const key = testData[id]!.url;
       const value = testData[id]!.body;
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -279,7 +279,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
         let entry: unknown;
 
         beforeEach(async () => {
-          await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+          await cachemap.set(key, value, { cacheOptions, hashKey: true });
           metadata = { ...cachemap.metadata[0]! };
           entry = await cachemap.get(key, { hashKey: true });
         });
@@ -322,7 +322,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       const id = '136-7317';
       const key = testData[id]!.url;
       const value = testData[id]!.body;
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -351,7 +351,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           let exists: boolean | Cacheability;
 
           beforeEach(async () => {
-            await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+            await cachemap.set(key, value, { cacheOptions, hashKey: true });
             exists = await cachemap.has(key, { hashKey: true });
           });
 
@@ -365,7 +365,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             let exists: boolean | Cacheability;
 
             beforeEach(async () => {
-              await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+              await cachemap.set(key, value, { cacheOptions, hashKey: true });
               await delay(1000);
               exists = await cachemap.has(key, { hashKey: true });
             });
@@ -391,7 +391,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             let exists: boolean | Cacheability;
 
             beforeEach(async () => {
-              await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+              await cachemap.set(key, value, { cacheOptions, hashKey: true });
               await delay(1000);
               exists = await cachemap.has(key, { deleteExpired: true, hashKey: true });
             });
@@ -417,7 +417,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
     });
 
     describe('retrieving multiple entries from the cachemap', () => {
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -437,7 +437,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -460,7 +460,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             ids.map(id => {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
-              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -474,7 +474,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
     });
 
     describe('retrieving multiple entries and their metadata from the cachemap', () => {
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -494,7 +494,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -521,7 +521,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             ids.map(id => {
               const url = testData[id]!.url;
               hashedKeys.push(Md5.hashStr(url));
-              return cachemap.set(url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -547,7 +547,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
           await Promise.all(
             keys.map(id => {
               const tag = tags.pop();
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true, tag });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true, tag });
             }),
           );
 
@@ -571,7 +571,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -589,7 +589,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
     });
 
     describe('adding multiple entries and their metadata to the cachemap', () => {
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=1' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=1' };
 
       beforeEach(() => {
         cachemap = new Core({
@@ -607,7 +607,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -631,7 +631,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
 
           await Promise.all(
             keys.map(id => {
-              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheHeaders, hashKey: true });
+              return cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
             }),
           );
 
@@ -653,7 +653,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
       const id = '136-7317';
       const key = testData[id]!.url;
       const value = testData[id]!.body;
-      const cacheHeaders: PlainObject = { cacheControl: 'public, max-age=0' };
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=0' };
 
       describe("when an entry's cacheability expires", () => {
         let entryDeletedData: PlainObject;
@@ -672,7 +672,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             entryDeletedData = data;
           });
 
-          await cachemap.set(key, value, { cacheHeaders, hashKey: true, tag: 'ALPHA' });
+          await cachemap.set(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
           await delay(1000);
         });
 
@@ -728,7 +728,7 @@ for (const { cachemapOptions, store, storeOptions, storeType } of testCases) {
             keys = Object.keys(testData);
 
             for (const _id of keys) {
-              void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheHeaders, hashKey: true });
+              void cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheOptions, hashKey: true });
             }
           });
         });

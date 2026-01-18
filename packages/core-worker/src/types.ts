@@ -1,10 +1,13 @@
-import { type CacheHeaders, type Core, type ExportOptions, type ImportOptions } from '@cachemap/core';
+import { type Core, type ExportOptions, type ImportOptions } from '@cachemap/core';
 import { type Metadata } from '@cachemap/types';
+import { type CacheabilityArgs } from 'cacheability';
 
 export interface CommonOptions {
-  cacheHeaders?: CacheHeaders;
+  cacheOptions?: CacheabilityArgs;
   deleteExpired?: boolean;
+  extensions?: Record<string, unknown>;
   hashKey?: boolean;
+  tags?: string[];
 }
 
 export interface ConstructorOptions {

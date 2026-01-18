@@ -12,7 +12,7 @@ An extensible, isomorphic cache with modules to interface with Redis, web storag
 * Extend with custom modules to interface with key/value databases of your choosing.
 * Save data as string, base64 encoded or encrypted.
 * Transfer entries from one Cachemap to another.
-* Store entries alongside cache-control directives, etags and uuids.
+* Store entries alongside cache-control directives.
 * Cache-control directives used to derive whether entries are fresh or stale.
 * Prioritize entries based on metadata stored against each entry.
 * Use a reaper to cull stale entries at specified intervals.
@@ -84,7 +84,7 @@ The example above initializes a persisted cache for the browser that uses Indexe
 
 The bread and butter of the Cachemap's functionality are the `delete`, `get`, `has`, and `set` methods. The input signatures of the first three are very similar, each excepts a key as the first argument and a set of options as the second. The `set` method, meanwhile, excepts a key as the first argument, a value as the second and the third is the options.
 
-An important `set` option is `cacheHeaders`. This takes a Headers instance or a plain object of HTTP headers. The etag and cache-control directives are filtered out and stored against an entry. The directives are used to generate a TTL (time to live) that the Cachemap checks whenever accessing the entry.
+An important `set` option is `cacheOptions`. This takes a Headers instance or a plain object of HTTP headers. The cache-control directives are filtered out and stored against an entry. The directives are used to generate a TTL (time to live) that the Cachemap checks whenever accessing the entry.
 
 Another important `set` option is `tag`. This allows you to store an arbitrary identifier against an entry, like a request or session ID. These identifiers can come in handy, for example, if you want to export all entries added during a particular request.
 
@@ -94,9 +94,9 @@ All four methods have a `hashKey` option that runs the key through `md5` to crea
 (async () => {
   const key = 'https://api.example.com/user/foobar';
   const value = { email: 'foobar@example.com', id: '12345', name: 'foobar' };
-  const cacheHeaders = { cacheControl: 'private, max-age=60' };
+  const cacheOptions = { cacheControl: 'private, max-age=60' };
 
-  await cachemap.set(key, value, { cacheHeaders, hashKey: true });
+  await cachemap.set(key, value, { cacheOptions, hashKey: true });
   // returns undefined
 
   const cacheability = await cachemap.has(key, { hashKey: true });

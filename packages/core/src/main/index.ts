@@ -327,6 +327,10 @@ export class Core {
     return this._get<T>(key, options);
   }
 
+  public getMetadataEntry(key: string): Metadata | undefined {
+    return this._getMetadataEntry(key);
+  }
+
   public async has(
     key: string,
     options: { deleteExpired?: boolean; hashKey?: boolean } = {},
@@ -747,7 +751,7 @@ export class Core {
       return this._addRequestToQueue(constants.SET, key, value, options);
     }
 
-    const cacheability = new Cacheability({ headers: options.cacheHeaders });
+    const cacheability = new Cacheability(options.cacheOptions);
     const { cacheControl } = cacheability.metadata;
 
     if (cacheControl.noStore || (this._sharedCache && cacheControl.private)) {

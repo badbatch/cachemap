@@ -1,6 +1,6 @@
 import { type EventData, instance } from '@cachemap/controller';
-import { type CacheHeaders, type ExportOptions, type ExportResult, type ImportOptions } from '@cachemap/core';
-import { type Metadata, type Tag } from '@cachemap/types';
+import { type ExportOptions, type ExportResult, type ImportOptions, type SetOptions } from '@cachemap/core';
+import { type Metadata } from '@cachemap/types';
 import { ArgsError, GroupedError, constants, rehydrateMetadata } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
 import { EventEmitter } from 'eventemitter3';
@@ -193,11 +193,7 @@ export class CoreWorker {
     return this._name;
   }
 
-  public async set(
-    key: string,
-    value: unknown,
-    options: { cacheHeaders?: CacheHeaders; hashKey?: boolean; tag?: Tag } = {},
-  ): Promise<void> {
+  public async set(key: string, value: unknown, options: SetOptions = {}): Promise<void> {
     const response = await this._postMessage({ key, method: constants.SET, options, value });
     this._setProps(response);
   }
