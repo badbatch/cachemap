@@ -327,7 +327,8 @@ export class Core {
     return this._get<T>(key, options);
   }
 
-  public getMetadataEntry(key: string): Metadata | undefined {
+  public getMetadataEntry(rawkey: string, options: { hashKey?: boolean } = {}): Metadata | undefined {
+    const key = options.hashKey ? Md5.hashStr(rawkey) : rawkey;
     return this._getMetadataEntry(key);
   }
 

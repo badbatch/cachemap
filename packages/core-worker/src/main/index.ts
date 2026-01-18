@@ -5,6 +5,7 @@ import { ArgsError, GroupedError, constants, rehydrateMetadata } from '@cachemap
 import { Cacheability } from 'cacheability';
 import { EventEmitter } from 'eventemitter3';
 import { isPlainObject, isString } from 'lodash-es';
+import { Md5 } from 'ts-md5';
 import { v4 as uuidv4 } from 'uuid';
 import {
   type ConstructorOptions,
@@ -164,6 +165,11 @@ export class CoreWorker {
     return result;
   }
 
+  public getMetadataEntry(rawkey: string, options: { hashKey?: boolean } = {}): Metadata | undefined {
+    const key = options.hashKey ? Md5.hashStr(rawkey) : rawkey;
+    return this._getMetadataEntry(key);
+  }
+
   public async has(
     key: string,
     options: { deleteExpired?: boolean; hashKey?: boolean } = {},
@@ -237,6 +243,10 @@ export class CoreWorker {
     }
 
     this._worker.addEventListener(constants.MESSAGE, this._onMessage);
+  }
+
+  private _getMetadataEntry(key: string): Metadata | undefined {
+    return this._metadata.find(metadata => metadata.key === key);
   }
 
   private async _postMessage<T>(message: PostMessageWithoutMeta): Promise<PostMessageResultWithMeta<T>> {
