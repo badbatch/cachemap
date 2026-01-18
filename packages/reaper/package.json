@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/reaper",
   "description": "The Cachemap reaper module.",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",

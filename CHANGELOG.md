@@ -1,5 +1,21 @@
 # Changelog
 
+## 5.2.12 (2026-01-18)
+
+### Chores
+
+* **root:**
+  * upgrade deps and fix linting/type issues (bb0eeca5)
+  * force commit (429c8f44)
+
+### New Features
+
+* **core:**  add ability to store extensions metadata (f42f8f3e)
+
+### Bug Fixes
+
+* **root:**  vulnerabilities (d6287d89)
+
 ## 5.2.11 (2025-06-13)
 
 ### Chores

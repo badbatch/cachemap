@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/redis",
   "description": "The Cachemap Redis module.",
-  "version": "5.0.10",
+  "version": "5.0.11",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",

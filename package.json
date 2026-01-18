@@ -1,7 +1,7 @@
 {
   "name": "cachemap",
   "description": "An isomorphic cache that can use Redis, web storage, IndexedDB or an in-memory Map.",
-  "version": "5.2.11",
+  "version": "5.2.12",
   "author": "miami-man",
   "license": "MIT",
   "private": true,

@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/controller",
   "description": "The Cachemap controller module.",
-  "version": "5.2.4",
+  "version": "5.2.5",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",
