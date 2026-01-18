@@ -1,7 +1,7 @@
 {
   "name": "@cachemap/core",
   "description": "The Cachemap core module.",
-  "version": "5.2.9",
+  "version": "5.2.10",
   "author": "miami-man",
   "license": "MIT",
   "homepage": "https://github.com/badbatch/cachemap",

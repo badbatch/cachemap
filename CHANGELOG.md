@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.13 (2026-01-18)
+
+### Bug Fixes
+
+* **root:**  update set options missed (0e1c0bfd)
+
 ## 5.2.12 (2026-01-18)
 
 ### Chores
