@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.2.14 (2026-01-18)
+
+### Bug Fixes
+
+* **core,core-worker:**  add hash key feature to get metadata entry (a0b9f05a)
+
 ## 5.2.13 (2026-01-18)
 
 ### Bug Fixes
