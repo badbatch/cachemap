@@ -42,11 +42,11 @@
   },
   "dependencies": {
     "@cachemap/utils": "workspace:*",
-    "core-js": "^3.47.0",
-    "eventemitter3": "^5.0.1"
+    "core-js": "^3.48.0",
+    "eventemitter3": "^5.0.4"
   },
   "devDependencies": {
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^7.0.0"
   },
   "keywords": [

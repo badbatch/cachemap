@@ -40,13 +40,13 @@
     "@cachemap/types": "workspace:*",
     "@types/lodash-es": "^4.17.12",
     "@types/redis": "^2.8.32",
-    "core-js": "^3.47.0",
-    "lodash-es": "^4.17.22",
+    "core-js": "^3.48.0",
+    "lodash-es": "^4.17.23",
     "redis": "^3.1.2"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^7.0.0"
   },
   "keywords": [

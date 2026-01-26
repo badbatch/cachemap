@@ -43,12 +43,12 @@
   "dependencies": {
     "@cachemap/types": "workspace:*",
     "@types/lodash-es": "^4.17.12",
-    "core-js": "^3.47.0",
-    "lodash-es": "^4.17.22",
+    "core-js": "^3.48.0",
+    "lodash-es": "^4.17.23",
     "type-fest": "^5.4.1"
   },
   "devDependencies": {
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^7.0.0"
   },
   "keywords": [

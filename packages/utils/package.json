@@ -45,15 +45,15 @@
     "@types/crypto-js": "^4.2.2",
     "@types/lodash-es": "^4.17.12",
     "cacheability": "^4.0.30",
-    "core-js": "^3.47.0",
+    "core-js": "^3.48.0",
     "crypto-js": "^4.2.0",
     "js-base64": "^3.7.8",
-    "lodash-es": "^4.17.22",
+    "lodash-es": "^4.17.23",
     "type-fest": "^5.4.1"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "cts-types": "^0.0.10",
+    "cts-types": "^0.0.11",
     "del-cli": "^7.0.0"
   },
   "keywords": [
