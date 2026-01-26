@@ -630,7 +630,7 @@ export class Core {
 
     if (hasExpired) {
       if (options.deleteExpired) {
-        await this.delete(getKey);
+        await this._delete(getKey);
       }
 
       return;
@@ -668,7 +668,7 @@ export class Core {
 
     if (hasExpired) {
       if (options.deleteExpired) {
-        await this.delete(hasKey);
+        await this._delete(hasKey);
       }
 
       return false;

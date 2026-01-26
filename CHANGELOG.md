@@ -1,5 +1,18 @@
 # Changelog
 
+## 5.3.0 (2026-01-26)
+
+### Chores
+
+* **root:**  recomment out test failing in pipeline (9c43a2ff)
+
+### Bug Fixes
+
+* **root:**
+  * update lock (d37c0441)
+  * vulnerabilities (addcd4bf)
+* **core:**  change has/get return value when entry expired (84711de6)
+
 ## 5.2.14 (2026-01-18)
 
 ### Bug Fixes
