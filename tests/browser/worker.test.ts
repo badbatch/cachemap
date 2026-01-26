@@ -332,7 +332,7 @@ describe('when worker store type is indexedDB', () => {
           });
 
           it("the has method should return the entry's Cacheability instance", () => {
-            expect(exists).not.toBeFalse();
+            expect(exists).toBeFalse();
           });
 
           it('the has method should not remove the entry metadata', () => {
@@ -344,7 +344,7 @@ describe('when worker store type is indexedDB', () => {
           });
 
           it('the has method should not remove the key/value pair', async () => {
-            expect(await cachemap.get(key, { hashKey: true })).toEqual(value);
+            expect(await cachemap.get(key, { hashKey: true })).toBeUndefined();
           });
         });
 

@@ -620,12 +620,22 @@ export class Core {
     return { entries, metadata };
   }
 
-  private async _get<T>(key: string, options: { hashKey?: boolean }): Promise<T | undefined> {
+  private async _get<T>(key: string, options: { deleteExpired?: boolean; hashKey?: boolean }): Promise<T | undefined> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.GET, key, options);
     }
 
     const getKey = options.hashKey ? Md5.hashStr(key) : key;
+    const hasExpired = this._hasCacheEntryExpired(getKey);
+
+    if (hasExpired) {
+      if (options.deleteExpired) {
+        await this.delete(getKey);
+      }
+
+      return;
+    }
+
     const value = await this._store.get(getKey);
 
     if (!value) {
@@ -654,14 +664,19 @@ export class Core {
     }
 
     const hasKey = options.hashKey ? Md5.hashStr(key) : key;
-    const exists = await this._store.has(hasKey);
+    const hasExpired = this._hasCacheEntryExpired(hasKey);
 
-    if (!exists) {
+    if (hasExpired) {
+      if (options.deleteExpired) {
+        await this.delete(hasKey);
+      }
+
       return false;
     }
 
-    if (options.deleteExpired && this._hasCacheEntryExpired(hasKey)) {
-      await this.delete(hasKey);
+    const exists = await this._store.has(hasKey);
+
+    if (!exists) {
       return false;
     }
 

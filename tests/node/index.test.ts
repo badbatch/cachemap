@@ -343,7 +343,7 @@ describe.each`
           });
 
           it("the has method should return the entry's Cacheability instance", () => {
-            expect(exists).toBeInstanceOf(Cacheability);
+            expect(exists).toBe(false);
           });
 
           it('the has method should not remove the entry metadata', () => {
@@ -355,13 +355,11 @@ describe.each`
           });
 
           it('the has method should not remove the key/value pair', async () => {
-            await expect(cachemap.get(key, { hashKey: true })).resolves.toEqual(value);
+            await expect(cachemap.get(key, { hashKey: true })).resolves.toBeUndefined();
           });
         });
 
-        // Failing in pipeline but passes locally, need to investigate
-        // eslint-disable-next-line jest/no-disabled-tests
-        describe.skip('when deleteExpired is passed in as an option', () => {
+        describe('when deleteExpired is passed in as an option', () => {
           let exists: boolean | Cacheability;
 
           beforeEach(async () => {
