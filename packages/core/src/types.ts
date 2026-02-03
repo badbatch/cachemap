@@ -82,6 +82,11 @@ export interface ControllerEvent {
 }
 
 export interface ExportOptions {
+  /**
+   * If a tag is provided, cleanupTag removes the tag from
+   * each cache entries' metadata in which it is found.
+   */
+  cleanupTag?: boolean;
   filterByValue?: FilterByValue | FilterByValue[];
   keys?: string[];
   tag?: Tag;

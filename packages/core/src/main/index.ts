@@ -25,7 +25,6 @@ import {
   type ControllerEvent,
   type ExportOptions,
   type ExportResult,
-  type FilterByValue,
   type ImportOptions,
   type MethodName,
   type Reaper,
@@ -534,6 +533,14 @@ export class Core {
     return chunk;
   }
 
+  private _cleanupTag(tag: string | number): void {
+    for (const entry of this._metadata) {
+      if (entry.tags.includes(tag)) {
+        entry.tags = entry.tags.filter(t => t !== tag);
+      }
+    }
+  }
+
   private async _clear(): Promise<void> {
     if (!this._ready || !this._store) {
       return this._addRequestToQueue(constants.CLEAR);
@@ -585,21 +592,17 @@ export class Core {
     return entries.map(([key, data]) => [key, prepareGetEntry(data, this._valueFormatting, this._encryptionSecret)]);
   }
 
-  private async _export<T>({
-    filterByValue,
-    keys,
-    tag,
-  }: {
-    filterByValue?: FilterByValue | FilterByValue[];
-    keys?: string[];
-    tag?: Tag;
-  }): Promise<ExportResult<T>> {
+  private async _export<T>({ cleanupTag, filterByValue, keys, tag }: ExportOptions): Promise<ExportResult<T>> {
     let exportKeys: string[] | undefined;
-    let metadata = this._metadata;
+    let metadata = [...this._metadata];
 
     if (tag) {
       metadata = this._metadata.filter(meta => meta.tags.includes(tag));
       exportKeys = metadata.map(meta => meta.key);
+
+      if (cleanupTag) {
+        this._cleanupTag(tag);
+      }
     } else if (keys) {
       metadata = this._metadata.filter(meta => keys.includes(meta.key));
       exportKeys = keys;
