@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.1 (2026-02-03)
+
+### New Features
+
+* **core:**  add ability to clean up tag after exporting with it (68cae441)
+
 ## 5.3.0 (2026-01-26)
 
 ### Chores
