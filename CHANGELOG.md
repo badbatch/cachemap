@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.2 (2026-02-05)
+
+### Bug Fixes
+
+* **core:**  remove clearing of backup cache before merging down entries (b5b9032d)
+
 ## 5.3.1 (2026-02-03)
 
 ### New Features
