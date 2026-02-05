@@ -829,7 +829,6 @@ export class Core {
       return;
     }
 
-    await this._backupStore.clear();
     const keys = this._metadata.map(entry => entry.key);
     void this._backupStore.import(await this._store.entries(keys));
   }
