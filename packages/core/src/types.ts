@@ -13,6 +13,10 @@ export interface FilterByValue {
   keyChain: string;
 }
 
+export interface EntriesOptions {
+  sort?: boolean;
+}
+
 export interface ExportOptions {
   /**
    * If a tag is provided, cleanupTag removes the tag from
@@ -21,6 +25,7 @@ export interface ExportOptions {
   cleanupTag?: boolean;
   filterByValue?: FilterByValue | FilterByValue[];
   keys?: string[];
+  sort?: boolean;
   tag?: Tag;
 }
 
@@ -73,13 +78,7 @@ export interface Options {
   /**
    * Callback that will execute if the initialization of the backup store fails.
    */
-  onError?: (error: unknown) => void;
-  /**
-   * Callback that will execute when the cachemap is ready to use. This is mainly
-   * of use to know when the cachemap has finished retrieving data from the
-   * backup store.
-   */
-  onReady?: () => void;
+  onError?: (params: { error: unknown; type: 'backupStore' | 'reaper' }) => void;
   /**
    * The reaper is used to keep the cachemap size below user specified limits
    * by purging the least important entries in the cachemap.
@@ -126,9 +125,14 @@ export interface ReaperCallbacks {
 
 export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 
-export type SetOptions = {
+export interface SetOptions extends WriteOptions {
   cacheOptions?: CacheabilityArgs;
   extensions?: Record<string, unknown>;
   hashKey?: boolean;
+  onWriteError?: (error: unknown) => void;
   tag?: Tag;
-};
+}
+
+export interface WriteOptions extends MethodOptions {
+  onWriteError?: (error: unknown) => void;
+}

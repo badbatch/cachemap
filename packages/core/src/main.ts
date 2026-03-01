@@ -21,6 +21,7 @@ import { type JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from './constants.ts';
 import {
   type ControllerEvent,
+  type EntriesOptions,
   type ExportOptions,
   type ExportResult,
   type ImportOptions,
@@ -29,12 +30,15 @@ import {
   type Reaper,
   type ReaperInit,
   type SetOptions,
+  type WriteOptions,
 } from './types.ts';
 
 export class Core {
   public events = {
     ENTRY_DELETED: 'ENTRY_DELETED',
   };
+
+  public readonly ready: Promise<void>;
 
   private static _sortComparator = (a: Metadata, b: Metadata): number => {
     let index;
@@ -105,13 +109,14 @@ export class Core {
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
   private readonly _name: string;
-  private _pendingWrites = new Map<string, Promise<void>>();
+  private _pendingWrites = new Map<string, Promise<unknown>>();
   private readonly _reaper?: Reaper;
   private readonly _sharedCache: boolean;
   private _store: Store = new MapStore();
   private readonly _type?: string;
   private _usedHeapSize = 0;
   private readonly _valueFormatting: ValueFormat = ValueFormat.String;
+  private _writeVersion = 0;
 
   constructor(options: Options) {
     const errors: ArgsError[] = [];
@@ -145,7 +150,6 @@ export class Core {
       hydrateFromBackupStore,
       name,
       onError,
-      onReady,
       reaper,
       sharedCache = false,
       sortComparator,
@@ -163,7 +167,11 @@ export class Core {
     this._name = name;
 
     if (isFunction(reaper)) {
-      this._reaper = this._initializeReaper(reaper);
+      try {
+        this._reaper = this._initializeReaper(reaper);
+      } catch (error) {
+        onError?.({ error, type: 'reaper' });
+      }
     }
 
     this._sharedCache = sharedCache;
@@ -183,11 +191,11 @@ export class Core {
     this._addControllerEventListeners();
 
     if (!backupStoreInit) {
-      queueMicrotask(() => onReady?.());
+      this.ready = Promise.resolve();
       return;
     }
 
-    void Promise.resolve(backupStoreInit({ name }))
+    this.ready = Promise.resolve(backupStoreInit({ name }))
       .then(async backupStore => {
         this._backupInterval = backupStore.backupInterval;
         this._backupStore = backupStore;
@@ -198,14 +206,13 @@ export class Core {
           await this._retrieveEntriesFromBackupStore();
         }
 
-        onReady?.();
-
         if (startBackup) {
           this.startBackup();
         }
       })
       .catch((error: unknown) => {
-        onError?.(error);
+        onError?.({ error, type: 'backupStore' });
+        throw error;
       });
   }
 
@@ -217,69 +224,57 @@ export class Core {
     this._store.clear();
     this._metadata = [];
     this._usedHeapSize = 0;
-    // We always want to clear the backup store if we
-    // clear the local store.
-    void this._backupStore?.clear();
+    this._pendingWrites.clear();
+    this._writeVersion++;
+    void this.ready.then(() => this._backupStore?.clear());
   }
 
-  public delete(rawKey: string, options: MethodOptions = {}): boolean {
-    const errors: ArgsError[] = [];
-
-    if (!isString(rawKey)) {
-      errors.push(new ArgsError('@cachemap/core expected key to be a string.'));
-    }
-
-    if (!isPlainObject(options)) {
-      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
-    }
-
-    if (errors.length > 0) {
-      throw new GroupedError('@cachemap/core delete argument validation errors.', errors);
-    }
-
+  public delete(rawKey: string, options: WriteOptions = {}): boolean {
+    this._validateMethodArgs(rawKey, options);
     const key = this._resolveKey(rawKey, options);
-    const deleted = this._store.delete(key);
-    // We always want to delete from the backup store if we
-    // delete from the local store.
-    void this._backupStore?.delete(key);
-
-    if (!deleted) {
-      return false;
-    }
-
-    this._deleteMetadata(key);
-    return true;
+    return this._deleteByResolvedKey(key, options);
   }
 
   get emitter(): EventEmitter {
     return this._emitter;
   }
 
-  public entries<T>(keys?: string[]): [string, T][] {
+  public entries<T>(keys?: string[], options: EntriesOptions = {}): [string, T][] {
     this._validateEntryKeys(keys);
-    return this._handleEntries(this._store.entries(this._getEntryKeys(keys)));
+    return this._handleEntries(this._store.entries(this._getEntryKeys(keys)), options);
   }
 
-  public async exists(rawKey: string, options: MethodOptions = {}): Promise<false | Cacheability> {
-    const result = this.has(rawKey, options);
+  public async exists(rawKey: string, options: MethodOptions = {}): Promise<boolean> {
+    this._validateMethodArgs(rawKey, options);
+    const key = this._resolveKey(rawKey, options);
 
-    if (result) {
-      return result;
+    if (this._store.has(key)) {
+      if (!this._hasCacheEntryExpired(key)) {
+        return true;
+      }
+
+      this._deleteLocalByResolvedKey(key);
     }
 
     if (!this._backupStore) {
-      throw new Error('@cachemap/core A backup store was not initialized.');
+      throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    const key = this._resolveKey(rawKey, options);
-    return this._handleHas(key, await this._backupStore.has(key));
+    await this.ready;
+    const pending = this._pendingWrites.get(key);
+
+    if (pending) {
+      await pending;
+    }
+
+    return this._backupStore.has(key);
   }
 
   public async export<T>(options: ExportOptions = {}): Promise<ExportResult<T>> {
     const errors: ArgsError[] = [];
 
     if (!isPlainObject(options)) {
-      errors.push(new ArgsError('@cachemap/core expected options to be an plain object.'));
+      errors.push(new ArgsError('@cachemap/core expected options to be a plain object.'));
     }
 
     if (options.keys && !isArray(options.keys)) {
@@ -290,19 +285,16 @@ export class Core {
       throw new GroupedError('@cachemap/core export argument validation errors.', errors);
     }
 
-    const { cleanupTag, filterByValue, keys, tag } = options;
+    const { cleanupTag, filterByValue, keys, sort, tag } = options;
     let exportKeys: string[] | undefined;
     let metadata = [...this._metadata];
 
     if (tag) {
       metadata = this._metadata.filter(meta => meta.tags.includes(tag));
       exportKeys = metadata.map(meta => meta.key);
-
-      if (cleanupTag) {
-        this._cleanupTag(tag);
-      }
     } else if (keys) {
-      metadata = this._metadata.filter(meta => keys.includes(meta.key));
+      const keySet = new Set(keys);
+      metadata = this._metadata.filter(meta => keySet.has(meta.key));
       exportKeys = keys;
     }
 
@@ -315,27 +307,43 @@ export class Core {
         castFilterByValue.every(({ comparator, keyChain }) => get(data, keyChain) === comparator),
       );
 
-      metadata = metadata.filter(meta => entries.some(([key]) => key === meta.key));
+      const entryKeySet = new Set(entries.map(([key]) => key));
+      metadata = metadata.filter(meta => entryKeySet.has(meta.key));
+    }
+
+    if (sort) {
+      entries.sort(([a], [b]) => a.localeCompare(b));
+      metadata.sort((a, b) => a.key.localeCompare(b.key));
+    }
+
+    if (tag && cleanupTag) {
+      this._cleanupTag(tag);
     }
 
     return {
-      entries: entries.sort(([a], [b]) => a.localeCompare(b)),
-      metadata: metadata.sort((a, b) => a.key.localeCompare(b.key)),
+      entries,
+      metadata,
     };
   }
 
   public async fetch<T>(rawKey: string, options: MethodOptions = {}): Promise<T | undefined> {
-    const result = this.get<T>(rawKey, options);
+    this._validateMethodArgs(rawKey, options);
+    const key = this._resolveKey(rawKey, options);
+    const result = this._store.get(key);
 
-    if (result) {
-      return result;
+    if (result !== undefined) {
+      if (!this._hasCacheEntryExpired(key)) {
+        return this._handleGet<T>(key, result);
+      }
+
+      this._deleteLocalByResolvedKey(key);
     }
 
     if (!this._backupStore) {
-      throw new Error('@cachemap/core A backup store was not initialized.');
+      throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    const key = this._resolveKey(rawKey, options);
+    await this.ready;
     const pending = this._pendingWrites.get(key);
 
     if (pending) {
@@ -345,15 +353,23 @@ export class Core {
     return this._handleGet<T>(key, await this._backupStore.get(key));
   }
 
-  public async fetchEntries<T>(keys?: string[]): Promise<[string, T][]> {
+  public async fetchEntries<T>(keys?: string[], options: EntriesOptions = {}): Promise<[string, T][]> {
     if (!this._backupStore) {
-      throw new Error('@cachemap/core A backup store was not initialized.');
+      throw new Error('@cachemap/core A backup store does not exist.');
     }
 
     this._validateEntryKeys(keys);
     const entries = await this._backupStore.entries(this._getEntryKeys(keys));
     this._store.import(entries);
-    return this._handleEntries(entries);
+    return this._handleEntries(entries, options);
+  }
+
+  public async flush(): Promise<void> {
+    this._store.clear();
+    this._metadata = [];
+    this._usedHeapSize = 0;
+    this._pendingWrites.clear();
+    await this._backupStore?.clear();
   }
 
   public get<T>(rawKey: string, options: MethodOptions = {}): T | undefined {
@@ -372,16 +388,20 @@ export class Core {
     return this._getMetadataEntry(options.hashKey ? Md5.hashStr(rawKey) : rawKey);
   }
 
-  public has(rawKey: string, options: MethodOptions = {}): false | Cacheability {
+  public has(rawKey: string, options: MethodOptions = {}): boolean {
     this._validateMethodArgs(rawKey, options);
-    const key = options.hashKey ? Md5.hashStr(rawKey) : rawKey;
+    const key = this._resolveKey(rawKey, options);
 
-    if (this._hasCacheEntryExpired(key)) {
-      this.delete(key);
+    if (!this._store.has(key)) {
       return false;
     }
 
-    return this._handleHas(key, this._store.has(key));
+    if (this._hasCacheEntryExpired(key)) {
+      this._deleteByResolvedKey(key);
+      return false;
+    }
+
+    return true;
   }
 
   public async import(options: ImportOptions): Promise<void> {
@@ -436,6 +456,21 @@ export class Core {
     return this._reaper;
   }
 
+  public async remove(rawKey: string, options: WriteOptions = {}): Promise<boolean> {
+    this._validateMethodArgs(rawKey, options);
+    const key = this._resolveKey(rawKey, options);
+    this._store.delete(key);
+    const onWrite = (backupStore: BackupStore): Promise<boolean> => backupStore.delete(key);
+    const deleted = await this._enqueueWrite(key, onWrite, options.onWriteError);
+
+    if (!deleted) {
+      return false;
+    }
+
+    this._deleteMetadata(key);
+    return true;
+  }
+
   public set(rawKey: string, value: unknown, options: SetOptions = {}): void {
     if (!this._validateSetArgs(rawKey, value, options)) {
       return;
@@ -452,7 +487,8 @@ export class Core {
     const exists = !!this._getMetadataEntry(key);
     const preparedSetValue = prepareSetEntry(value, this._valueFormatting, this._encryptionSecret);
     this._store.set(key, preparedSetValue);
-    void this._enqueueWrite(key, preparedSetValue);
+    const onWrite = (backupStore: BackupStore): Promise<void> => backupStore.set(key, preparedSetValue);
+    void this._enqueueWrite(key, onWrite, options.onWriteError);
 
     if (exists) {
       this._updateMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);
@@ -488,7 +524,7 @@ export class Core {
 
   public async write(rawKey: string, value: unknown, options: SetOptions = {}): Promise<void> {
     if (!this._backupStore) {
-      throw new Error('@cachemap/core A backup store was not initialized.');
+      throw new Error('@cachemap/core A backup store does not exist.');
     }
 
     if (!this._validateSetArgs(rawKey, value, options)) {
@@ -506,7 +542,8 @@ export class Core {
     const exists = !!this._getMetadataEntry(key);
     const preparedSetValue = prepareSetEntry(value, this._valueFormatting, this._encryptionSecret);
     this._store.set(key, preparedSetValue);
-    await this._enqueueWrite(key, preparedSetValue);
+    const onWrite = (backupStore: BackupStore): Promise<void> => backupStore.set(key, preparedSetValue);
+    await this._enqueueWrite(key, onWrite, options.onWriteError);
 
     if (exists) {
       this._updateMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);
@@ -587,6 +624,26 @@ export class Core {
     }
   }
 
+  private _deleteByResolvedKey(key: string, options?: WriteOptions): boolean {
+    if (!this._store.delete(key)) {
+      return false;
+    }
+
+    const onWrite = (backupStore: BackupStore): Promise<boolean> => backupStore.delete(key);
+    void this._enqueueWrite(key, onWrite, options?.onWriteError);
+    this._deleteMetadata(key);
+    return true;
+  }
+
+  private _deleteLocalByResolvedKey(key: string): boolean {
+    if (!this._store.delete(key)) {
+      return false;
+    }
+
+    this._deleteMetadata(key);
+    return true;
+  }
+
   private _deleteMetadata(key: string): void {
     const index = this._metadata.findIndex(metadata => metadata.key === key);
 
@@ -599,19 +656,32 @@ export class Core {
     this._updateHeapSize();
   }
 
-  private _enqueueWrite(key: string, value: string): Promise<void> {
+  private _enqueueWrite<T>(
+    key: string,
+    onWrite: (backupStore: BackupStore) => Promise<T>,
+    onWriteError?: (error: unknown) => void,
+  ): Promise<T | undefined> {
     if (!this._backupStore) {
-      return Promise.resolve();
+      // Required for type consistency
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      return Promise.resolve(undefined);
     }
 
     const backupStore = this._backupStore;
     const previousPendingWrite = this._pendingWrites.get(key) ?? Promise.resolve();
+    const version = this._writeVersion;
 
-    const nextPendingWrite = previousPendingWrite
-      .catch(() => {
-        // swallow to keep chain alive
-      })
-      .then(() => backupStore.set(key, value));
+    const safePrevious = previousPendingWrite.catch((error: unknown) => {
+      onWriteError?.(error);
+    });
+
+    const nextPendingWrite = safePrevious.then((): Promise<T> | undefined => {
+      if (version !== this._writeVersion) {
+        return;
+      }
+
+      return onWrite(backupStore);
+    });
 
     this._pendingWrites.set(key, nextPendingWrite);
 
@@ -637,10 +707,17 @@ export class Core {
     return this._metadata.find(metadata => metadata.key === key);
   }
 
-  private _handleEntries<T>(entries: [string, string][]): [string, T][] {
-    return entries
-      .map(([key, data]): [string, T] => [key, prepareGetEntry<T>(data, this._valueFormatting, this._encryptionSecret)])
-      .sort(([a], [b]) => a.localeCompare(b));
+  private _handleEntries<T>(entries: [string, string][], options: EntriesOptions): [string, T][] {
+    const result = entries.map(([key, data]): [string, T] => [
+      key,
+      prepareGetEntry<T>(data, this._valueFormatting, this._encryptionSecret),
+    ]);
+
+    if (!options.sort) {
+      return result;
+    }
+
+    return result.sort(([a], [b]) => a.localeCompare(b));
   }
 
   private _handleGet<T>(key: string, value?: string): T | undefined {
@@ -650,14 +727,6 @@ export class Core {
 
     this._updateMetadata(key);
     return prepareGetEntry(value, this._valueFormatting, this._encryptionSecret);
-  }
-
-  private _handleHas(key: string, exists: boolean): false | Cacheability {
-    if (!exists) {
-      return false;
-    }
-
-    return this._getCacheability(key) ?? false;
   }
 
   private _hasCacheEntryExpired(key: string): boolean {
@@ -796,7 +865,7 @@ export class Core {
     }
 
     if (errors.length > 0) {
-      throw new GroupedError('@cachemap/core get argument validation errors.', errors);
+      throw new GroupedError('@cachemap/core argument validation errors.', errors);
     }
   }
 
