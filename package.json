@@ -88,7 +88,7 @@
     "prettier": "^3.8.1",
     "redis": "^3.1.2",
     "redis-mock": "^0.56.3",
-    "rollup": "^4.56.0",
+    "rollup": "^4.59.0",
     "suppress-experimental-warnings": "^2.0.0",
     "swc-loader": "^0.2.7",
     "syncpack": "^13.0.4",
