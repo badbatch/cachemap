@@ -19,7 +19,7 @@ export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, 
       break;
     }
 
-    case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
+    case valueFormatting === ValueFormat.Encrypt && !!encryptionSecret: {
       getEntry = decrypt(value, encryptionSecret);
       break;
     }
@@ -54,7 +54,7 @@ export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, 
       break;
     }
 
-    case valueFormatting === ValueFormat.Ecrypt && !!encryptionSecret: {
+    case valueFormatting === ValueFormat.Encrypt && !!encryptionSecret: {
       setEntry = encrypt(value, encryptionSecret);
       break;
     }

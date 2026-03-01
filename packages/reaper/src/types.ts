@@ -12,7 +12,7 @@ export interface ConstructorOptions {
   start?: boolean;
 }
 
-export type DeleteCallback = (key: string, tags?: Tag[]) => Promise<void>;
+export type DeleteCallback = (key: string, tags?: Tag[]) => void;
 
 export type Init = (callbacks: Callbacks) => Reaper;
 
@@ -24,7 +24,7 @@ export interface Options {
 }
 
 interface Reaper {
-  cull(metadata: Metadata[]): Promise<void>;
+  cull(metadata: Metadata[]): void;
   start(): void;
   stop(): void;
 }

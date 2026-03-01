@@ -1,5 +1,5 @@
 export enum ValueFormat {
   Base64 = 'base64',
-  Ecrypt = 'encrypt',
+  Encrypt = 'encrypt',
   String = 'string',
 }

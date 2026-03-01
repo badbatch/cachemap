@@ -27,8 +27,8 @@ export class Reaper {
     }
   }
 
-  public async cull(metadata: Metadata[]): Promise<void> {
-    await this._cull(metadata);
+  public cull(metadata: Metadata[]): void {
+    this._cull(metadata);
   }
 
   public start(): void {
@@ -39,13 +39,15 @@ export class Reaper {
     this._stop();
   }
 
-  private async _cull(metadata: Metadata[]): Promise<void> {
+  private _cull(metadata: Metadata[]): void {
     if (metadata.length === 0) {
       return;
     }
 
     try {
-      await Promise.all(metadata.map(({ key, tags }) => this._deleteCallback(key, tags)));
+      metadata.map(({ key, tags }) => {
+        this._deleteCallback(key, tags);
+      });
     } catch {
       // no catch
     }
@@ -58,7 +60,7 @@ export class Reaper {
 
   private _start(): void {
     this._intervalID = setInterval(() => {
-      void this._cull(this._getExpiredMetadata());
+      this._cull(this._getExpiredMetadata());
     }, this._interval);
   }
 

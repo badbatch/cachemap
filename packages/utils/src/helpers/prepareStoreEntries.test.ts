@@ -22,19 +22,19 @@ describe('prepareGetEntry', () => {
     });
   });
 
-  describe('when valueFormattingx is ValueFormat.Ecrypt and encryptionSecret is provided', () => {
+  describe('when valueFormattingx is ValueFormat.Encrypt and encryptionSecret is provided', () => {
     it('should decrypt and JSON.parse the value', () => {
       expect(
         prepareGetEntry(
           CryptoJS.AES.encrypt(JSON.stringify(payload), 'secret').toString(),
-          ValueFormat.Ecrypt,
+          ValueFormat.Encrypt,
           'secret',
         ),
       ).toEqual(payload);
     });
   });
 
-  describe('when valueFormattingx is ValueFormat.Ecrypt and encryptionSecret is not provided', () => {
+  describe('when valueFormattingx is ValueFormat.Encrypt and encryptionSecret is not provided', () => {
     let realConsoleWwarn: (typeof console)['warn'];
 
     beforeEach(() => {
@@ -47,11 +47,11 @@ describe('prepareGetEntry', () => {
     });
 
     it('should JSON.parse the value', () => {
-      expect(prepareGetEntry(JSON.stringify(payload), ValueFormat.Ecrypt)).toEqual(payload);
+      expect(prepareGetEntry(JSON.stringify(payload), ValueFormat.Encrypt)).toEqual(payload);
     });
 
     it('should log the expected warning', () => {
-      prepareGetEntry(JSON.stringify(payload), ValueFormat.Ecrypt);
+      prepareGetEntry(JSON.stringify(payload), ValueFormat.Encrypt);
 
       expect(console.warn).toHaveBeenCalledWith(
         '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to JSON.parse.',
@@ -77,13 +77,13 @@ describe('prepareSetEntry', () => {
     });
   });
 
-  describe('when valueFormattingx is ValueFormat.Ecrypt and encryptionSecret is provided', () => {
+  describe('when valueFormattingx is ValueFormat.Encrypt and encryptionSecret is provided', () => {
     it('should JSON.stringify and encrypt the value', () => {
-      expect(typeof prepareSetEntry(payload, ValueFormat.Ecrypt, 'secret')).toBe('string');
+      expect(typeof prepareSetEntry(payload, ValueFormat.Encrypt, 'secret')).toBe('string');
     });
   });
 
-  describe('when valueFormattingx is ValueFormat.Ecrypt and encryptionSecret is not provided', () => {
+  describe('when valueFormattingx is ValueFormat.Encrypt and encryptionSecret is not provided', () => {
     let realConsoleWwarn: (typeof console)['warn'];
 
     beforeEach(() => {
@@ -96,13 +96,13 @@ describe('prepareSetEntry', () => {
     });
 
     it('should JSON.stringify the value', () => {
-      expect(prepareSetEntry(payload, ValueFormat.Ecrypt)).toMatchInlineSnapshot(
+      expect(prepareSetEntry(payload, ValueFormat.Encrypt)).toMatchInlineSnapshot(
         `"{"alpha":"bravo","charlie":["delta"]}"`,
       );
     });
 
     it('should log the expected warning', () => {
-      prepareSetEntry(payload, ValueFormat.Ecrypt);
+      prepareSetEntry(payload, ValueFormat.Encrypt);
 
       expect(console.warn).toHaveBeenCalledWith(
         '> cachemap :: valueFormatting set to "encrypt", but no encryption secret provided, falling back to stringify.',

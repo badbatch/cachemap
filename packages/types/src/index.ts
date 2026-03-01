@@ -71,7 +71,8 @@ export type Metadata = BaseMetadata & {
   cacheability: Cacheability;
 };
 
-export interface Store {
+export interface BackupStore {
+  backupInterval: number;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
   entries(keys: string[]): Promise<[string, string][]>;
@@ -81,14 +82,28 @@ export interface Store {
   readonly maxHeapSize: number;
   readonly name: string;
   set(key: string, value: string): Promise<void>;
-  size(): Promise<number>;
   readonly type: string;
 }
 
-export interface StoreOptions {
-  name: string;
+export type BackupStoreInit = (options: BackupStoreOptions) => Promise<BackupStore>;
+
+export interface Store {
+  clear(): void;
+  delete(key: string): boolean;
+  entries(keys: string[]): [string, string][];
+  get(key: string): string | undefined;
+  has(key: string): boolean;
+  import(entries: [string, string][]): void;
+  set(key: string, value: string): void;
 }
 
-export type StoreInit = (options: StoreOptions) => Promise<Store>;
+export interface BackupStoreOptions {
+  /**
+   * The time in milliseconds between backups from a map store
+   * to the provided persisted store.
+   */
+  backupInterval?: number;
+  name: string;
+}
 
 export type Tag = string | number;
