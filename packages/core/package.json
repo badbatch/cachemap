@@ -43,6 +43,7 @@
   "dependencies": {
     "@cachemap/controller": "workspace:*",
     "@cachemap/map": "workspace:*",
+    "@cachemap/reaper": "workspace:*",
     "@cachemap/types": "workspace:*",
     "@cachemap/utils": "workspace:*",
     "@types/lodash-es": "^4.17.12",

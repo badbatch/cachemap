@@ -235,6 +235,9 @@ importers:
       '@cachemap/map':
         specifier: workspace:*
         version: link:../map
+      '@cachemap/reaper':
+        specifier: workspace:*
+        version: link:../reaper
       '@cachemap/types':
         specifier: workspace:*
         version: link:../types

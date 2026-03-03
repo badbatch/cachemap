@@ -1,5 +1,6 @@
 import { instance } from '@cachemap/controller';
 import { MapStore } from '@cachemap/map';
+import { type ReaperDef, type ReaperInit } from '@cachemap/reaper';
 import { type BackupStore, type Metadata, type Store, type Tag } from '@cachemap/types';
 import {
   ArgsError,
@@ -27,8 +28,6 @@ import {
   type ImportOptions,
   type MethodOptions,
   type Options,
-  type Reaper,
-  type ReaperInit,
   type SetOptions,
   type WriteOptions,
 } from './types.ts';
@@ -106,7 +105,7 @@ export class Core {
   private readonly _name: string;
   private _onBackupError?: (error: unknown) => void;
   private _pendingWrites = new Map<string, Promise<unknown>>();
-  private readonly _reaper?: Reaper;
+  private readonly _reaper?: ReaperDef;
   private readonly _sharedCache: boolean;
   private _store: Store = new MapStore();
   private readonly _type?: string;
@@ -475,7 +474,7 @@ export class Core {
     return this._name;
   }
 
-  get reaper(): Reaper | undefined {
+  get reaper(): ReaperDef | undefined {
     return this._reaper;
   }
 
@@ -782,12 +781,12 @@ export class Core {
     return cacheability ? !cacheability.checkTTL() : false;
   }
 
-  private _initializeReaper(reaperInit: ReaperInit): Reaper {
+  private _initializeReaper(reaperInit: ReaperInit): ReaperDef {
     return reaperInit({
-      deleteCallback: (key: string, tags?: Tag[]) => {
-        this.emitter.emit(this.events.ENTRY_DELETED, { deleted: this.delete(key), key, tags });
-      },
       metadataCallback: () => this._metadata,
+      removeEntryCallback: async (key: string, tags?: Tag[]) => {
+        this.emitter.emit(this.events.ENTRY_DELETED, { deleted: await this.remove(key), key, tags });
+      },
     });
   }
 

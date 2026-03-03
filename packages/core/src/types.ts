@@ -1,3 +1,4 @@
+import { type ReaperInit } from '@cachemap/reaper';
 import { type BackupStoreInit, type Metadata, type Tag } from '@cachemap/types';
 import { type ValueFormat } from '@cachemap/utils';
 import { type CacheabilityArgs } from 'cacheability';
@@ -115,19 +116,6 @@ export interface Options {
    */
   valueFormatting?: ValueFormat;
 }
-
-export interface Reaper {
-  cull(metadata: Metadata[]): Promise<void>;
-  start(): void;
-  stop(): void;
-}
-
-export interface ReaperCallbacks {
-  deleteCallback: (key: string, tags?: Tag[]) => void;
-  metadataCallback: () => Metadata[];
-}
-
-export type ReaperInit = (callbacks: ReaperCallbacks) => Reaper;
 
 export interface SetOptions extends WriteOptions {
   cacheOptions?: CacheabilityArgs;
