@@ -100,6 +100,7 @@ export class Core {
     }
   };
 
+  private _backupInProgress = false;
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
   private _backupIntervalID?: ReturnType<typeof setTimeout>;
   private _backupStore?: BackupStore;
@@ -109,6 +110,7 @@ export class Core {
   private _maxHeapSize: number = DEFAULT_MAX_HEAP_SIZE;
   private _metadata: Metadata[] = [];
   private readonly _name: string;
+  private _onBackupError?: (error: unknown) => void;
   private _pendingWrites = new Map<string, Promise<unknown>>();
   private readonly _reaper?: Reaper;
   private readonly _sharedCache: boolean;
@@ -149,6 +151,7 @@ export class Core {
       encryptionSecret,
       hydrateFromBackupStore,
       name,
+      onBackupError,
       onError,
       reaper,
       sharedCache = false,
@@ -165,6 +168,10 @@ export class Core {
     }
 
     this._name = name;
+
+    if (isFunction(onBackupError)) {
+      this._onBackupError = onBackupError;
+    }
 
     if (isFunction(reaper)) {
       try {
@@ -239,9 +246,11 @@ export class Core {
     return this._emitter;
   }
 
-  public entries<T>(keys?: string[], options: EntriesOptions = {}): [string, T][] {
-    this._validateEntryKeys(keys);
-    return this._handleEntries(this._store.entries(this._getEntryKeys(keys)), options);
+  public entries<T>(rawKeys?: string[], options: EntriesOptions = {}): [string, T][] {
+    this._validateEntryKeys(rawKeys);
+    const keys = this._getEntryKeys(rawKeys);
+    const { entries } = this._filterValidEntries(keys);
+    return this._handleEntries<T>(entries, options);
   }
 
   public async exists(rawKey: string, options: MethodOptions = {}): Promise<boolean> {
@@ -353,23 +362,42 @@ export class Core {
     return this._handleGet<T>(key, await this._backupStore.get(key));
   }
 
-  public async fetchEntries<T>(keys?: string[], options: EntriesOptions = {}): Promise<[string, T][]> {
+  public async fetchEntries<T>(rawKeys?: string[], options: EntriesOptions = {}): Promise<[string, T][]> {
+    this._validateEntryKeys(rawKeys);
+    const keys = this._getEntryKeys(rawKeys);
+    const { entries: localEntries, missingKeys } = this._filterValidEntries(keys);
+
+    if (missingKeys.length === 0) {
+      return this._handleEntries<T>(localEntries, options);
+    }
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    this._validateEntryKeys(keys);
-    const entries = await this._backupStore.entries(this._getEntryKeys(keys));
+    await this.ready;
+    await Promise.all(missingKeys.map(key => this._pendingWrites.get(key) ?? Promise.resolve()));
+    const { entries: refreshedLocalEntries, missingKeys: refreshedMissingKeys } = this._filterValidEntries(missingKeys);
+    const entries = await this._backupStore.entries(refreshedMissingKeys);
+    const map = new Map([...localEntries, ...refreshedLocalEntries, ...entries]);
+    const combinedEntries = [...map.entries()];
     this._store.import(entries);
-    return this._handleEntries(entries, options);
+    return this._handleEntries<T>(combinedEntries, options);
   }
 
   public async flush(): Promise<void> {
+    if (!this._backupStore) {
+      throw new Error('@cachemap/core A backup store does not exist.');
+    }
+
+    await this.ready;
+    this._writeVersion++;
+    await Promise.all(this._pendingWrites.values());
+    await this._backupStore.clear();
     this._store.clear();
     this._metadata = [];
     this._usedHeapSize = 0;
     this._pendingWrites.clear();
-    await this._backupStore?.clear();
   }
 
   public get<T>(rawKey: string, options: MethodOptions = {}): T | undefined {
@@ -385,7 +413,7 @@ export class Core {
   }
 
   public getMetadataEntry(rawKey: string, options: MethodOptions = {}): Metadata | undefined {
-    return this._getMetadataEntry(options.hashKey ? Md5.hashStr(rawKey) : rawKey);
+    return this._getMetadataEntry(this._resolveKey(rawKey, options));
   }
 
   public has(rawKey: string, options: MethodOptions = {}): boolean {
@@ -431,17 +459,18 @@ export class Core {
       });
     }
 
-    const entries = options.entries.map(
-      // TypeScript is not seeing this as a string tuple.
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      ([key, data]) => [key, prepareSetEntry(data, this._valueFormatting, this._encryptionSecret)] as [string, string],
-    );
+    const entries: [string, string][] = options.entries.map(([key, data]) => [
+      key,
+      prepareSetEntry(data, this._valueFormatting, this._encryptionSecret),
+    ]);
 
+    await this.ready;
+    await Promise.all(this._pendingWrites.values());
     this._store.import(entries);
-    await this._backupStore?.import(entries);
     this._metadata = rehydrateMetadata([...filtered, ...options.metadata]);
     this._sortMetadata();
     this._updateHeapSize();
+    await this._backupStore?.import(entries);
   }
 
   get metadata(): Metadata[] {
@@ -459,7 +488,6 @@ export class Core {
   public async remove(rawKey: string, options: WriteOptions = {}): Promise<boolean> {
     this._validateMethodArgs(rawKey, options);
     const key = this._resolveKey(rawKey, options);
-    this._store.delete(key);
     const onWrite = (backupStore: BackupStore): Promise<boolean> => backupStore.delete(key);
     const deleted = await this._enqueueWrite(key, onWrite, options.onWriteError);
 
@@ -467,11 +495,14 @@ export class Core {
       return false;
     }
 
+    this._store.delete(key);
     this._deleteMetadata(key);
     return true;
   }
 
   public set(rawKey: string, value: unknown, options: SetOptions = {}): void {
+    // validateSetArgs throws, but includes type guard on value param
+    // to aid typing, hence the early return.
     if (!this._validateSetArgs(rawKey, value, options)) {
       return;
     }
@@ -483,17 +514,17 @@ export class Core {
       return;
     }
 
-    const key = options.hashKey ? Md5.hashStr(rawKey) : rawKey;
-    const exists = !!this._getMetadataEntry(key);
+    const key = this._resolveKey(rawKey, options);
     const preparedSetValue = prepareSetEntry(value, this._valueFormatting, this._encryptionSecret);
     this._store.set(key, preparedSetValue);
     const onWrite = (backupStore: BackupStore): Promise<void> => backupStore.set(key, preparedSetValue);
     void this._enqueueWrite(key, onWrite, options.onWriteError);
+    const size = sizeOf(preparedSetValue);
 
-    if (exists) {
-      this._updateMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);
+    if (this._getMetadataEntry(key)) {
+      this._updateMetadata(key, size, cacheability, options.tag, options.extensions);
     } else {
-      this._addMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);
+      this._addMetadata(key, size, cacheability, options.tag, options.extensions);
     }
   }
 
@@ -503,14 +534,14 @@ export class Core {
 
   public startBackup(): void {
     this._backupIntervalID = setInterval(() => {
-      this._backupMetadata();
-      this._storeEntriesToBackupStore();
+      void this._runBackup();
     }, this._backupInterval);
   }
 
   public stopBackup(): void {
     if (this._backupIntervalID) {
       clearInterval(this._backupIntervalID);
+      this._backupIntervalID = undefined;
     }
   }
 
@@ -584,16 +615,16 @@ export class Core {
     this._updateHeapSize();
   }
 
-  private _backupMetadata(): void {
+  private async _backupMetadata(metadata: Metadata[]): Promise<void> {
     if (!this._backupStore) {
       return;
     }
 
-    void this._backupStore.set(
+    await this._backupStore.set(
       constants.METADATA,
       // metadata is serializable as JSON.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      prepareSetEntry(dehydrateMetadata(this._metadata) as JsonValue, this._valueFormatting, this._encryptionSecret),
+      prepareSetEntry(dehydrateMetadata(metadata) as JsonValue, this._valueFormatting, this._encryptionSecret),
     );
   }
 
@@ -694,6 +725,25 @@ export class Core {
     return nextPendingWrite;
   }
 
+  private _filterValidEntries(keys: string[]): { entries: [string, string][]; missingKeys: string[] } {
+    const entries = this._store.entries(keys).filter(([key]) => {
+      if (this._hasCacheEntryExpired(key)) {
+        this._deleteLocalByResolvedKey(key);
+        return false;
+      }
+
+      return true;
+    });
+
+    const keySet = new Set(entries.map(([key]) => key));
+    const missingKeys = keys.filter(k => !keySet.has(k));
+
+    return {
+      entries,
+      missingKeys,
+    };
+  }
+
   private _getCacheability(key: string): Cacheability | undefined {
     const metadata = this._getMetadataEntry(key);
     return metadata ? metadata.cacheability : undefined;
@@ -721,7 +771,7 @@ export class Core {
   }
 
   private _handleGet<T>(key: string, value?: string): T | undefined {
-    if (!value) {
+    if (value === undefined) {
       return;
     }
 
@@ -788,17 +838,38 @@ export class Core {
     }
   }
 
+  private async _runBackup(): Promise<void> {
+    if (!this._backupStore || this._backupInProgress) {
+      return;
+    }
+
+    this._backupInProgress = true;
+
+    try {
+      const snapshot = [...this._metadata];
+      await this._storeEntriesToBackupStore(snapshot);
+      await this._backupMetadata(snapshot);
+    } finally {
+      this._backupInProgress = false;
+    }
+  }
+
   private _sortMetadata(): void {
     this._metadata.sort(Core._sortComparator);
   }
 
-  private _storeEntriesToBackupStore(): void {
+  private async _storeEntriesToBackupStore(metadata: Metadata[]): Promise<void> {
     if (!this._backupStore) {
       return;
     }
 
-    const keys = this._metadata.map(entry => entry.key);
-    void this._backupStore.import(this._store.entries(keys));
+    const keys = metadata.map(entry => entry.key);
+
+    try {
+      await this._backupStore.import(this._store.entries(keys));
+    } catch (error) {
+      this._onBackupError?.(error);
+    }
   }
 
   private _updateHeapSize(): void {

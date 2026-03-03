@@ -76,6 +76,10 @@ export interface Options {
    */
   name: string;
   /**
+   * Callback that will execute if the backup store import fails.
+   */
+  onBackupError?: (error: unknown) => void;
+  /**
    * Callback that will execute if the initialization of the backup store fails.
    */
   onError?: (params: { error: unknown; type: 'backupStore' | 'reaper' }) => void;
