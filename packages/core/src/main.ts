@@ -41,33 +41,27 @@ export class Core {
   public readonly ready: Promise<void>;
 
   private static _sortComparator = (a: Metadata, b: Metadata): number => {
-    let index;
-
-    if (a.accessedCount > b.accessedCount) {
-      index = -1;
-    } else if (a.accessedCount < b.accessedCount) {
-      index = 1;
-    } else if (a.lastAccessed > b.lastAccessed) {
-      index = -1;
-    } else if (a.lastAccessed < b.lastAccessed) {
-      index = 1;
-    } else if (a.lastUpdated > b.lastUpdated) {
-      index = -1;
-    } else if (a.lastUpdated < b.lastUpdated) {
-      index = 1;
-    } else if (a.added > b.added) {
-      index = -1;
-    } else if (a.added < b.added) {
-      index = 1;
-    } else if (a.size < b.size) {
-      index = -1;
-    } else if (a.size > b.size) {
-      index = 1;
-    } else {
-      index = 0;
+    if (a.lastAccessed !== b.lastAccessed) {
+      return b.lastAccessed - a.lastAccessed;
     }
 
-    return index;
+    if (a.accessedCount !== b.accessedCount) {
+      return b.accessedCount - a.accessedCount;
+    }
+
+    if (a.lastUpdated !== b.lastUpdated) {
+      return b.lastUpdated - a.lastUpdated;
+    }
+
+    if (a.added !== b.added) {
+      return b.added - a.added;
+    }
+
+    if (a.size !== b.size) {
+      return a.size - b.size;
+    }
+
+    return 0;
   };
 
   private _handleClearEvent = (event: ControllerEvent): void => {
@@ -644,7 +638,7 @@ export class Core {
       }
     }
 
-    return chunk;
+    return chunk ?? this._metadata.length - 1;
   }
 
   private _cleanupTag(tag: string | number): void {
@@ -804,7 +798,7 @@ export class Core {
   private _reduceHeapSize(): void {
     const index = this._calcReductionChunk();
 
-    if (!index || !this._reaper) {
+    if (index === undefined || !this._reaper) {
       return;
     }
 
@@ -893,13 +887,13 @@ export class Core {
       return;
     }
 
-    if (size) {
+    if (size === undefined) {
+      entry.accessedCount += 1;
+      entry.lastAccessed = Date.now();
+    } else {
       entry.size = size;
       entry.lastUpdated = Date.now();
       entry.updatedCount += 1;
-    } else {
-      entry.accessedCount += 1;
-      entry.lastAccessed = Date.now();
     }
 
     if (cacheability) {
