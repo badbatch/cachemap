@@ -12,6 +12,7 @@ export interface BackupStore {
   readonly maxHeapSize: number;
   readonly name: string;
   set(key: string, value: string): Promise<void>;
+  size(): Promise<number>;
   readonly type: string;
 }
 
