@@ -1,4 +1,41 @@
-import { type Cacheability, type Metadata as CacheabilityMetadata } from 'cacheability';
+import { type Cacheability, type CacheabilityArgs, type Metadata as CacheabilityMetadata } from 'cacheability';
+import { type JsonValue } from 'type-fest';
+
+export interface BackupStore {
+  backupInterval: number;
+  clear(): Promise<void>;
+  delete(key: string): Promise<boolean>;
+  entries(keys: string[]): Promise<[string, string][]>;
+  get(key: string): Promise<string | undefined>;
+  has(key: string): Promise<boolean>;
+  import(entries: [string, string][]): Promise<void>;
+  readonly maxHeapSize: number;
+  readonly name: string;
+  set(key: string, value: string): Promise<void>;
+  readonly type: string;
+}
+
+export type BackupStoreInit = (options: BackupStoreOptions) => Promise<BackupStore>;
+
+export interface Store {
+  clear(): void;
+  delete(key: string): boolean;
+  entries(keys: string[]): [string, string][];
+  get(key: string): string | undefined;
+  has(key: string): boolean;
+  import(entries: [string, string][]): void;
+  set(key: string, value: string): void;
+  size: number;
+}
+
+export interface BackupStoreOptions {
+  /**
+   * The time in milliseconds between backups from a map store
+   * to the provided persisted store.
+   */
+  backupInterval?: number;
+  name: string;
+}
 
 export type BaseMetadata = {
   [index: string]: unknown;
@@ -62,6 +99,41 @@ export type DehydratedMetadata = BaseMetadata & {
   cacheability: { metadata: CacheabilityMetadata };
 };
 
+export interface EntriesOptions {
+  sort?: boolean;
+}
+
+export interface ExportOptions {
+  /**
+   * If a tag is provided, cleanupTag removes the tag from
+   * each cache entries' metadata in which it is found.
+   */
+  cleanupTag?: boolean;
+  filterByValue?: FilterByValue | FilterByValue[];
+  keys?: string[];
+  sort?: boolean;
+  tag?: Tag;
+}
+
+export type ExportResult<T> = {
+  entries: [string, T][];
+  metadata: Metadata[];
+};
+
+export interface FilterByValue {
+  comparator: unknown;
+  keyChain: string;
+}
+
+export interface ImportOptions {
+  entries: [string, JsonValue][];
+  metadata: Metadata[];
+}
+
+export interface MethodOptions {
+  hashKey?: boolean;
+}
+
 export type Metadata = BaseMetadata & {
   /**
    * The cache information of the corresponding
@@ -71,39 +143,16 @@ export type Metadata = BaseMetadata & {
   cacheability: Cacheability;
 };
 
-export interface BackupStore {
-  backupInterval: number;
-  clear(): Promise<void>;
-  delete(key: string): Promise<boolean>;
-  entries(keys: string[]): Promise<[string, string][]>;
-  get(key: string): Promise<string | undefined>;
-  has(key: string): Promise<boolean>;
-  import(entries: [string, string][]): Promise<void>;
-  readonly maxHeapSize: number;
-  readonly name: string;
-  set(key: string, value: string): Promise<void>;
-  readonly type: string;
-}
-
-export type BackupStoreInit = (options: BackupStoreOptions) => Promise<BackupStore>;
-
-export interface Store {
-  clear(): void;
-  delete(key: string): boolean;
-  entries(keys: string[]): [string, string][];
-  get(key: string): string | undefined;
-  has(key: string): boolean;
-  import(entries: [string, string][]): void;
-  set(key: string, value: string): void;
-}
-
-export interface BackupStoreOptions {
-  /**
-   * The time in milliseconds between backups from a map store
-   * to the provided persisted store.
-   */
-  backupInterval?: number;
-  name: string;
+export interface SetOptions extends WriteOptions {
+  cacheOptions?: CacheabilityArgs;
+  extensions?: Record<string, unknown>;
+  hashKey?: boolean;
+  onWriteError?: (error: unknown) => void;
+  tag?: Tag;
 }
 
 export type Tag = string | number;
+
+export interface WriteOptions extends MethodOptions {
+  onWriteError?: (error: unknown) => void;
+}

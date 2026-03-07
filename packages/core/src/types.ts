@@ -1,50 +1,7 @@
+import { type Controller } from '@cachemap/controller';
 import { type ReaperInit } from '@cachemap/reaper';
-import { type BackupStoreInit, type Metadata, type Tag } from '@cachemap/types';
+import { type BackupStoreInit, type Metadata } from '@cachemap/types';
 import { type ValueFormat } from '@cachemap/utils';
-import { type CacheabilityArgs } from 'cacheability';
-import { type JsonValue } from 'type-fest';
-
-export interface ControllerEvent {
-  name?: string;
-  type?: string;
-}
-
-export interface FilterByValue {
-  comparator: unknown;
-  keyChain: string;
-}
-
-export interface EntriesOptions {
-  sort?: boolean;
-}
-
-export interface ExportOptions {
-  /**
-   * If a tag is provided, cleanupTag removes the tag from
-   * each cache entries' metadata in which it is found.
-   */
-  cleanupTag?: boolean;
-  filterByValue?: FilterByValue | FilterByValue[];
-  keys?: string[];
-  sort?: boolean;
-  tag?: Tag;
-}
-
-export type ExportResult<T> = {
-  entries: [string, T][];
-  metadata: Metadata[];
-};
-
-export interface ImportOptions {
-  entries: [string, JsonValue][];
-  metadata: Metadata[];
-}
-
-export type MethodName = 'clear' | 'delete' | 'entries' | 'export' | 'get' | 'has' | 'import' | 'set' | 'size';
-
-export interface MethodOptions {
-  hashKey?: boolean;
-}
 
 export interface Options {
   /**
@@ -55,6 +12,11 @@ export interface Options {
    * restarts. If true, the store should be a persisted store.
    */
   backupStore?: BackupStoreInit;
+  /**
+   * Instance of the Controller, a thin command bus for controlling multiple
+   * instances of a cachemap.
+   */
+  controller?: Controller;
   /**
    * Whether to disable the checking of a cache entry's TTL before
    * returning the entry. This also disabling the purging of stale
@@ -81,7 +43,8 @@ export interface Options {
    */
   onBackupError?: (error: unknown) => void;
   /**
-   * Callback that will execute if the initialization of the backup store fails.
+   * Callback that will execute if the initialization of the backup store
+   * or the Reaper fails.
    */
   onError?: (params: { error: unknown; type: 'backupStore' | 'reaper' }) => void;
   /**
@@ -115,16 +78,4 @@ export interface Options {
    * Default is ValueFormat.String
    */
   valueFormatting?: ValueFormat;
-}
-
-export interface SetOptions extends WriteOptions {
-  cacheOptions?: CacheabilityArgs;
-  extensions?: Record<string, unknown>;
-  hashKey?: boolean;
-  onWriteError?: (error: unknown) => void;
-  tag?: Tag;
-}
-
-export interface WriteOptions extends MethodOptions {
-  onWriteError?: (error: unknown) => void;
 }

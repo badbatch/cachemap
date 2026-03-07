@@ -12,16 +12,15 @@ export class MapStore implements Store {
   }
 
   public entries(keys?: string[]): [string, string][] {
-    const entries = this._map.entries();
-
     if (!keys) {
-      return [...entries];
+      return [...this._map];
     }
 
     const filtered: [string, string][] = [];
+    const keySet = new Set(keys);
 
-    for (const [key, value] of entries) {
-      if (keys.includes(key)) {
+    for (const [key, value] of this._map) {
+      if (keySet.has(key)) {
         filtered.push([key, value]);
       }
     }
@@ -34,18 +33,20 @@ export class MapStore implements Store {
   }
 
   public has(key: string): boolean {
-    return this._map.get(key) !== undefined;
+    return this._map.has(key);
   }
 
   public import(entries: [string, string][]): void {
-    this._map = new Map([...this._map, ...entries]);
+    for (const [key, value] of entries) {
+      this._map.set(key, value);
+    }
   }
 
   public set(key: string, value: string): void {
     this._map.set(key, value);
   }
 
-  public size(): number {
+  get size(): number {
     return this._map.size;
   }
 }

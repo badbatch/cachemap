@@ -1,7 +1,19 @@
-import { instance } from '@cachemap/controller';
+import { type Controller, type EventData } from '@cachemap/controller';
 import { MapStore } from '@cachemap/map';
 import { type ReaperDef, type ReaperInit } from '@cachemap/reaper';
-import { type BackupStore, type Metadata, type Store, type Tag } from '@cachemap/types';
+import {
+  type BackupStore,
+  type EntriesOptions,
+  type ExportOptions,
+  type ExportResult,
+  type ImportOptions,
+  type Metadata,
+  type MethodOptions,
+  type SetOptions,
+  type Store,
+  type Tag,
+  type WriteOptions,
+} from '@cachemap/types';
 import {
   ArgsError,
   GroupedError,
@@ -20,23 +32,9 @@ import { castArray, get, isArray, isFunction, isPlainObject, isString, isUndefin
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from './constants.ts';
-import {
-  type ControllerEvent,
-  type EntriesOptions,
-  type ExportOptions,
-  type ExportResult,
-  type ImportOptions,
-  type MethodOptions,
-  type Options,
-  type SetOptions,
-  type WriteOptions,
-} from './types.ts';
+import { type Options } from './types.ts';
 
 export class Core {
-  public events = {
-    ENTRY_DELETED: 'ENTRY_DELETED',
-  };
-
   public readonly ready: Promise<void>;
 
   private static _sortComparator = (a: Metadata, b: Metadata): number => {
@@ -63,31 +61,31 @@ export class Core {
     return 0;
   };
 
-  private _handleClearEvent = (event: ControllerEvent): void => {
+  private _handleClearEvent = (event: EventData): void => {
     if (this._isControllerEventValid(event)) {
       this.clear();
     }
   };
 
-  private _handleStartReaperEvent = (event: ControllerEvent): void => {
+  private _handleStartReaperEvent = (event: EventData): void => {
     if (this._isControllerEventValid(event)) {
       this._reaper?.start();
     }
   };
 
-  private _handleStopReaperEvent = (event: ControllerEvent): void => {
+  private _handleStopReaperEvent = (event: EventData): void => {
     if (this._isControllerEventValid(event)) {
       this._reaper?.stop();
     }
   };
 
-  private _handleStartBackupEvent = (event: ControllerEvent): void => {
+  private _handleStartBackupEvent = (event: EventData): void => {
     if (this._isControllerEventValid(event)) {
       this.startBackup();
     }
   };
 
-  private _handleStopBackupEvent = (event: ControllerEvent): void => {
+  private _handleStopBackupEvent = (event: EventData): void => {
     if (this._isControllerEventValid(event)) {
       this.stopBackup();
     }
@@ -97,6 +95,7 @@ export class Core {
   private _backupInterval: number = DEFAULT_BACKUP_INTERVAL;
   private _backupIntervalID?: ReturnType<typeof setTimeout>;
   private _backupStore?: BackupStore;
+  private _controller?: Controller;
   private readonly _disableCacheInvalidation: boolean;
   private _emitter: EventEmitter = new EventEmitter();
   private readonly _encryptionSecret: string | undefined;
@@ -140,6 +139,7 @@ export class Core {
 
     const {
       backupStore: backupStoreInit,
+      controller,
       disableCacheInvalidation = false,
       encryptionSecret,
       hydrateFromBackupStore,
@@ -154,6 +154,7 @@ export class Core {
       valueFormatting,
     } = options;
 
+    this._controller = controller;
     this._disableCacheInvalidation = disableCacheInvalidation;
 
     if (isString(encryptionSecret)) {
@@ -577,11 +578,15 @@ export class Core {
   }
 
   private _addControllerEventListeners(): void {
-    instance.on(constants.CLEAR, this._handleClearEvent);
-    instance.on(constants.START_REAPER, this._handleStartReaperEvent);
-    instance.on(constants.STOP_REAPER, this._handleStopReaperEvent);
-    instance.on(constants.START_BACKUP, this._handleStartBackupEvent);
-    instance.on(constants.STOP_BACKUP, this._handleStopBackupEvent);
+    if (!this._controller) {
+      return;
+    }
+
+    this._controller.on(constants.CLEAR, this._handleClearEvent);
+    this._controller.on(constants.START_REAPER, this._handleStartReaperEvent);
+    this._controller.on(constants.STOP_REAPER, this._handleStopReaperEvent);
+    this._controller.on(constants.START_BACKUP, this._handleStartBackupEvent);
+    this._controller.on(constants.STOP_BACKUP, this._handleStopBackupEvent);
   }
 
   private _addMetadata(
@@ -785,12 +790,12 @@ export class Core {
     return reaperInit({
       metadataCallback: () => this._metadata,
       removeEntryCallback: async (key: string, tags?: Tag[]) => {
-        this.emitter.emit(this.events.ENTRY_DELETED, { deleted: await this.remove(key), key, tags });
+        this.emitter.emit(constants.ENTRY_DELETED, { deleted: await this.remove(key), key, tags });
       },
     });
   }
 
-  private _isControllerEventValid({ name, type }: ControllerEvent): boolean {
+  private _isControllerEventValid({ name, type }: EventData): boolean {
     return (isString(name) && name === this._name) || (isString(type) && type === this._type);
   }
 

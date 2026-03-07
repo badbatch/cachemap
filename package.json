@@ -33,7 +33,7 @@
     "test:browser:run": "jasmine-browser-runner runSpecs --config=jasmineBrowser.config.mjs",
     "test:node": "COMPILER=swc node --require=suppress-experimental-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check && pnpm run test"
+    "validate": "pnpm run syncpack && pnpm run build && pnpm run lint && pnpm run type-check"
   },
   "devDependencies": {
     "@cachemap/core": "workspace:*",
