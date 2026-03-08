@@ -1,34 +1,45 @@
-import { type Store, type StoreInit, type StoreOptions } from '@cachemap/types';
+import { type BackupStore, type BackupStoreInit } from '@cachemap/types';
 import { isNumber, isPlainObject } from 'lodash-es';
-import { type ConstructorOptions, type InitOptions, type Options } from '../types.ts';
+import { type ConstructorOptions, type InitOptions, type Options } from './types.ts';
 
-export class WebStorageStore implements Store {
+export class WebStorageStore implements BackupStore {
   public static init(options: InitOptions): Promise<WebStorageStore> {
     return Promise.resolve(new WebStorageStore(options));
   }
 
   public readonly type = 'webStorage';
+  private _backupInterval = 0;
   private readonly _maxHeapSize: number = 4_194_304;
   private readonly _name: string;
+  private readonly _prefix: string;
   private _storage: Storage = globalThis.localStorage;
 
   constructor(options: ConstructorOptions) {
+    if (isNumber(options.backupInterval)) {
+      this._backupInterval = options.backupInterval;
+    }
+
     if (isNumber(options.maxHeapSize)) {
       this._maxHeapSize = options.maxHeapSize;
     }
 
     this._name = options.name;
+    this._prefix = `cachemap:${this._name}:`;
 
     if (options.storageType === 'session') {
       this._storage = globalThis.sessionStorage;
     }
   }
 
+  get backupInterval(): number {
+    return this._backupInterval;
+  }
+
   public clear(): Promise<void> {
     for (let index = this._storage.length - 1; index >= 0; index -= 1) {
       const key = this._storage.key(index);
 
-      if (key?.startsWith(this._name)) {
+      if (key?.startsWith(this._prefix)) {
         this._storage.removeItem(key);
       }
     }
@@ -38,33 +49,23 @@ export class WebStorageStore implements Store {
 
   public delete(key: string): Promise<boolean> {
     const builtKey = this._buildKey(key);
+    const exists = this._storage.getItem(builtKey) !== null;
 
-    if (this._storage.getItem(builtKey) === null) {
-      return Promise.resolve(false);
+    if (exists) {
+      this._storage.removeItem(builtKey);
     }
 
-    this._storage.removeItem(builtKey);
-    return Promise.resolve(true);
+    return Promise.resolve(exists);
   }
 
   public entries(keys: string[]): Promise<[string, string][]> {
-    const entryKeys = new Set(keys.map(key => this._buildKey(key)));
     const entries: [string, string][] = [];
-    const regex = new RegExp(`${this._name}-`);
 
-    for (let index = 0; index < this._storage.length; index += 1) {
-      const key = this._storage.key(index);
+    for (const key of keys) {
+      const item = this._storage.getItem(this._buildKey(key));
 
-      if (!key?.startsWith(this._name)) {
-        continue;
-      }
-
-      if (entryKeys.has(key)) {
-        const item = this._storage.getItem(key);
-
-        if (item) {
-          entries.push([key.replace(regex, ''), item]);
-        }
+      if (item !== null) {
+        entries.push([key, item]);
       }
     }
 
@@ -81,7 +82,7 @@ export class WebStorageStore implements Store {
 
   public import(entries: [string, string][]): Promise<void> {
     for (const [key, value] of entries) {
-      this._storage.setItem(this._buildKey(key), JSON.stringify(value));
+      this._storage.setItem(this._buildKey(key), value);
     }
 
     return Promise.resolve();
@@ -101,31 +102,29 @@ export class WebStorageStore implements Store {
   }
 
   public size(): Promise<number> {
-    const keys: string[] = [];
+    let count = 0;
 
     for (let index = 0; index < this._storage.length; index += 1) {
       const key = this._storage.key(index);
 
-      if (key?.startsWith(this._name)) {
-        keys.push(key);
+      if (key?.startsWith(this._prefix)) {
+        count += 1;
       }
     }
 
-    // metadata is stored in the same DB as the
-    // entries it describes, so we need to remove
-    // one entry to get actual size
-    return Promise.resolve(keys.length - 1);
+    // metadata is stored alongside entries so subtract one
+    return Promise.resolve(count - 1);
   }
 
   private _buildKey(key: string): string {
-    return `${this._name}-${key}`;
+    return this._prefix + key;
   }
 }
 
-export const init = (options: Options = {}): StoreInit => {
+export const init = (options: Options = {}): BackupStoreInit => {
   if (!isPlainObject(options)) {
-    throw new TypeError('@cachemap/map expected options to be a plain object.');
+    throw new TypeError('@cachemap/web-storage expected options to be a plain object.');
   }
 
-  return (storeOptions: StoreOptions) => WebStorageStore.init({ ...options, ...storeOptions });
+  return (storeOptions: { name: string }) => WebStorageStore.init({ ...options, ...storeOptions });
 };

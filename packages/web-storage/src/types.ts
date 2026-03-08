@@ -5,6 +5,7 @@ export interface InitOptions extends Options {
 }
 
 export interface Options {
+  backupInterval?: number;
   maxHeapSize?: number;
   storageType?: 'local' | 'session';
 }
