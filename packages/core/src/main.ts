@@ -28,7 +28,7 @@ import {
 } from '@cachemap/utils';
 import { Cacheability } from 'cacheability';
 import { EventEmitter } from 'eventemitter3';
-import { castArray, get, isArray, isFunction, isPlainObject, isString, isUndefined } from 'lodash-es';
+import { castArray, get, isArray, isFunction, isNumber, isPlainObject, isString, isUndefined } from 'lodash-es';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { DEFAULT_BACKUP_INTERVAL, DEFAULT_MAX_HEAP_SIZE } from './constants.ts';
@@ -143,6 +143,7 @@ export class Core {
       disableCacheInvalidation = false,
       encryptionSecret,
       hydrateFromBackupStore,
+      maxHeapSize,
       name,
       onBackupError,
       onError,
@@ -159,6 +160,10 @@ export class Core {
 
     if (isString(encryptionSecret)) {
       this._encryptionSecret = encryptionSecret;
+    }
+
+    if (isNumber(maxHeapSize)) {
+      this._maxHeapSize = maxHeapSize;
     }
 
     this._name = name;
@@ -196,11 +201,10 @@ export class Core {
       return;
     }
 
-    this.ready = Promise.resolve(backupStoreInit({ name }))
+    this.ready = Promise.resolve(backupStoreInit({ maxHeapSize, name }))
       .then(async backupStore => {
         this._backupInterval = backupStore.backupInterval;
         this._backupStore = backupStore;
-        this._maxHeapSize = backupStore.maxHeapSize;
         await this._retrieveMetadataFromBackupStore();
 
         if (hydrateFromBackupStore) {
@@ -790,7 +794,8 @@ export class Core {
     return reaperInit({
       metadataCallback: () => this._metadata,
       removeEntryCallback: async (key: string, tags?: Tag[]) => {
-        this.emitter.emit(constants.ENTRY_DELETED, { deleted: await this.remove(key), key, tags });
+        const deleted = this._backupStore ? await this.remove(key) : this.delete(key);
+        this.emitter.emit(constants.ENTRY_DELETED, { deleted, key, tags });
       },
     });
   }

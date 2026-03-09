@@ -33,6 +33,10 @@ export interface Options {
    */
   hydrateFromBackupStore?: boolean;
   /**
+   * The maximum in bytes the cache can grow to.
+   */
+  maxHeapSize?: number;
+  /**
    * The name is primarily used as a target for the controller, in order
    * to centrally control the cachemap in an application with multiple
    * instances.

@@ -35,6 +35,7 @@ export interface BackupStoreOptions {
    * to the provided persisted store.
    */
   backupInterval?: number;
+  maxHeapSize?: number;
   name: string;
 }
 

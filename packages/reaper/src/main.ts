@@ -56,7 +56,7 @@ export class Reaper implements ReaperDef {
 
       await Promise.all(
         batch.map(({ key, tags }) =>
-          this._removeEntryCallback(key, tags).catch((error: unknown) => {
+          Promise.resolve(this._removeEntryCallback(key, tags)).catch((error: unknown) => {
             this._onCullError?.(error);
           }),
         ),

@@ -29,4 +29,4 @@ export interface ReaperDef {
 
 export type ReaperInit = (callbacks: ReaperCallbacks) => ReaperDef;
 
-export type RemoveEntryCallback = (key: string, tags?: Tag[]) => Promise<void>;
+export type RemoveEntryCallback = (key: string, tags?: Tag[]) => void | Promise<void>;
