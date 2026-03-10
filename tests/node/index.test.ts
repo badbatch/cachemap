@@ -33,15 +33,13 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when a matching entry does not exist', () => {
-      beforeEach(() => {
-        cachemap.set(key, value, { cacheOptions, hashKey: true });
-      });
-
       it('the set method should store the correct amount of metadata', () => {
+        cachemap.set(key, value, { cacheOptions, hashKey: true });
         expect(cachemap.metadata).toHaveLength(1);
       });
 
       it('the set method should store the entry metadata', () => {
+        cachemap.set(key, value, { cacheOptions, hashKey: true });
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
@@ -59,10 +57,12 @@ describe('when no backup store is provided', () => {
       });
 
       it('the cachemap should have the correct size', () => {
+        cachemap.set(key, value, { cacheOptions, hashKey: true });
         expect(cachemap.size).toBe(1);
       });
 
       it('the set method should store the key/value pair', () => {
+        cachemap.set(key, value, { cacheOptions, hashKey: true });
         expect(cachemap.get(key, { hashKey: true })).toEqual(value);
       });
     });
@@ -73,14 +73,15 @@ describe('when no backup store is provided', () => {
       beforeEach(() => {
         cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
         metadata = { ...cachemap.metadata[0]! };
-        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
       });
 
       it('the set method should store the correct amount of metadata', () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         expect(cachemap.metadata).toHaveLength(1);
       });
 
       it("the set method should update the existing entry's metadata", () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
@@ -98,35 +99,38 @@ describe('when no backup store is provided', () => {
       });
 
       it('the updated metadata cacheability should be greater than or equal to the existing', () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         const updatedMetadata = cachemap.metadata[0]!;
         expect(updatedMetadata.cacheability.metadata.ttl).toBeGreaterThanOrEqual(metadata.cacheability.metadata.ttl);
       });
 
       it('the updated metadata lastUpdated should be greater than or equal to the existing', () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         const updatedMetadata = cachemap.metadata[0]!;
         expect(updatedMetadata.lastUpdated).toBeGreaterThanOrEqual(metadata.lastUpdated);
       });
 
       it('the cachemap should have the correct size', () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         expect(cachemap.size).toBe(1);
       });
 
       it("the set method should overwrite the existing entry's key/value pair", () => {
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         expect(cachemap.get(key, { hashKey: true })).toEqual({ ...value, index: 1 });
       });
     });
 
     describe('when the same key is added twice in quick succession', () => {
-      beforeEach(() => {
+      it('the set method should store the correct amount of metadata', () => {
         cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
         cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
-      });
-
-      it('the set method should store the correct amount of metadata', () => {
         expect(cachemap.metadata).toHaveLength(1);
       });
 
       it("the set method should store the first entry's metadata and then update it", () => {
+        cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         const metadata = cachemap.metadata[0]!;
 
         expect(metadata).toEqual(
@@ -144,10 +148,14 @@ describe('when no backup store is provided', () => {
       });
 
       it('the cachemap should have the correct size', () => {
+        cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         expect(cachemap.size).toBe(1);
       });
 
       it("the set method should overwrite the first entry's key/value pair with the subsequent entry's", () => {
+        cachemap.set(key, { ...value, index: 0 }, { cacheOptions, hashKey: true });
+        cachemap.set(key, { ...value, index: 1 }, { cacheOptions, hashKey: true });
         expect(cachemap.get(key, { hashKey: true })).toEqual({ ...value, index: 1 });
       });
     });
@@ -168,38 +176,34 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when a matching entry does not exist', () => {
-      let deleted: boolean;
-
-      beforeEach(() => {
-        deleted = cachemap.delete(key, { hashKey: true });
-      });
-
       it('the delete method should return false', () => {
+        const deleted = cachemap.delete(key, { hashKey: true });
         expect(deleted).toBe(false);
       });
     });
 
     describe('when a matching entry does exist', () => {
-      let deleted: boolean;
-
       beforeEach(() => {
         cachemap.set(key, value, { cacheOptions, hashKey: true });
-        deleted = cachemap.delete(key, { hashKey: true });
       });
 
       it('the delete method should return true', () => {
+        const deleted = cachemap.delete(key, { hashKey: true });
         expect(deleted).toBe(true);
       });
 
       it('the delete method should remove the entry metadata', () => {
+        cachemap.delete(key, { hashKey: true });
         expect(cachemap.metadata).toHaveLength(0);
       });
 
       it('the cachemap should have the correct size', () => {
+        cachemap.delete(key, { hashKey: true });
         expect(cachemap.size).toBe(0);
       });
 
       it('the delete method should remove the key/value pair', () => {
+        cachemap.delete(key, { hashKey: true });
         expect(cachemap.get(key, { hashKey: true })).toBeUndefined();
       });
     });
@@ -220,36 +224,32 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when a matching entry does not exist', () => {
-      let entry: unknown;
-
-      beforeEach(async () => {
-        entry = await cachemap.get(key, { hashKey: true });
-      });
-
       it('the get method should return undefined', () => {
+        const entry = cachemap.get(key, { hashKey: true });
         expect(entry).toBeUndefined();
       });
     });
 
     describe('when a matching entry exists', () => {
       let metadata: Metadata;
-      let entry: unknown;
 
       beforeEach(() => {
         cachemap.set(key, value, { cacheOptions, hashKey: true });
         metadata = { ...cachemap.metadata[0]! };
-        entry = cachemap.get(key, { hashKey: true });
       });
 
       it('the get method should return the entry value', () => {
+        const entry = cachemap.get(key, { hashKey: true });
         expect(entry).toEqual(value);
       });
 
-      it('the set method should store the correct amount of metadata', () => {
+      it('the get method should store the correct amount of metadata', () => {
+        cachemap.get(key, { hashKey: true });
         expect(cachemap.metadata).toHaveLength(1);
       });
 
       it("the get method should update the existing entry's metadata", () => {
+        cachemap.get(key, { hashKey: true });
         const updatedMetadata = cachemap.metadata[0]!;
 
         expect(updatedMetadata).toEqual(
@@ -267,6 +267,7 @@ describe('when no backup store is provided', () => {
       });
 
       it('the updated metadata lastAccessed should be greater than or equal to the existing', () => {
+        cachemap.get(key, { hashKey: true });
         const updatedMetadata = cachemap.metadata[0]!;
         expect(updatedMetadata.lastAccessed).toBeGreaterThanOrEqual(metadata.lastAccessed);
       });
@@ -288,53 +289,47 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when a matching entry does not exist', () => {
-      let exists: boolean | Cacheability;
-
-      beforeEach(() => {
-        exists = cachemap.has(key, { hashKey: true });
-      });
-
       it('the has method should return false', () => {
+        const exists = cachemap.has(key, { hashKey: true });
         expect(exists).toBe(false);
       });
     });
 
     describe('when a matching entry exists', () => {
       describe("when the entry's cacheability is valid", () => {
-        let exists: boolean;
-
         beforeEach(() => {
           cachemap.set(key, value, { cacheOptions, hashKey: true });
-          exists = cachemap.has(key, { hashKey: true });
         });
 
         it('the has method should return true', () => {
+          const exists = cachemap.has(key, { hashKey: true });
           expect(exists).toBe(true);
         });
       });
 
       describe("when the entry's cacheability is expired", () => {
-        let exists: boolean | Cacheability;
-
         beforeEach(async () => {
           cachemap.set(key, value, { cacheOptions, hashKey: true });
           await delay(1000);
-          exists = cachemap.has(key, { hashKey: true });
         });
 
         it('the has method should return false', () => {
+          const exists = cachemap.has(key, { hashKey: true });
           expect(exists).toBe(false);
         });
 
         it('the has method should remove the entry metadata', () => {
+          cachemap.has(key, { hashKey: true });
           expect(cachemap.metadata).toHaveLength(0);
         });
 
         it('the cachemap should have the correct size', () => {
+          cachemap.has(key, { hashKey: true });
           expect(cachemap.size).toBe(0);
         });
 
         it('the has method should remove the key/value pair', () => {
+          cachemap.has(key, { hashKey: true });
           expect(cachemap.get(key, { hashKey: true })).toBeUndefined();
         });
       });
@@ -353,41 +348,34 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when no keys are passed in', () => {
-      let result: [string, unknown][];
-
       beforeEach(() => {
         const keys = Object.keys(testData);
 
         for (const id of keys) {
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
-
-        result = cachemap.entries();
       });
 
       it('the entries method should return all the key/value pair entries', () => {
-        expect(result).toHaveLength(3);
+        expect(cachemap.entries()).toHaveLength(3);
       });
     });
 
     describe('when keys are passed in', () => {
-      let result: [string, unknown][];
+      const hashedKeys: string[] = [];
 
       beforeEach(() => {
         const ids = Object.keys(testData);
-        const hashedKeys: string[] = [];
 
         for (const id of ids) {
           const url = testData[id]!.url;
           hashedKeys.push(Md5.hashStr(url));
           cachemap.set(url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
-
-        result = cachemap.entries(hashedKeys.slice(0, 2));
       });
 
       it('the entries method should return the matching key/value pair entries', () => {
-        expect(result).toHaveLength(2);
+        expect(cachemap.entries(hashedKeys.slice(0, 2))).toHaveLength(2);
       });
     });
   });
@@ -404,56 +392,51 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when no keys are passed in', () => {
-      let result: ExportResult<JsonValue>;
-
-      beforeEach(async () => {
+      beforeEach(() => {
         const keys = Object.keys(testData);
 
         for (const id of keys) {
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
-
-        result = await cachemap.export();
       });
 
-      it('the export method should return all the key/value pair entries', () => {
+      it('the export method should return all the key/value pair entries', async () => {
+        const result = await cachemap.export();
         expect(result.entries).toHaveLength(3);
       });
 
-      it('the export method should return all the metadata', () => {
+      it('the export method should return all the metadata', async () => {
+        const result = await cachemap.export();
         expect(result.metadata).toHaveLength(3);
       });
     });
 
     describe('when keys are passed in', () => {
-      let result: ExportResult<JsonValue>;
+      const hashedKeys: string[] = [];
 
-      beforeEach(async () => {
+      beforeEach(() => {
         const ids = Object.keys(testData);
-        const hashedKeys: string[] = [];
 
         for (const id of ids) {
           const url = testData[id]!.url;
           hashedKeys.push(Md5.hashStr(url));
           cachemap.set(url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
-
-        result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
       });
 
-      it('the export method should return all the key/value pair entries', () => {
+      it('the export method should return all the key/value pair entries', async () => {
+        const result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
         expect(result.entries).toHaveLength(2);
       });
 
-      it('the export method should return all the metadata', () => {
+      it('the export method should return all the metadata', async () => {
+        const result = await cachemap.export({ keys: hashedKeys.slice(0, 2) });
         expect(result.metadata).toHaveLength(2);
       });
     });
 
     describe('when a tag is passed in', () => {
-      let result: ExportResult<JsonValue>;
-
-      beforeEach(async () => {
+      beforeEach(() => {
         const keys = Object.keys(testData);
         const tags = ['alfa', 'bravo', 'charlie'];
 
@@ -461,37 +444,35 @@ describe('when no backup store is provided', () => {
           const tag = tags.pop();
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true, tag });
         }
-
-        result = await cachemap.export({ tag: 'alfa' });
       });
 
-      it('the export method should return all the key/value pair entries', () => {
+      it('the export method should return all the key/value pair entries', async () => {
+        const result = await cachemap.export({ tag: 'alfa' });
         expect(result.entries).toHaveLength(1);
       });
 
-      it('the export method should return all the metadata', () => {
+      it('the export method should return all the metadata', async () => {
+        const result = await cachemap.export({ tag: 'alfa' });
         expect(result.metadata).toHaveLength(1);
       });
     });
 
     describe('when filterByValue is passed in', () => {
-      let result: ExportResult<JsonValue>;
-
-      beforeEach(async () => {
+      beforeEach(() => {
         const keys = Object.keys(testData);
 
         for (const id of keys) {
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
-
-        result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
       });
 
-      it('the export method should return all the key/value pair entries', () => {
+      it('the export method should return all the key/value pair entries', async () => {
+        const result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
         expect(result.entries).toHaveLength(1);
       });
 
-      it('the export method should return all the metadata', () => {
+      it('the export method should return all the metadata', async () => {
+        const result = await cachemap.export({ filterByValue: { comparator: '180-1387', keyChain: 'id' } });
         expect(result.metadata).toHaveLength(1);
       });
     });
@@ -509,6 +490,8 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when no matching entries exist', () => {
+      let exported: ExportResult<JsonValue>;
+
       beforeEach(async () => {
         const keys = Object.keys(testData);
 
@@ -516,21 +499,24 @@ describe('when no backup store is provided', () => {
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
 
-        const exported = await cachemap.export<JsonValue>();
+        exported = await cachemap.export<JsonValue>();
         cachemap.clear();
-        await cachemap.import(exported);
       });
 
-      it('the import method should add the key/value pair entries', () => {
+      it('the import method should add the key/value pair entries', async () => {
+        await cachemap.import(exported);
         expect(cachemap.size).toBe(3);
       });
 
-      it('the import method should add all the metadata', () => {
+      it('the import method should add all the metadata', async () => {
+        await cachemap.import(exported);
         expect(cachemap.metadata).toHaveLength(3);
       });
     });
 
     describe('when matching entries exist', () => {
+      let exported: ExportResult<JsonValue>;
+
       beforeEach(async () => {
         const keys = Object.keys(testData);
 
@@ -538,15 +524,16 @@ describe('when no backup store is provided', () => {
           cachemap.set(testData[id]!.url, testData[id]!.body, { cacheOptions, hashKey: true });
         }
 
-        const exported = await cachemap.export<JsonValue>();
-        await cachemap.import(exported);
+        exported = await cachemap.export<JsonValue>();
       });
 
-      it('the import method should add the key/value pair entries', () => {
+      it('the import method should add the key/value pair entries', async () => {
+        await cachemap.import(exported);
         expect(cachemap.size).toBe(3);
       });
 
-      it('the import method should add all the metadata', () => {
+      it('the import method should add all the metadata', async () => {
+        await cachemap.import(exported);
         expect(cachemap.metadata).toHaveLength(3);
       });
     });
@@ -559,6 +546,7 @@ describe('when no backup store is provided', () => {
     const cacheOptions: PlainObject = { cacheControl: 'public, max-age=0' };
 
     describe("when an entry's cacheability expires", () => {
+      let entryDeletedPromise: Promise<void>;
       let entryDeletedData: PlainObject;
 
       beforeEach(async () => {
@@ -569,7 +557,7 @@ describe('when no backup store is provided', () => {
           valueFormatting: ValueFormat.Base64,
         });
 
-        const entryDeletedPromise = new Promise<void>(resolve => {
+        entryDeletedPromise = new Promise<void>(resolve => {
           cachemap.emitter.on(constants.ENTRY_DELETED, (data: PlainObject) => {
             entryDeletedData = data;
             resolve();
@@ -578,26 +566,30 @@ describe('when no backup store is provided', () => {
 
         cachemap.set(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
         await delay(1000);
-        await entryDeletedPromise;
       });
 
       afterEach(() => {
         cachemap.reaper?.stop();
       });
 
-      it('the cachemap should have the correct size', () => {
+      it('the cachemap should have the correct size', async () => {
+        await entryDeletedPromise;
         expect(cachemap.size).toBe(0);
       });
 
-      it('the reaper should remove the key/value pair', () => {
+      it('the reaper should remove the key/value pair', async () => {
+        await entryDeletedPromise;
         expect(cachemap.get(key, { hashKey: true })).toBeUndefined();
       });
 
-      it('the reaper should remove the entry metadata', () => {
+      it('the reaper should remove the entry metadata', async () => {
+        await entryDeletedPromise;
         expect(cachemap.metadata).toHaveLength(0);
       });
 
-      it('the ENTRY_DELETED event should be emitted with the correct data', () => {
+      it('the ENTRY_DELETED event should be emitted with the correct data', async () => {
+        await entryDeletedPromise;
+
         expect(entryDeletedData).toEqual(
           expect.objectContaining({
             deleted: true,
@@ -609,10 +601,11 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when the entries exceed the max heap size', () => {
+      let entryDeletedPromise: Promise<void>;
       let entryDeletedData: PlainObject[] = [];
       let keys: string[];
 
-      beforeEach(async () => {
+      beforeEach(() => {
         cachemap = new Core({
           maxHeapSize: 135,
           name: 'integration-tests',
@@ -620,7 +613,7 @@ describe('when no backup store is provided', () => {
           valueFormatting: ValueFormat.Base64,
         });
 
-        const entryDeletedPromise = new Promise<void>(resolve => {
+        entryDeletedPromise = new Promise<void>(resolve => {
           cachemap.emitter.on(constants.ENTRY_DELETED, (data: PlainObject) => {
             entryDeletedData.push(data);
             resolve();
@@ -632,8 +625,6 @@ describe('when no backup store is provided', () => {
         for (const _id of keys) {
           cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheOptions, hashKey: true });
         }
-
-        await entryDeletedPromise;
       });
 
       afterEach(() => {
@@ -641,23 +632,29 @@ describe('when no backup store is provided', () => {
         cachemap.reaper?.stop();
       });
 
-      it('the cachemap should have the correct size', () => {
+      it('the cachemap should have the correct size', async () => {
+        await entryDeletedPromise;
         expect(cachemap.size).toBe(2);
       });
 
-      it('the reaper should remove the necessary key/value pair', () => {
+      it('the reaper should remove the necessary key/value pair', async () => {
+        await entryDeletedPromise;
         expect(cachemap.get(keys[2]!, { hashKey: true })).toBeUndefined();
       });
 
-      it('the reaper should remove the entry metadata', () => {
+      it('the reaper should remove the entry metadata', async () => {
+        await entryDeletedPromise;
         expect(cachemap.metadata).toHaveLength(2);
       });
 
-      it('the ENTRY_DELETED event should fire the correct number of times', () => {
+      it('the ENTRY_DELETED event should fire the correct number of times', async () => {
+        await entryDeletedPromise;
         expect(entryDeletedData).toHaveLength(1);
       });
 
-      it('the ENTRY_DELETED event should be emitted with the correct data', () => {
+      it('the ENTRY_DELETED event should be emitted with the correct data', async () => {
+        await entryDeletedPromise;
+
         expect(entryDeletedData[0]).toEqual(
           expect.objectContaining({
             deleted: true,

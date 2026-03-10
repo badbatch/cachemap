@@ -254,9 +254,10 @@ export class Core {
   public async exists(rawKey: string, options: MethodOptions = {}): Promise<boolean> {
     this._validateMethodArgs(rawKey, options);
     const key = this._resolveKey(rawKey, options);
+    const hasCacheEntryExpired = this._hasCacheEntryExpired(key);
 
     if (this._store.has(key)) {
-      if (!this._hasCacheEntryExpired(key)) {
+      if (!hasCacheEntryExpired) {
         return true;
       }
 
@@ -274,7 +275,16 @@ export class Core {
       await pending;
     }
 
-    return this._backupStore.has(key);
+    if (await this._backupStore.has(key)) {
+      if (hasCacheEntryExpired) {
+        void this.remove(rawKey, options);
+        return false;
+      }
+
+      return true;
+    }
+
+    return false;
   }
 
   public async export<T>(options: ExportOptions = {}): Promise<ExportResult<T>> {
@@ -418,16 +428,16 @@ export class Core {
     this._validateMethodArgs(rawKey, options);
     const key = this._resolveKey(rawKey, options);
 
-    if (!this._store.has(key)) {
-      return false;
+    if (this._store.has(key)) {
+      if (this._hasCacheEntryExpired(key)) {
+        this._deleteByResolvedKey(key);
+        return false;
+      }
+
+      return true;
     }
 
-    if (this._hasCacheEntryExpired(key)) {
-      this._deleteByResolvedKey(key);
-      return false;
-    }
-
-    return true;
+    return false;
   }
 
   public async import(options: ImportOptions): Promise<void> {
@@ -567,14 +577,13 @@ export class Core {
       return;
     }
 
-    const key = options.hashKey ? Md5.hashStr(rawKey) : rawKey;
-    const exists = !!this._getMetadataEntry(key);
+    const key = this._resolveKey(rawKey, options);
     const preparedSetValue = prepareSetEntry(value, this._valueFormatting, this._encryptionSecret);
     this._store.set(key, preparedSetValue);
     const onWrite = (backupStore: BackupStore): Promise<void> => backupStore.set(key, preparedSetValue);
     await this._enqueueWrite(key, onWrite, options.onWriteError);
 
-    if (exists) {
+    if (this._getMetadataEntry(key)) {
       this._updateMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);
     } else {
       this._addMetadata(key, sizeOf(preparedSetValue), cacheability, options.tag, options.extensions);

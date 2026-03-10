@@ -113,7 +113,7 @@ export class WebStorageStore implements BackupStore {
     }
 
     // metadata is stored alongside entries so subtract one
-    return Promise.resolve(count - 1);
+    return Promise.resolve(Math.max(0, count - 1));
   }
 
   private _buildKey(key: string): string {
