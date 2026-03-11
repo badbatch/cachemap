@@ -27,6 +27,8 @@ import {
 } from './types.ts';
 
 export class CoreWorker {
+  public readonly ready: Promise<void>;
+
   private _onMessage = ({ data }: MessageEvent<unknown>): void => {
     if (!this._isCachemapPostMessageResponse(data)) {
       return;
@@ -84,6 +86,7 @@ export class CoreWorker {
   private _backupStoreType: string | undefined;
   private _controller?: Controller;
   private _emitter: EventEmitter = new EventEmitter();
+  private _makeReady?: () => void;
   private _messageQueue: EnrichedPostMessage[] = [];
   private _metadata: Metadata[] = [];
   private readonly _name: string;
@@ -117,7 +120,7 @@ export class CoreWorker {
     this._type = type;
 
     if (isFunction(worker)) {
-      Promise.resolve(worker())
+      this.ready = Promise.resolve(worker())
         .then(w => {
           this._initWorker(w);
         })
@@ -126,6 +129,13 @@ export class CoreWorker {
         });
     } else if (worker) {
       this._initWorker(worker);
+      this.ready = Promise.resolve();
+    } else {
+      this.ready = new Promise<void>(resolve => {
+        this._makeReady = (): void => {
+          resolve();
+        };
+      });
     }
   }
 
@@ -245,6 +255,7 @@ export class CoreWorker {
     }
 
     this._initWorker(worker);
+    this._makeReady?.();
   }
 
   public async write(key: string, value: unknown, options: SetOptions = {}): Promise<void> {

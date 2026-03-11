@@ -138,6 +138,7 @@ export class Core {
     }
 
     const {
+      backupInterval,
       backupStore: backupStoreInit,
       controller,
       disableCacheInvalidation = false,
@@ -154,6 +155,10 @@ export class Core {
       type,
       valueFormatting,
     } = options;
+
+    if (isNumber(backupInterval)) {
+      this._backupInterval = backupInterval;
+    }
 
     this._controller = controller;
     this._disableCacheInvalidation = disableCacheInvalidation;
@@ -201,9 +206,8 @@ export class Core {
       return;
     }
 
-    this.ready = Promise.resolve(backupStoreInit({ maxHeapSize, name }))
+    this.ready = Promise.resolve(backupStoreInit({ name }))
       .then(async backupStore => {
-        this._backupInterval = backupStore.backupInterval;
         this._backupStore = backupStore;
         await this._retrieveMetadataFromBackupStore();
 

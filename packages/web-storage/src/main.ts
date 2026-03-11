@@ -1,5 +1,5 @@
 import { type BackupStore, type BackupStoreInit } from '@cachemap/types';
-import { isNumber, isPlainObject } from 'lodash-es';
+import { isPlainObject } from 'lodash-es';
 import { type ConstructorOptions, type InitOptions, type Options } from './types.ts';
 
 export class WebStorageStore implements BackupStore {
@@ -8,31 +8,17 @@ export class WebStorageStore implements BackupStore {
   }
 
   public readonly type = 'webStorage';
-  private _backupInterval = 0;
-  private readonly _maxHeapSize: number = 4_194_304;
   private readonly _name: string;
   private readonly _prefix: string;
   private _storage: Storage = globalThis.localStorage;
 
   constructor(options: ConstructorOptions) {
-    if (isNumber(options.backupInterval)) {
-      this._backupInterval = options.backupInterval;
-    }
-
-    if (isNumber(options.maxHeapSize)) {
-      this._maxHeapSize = options.maxHeapSize;
-    }
-
     this._name = options.name;
     this._prefix = `cachemap:${this._name}:`;
 
     if (options.storageType === 'session') {
       this._storage = globalThis.sessionStorage;
     }
-  }
-
-  get backupInterval(): number {
-    return this._backupInterval;
   }
 
   public clear(): Promise<void> {
@@ -86,10 +72,6 @@ export class WebStorageStore implements BackupStore {
     }
 
     return Promise.resolve();
-  }
-
-  get maxHeapSize(): number {
-    return this._maxHeapSize;
   }
 
   get name(): string {

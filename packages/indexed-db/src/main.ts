@@ -1,7 +1,6 @@
 import { type BackupStore, type BackupStoreInit } from '@cachemap/types';
 import { type IDBPDatabase, type IDBPObjectStore, type IDBPTransaction, openDB } from 'idb';
-import { isNumber, isPlainObject } from 'lodash-es';
-import { type ConstructorOptions, type InitOptions, type Options } from './types.ts';
+import { type ConstructorOptions, type InitOptions } from './types.ts';
 
 export class IndexedDBStore implements BackupStore {
   public static async init(options: InitOptions): Promise<IndexedDBStore> {
@@ -21,27 +20,12 @@ export class IndexedDBStore implements BackupStore {
   }
 
   public readonly type = 'indexedDB';
-  private _backupInterval = 0;
   private _indexedDB: IDBPDatabase;
-  private readonly _maxHeapSize: number = 4_194_304;
   private readonly _name: string;
 
   constructor(options: ConstructorOptions) {
-    if (isNumber(options.backupInterval)) {
-      this._backupInterval = options.backupInterval;
-    }
-
     this._indexedDB = options.indexedDB;
-
-    if (isNumber(options.maxHeapSize)) {
-      this._maxHeapSize = options.maxHeapSize;
-    }
-
     this._name = options.name;
-  }
-
-  get backupInterval(): number {
-    return this._backupInterval;
   }
 
   public async clear(): Promise<void> {
@@ -100,10 +84,6 @@ export class IndexedDBStore implements BackupStore {
     await tx.done;
   }
 
-  get maxHeapSize(): number {
-    return this._maxHeapSize;
-  }
-
   get name(): string {
     return this._name;
   }
@@ -137,10 +117,6 @@ export class IndexedDBStore implements BackupStore {
   }
 }
 
-export const init = (options: Options = {}): BackupStoreInit => {
-  if (!isPlainObject(options)) {
-    throw new TypeError('@cachemap/indexedDB expected options to be a plain object.');
-  }
-
-  return (storeOptions: { name: string }) => IndexedDBStore.init({ ...options, ...storeOptions });
+export const init = (): BackupStoreInit => {
+  return (storeOptions: { name: string }) => IndexedDBStore.init({ ...storeOptions });
 };

@@ -2,14 +2,12 @@ import { type Cacheability, type CacheabilityArgs, type Metadata as Cacheability
 import { type JsonValue } from 'type-fest';
 
 export interface BackupStore {
-  backupInterval: number;
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
   entries(keys: string[]): Promise<[string, string][]>;
   get(key: string): Promise<string | undefined>;
   has(key: string): Promise<boolean>;
   import(entries: [string, string][]): Promise<void>;
-  readonly maxHeapSize: number;
   readonly name: string;
   set(key: string, value: string): Promise<void>;
   size(): Promise<number>;
@@ -34,8 +32,6 @@ export interface BackupStoreOptions {
    * The time in milliseconds between backups from a map store
    * to the provided persisted store.
    */
-  backupInterval?: number;
-  maxHeapSize?: number;
   name: string;
 }
 

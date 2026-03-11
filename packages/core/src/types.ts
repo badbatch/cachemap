@@ -5,6 +5,11 @@ import { type ValueFormat } from '@cachemap/utils';
 
 export interface Options {
   /**
+   * How often the cachemap should backup its in memory cache
+   * to the backup store.
+   */
+  backupInterval?: number;
+  /**
    * Whether to use store to back up to from a map store. If true,
    * the provided store is used to periodically back up to rather than
    * directly write to. This makes reading/writing much quicker, but
