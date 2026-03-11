@@ -609,7 +609,7 @@ describe('when no backup store is provided', () => {
         cachemap = new Core({
           maxHeapSize: 135,
           name: 'integration-tests',
-          reaper: reaper({ start: true }),
+          reaper: reaper({ interval: 500, start: true }),
           valueFormatting: ValueFormat.Base64,
         });
 

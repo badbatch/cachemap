@@ -1,10 +1,10 @@
-import { type Cacheability } from 'cacheability';
 import { Md5 } from 'ts-md5';
 import { type JsonValue } from 'type-fest';
 import { Core, type ExportResult, type Metadata, type Options, ValueFormat } from '@cachemap/core';
 import { init as indexedDB } from '@cachemap/indexed-db';
 import { init as reaper } from '@cachemap/reaper';
-import { type BackupStoreInit, type BackupStoreOptions } from '@cachemap/types';
+import { type BackupStoreInit } from '@cachemap/types';
+import { constants } from '@cachemap/utils';
 import { init as webStorage } from '@cachemap/web-storage';
 import { testData } from '../data.ts';
 import { type PlainObject } from '../types.ts';
@@ -625,122 +625,140 @@ for (const { backupStore, backupType, coreOptions } of testCases) {
       });
     });
 
-    // describe('when the reaper module is passed into the cachemap', () => {
-    //   const id = '136-7317';
-    //   const key = testData[id]!.url;
-    //   const value = testData[id]!.body;
-    //   const cacheOptions: PlainObject = { cacheControl: 'public, max-age=0' };
-    //
-    //   describe("when an entry's cacheability expires", () => {
-    //     let entryDeletedData: PlainObject;
-    //
-    //     beforeEach(async () => {
-    //       cachemap = new Core({
-    //         ...coreOptions,
-    //         name: `${backupType}-integration-tests`,
-    //         reaper: reaper({ interval: 500, start: true }),
-    //         store: backupStore(backupOptions),
-    //         type: 'integration-tests',
-    //         valueFormatting: ValueFormat.Base64,
-    //       });
-    //
-    //       cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
-    //         entryDeletedData = data;
-    //       });
-    //
-    //       await cachemap.set(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
-    //       await delay(1000);
-    //     });
-    //
-    //     afterEach(() => {
-    //       cachemap.reaper?.stop();
-    //     });
-    //
-    //     it('the cachemap should have the correct size', async () => {
-    //       expect(await cachemap.size()).toBe(0);
-    //     });
-    //
-    //     it('the reaper should remove the key/value pair', async () => {
-    //       expect(await cachemap.get(key, { hashKey: true })).toBeUndefined();
-    //     });
-    //
-    //     it('the reaper should remove the entry metadata', () => {
-    //       expect(cachemap.metadata).toHaveSize(0);
-    //     });
-    //
-    //     it('the ENTRY_DELETED event should be emitted with the correct data', () => {
-    //       expect(entryDeletedData).toEqual(
-    //         // Not an issue for test file.
-    //         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    //         jasmine.objectContaining({
-    //           deleted: true,
-    //           key: jasmine.any(String),
-    //           tags: ['ALPHA'],
-    //         }),
-    //       );
-    //     });
-    //   });
-    //
-    //   describe('when the entries exceed the max heap size', () => {
-    //     let entryDeletedData: PlainObject[] = [];
-    //     let keys: string[];
-    //
-    //     beforeEach(() => {
-    //       return new Promise<void>(resolve => {
-    //         cachemap = new Core({
-    //           ...coreOptions,
-    //           name: `${backupType}-integration-tests`,
-    //           reaper: reaper({ start: true }),
-    //           store: backupStore({ ...backupOptions, maxHeapSize: 100 }),
-    //           type: 'integration-tests',
-    //           valueFormatting: ValueFormat.Base64,
-    //         });
-    //
-    //         cachemap.emitter.on(cachemap.events.ENTRY_DELETED, (data: PlainObject) => {
-    //           entryDeletedData.push(data);
-    //           resolve();
-    //         });
-    //
-    //         keys = Object.keys(testData);
-    //
-    //         for (const _id of keys) {
-    //           cachemap.set(testData[_id]!.url, testData[_id]!.body, { cacheOptions, hashKey: true });
-    //         }
-    //       });
-    //     });
-    //
-    //     afterEach(() => {
-    //       entryDeletedData = [];
-    //       cachemap.reaper?.stop();
-    //     });
-    //
-    //     it('the cachemap should have the correct size', async () => {
-    //       expect(await cachemap.size()).toBe(2);
-    //     });
-    //
-    //     it('the reaper should remove the necessary key/value pair', async () => {
-    //       expect(await cachemap.get(keys[2]!, { hashKey: true })).toBeUndefined();
-    //     });
-    //
-    //     it('the reaper should remove the entry metadata', () => {
-    //       expect(cachemap.metadata).toHaveSize(2);
-    //     });
-    //
-    //     it('the ENTRY_DELETED event should fire the correct number of times', () => {
-    //       expect(entryDeletedData).toHaveSize(1);
-    //     });
-    //
-    //     it('the ENTRY_DELETED event should be emitted with the correct data', () => {
-    //       expect(entryDeletedData[0]).toEqual(
-    //         // Not an issue for test file.
-    //         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    //         jasmine.objectContaining({
-    //           deleted: true,
-    //           key: jasmine.any(String),
-    //           tags: [],
-    //         }),
-    //       );
-    //     });
-    //   });
+    describe('when the reaper module is passed into the cachemap', () => {
+      const id = '136-7317';
+      const key = testData[id]!.url;
+      const value = testData[id]!.body;
+      const cacheOptions: PlainObject = { cacheControl: 'public, max-age=0' };
+
+      describe("when an entry's cacheability expires", () => {
+        let entryDeletedData: PlainObject;
+
+        beforeEach(async () => {
+          cachemap = new Core({
+            ...coreOptions,
+            backupStore: backupStore(),
+            name: `${backupType}-integration-tests`,
+            reaper: reaper({ interval: 500, start: true }),
+            valueFormatting: ValueFormat.Base64,
+          });
+
+          cachemap.emitter.on(constants.ENTRY_DELETED, (data: PlainObject) => {
+            entryDeletedData = data;
+          });
+
+          await cachemap.ready;
+        });
+
+        afterEach(async () => {
+          cachemap.reaper?.stop();
+          await cachemap.flush();
+        });
+
+        it('the cachemap should have the correct size', async () => {
+          await cachemap.write(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
+          await delay(1000);
+          expect(cachemap.size).toBe(0);
+        });
+
+        it('the reaper should remove the key/value pair', async () => {
+          await cachemap.write(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
+          await delay(1000);
+          expect(await cachemap.fetch(key, { hashKey: true })).toBeUndefined();
+        });
+
+        it('the reaper should remove the entry metadata', async () => {
+          await cachemap.write(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
+          await delay(1000);
+          expect(cachemap.metadata).toHaveSize(0);
+        });
+
+        it('the ENTRY_DELETED event should be emitted with the correct data', async () => {
+          await cachemap.write(key, value, { cacheOptions, hashKey: true, tag: 'ALPHA' });
+          await delay(1000);
+
+          expect(entryDeletedData).toEqual(
+            // Not an issue for test file.
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            jasmine.objectContaining({
+              deleted: true,
+              key: jasmine.any(String),
+              tags: ['ALPHA'],
+            }),
+          );
+        });
+      });
+
+      describe('when the entries exceed the max heap size', () => {
+        let entryDeletedPromise: Promise<void>;
+        let entryDeletedData: PlainObject[] = [];
+        let keys: string[];
+
+        beforeEach(async () => {
+          cachemap = new Core({
+            ...coreOptions,
+            backupStore: backupStore(),
+            maxHeapSize: 135,
+            name: `${backupType}-integration-tests`,
+            reaper: reaper({ interval: 500, start: true }),
+            valueFormatting: ValueFormat.Base64,
+          });
+
+          entryDeletedPromise = new Promise<void>(resolve => {
+            cachemap.emitter.on(constants.ENTRY_DELETED, (data: PlainObject) => {
+              entryDeletedData.push(data);
+              resolve();
+            });
+          });
+
+          keys = Object.keys(testData);
+          await cachemap.ready;
+
+          for (const _id of keys) {
+            await cachemap.write(testData[_id]!.url, testData[_id]!.body, { cacheOptions, hashKey: true });
+          }
+        });
+
+        afterEach(async () => {
+          entryDeletedData = [];
+          cachemap.reaper?.stop();
+          await cachemap.flush();
+        });
+
+        it('the cachemap should have the correct size', async () => {
+          await entryDeletedPromise;
+          expect(cachemap.size).toBe(2);
+        });
+
+        it('the reaper should remove the necessary key/value pair', async () => {
+          await entryDeletedPromise;
+          expect(cachemap.get(keys[2]!, { hashKey: true })).toBeUndefined();
+        });
+
+        it('the reaper should remove the entry metadata', async () => {
+          await entryDeletedPromise;
+          expect(cachemap.metadata).toHaveSize(2);
+        });
+
+        it('the ENTRY_DELETED event should fire the correct number of times', async () => {
+          await entryDeletedPromise;
+          expect(entryDeletedData).toHaveSize(1);
+        });
+
+        it('the ENTRY_DELETED event should be emitted with the correct data', async () => {
+          await entryDeletedPromise;
+
+          expect(entryDeletedData[0]).toEqual(
+            // Not an issue for test file.
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            jasmine.objectContaining({
+              deleted: true,
+              key: jasmine.any(String),
+              tags: [],
+            }),
+          );
+        });
+      });
+    });
   });
 }
