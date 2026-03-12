@@ -119,11 +119,6 @@ export const handleMessage = async (message: EnrichedPostMessage, cachemap: Core
         break;
       }
 
-      case constants.SIZE: {
-        result = cachemap.size;
-        break;
-      }
-
       case constants.WRITE: {
         await cachemap.write(message.key, message.value, message.options);
         break;
@@ -133,7 +128,13 @@ export const handleMessage = async (message: EnrichedPostMessage, cachemap: Core
       // no default
     }
   } catch (error) {
-    self.postMessage({ errors: error, messageId: message.messageId });
+    self.postMessage({
+      error,
+      messageId: message.messageId,
+      method: message.method,
+      type: message.type,
+      ...getMetadataAndUsedHeapSize(cachemap),
+    });
   }
 
   self.postMessage({

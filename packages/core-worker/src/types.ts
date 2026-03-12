@@ -55,6 +55,7 @@ export interface MetadataAndUsedHeapSize {
 }
 
 export interface PendingData {
+  reject: (error: unknown) => void;
   resolve: (value: AnyPostMessageResponse) => void;
 }
 
@@ -116,7 +117,7 @@ export type PostMessageRequestMap = {
   };
 };
 
-export type PostMessageRequestMethods = keyof PostMessageRequestMap | 'clear' | 'controller' | 'flush' | 'size';
+export type PostMessageRequestMethods = keyof PostMessageRequestMap | 'clear' | 'controller' | 'flush';
 
 export type PostMessageRequest = {
   [M in PostMessageRequestMethods]: { method: M } & (M extends keyof PostMessageRequestMap
@@ -140,7 +141,6 @@ export type PostMessageMethod =
   | 'import'
   | 'remove'
   | 'set'
-  | 'size'
   | 'write';
 
 export type PostMessageResultMap<T> = {
@@ -163,11 +163,11 @@ export type PostMessageResultMap<T> = {
   import: undefined;
   remove: boolean;
   set: undefined;
-  size: number;
   write: undefined;
 };
 
 type PostMessageResponseBase<M extends PostMessageMethod> = {
+  error?: unknown;
   messageId: string;
   method: M;
   type: 'cachemap';

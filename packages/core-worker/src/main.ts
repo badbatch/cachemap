@@ -50,7 +50,11 @@ export class CoreWorker {
       return;
     }
 
-    pending.resolve(data);
+    if (data.error) {
+      pending.reject(data.error);
+    } else {
+      pending.resolve(data);
+    }
   };
 
   private _handleClearEvent = (eventData: EventData): void => {
@@ -236,9 +240,8 @@ export class CoreWorker {
     await this._postMessage<'set'>({ key, method: constants.SET, options, value });
   }
 
-  public async size(): Promise<number> {
-    const { result } = await this._postMessage<'size'>({ method: constants.SIZE });
-    return result;
+  get size(): number {
+    return this._metadata.length;
   }
 
   get type(): string | undefined {
@@ -306,7 +309,10 @@ export class CoreWorker {
   ): Promise<PostMessageResponse<M, T>> {
     const messageId = uuidv4();
 
-    return new Promise((resolve: PendingResolver<M, T>) => {
+    return new Promise((resolve: PendingResolver<M, T>, reject: (error: unknown) => void) => {
+      // @ts-expect-error Struggling to get types to marry up
+      this._pending.set(messageId, { reject, resolve });
+
       if (this._worker) {
         this._worker.postMessage({
           ...message,
@@ -320,9 +326,6 @@ export class CoreWorker {
           type: constants.CACHEMAP,
         });
       }
-
-      // @ts-expect-error Struggling to get types to marry up
-      this._pending.set(messageId, { resolve });
     });
   }
 

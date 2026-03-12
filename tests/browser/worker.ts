@@ -3,9 +3,8 @@ import { registerWorker } from '@cachemap/core-worker';
 import { init as indexedDB } from '@cachemap/indexed-db';
 
 const cachemap = new Core({
+  backupStore: indexedDB(),
   name: 'worker-integration-tests',
-  store: indexedDB(),
-  type: 'integration-tests',
   valueFormatting: ValueFormat.Base64,
 });
 
