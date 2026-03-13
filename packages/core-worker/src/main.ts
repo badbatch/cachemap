@@ -34,7 +34,10 @@ export class CoreWorker {
       return;
     }
 
-    this._updateMetadata(data);
+    if (data.method === 'ready' && data.result) {
+      this._makeReady?.();
+      return;
+    }
 
     if (data.method === 'entryDeleted' && data.result.deleted) {
       this.emitter.emit(constants.ENTRY_DELETED, {
@@ -42,8 +45,11 @@ export class CoreWorker {
         key: data.result.key,
         tags: data.result.tags,
       });
+
+      return;
     }
 
+    this._updateMetadata(data);
     const pending = this._pending.get(data.messageId);
 
     if (!pending) {
@@ -121,10 +127,17 @@ export class CoreWorker {
     const { controller, name, onError, type, worker } = options;
     this._controller = controller;
     this._name = name;
+
+    this.ready = new Promise<void>(resolve => {
+      this._makeReady = (): void => {
+        resolve();
+      };
+    });
+
     this._type = type;
 
     if (isFunction(worker)) {
-      this.ready = Promise.resolve(worker())
+      void Promise.resolve(worker())
         .then(w => {
           this._initWorker(w);
         })
@@ -133,13 +146,6 @@ export class CoreWorker {
         });
     } else if (worker) {
       this._initWorker(worker);
-      this.ready = Promise.resolve();
-    } else {
-      this.ready = new Promise<void>(resolve => {
-        this._makeReady = (): void => {
-          resolve();
-        };
-      });
     }
   }
 

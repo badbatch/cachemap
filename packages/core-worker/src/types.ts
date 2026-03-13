@@ -10,8 +10,8 @@ import {
 } from '@cachemap/types';
 
 export type AnyPostMessageResponse<T = unknown> = {
-  [M in PostMessageMethod]: PostMessageResponse<M, PostMessageResultMap<T>[M]>;
-}[PostMessageMethod];
+  [M in PostMessageResponseMethods]: PostMessageResponse<M, PostMessageResultMap<T>[M]>;
+}[PostMessageResponseMethods];
 
 export interface CoreWorkerOptions {
   /**
@@ -62,6 +62,24 @@ export interface PendingData {
 export type PendingResolver<M extends PostMessageMethod, T = unknown> = (value: PostMessageResponse<M, T>) => void;
 
 export type PendingTracker = Map<string, PendingData>;
+
+export type PostMessageMethod =
+  | 'clear'
+  | 'controller'
+  | 'delete'
+  | 'entries'
+  | 'entryDeleted'
+  | 'exists'
+  | 'export'
+  | 'fetch'
+  | 'fetchEntries'
+  | 'flush'
+  | 'get'
+  | 'has'
+  | 'import'
+  | 'remove'
+  | 'set'
+  | 'write';
 
 export type PostMessageRequestMap = {
   controller: {
@@ -117,7 +135,7 @@ export type PostMessageRequestMap = {
   };
 };
 
-export type PostMessageRequestMethods = keyof PostMessageRequestMap | 'clear' | 'controller' | 'flush';
+export type PostMessageRequestMethods = PostMessageMethod;
 
 export type PostMessageRequest = {
   [M in PostMessageRequestMethods]: { method: M } & (M extends keyof PostMessageRequestMap
@@ -125,23 +143,7 @@ export type PostMessageRequest = {
     : object);
 }[PostMessageRequestMethods];
 
-export type PostMessageMethod =
-  | 'clear'
-  | 'controller'
-  | 'delete'
-  | 'entries'
-  | 'entryDeleted'
-  | 'exists'
-  | 'export'
-  | 'fetch'
-  | 'fetchEntries'
-  | 'flush'
-  | 'get'
-  | 'has'
-  | 'import'
-  | 'remove'
-  | 'set'
-  | 'write';
+export type PostMessageResponseMethods = PostMessageMethod | 'ready';
 
 export type PostMessageResultMap<T> = {
   clear: undefined;
@@ -161,19 +163,20 @@ export type PostMessageResultMap<T> = {
   get: T | undefined;
   has: boolean;
   import: undefined;
+  ready: boolean;
   remove: boolean;
   set: undefined;
   write: undefined;
 };
 
-type PostMessageResponseBase<M extends PostMessageMethod> = {
+type PostMessageResponseBase<M extends PostMessageResponseMethods> = {
   error?: unknown;
   messageId: string;
   method: M;
   type: 'cachemap';
 };
 
-export type PostMessageResponse<M extends PostMessageMethod, T = unknown> = PostMessageResponseBase<M> & {
+export type PostMessageResponse<M extends PostMessageResponseMethods, T = unknown> = PostMessageResponseBase<M> & {
   result: PostMessageResultMap<T>[M];
 } & MetadataAndUsedHeapSize;
 

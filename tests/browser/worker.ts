@@ -8,4 +8,4 @@ const cachemap = new Core({
   valueFormatting: ValueFormat.Base64,
 });
 
-registerWorker({ cachemap });
+void registerWorker({ cachemap });

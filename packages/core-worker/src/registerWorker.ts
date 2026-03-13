@@ -146,7 +146,7 @@ export const handleMessage = async (message: EnrichedPostMessage, cachemap: Core
   });
 };
 
-export const registerWorker = ({ cachemap }: RegisterWorkerOptions): void => {
+export const registerWorker = async ({ cachemap }: RegisterWorkerOptions): Promise<void> => {
   const onMessage = ({ data }: MessageEvent<unknown>): void => {
     if (!isCachemapPostMessageRequest(data)) {
       return;
@@ -156,6 +156,13 @@ export const registerWorker = ({ cachemap }: RegisterWorkerOptions): void => {
   };
 
   self.addEventListener(constants.MESSAGE, onMessage);
+  await cachemap.ready;
+
+  self.postMessage({
+    method: constants.READY,
+    result: true,
+    type: constants.CACHEMAP,
+  });
 
   cachemap.emitter.on(
     constants.ENTRY_DELETED,

@@ -14,6 +14,7 @@ export const HAS = 'has';
 export const IMPORT = 'import';
 export const MESSAGE = 'message';
 export const METADATA = 'metadata';
+export const READY = 'ready';
 export const REMOVE = 'remove';
 export const SET = 'set';
 export const SIZE = 'size';
