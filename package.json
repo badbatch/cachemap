@@ -55,7 +55,7 @@
     "@repodog/jest-config": "^29.0.5",
     "@repodog/markdownlint-config": "^1.2.5",
     "@repodog/prettier-config": "^3.0.3",
-    "@repodog/rollup-config": "^4.0.11",
+    "@repodog/rollup-config": "^4.0.12",
     "@repodog/swc-config": "^1.0.12",
     "@repodog/syncpack-config": "^13.0.5",
     "@repodog/ts-config": "^5.0.5",
@@ -67,8 +67,6 @@
     "@types/jest": "^29.5.13",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^25.0.10",
-    "@types/redis": "^2.8.32",
-    "@types/redis-mock": "^0.17.3",
     "cacheability": "^4.0.30",
     "concurrently": "^9.2.1",
     "core-js": "^3.48.0",
@@ -85,8 +83,6 @@
     "lodash-es": "^4.17.23",
     "markdownlint-cli2": "^0.20.0",
     "prettier": "^3.8.1",
-    "redis": "^3.1.2",
-    "redis-mock": "^0.56.3",
     "rollup": "^4.56.0",
     "suppress-experimental-warnings": "^2.0.0",
     "swc-loader": "^0.2.7",
@@ -103,8 +99,7 @@
     "indexedDB",
     "isomorphic",
     "localstorage",
-    "map",
-    "redis"
+    "map"
   ],
   "pnpm": {
     "overrides": {

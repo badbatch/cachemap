@@ -1,13 +1,13 @@
 # cachemap
 
-An extensible, isomorphic cache with modules to interface with Redis, web storage, IndexedDB and an in-memory Map.
+An extensible, isomorphic cache with modules to interface with web storage, IndexedDB and an in-memory Map.
 
 [![build-and-deploy](https://github.com/badbatch/cachemap/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/badbatch/cachemap/actions/workflows/build-and-deploy.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Summary
 
-* Use Redis or an in-memory Map on the server.
+* Use an in-memory Map on the server.
 * Use LocalStorage, SessionStorage, IndexedDB or an in-memory Map on the client.
 * Extend with custom modules to interface with key/value databases of your choosing.
 * Save data as string, base64 encoded or encrypted.
@@ -27,10 +27,10 @@ Cachemap is structured as a monorepo so each package is published to npm under t
 npm add @cachemap/<package>
 ```
 
-So, for example, if you want a server cache that uses Redis you would install the packages below.
+So, for example, if you want a server cache.
 
 ```bash
-npm add @cachemap/core @cachemap/redis
+npm add @cachemap/core
 ```
 
 If, however, you want a persisted client cache that uses IndexedDB and culls stale data you would install the following packages.
@@ -50,13 +50,20 @@ The Cachemap's multi-package structure allows you to compose your cache of the m
 * [@cachemap/web-storage](packages/web-storage/README.md)
 * [@cachemap/map](packages/map/README.md)
 * [@cachemap/reaper](packages/reaper/README.md)
-* [@cachemap/redis](packages/redis/README.md)
 * [@cachemap/types](packages/types/README.md)
 * [@cachemap/utils](packages/utils/README.md)
 
 ## Usage
 
-The Cachemap API is similar to that of a Map, it has `clear`, `delete`, `entries`, `get`, `has` and `set` methods, as well as Cachemap specific `import`, `export` and `size` methods. Each module that interfaces with a database, referred to as a store, also has these methods. The API provides a simple and consistent way to communicate with key/value databases.
+The Cachemap can be used with or without a backup store. Without a backup store, the Cachemap uses an in-memory Map as its key/value store.
+
+With a backup store, the Cachemap still uses an in-memory map, but backs up its data to the persisted store at regular intervals.
+
+The Cachemap supports both local first and remote first operations, i.e. if you just want to retrieve data from the in-memory store use `get`, but if you want to retrieve data from the persisted store use `fetch`.
+
+Each synchronous method (`clear`, `delete`, `entries`, `get`, `has` and `set`) has its corresponding asynchronous method (`flush`, `remove`, `fetchEntries`, `fetch`, `exists` and `write` ).
+
+The sync Cachemap API is similar to that of a Map, it has `clear`, `delete`, `entries`, `get`, `has` and `set` methods, as well as Cachemap specific `import` and `export` methods. Each module that interfaces with a database, referred to as a store, also has these methods. The API provides a simple and consistent way to communicate with key/value databases.
 
 ### Creating a Cachemap instance
 
@@ -71,7 +78,7 @@ import { init as reaper } from '@cachemap/reaper';
 
 const cachemap = new Core({
   name: 'foobar',
-  reaper: reaper({ interval: 300000 }),
+  reaper: reaper({ interval: 300_000 }),
   store: indexedDB(),
   type: 'someType',
   valueFormatting: ValueFormat.Base64,
@@ -91,22 +98,22 @@ Another important `set` option is `tag`. This allows you to store an arbitrary i
 All four methods have a `hashKey` option that runs the key through `md5` to create a short unique string, which can be useful if the original keys are long strings such as URLs or GraphQL queries.
 
 ```typescript
-(async () => {
+(() => {
   const key = 'https://api.example.com/user/foobar';
   const value = { email: 'foobar@example.com', id: '12345', name: 'foobar' };
   const cacheOptions = { cacheControl: 'private, max-age=60' };
 
-  await cachemap.set(key, value, { cacheOptions, hashKey: true });
+  cachemap.set(key, value, { cacheOptions, hashKey: true });
   // returns undefined
 
-  const cacheability = await cachemap.has(key, { hashKey: true });
+  const cacheability = cachemap.has(key, { hashKey: true });
   // returns an instance of the Cacheability module, which includes the
   // cache-control directives and the TTL calculated from the directives
 
-  const entry = await cachemap.get(key, { hashKey: true });
+  const entry = cachemap.get(key, { hashKey: true });
   // returns { email: 'foobar@example.com', id: '12345', name: 'foobar' }
 
-  const deleted = await cachemap.delete(key, { hashKey: true });
+  const deleted = cachemap.delete(key, { hashKey: true });
   // returns true
 })();
 ```
@@ -136,7 +143,7 @@ To free up the browser's main thread you can run the Cachemap in a web worker. F
 The package exports the `CoreWorker` class that you initialize on the main thread and the `registerWorker` method to use in your `worker.js` file. The `CoreWorker` class method signatures are identical to those of the `Core` class.
 
 ```typescript
-// main.js
+// main.ts
 import { CoreWorker } from '@cachemap/core-worker';
 
 const cachemap = new CoreWorker({
@@ -147,7 +154,7 @@ const cachemap = new CoreWorker({
 ```
 
 ```typescript
-// worker.js
+// worker.ts
 import { Core, ValueFormat } from '@cachemap/core';
 import { registerWorker } from '@cachemap/core-worker';
 import { init as indexedDB } from '@cachemap/indexed-db';
@@ -155,13 +162,13 @@ import { init as reaper } from '@cachemap/reaper';
 
 const cachemap = new Core({
   name: 'worker-integration-tests',
-  reaper: reaper({ interval: 300000 }),
+  reaper: reaper({ interval: 300_000 }),
   store: indexedDB(),
   type: 'someType',
   valueFormatting: ValueFormat.Base64,
 });
 
-registerWorker({ cachemap });
+void registerWorker({ cachemap });
 ```
 
 The example above initializes a persisted browser cache that runs on the worker thread and uses the IndexedDB and reaper modules.
@@ -173,7 +180,7 @@ Each Cachemap has its own event emitter on the `emitter` property, which can be 
 ```typescript
 const cachemap = new Core({
   name: 'worker-integration-tests',
-  reaper: reaper({ interval: 300000 }),
+  reaper: reaper({ interval: 300_000 }),
   store: indexedDB(),
   type: 'someType',
   valueFormatting: ValueFormat.Base64,
@@ -199,26 +206,25 @@ instance.stopReapers({ type: 'someType' });
 
 ### Custom modules
 
-The Cachemap comes with four store modules, but you can create additional stores to work with key/value databases of your choosing. A store just has to adhere to the structure below. If you are writing in Typescript, you can even import the `Store` interface from `@cachemap/core` and have your store class implement that.
+The Cachemap comes with two backup store modules, but you can create additional stores to work with key/value databases of your choosing. A store just has to adhere to the structure below. If you are writing in TypeScript, you can even import the `Store` interface from `@cachemap/core` and have your store class implement that.
 
 ```typescript
-// store class must implement this interface
-interface Store {
-  readonly maxHeapSize: number;
-  readonly name: string;
-  readonly type: string;
+// A backup store class must implement this interface
+interface BackupStore {
   clear(): Promise<void>;
   delete(key: string): Promise<boolean>;
-  entries(keys?: string[]): Promise<Array<[string, any]>>;
-  get(key: string): Promise<any>;
+  entries(keys: string[]): Promise<[string, string][]>;
+  get(key: string): Promise<string | undefined>;
   has(key: string): Promise<boolean>;
-  import(entries: Array<[string, any]>): Promise<void>;
-  set(key: string, value: any): Promise<void>;
+  import(entries: [string, string][]): Promise<void>;
+  readonly name: string;
+  set(key: string, value: string): Promise<void>;
   size(): Promise<number>;
+  readonly type: string;
 }
 
 // async function must return store instance
-type StoreInit = (options: { name: string }) => Promise<Store>;
+type BackupStoreInit = (options: { name: string }) => Promise<BackupStore>;
 ```
 
 ## Changelog
