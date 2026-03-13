@@ -1,5 +1,38 @@
 # Changelog
 
+## 5.3.3-unstable-12345.0 (2026-03-13)
+
+### Chores
+
+* **root:**
+  * save work in progress (03a3f5a1)
+  * save work in progress (994436ac)
+  * save work in progress (94b6e0e7)
+  * save work in progress (1cc49856)
+  * bump pnpm version (2a603a00)
+* **core:**
+  * save work in progress (dac430fa)
+  * initial refactor of class (a2808b81)
+
+### Bug Fixes
+
+* **types:**  add size method (b3489a9a)
+
+### Refactors
+
+* **core-worker:**  finish updating and fix tests (c3353488)
+* **root:**
+  * remove redundant fields from stores (0762c0b5)
+  * update tests (b27d9d6e)
+  * delete redis store (f0ea8ce9)
+* **core,reaper:**  allow max heap size to be passed into main constructor (7b49da02)
+* **indexed-db,web-storage:**  fix minor issues (5e8299f4)
+* **controller:**  fix minor issues (1d2541bb)
+* **reaper:**  fix various issues (0c762b62)
+* **core:**
+  * finish rewrite (e20f2c24)
+  * updating methods (2cfb36b0)
+
 ## 5.3.2 (2026-02-05)
 
 ### Bug Fixes
