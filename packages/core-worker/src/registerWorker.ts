@@ -11,7 +11,7 @@ const getMetadataAndUsedHeapSize = ({ backupStoreType, metadata, usedHeapSize }:
   return { backupStoreType, metadata, usedHeapSize };
 };
 
-const isCachemapPostMessageRequest = (data: unknown): data is EnrichedPostMessage => {
+export const isCachemapPostMessageRequest = (data: unknown): data is EnrichedPostMessage => {
   return typeof data === 'object' && !!data && 'type' in data && 'method' in data && data.type === constants.CACHEMAP;
 };
 
