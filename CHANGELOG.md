@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3-unstable-12345.1 (2026-03-14)
+
+### Refactors
+
+* **core-worker:**  export is cachemap message check (216d7f42)
+
 ## 5.3.3-unstable-12345.0 (2026-03-13)
 
 ### Chores
