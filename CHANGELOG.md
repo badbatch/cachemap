@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3-unstable-12345.2 (2026-03-16)
+
+### New Features
+
+* **core,core-worker:**  genericise get metadata helper (ce702d8b)
+
 ## 5.3.3-unstable-12345.1 (2026-03-14)
 
 ### Refactors
