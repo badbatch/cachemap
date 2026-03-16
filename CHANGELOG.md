@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3-unstable-12345.3 (2026-03-16)
+
+### New Features
+
+* **core,core-worker:**  add get option to ignore cache expiry (84bf2b1c)
+
 ## 5.3.3-unstable-12345.2 (2026-03-16)
 
 ### New Features
