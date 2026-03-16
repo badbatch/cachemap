@@ -1,26 +1,25 @@
-import { type JsonValue } from 'type-fest';
 import { ValueFormat } from '../enums.ts';
 import { decode, encode } from './base64.ts';
 import { decrypt, encrypt } from './encryption.ts';
 
 export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, encryptionSecret?: string): T => {
-  let getEntry: JsonValue | undefined;
+  let getEntry: T;
 
   switch (true) {
     case valueFormatting === ValueFormat.String: {
       // JSON.parse returns any type.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      getEntry = JSON.parse(value) as JsonValue;
+      getEntry = JSON.parse(value) as T;
       break;
     }
 
     case valueFormatting === ValueFormat.Base64: {
-      getEntry = decode(value);
+      getEntry = decode<T>(value);
       break;
     }
 
     case valueFormatting === ValueFormat.Encrypt && !!encryptionSecret: {
-      getEntry = decrypt(value, encryptionSecret);
+      getEntry = decrypt<T>(value, encryptionSecret);
       break;
     }
 
@@ -31,16 +30,14 @@ export const prepareGetEntry = <T>(value: string, valueFormatting: ValueFormat, 
 
       // JSON.parse returns any type.
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      getEntry = JSON.parse(value) as JsonValue;
+      getEntry = JSON.parse(value) as T;
     }
   }
 
-  // Most straight forward way to allow return value to be typed.
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-  return getEntry as T;
+  return getEntry;
 };
 
-export const prepareSetEntry = (value: JsonValue, valueFormatting: ValueFormat, encryptionSecret?: string): string => {
+export const prepareSetEntry = (value: unknown, valueFormatting: ValueFormat, encryptionSecret?: string): string => {
   let setEntry: string;
 
   switch (true) {

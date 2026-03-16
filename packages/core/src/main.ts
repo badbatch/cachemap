@@ -421,11 +421,14 @@ export class Core {
       return;
     }
 
-    return this._handleGet(key, this._store.get(key));
+    return this._handleGet<T>(key, this._store.get(key));
   }
 
-  public getMetadataEntry(rawKey: string, options: MethodOptions = {}): Metadata | undefined {
-    return this._getMetadataEntry(this._resolveKey(rawKey, options));
+  public getMetadataEntry<T = Record<string, unknown>>(
+    rawKey: string,
+    options: MethodOptions = {},
+  ): Metadata<T> | undefined {
+    return this._getMetadataEntry<T>(this._resolveKey(rawKey, options));
   }
 
   public has(rawKey: string, options: MethodOptions = {}): boolean {
@@ -637,9 +640,7 @@ export class Core {
 
     await this._backupStore.set(
       constants.METADATA,
-      // metadata is serializable as JSON.
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      prepareSetEntry(dehydrateMetadata(metadata) as JsonValue, this._valueFormatting, this._encryptionSecret),
+      prepareSetEntry(dehydrateMetadata(metadata), this._valueFormatting, this._encryptionSecret),
     );
   }
 
@@ -768,7 +769,8 @@ export class Core {
     return keys ?? this._metadata.map(metadata => metadata.key);
   }
 
-  private _getMetadataEntry(key: string): Metadata | undefined {
+  private _getMetadataEntry<T = Record<string, unknown>>(key: string): Metadata<T> | undefined {
+    // @ts-expect-error Struggling to resolve types at this level
     return this._metadata.find(metadata => metadata.key === key);
   }
 

@@ -205,9 +205,12 @@ export class CoreWorker {
     return result;
   }
 
-  public getMetadataEntry(rawkey: string, options: { hashKey?: boolean } = {}): Metadata | undefined {
+  public getMetadataEntry<T = Record<string, unknown>>(
+    rawkey: string,
+    options: { hashKey?: boolean } = {},
+  ): Metadata<T> | undefined {
     const key = this._resolveKey(rawkey, options);
-    return this._getMetadataEntry(key);
+    return this._getMetadataEntry<T>(key);
   }
 
   public async has(key: string, options: MethodOptions = {}): Promise<boolean> {
@@ -291,7 +294,8 @@ export class CoreWorker {
     this._worker.addEventListener(constants.MESSAGE, this._onMessage);
   }
 
-  private _getMetadataEntry(key: string): Metadata | undefined {
+  private _getMetadataEntry<T = Record<string, unknown>>(key: string): Metadata<T> | undefined {
+    // @ts-expect-error Struggling to resolve types at this level
     return this._metadata.find(metadata => metadata.key === key);
   }
 

@@ -35,8 +35,7 @@ export interface BackupStoreOptions {
   name: string;
 }
 
-export type BaseMetadata = {
-  [index: string]: unknown;
+export type BaseMetadata<T = Record<string, unknown>> = {
   /**
    * The number of times the corresponding data
    * entry has been accessed.
@@ -53,7 +52,7 @@ export type BaseMetadata = {
    * A property to store any custom metadata. The data must
    * be JSON serializable.
    */
-  extensions?: Record<string, unknown>;
+  extensions?: T;
 
   /**
    * The key the corresponding data entry was stored
@@ -132,7 +131,7 @@ export interface MethodOptions {
   hashKey?: boolean;
 }
 
-export type Metadata = BaseMetadata & {
+export type Metadata<T = Record<string, unknown>> = BaseMetadata<T> & {
   /**
    * The cache information of the corresponding
    * data entry, which uses the [Cacheability
