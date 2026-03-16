@@ -3,6 +3,7 @@ import { type Core, type ExportOptions, type ImportOptions } from '@cachemap/cor
 import {
   type EntriesOptions,
   type ExportResult,
+  type GetOptions,
   type Metadata,
   type MethodOptions,
   type SetOptions,
@@ -110,7 +111,7 @@ export type PostMessageRequestMap = {
   };
   get: {
     key: string;
-    options?: MethodOptions;
+    options?: GetOptions;
   };
   has: {
     key: string;

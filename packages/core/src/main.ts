@@ -6,6 +6,7 @@ import {
   type EntriesOptions,
   type ExportOptions,
   type ExportResult,
+  type GetOptions,
   type ImportOptions,
   type Metadata,
   type MethodOptions,
@@ -412,11 +413,11 @@ export class Core {
     this._pendingWrites.clear();
   }
 
-  public get<T>(rawKey: string, options: MethodOptions = {}): T | undefined {
+  public get<T>(rawKey: string, options: GetOptions = {}): T | undefined {
     this._validateMethodArgs(rawKey, options);
     const key = this._resolveKey(rawKey, options);
 
-    if (this._hasCacheEntryExpired(key)) {
+    if (this._hasCacheEntryExpired(key) && !options.ignoreCacheExpiry) {
       this.delete(key);
       return;
     }

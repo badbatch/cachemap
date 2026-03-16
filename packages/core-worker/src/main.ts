@@ -3,6 +3,7 @@ import {
   type EntriesOptions,
   type ExportOptions,
   type ExportResult,
+  type GetOptions,
   type ImportOptions,
   type Metadata,
   type MethodOptions,
@@ -200,7 +201,7 @@ export class CoreWorker {
     await this._postMessage({ method: constants.FLUSH });
   }
 
-  public async get<T>(key: string, options: MethodOptions = {}): Promise<T | undefined> {
+  public async get<T>(key: string, options: GetOptions = {}): Promise<T | undefined> {
     const { result } = await this._postMessage<'get', T>({ key, method: constants.GET, options });
     return result;
   }

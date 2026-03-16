@@ -231,45 +231,104 @@ describe('when no backup store is provided', () => {
     });
 
     describe('when a matching entry exists', () => {
-      let metadata: Metadata;
+      describe('when the entry cacheability is valid', () => {
+        let metadata: Metadata;
 
-      beforeEach(() => {
-        cachemap.set(key, value, { cacheOptions, hashKey: true });
-        metadata = { ...cachemap.metadata[0]! };
+        beforeEach(() => {
+          cachemap.set(key, value, { cacheOptions, hashKey: true });
+          metadata = { ...cachemap.metadata[0]! };
+        });
+
+        it('the get method should return the entry value', () => {
+          const entry = cachemap.get(key, { hashKey: true });
+          expect(entry).toEqual(value);
+        });
+
+        it('the get method should store the correct amount of metadata', () => {
+          cachemap.get(key, { hashKey: true });
+          expect(cachemap.metadata).toHaveLength(1);
+        });
+
+        it("the get method should update the existing entry's metadata", () => {
+          cachemap.get(key, { hashKey: true });
+          const updatedMetadata = cachemap.metadata[0]!;
+
+          expect(updatedMetadata).toEqual(
+            expect.objectContaining({
+              accessedCount: 1,
+              added: metadata.added,
+              cacheability: expect.any(Cacheability),
+              key: Md5.hashStr(key),
+              lastAccessed: expect.any(Number),
+              lastUpdated: metadata.lastUpdated,
+              size: metadata.size,
+              updatedCount: 0,
+            }),
+          );
+        });
+
+        it('the updated metadata lastAccessed should be greater than or equal to the existing', () => {
+          cachemap.get(key, { hashKey: true });
+          const updatedMetadata = cachemap.metadata[0]!;
+          expect(updatedMetadata.lastAccessed).toBeGreaterThanOrEqual(metadata.lastAccessed);
+        });
       });
 
-      it('the get method should return the entry value', () => {
-        const entry = cachemap.get(key, { hashKey: true });
-        expect(entry).toEqual(value);
-      });
+      describe('when the entry cacheability is not valid', () => {
+        describe('when ignoreCacheExpiry is passed in', () => {
+          let metadata: Metadata;
 
-      it('the get method should store the correct amount of metadata', () => {
-        cachemap.get(key, { hashKey: true });
-        expect(cachemap.metadata).toHaveLength(1);
-      });
+          beforeEach(async () => {
+            cachemap.set(key, value, { cacheOptions, hashKey: true });
+            metadata = { ...cachemap.metadata[0]! };
+            await delay(1000);
+          });
 
-      it("the get method should update the existing entry's metadata", () => {
-        cachemap.get(key, { hashKey: true });
-        const updatedMetadata = cachemap.metadata[0]!;
+          it('the get method should return the entry value', () => {
+            const entry = cachemap.get(key, { hashKey: true, ignoreCacheExpiry: true });
+            expect(entry).toEqual(value);
+          });
 
-        expect(updatedMetadata).toEqual(
-          expect.objectContaining({
-            accessedCount: 1,
-            added: metadata.added,
-            cacheability: expect.any(Cacheability),
-            key: Md5.hashStr(key),
-            lastAccessed: expect.any(Number),
-            lastUpdated: metadata.lastUpdated,
-            size: metadata.size,
-            updatedCount: 0,
-          }),
-        );
-      });
+          it('the get method should not store additional metadata', () => {
+            cachemap.get(key, { hashKey: true, ignoreCacheExpiry: true });
+            expect(cachemap.metadata).toHaveLength(1);
+          });
 
-      it('the updated metadata lastAccessed should be greater than or equal to the existing', () => {
-        cachemap.get(key, { hashKey: true });
-        const updatedMetadata = cachemap.metadata[0]!;
-        expect(updatedMetadata.lastAccessed).toBeGreaterThanOrEqual(metadata.lastAccessed);
+          it("the get method should update the existing entry's metadata", () => {
+            cachemap.get(key, { hashKey: true, ignoreCacheExpiry: true });
+            const updatedMetadata = cachemap.metadata[0]!;
+
+            expect(updatedMetadata).toEqual(
+              expect.objectContaining({
+                accessedCount: 1,
+                added: metadata.added,
+                cacheability: expect.any(Cacheability),
+                key: Md5.hashStr(key),
+                lastAccessed: expect.any(Number),
+                lastUpdated: metadata.lastUpdated,
+                size: metadata.size,
+                updatedCount: 0,
+              }),
+            );
+          });
+        });
+
+        describe('when the ignoreCacheExpiry is not passed in', () => {
+          beforeEach(async () => {
+            cachemap.set(key, value, { cacheOptions, hashKey: true });
+            await delay(1000);
+          });
+
+          it('the get method should return undefined', () => {
+            const entry = cachemap.get(key, { hashKey: true });
+            expect(entry).toBeUndefined();
+          });
+
+          it('the get method should cause the existing metadata to be deleted', () => {
+            cachemap.get(key, { hashKey: true });
+            expect(cachemap.metadata).toHaveLength(0);
+          });
+        });
       });
     });
   });

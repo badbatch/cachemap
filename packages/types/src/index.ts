@@ -122,6 +122,10 @@ export interface FilterByValue {
   keyChain: string;
 }
 
+export interface GetOptions extends MethodOptions {
+  ignoreCacheExpiry?: boolean;
+}
+
 export interface ImportOptions {
   entries: [string, JsonValue][];
   metadata: Metadata[];
