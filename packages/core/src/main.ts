@@ -269,11 +269,12 @@ export class Core {
       this._deleteLocalByResolvedKey(key);
     }
 
+    await this.ready;
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    await this.ready;
     const pending = this._pendingWrites.get(key);
 
     if (pending) {
@@ -361,11 +362,12 @@ export class Core {
       this._deleteLocalByResolvedKey(key);
     }
 
+    await this.ready;
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    await this.ready;
     const pending = this._pendingWrites.get(key);
 
     if (pending) {
@@ -384,11 +386,12 @@ export class Core {
       return this._handleEntries<T>(localEntries, options);
     }
 
+    await this.ready;
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    await this.ready;
     await Promise.all(missingKeys.map(key => this._pendingWrites.get(key) ?? Promise.resolve()));
     const { entries: refreshedLocalEntries, missingKeys: refreshedMissingKeys } = this._filterValidEntries(missingKeys);
     const entries = await this._backupStore.entries(refreshedMissingKeys);
@@ -399,11 +402,12 @@ export class Core {
   }
 
   public async flush(): Promise<void> {
+    await this.ready;
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
 
-    await this.ready;
     this._writeVersion++;
     await Promise.all(this._pendingWrites.values());
     await this._backupStore.clear();
@@ -570,6 +574,8 @@ export class Core {
   }
 
   public async write(rawKey: string, value: unknown, options: SetOptions = {}): Promise<void> {
+    await this.ready;
+
     if (!this._backupStore) {
       throw new Error('@cachemap/core A backup store does not exist.');
     }
