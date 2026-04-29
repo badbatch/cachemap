@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.3-unstable-12345.4 (2026-04-29)
+
+### Bug Fixes
+
+* **core:**  wait for ready before checking if backup store exists (8a3fc54e)
+
 ## 5.3.3-unstable-12345.3 (2026-03-16)
 
 ### New Features
